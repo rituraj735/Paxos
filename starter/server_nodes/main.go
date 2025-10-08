@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"multipaxos/rituraj735/config"
@@ -9,7 +8,6 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
-	"strings"
 	"syscall"
 	"time"
 )
@@ -45,64 +43,64 @@ func main() {
 	}
 
 	// Interactive command loop
-	go func() {
-		reader := bufio.NewReader(os.Stdin)
-		for {
-			fmt.Printf("\n=== Node %d Commands ===\n", nodeID)
-			fmt.Println("1. Print Database")
-			fmt.Println("2. Print Log")
-			fmt.Println("3. Print Status (seq num)")
-			fmt.Println("4. Print View")
-			fmt.Println("5. Start Leader Election")
-			fmt.Println("6. Check if Leader")
-			fmt.Print("Command: ")
+	// go func() {
+	// 	reader := bufio.NewReader(os.Stdin)
+	// 	for {
+	// 		fmt.Printf("\n=== Node %d Commands ===\n", nodeID)
+	// 		fmt.Println("1. Print Database")
+	// 		fmt.Println("2. Print Log")
+	// 		fmt.Println("3. Print Status (seq num)")
+	// 		fmt.Println("4. Print View")
+	// 		fmt.Println("5. Start Leader Election")
+	// 		fmt.Println("6. Check if Leader")
+	// 		fmt.Print("Command: ")
 
-			cmd, _ := reader.ReadString('\n')
-			cmd = strings.TrimSpace(cmd)
+	// 		cmd, _ := reader.ReadString('\n')
+	// 		cmd = strings.TrimSpace(cmd)
 
-			switch cmd {
-			case "1":
-				n.Database.PrintDB(nodeID)
+	// 		switch cmd {
+	// 		case "1":
+	// 			n.Database.PrintDB(nodeID)
 
-			case "2":
-				n.PrintLog()
+	// 		case "2":
+	// 			n.PrintLog()
 
-			case "3":
-				fmt.Print("Enter sequence number: ")
-				seqStr, _ := reader.ReadString('\n')
-				seqNum, err := strconv.Atoi(strings.TrimSpace(seqStr))
-				if err != nil {
-					fmt.Println("Invalid sequence number")
-					continue
-				}
-				status := n.PrintStatus(seqNum)
-				fmt.Printf("Node %d, Sequence %d: Status %s\n", nodeID, seqNum, status)
+	// 		case "3":
+	// 			fmt.Print("Enter sequence number: ")
+	// 			seqStr, _ := reader.ReadString('\n')
+	// 			seqNum, err := strconv.Atoi(strings.TrimSpace(seqStr))
+	// 			if err != nil {
+	// 				fmt.Println("Invalid sequence number")
+	// 				continue
+	// 			}
+	// 			status := n.PrintStatus(seqNum)
+	// 			fmt.Printf("Node %d, Sequence %d: Status %s\n", nodeID, seqNum, status)
 
-			case "4":
-				n.PrintView()
+	// 		case "4":
+	// 			n.PrintView()
 
-			case "5":
-				success := n.StartLeaderElection()
-				if success {
-					fmt.Printf("Node %d is now the leader\n", nodeID)
-				} else {
-					fmt.Printf("Node %d failed to become leader\n", nodeID)
-				}
+	// 		case "5":
+	// 			success := n.StartLeaderElection()
+	// 			if success {
+	// 				fmt.Printf("Node %d is now the leader\n", nodeID)
+	// 			} else {
+	// 				fmt.Printf("Node %d failed to become leader\n", nodeID)
+	// 			}
 
-			case "6":
-				if n.GetIsLeader() {
-					fmt.Printf("Node %d is the LEADER (ballot: %s)\n", nodeID, n.GetCurrentBallot())
-				} else {
-					fmt.Printf("Node %d is a BACKUP\n", nodeID)
-				}
+	// 		case "6":
+	// 			if n.GetIsLeader() {
+	// 				fmt.Printf("Node %d is the LEADER (ballot: %s)\n", nodeID, n.GetCurrentBallot())
+	// 			} else {
+	// 				fmt.Printf("Node %d is a BACKUP\n", nodeID)
+	// 			}
 
-			default:
-				if cmd != "" {
-					fmt.Println("Invalid command")
-				}
-			}
-		}
-	}()
+	// 		default:
+	// 			if cmd != "" {
+	// 				fmt.Println("Invalid command")
+	// 			}
+	// 		}
+	// 	}
+	// }()
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)

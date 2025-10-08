@@ -8,6 +8,7 @@ import (
 	"multipaxos/rituraj735/config"
 	"multipaxos/rituraj735/datatypes"
 	"multipaxos/rituraj735/pkg/client"
+	"net/rpc"
 	"os"
 	"strconv"
 	"strings"
@@ -225,9 +226,8 @@ func processNextTestSet(reader *bufio.Reader) {
 
 		time.Sleep(200 * time.Millisecond) //Slight delay has been put for clarity
 
-		currentSetIndex++
-
 	}
+	currentSetIndex++
 }
 
 func printLogFromNode(reader *bufio.Reader) {
@@ -252,11 +252,31 @@ func printDBFromNode(reader *bufio.Reader) {
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
 	nodeID, err := strconv.Atoi(strings.TrimSpace(nodeInput))
-	if err != nil || nodeID < 1 || nodeID > config.NumNodes {
-		fmt.Println("❌ Invalid node ID")
+	address, exists := config.NodeAddresses[nodeID]
+	if !exists {
+		fmt.Println("❌ Node address not found")
+		return
+	}
+	client, err := rpc.Dial("tcp", address)
+	if err != nil {
+		fmt.Println("❌ Failed to connect to node:", err)
+		return
+	}
+	defer client.Close()
+
+	// var balances map[string]int
+	args := datatypes.PrintDBArgs{NodeID: nodeID}
+	var reply datatypes.PrintDBReply
+	fmt.Printf("\nRequesting database contents from Node %d..\n", nodeID)
+
+	err = client.Call("NodeService.PrintDB", args, &reply)
+	if err != nil {
+		log.Printf("Error calling PrintDB on Node %d: %v", nodeID, err)
 		return
 	}
 
+	fmt.Printf("Database contents from Node %d:\n", nodeID)
+	fmt.Println(reply.DBContents)
 	fmt.Printf("\n========================================\n")
 	fmt.Printf("Requesting PrintDB from Node %d...\n", nodeID)
 	fmt.Println("========================================")

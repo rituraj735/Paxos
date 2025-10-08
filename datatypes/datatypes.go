@@ -123,4 +123,12 @@ const (
 	StatusNoStatus  RequestStatus = "X"
 )
 
+type PrintDBArgs struct {
+	NodeID int
+}
+
+type PrintDBReply struct {
+	DBContents string
+}
+
 // RPC Request/Reply types for client-node communication

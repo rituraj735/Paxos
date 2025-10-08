@@ -87,7 +87,7 @@ func (c *Client) sendToNode(nodeID int, request datatypes.ClientRequest) (dataty
 
 	done := make(chan error, 1)
 	go func() {
-		done <- client.Call("Node.HandleClientRequest", args, &reply)
+		done <- client.Call("NodeService.HandleClientRequest", args, &reply)
 	}()
 
 	select {

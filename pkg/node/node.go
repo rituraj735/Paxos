@@ -92,7 +92,7 @@ func (n *Node) StartRPCServer() error {
 	n.rpcServer = rpc.NewServer()
 	service := &NodeService{node: n}
 	n.rpcServer.Register(service)
-
+	fmt.Println("Listening RPC server at", n.Address)
 	listener, err := net.Listen("tcp", n.Address)
 	if err != nil {
 		return err
@@ -158,6 +158,7 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 
 // RPC Service Methods
 func (ns *NodeService) HandleClientRequest(args datatypes.ClientRequestRPC, reply *datatypes.ClientReplyRPC) error {
+	fmt.Println("something reached handleClientRequest", args)
 	replyMsg := ns.node.ProcessClientRequest(args.Request)
 	reply.Reply = replyMsg
 	return nil
@@ -753,4 +754,23 @@ func (n *Node) PrintView() {
 		}
 	}
 	fmt.Println()
+}
+
+//  1. Define the argument and reply structs for the new RPC call.
+//     (You would add these in your datatypes package)
+//
+// In datatypes/types.go:
+
+// 2. Add the new method to your NodeService.
+// This is the public-facing "menu item".
+func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.PrintDBReply) error {
+	log.Printf("Node %d: Received RPC request to print DB.\n", ns.node.ID)
+
+	// It calls the internal function to get the data.
+	dbContents := ns.node.Database.PrintDB(ns.node.ID)
+
+	// It populates the reply struct to send the data back to the client.
+	reply.DBContents = dbContents
+
+	return nil
 }
