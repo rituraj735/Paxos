@@ -239,6 +239,18 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 	return nil
 }
 
+func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *bool) error {
+	s.node.mu.Lock()
+	defer s.node.mu.Unlock()
+
+	s.node.ActiveNodes[args.NodeID] = args.IsLive
+
+	*reply = true
+	log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
+	log.Printf("Node %d: Active status updated -> %v", s.node.ID, s.node.ActiveNodes)
+	return nil
+}
+
 // Utility Methods
 func (n *Node) SetActiveNodes(activeNodeIDs []int) {
 	n.mu.Lock()
@@ -326,7 +338,7 @@ func (n *Node) sendHeartbeats() {
 
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
 	n.mu.Lock()
-
+	fmt.Println("Inside processClientRequest")
 	// Check for duplicate request (exactly-once semantics)
 	if lastReply, exists := n.LastReply[request.ClientID]; exists {
 		if request.Timestamp <= lastReply.Timestamp {
@@ -343,6 +355,27 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 			ClientID:  request.ClientID,
 			Success:   false,
 			Message:   "not leader",
+		}
+	}
+
+	activeCount := 0
+	for _, active := range n.ActiveNodes {
+		if active {
+			activeCount++
+		}
+	}
+
+	fmt.Println("number of activeCount:", activeCount)
+
+	if activeCount < n.MajoritySize {
+		log.Printf("Node %d: insufficient active nodes %d (active nodes %d, needed %d) so skipping transactions", n.ID, activeCount, n.MajoritySize)
+		n.mu.Unlock()
+		return datatypes.ReplyMsg{
+			Ballot:    n.CurrentBallot,
+			Timestamp: request.Timestamp,
+			ClientID:  request.ClientID,
+			Success:   false,
+			Message:   "insufficient active nodes",
 		}
 	}
 
@@ -457,7 +490,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
 	n.mu.Lock()
-	n.lastLeaderMsg = time.Now()
+	n.lastHeartBeat = time.Now()
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
@@ -491,7 +524,7 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
 	n.mu.Lock()
-	n.lastLeaderMsg = time.Now()
+	n.lastHeartBeat = time.Now()
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThanOrEqual(n.HighestPromised) {
@@ -520,8 +553,21 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	n.mu.Lock()
-	n.lastLeaderMsg = time.Now()
+	n.lastHeartBeat = time.Now()
 	defer n.mu.Unlock()
+
+	activeCount := 0
+	for _, active := range n.ActiveNodes {
+		if active {
+			activeCount++
+		}
+	}
+
+	if activeCount < n.MajoritySize {
+		log.Printf("Node %d: ignoring commit seq %d (active nodes %d, needed %d)", n.ID, args.SeqNum, activeCount, n.MajoritySize)
+		*reply = false
+		return nil
+	}
 
 	if entry, exists := n.AcceptedLog[args.SeqNum]; exists {
 		entry.Status = datatypes.StatusCommitted
@@ -544,7 +590,7 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	n.mu.Lock()
-	n.lastLeaderMsg = time.Now()
+	n.lastHeartBeat = time.Now()
 	defer n.mu.Unlock()
 
 	n.NewViewMsgs = append(n.NewViewMsgs, args)

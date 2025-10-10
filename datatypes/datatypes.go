@@ -26,6 +26,11 @@ type BallotNumber struct {
 	NodeID int
 }
 
+type UpdateNodeArgs struct {
+	NodeID int
+	IsLive bool
+}
+
 type ClientRequestRPC struct {
 	Request ClientRequest
 }

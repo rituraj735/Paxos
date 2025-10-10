@@ -200,6 +200,36 @@ func processNextTestSet(reader *bufio.Reader) {
 	fmt.Printf("Total transactions: %d\n", len(currentSet.Txns))
 	fmt.Printf("-----------------------------------------\n")
 
+	// Update ActiveNodes for all nodes in the cluster
+	for _, nodeID := range []int{1, 2, 3, 4, 5} {
+		isLive := false
+		for _, liveID := range currentSet.LiveNodes {
+			if liveID == nodeID {
+				isLive = true
+				break
+			}
+		}
+
+		// Send an RPC to update that node's ActiveNodes map
+		for _, targetID := range []int{1, 2, 3, 4, 5} {
+			go func(targetID, nodeID int, live bool) {
+				address := config.NodeAddresses[targetID]
+				client, err := rpc.Dial("tcp", address)
+				if err != nil {
+					return
+				}
+				defer client.Close()
+
+				args := datatypes.UpdateNodeArgs{
+					NodeID: nodeID,
+					IsLive: live,
+				} // or define a struct like UpdateNodeStatusArgs
+				var reply bool
+				_ = client.Call("NodeService.UpdateActiveStatus", args, &reply)
+			}(targetID, nodeID, isLive)
+		}
+	}
+
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
