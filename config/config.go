@@ -6,8 +6,8 @@ const (
 	MajoritySize   = 3
 	InitialBalance = 10
 
-	ClientTimeout = 3000
-	LeaderTimeout = 2000
+	ClientTimeout = 4000
+	LeaderTimeout = 3000
 	PrepareDelay  = 500
 
 	BaseNodePort   = 8001

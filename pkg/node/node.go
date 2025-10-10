@@ -18,6 +18,12 @@ type Node struct {
 	Peers    map[int]string
 	IsLeader bool
 
+	//checkForLastHeartbeat kind of variable
+	lastLeaderMsg time.Time
+
+	//Heartbeat
+	lastHeartBeat    time.Time
+	electionCoolDown time.Time
 	// Paxos state
 	CurrentBallot   datatypes.BallotNumber
 	HighestPromised datatypes.BallotNumber
@@ -72,8 +78,9 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		ActiveNodes:     make(map[int]bool),
 		MajoritySize:    config.MajoritySize,
 		shutdown:        make(chan bool),
+		lastHeartBeat:   time.Now(),
 	}
-
+	go node.monitorLeaderTimeout()
 	// Initialize all clients with initial balance
 	for _, clientID := range config.ClientIDs {
 		node.Database.InitializeClient(clientID, config.InitialBalance)
@@ -86,6 +93,45 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 	node.ActiveNodes[id] = true
 
 	return node
+}
+
+func (n *Node) monitorLeaderTimeout() {
+	for {
+		time.Sleep(200 * time.Millisecond)
+		n.mu.RLock()
+		isLeader := n.IsLeader
+		last := n.lastHeartBeat
+		cooldown := n.electionCoolDown
+		n.mu.RUnlock()
+
+		if isLeader {
+			continue
+		}
+
+		if time.Since(cooldown) < 2*time.Second {
+			continue
+		}
+
+		if time.Since(last) > time.Duration(config.LeaderTimeout)*time.Millisecond {
+			log.Printf("Node %d: Leader timeout (%1fs), no leader msgs, starting election\n", n.ID, time.Since(last).Seconds())
+			n.mu.Lock()
+			n.electionCoolDown = time.Now()
+			n.mu.Unlock()
+
+			success := n.StartLeaderElection()
+
+			if success {
+				log.Printf("Node %d: Became leader after election, successful\n", n.ID)
+				go n.sendHeartbeats()
+			}
+		}
+
+		select {
+		case <-n.shutdown:
+			return
+		default:
+		}
+	}
 }
 
 func (n *Node) StartRPCServer() error {
@@ -223,7 +269,60 @@ func (n *Node) GetIsLeader() bool {
 	return n.IsLeader
 }
 
-//----
+func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) error {
+	n.node.mu.Lock()
+	defer n.node.mu.Unlock()
+
+	if msg.LeaderID == n.node.ID {
+		*reply = true
+		return nil
+	}
+
+	n.node.lastHeartBeat = time.Now()
+
+	if n.node.CurrentBallot.LessThan(msg.Ballot) {
+		n.node.CurrentBallot = msg.Ballot
+		n.node.IsLeader = false
+	}
+
+	*reply = true
+	return nil
+}
+
+func (n *Node) sendHeartbeats() {
+	ticker := time.NewTicker(500 * time.Millisecond)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			if !n.GetIsLeader() {
+				return
+			}
+
+			msg := datatypes.HeartbeatMsg{
+				Ballot:    n.CurrentBallot,
+				LeaderID:  n.ID,
+				Timestamp: time.Now().UnixNano(),
+			}
+
+			for peerID := range n.Peers {
+				if peerID == n.ID {
+					continue
+				}
+				go func(pid int) {
+					var ack bool
+					err := n.callRPC(pid, "HandleHeartbeat", msg, &ack)
+					if err != nil {
+						log.Printf("Leader %d: heartbeat to %d failed: %v", n.ID, pid, err)
+					}
+				}(peerID)
+			}
+		case <-n.shutdown:
+			return
+		}
+	}
+}
 
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
 	n.mu.Lock()
@@ -251,6 +350,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 	n.NextSeqNum++
 
 	acceptMsg := datatypes.AcceptMsg{
+		Type:    "ACCEPT",
 		Ballot:  n.CurrentBallot,
 		SeqNum:  seqNum,
 		Request: request,
@@ -357,6 +457,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
 	n.mu.Lock()
+	n.lastLeaderMsg = time.Now()
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
@@ -390,6 +491,7 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
 	n.mu.Lock()
+	n.lastLeaderMsg = time.Now()
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThanOrEqual(n.HighestPromised) {
@@ -418,6 +520,7 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	n.mu.Lock()
+	n.lastLeaderMsg = time.Now()
 	defer n.mu.Unlock()
 
 	if entry, exists := n.AcceptedLog[args.SeqNum]; exists {
@@ -441,6 +544,7 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	n.mu.Lock()
+	n.lastLeaderMsg = time.Now()
 	defer n.mu.Unlock()
 
 	n.NewViewMsgs = append(n.NewViewMsgs, args)
@@ -592,6 +696,7 @@ func (n *Node) StartLeaderElection() bool {
 		n.mu.Lock()
 		n.IsLeader = true
 		n.CurrentBallot = ballot
+		go n.sendHeartbeats()
 		log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",
 			n.ID, ballot, promiseCount)
 

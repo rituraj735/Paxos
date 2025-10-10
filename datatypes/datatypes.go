@@ -66,6 +66,7 @@ type PrepareMsg struct {
 }
 
 type AcceptMsg struct {
+	Type    string
 	Ballot  BallotNumber
 	SeqNum  int
 	Request ClientRequest
@@ -90,6 +91,13 @@ func (b BallotNumber) GreaterThanOrEqual(other BallotNumber) bool {
 
 func (b BallotNumber) String() string {
 	return fmt.Sprintf("(%d,%d)", b.Number, b.NodeID)
+}
+
+func (b BallotNumber) LessThan(other BallotNumber) bool {
+	if b.Number != other.Number {
+		return b.Number < other.Number
+	}
+	return b.NodeID < other.NodeID
 }
 
 // Transaction represents a banking transaction
@@ -129,6 +137,12 @@ type PrintDBArgs struct {
 
 type PrintDBReply struct {
 	DBContents string
+}
+
+type HeartbeatMsg struct {
+	Ballot    BallotNumber
+	LeaderID  int
+	Timestamp int64
 }
 
 // RPC Request/Reply types for client-node communication

@@ -43,7 +43,7 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 
 	// Send the request to the current leader first
 	reply, err := c.sendToNode(c.CurrentLeader, request)
-	if err == nil && reply.Success {
+	if err == nil {
 		return reply, nil
 	}
 
