@@ -238,7 +238,7 @@ func triggerLeaderFailure() (int, error) {
 		return 0, fmt.Errorf("failed to disable leader Node %d: %w", currentLeader, err)
 	}
 
-	waitDuration := 8 * time.Second
+	waitDuration := 1 * time.Second
 	fmt.Printf("LF: Waiting up to %s for new leader election...\n", waitDuration)
 	newLeader, err := waitForNewLeader(currentLeader, waitDuration)
 	if err != nil {

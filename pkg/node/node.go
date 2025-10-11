@@ -334,6 +334,36 @@ func (n *Node) SetActiveNodes(activeNodeIDs []int) {
 	}
 }
 
+func (n *Node) calcMajorityFromActive(activeCount int) int {
+	if activeCount <= 0 {
+		if n.MajoritySize > 0 {
+			return n.MajoritySize
+		}
+		return 1
+	}
+	maj := activeCount/2 + 1
+	if maj < 1 {
+		maj = 1
+	}
+	return maj
+}
+
+func (n *Node) majorityThresholdLocked() int {
+	activeCount := 0
+	for _, live := range n.ActiveNodes {
+		if live {
+			activeCount++
+		}
+	}
+	return n.calcMajorityFromActive(activeCount)
+}
+
+func (n *Node) majorityThreshold() int {
+	n.mu.RLock()
+	defer n.mu.RUnlock()
+	return n.majorityThresholdLocked()
+}
+
 func (n *Node) GetCurrentBallot() datatypes.BallotNumber {
 	n.mu.RLock()
 	defer n.mu.RUnlock()
@@ -438,9 +468,10 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 	}
 
 	fmt.Println("number of activeCount:", activeCount)
+	requiredMajority := n.majorityThresholdLocked()
 
-	if activeCount < n.MajoritySize {
-		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions", n.ID, activeCount, n.MajoritySize)
+	if activeCount < requiredMajority {
+		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions", n.ID, activeCount, requiredMajority)
 		n.mu.Unlock()
 		return datatypes.ReplyMsg{
 			Ballot:    n.CurrentBallot,
@@ -518,7 +549,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		acceptCount := len(n.pendingAccepts[seqNum])
 		n.mu.RUnlock()
 
-		if acceptCount >= n.MajoritySize {
+		if acceptCount >= n.majorityThreshold() {
 			break
 		}
 	}
@@ -527,7 +558,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 	acceptCount := len(n.pendingAccepts[seqNum])
 	n.mu.Unlock()
 
-	if acceptCount >= n.MajoritySize {
+	if acceptCount >= n.majorityThreshold() {
 		commitMsg := datatypes.CommitMsg{
 			Ballot:  n.CurrentBallot,
 			SeqNum:  seqNum,
@@ -661,8 +692,9 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 		}
 	}
 
-	if activeCount < n.MajoritySize {
-		log.Printf("Node %d: ignoring commit seq %d (active nodes %d, needed %d)", n.ID, args.SeqNum, activeCount, n.MajoritySize)
+	requiredMajority := n.majorityThresholdLocked()
+	if activeCount < requiredMajority {
+		log.Printf("Node %d: ignoring commit seq %d (active nodes %d, needed %d)", n.ID, args.SeqNum, activeCount, requiredMajority)
 		*reply = false
 		return nil
 	}
@@ -811,11 +843,16 @@ func (n *Node) executeRequestsInOrder() {
 
 func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
+	if !n.ActiveNodes[n.ID] {
+		n.mu.Unlock()
+		return false
+	}
 	if n.IsLeader {
 		n.mu.Unlock()
 		return false
 	}
 	n.CurrentBallot.Number++
+	n.CurrentBallot.NodeID = n.ID
 	ballot := n.CurrentBallot
 	n.mu.Unlock()
 
@@ -870,7 +907,9 @@ func (n *Node) StartLeaderElection() bool {
 	promiseCount := len(promises)
 	promiseMu.Unlock()
 
-	if promiseCount >= n.MajoritySize {
+	requiredMajority := n.majorityThreshold()
+
+	if promiseCount >= requiredMajority {
 		n.mu.Lock()
 		if !n.ActiveNodes[n.ID] {
 			n.mu.Unlock()
@@ -908,7 +947,7 @@ func (n *Node) StartLeaderElection() bool {
 			}
 			n.mu.Unlock()
 
-			if acceptCount >= n.MajoritySize {
+			if acceptCount >= n.majorityThreshold() {
 				commitMsg := datatypes.CommitMsg{
 					Ballot:  ballot,
 					SeqNum:  entry.SeqNum,
@@ -934,7 +973,7 @@ func (n *Node) StartLeaderElection() bool {
 	}
 
 	log.Printf("Node %d: Leader election failed (promises: %d, needed: %d)\n",
-		n.ID, promiseCount, n.MajoritySize)
+		n.ID, promiseCount, requiredMajority)
 	return false
 }
 
