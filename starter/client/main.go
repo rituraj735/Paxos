@@ -225,6 +225,134 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 
 }
 
+const lfSentinelSender = "__LF__"
+
+func triggerLeaderFailure() (int, error) {
+	currentLeader, err := findCurrentLeader()
+	if err != nil {
+		return 0, fmt.Errorf("unable to determine current leader: %w", err)
+	}
+
+	fmt.Printf("LF: Disabling current leader Node %d across cluster...\n", currentLeader)
+	if err := disableLeaderAcrossCluster(currentLeader); err != nil {
+		return 0, fmt.Errorf("failed to disable leader Node %d: %w", currentLeader, err)
+	}
+
+	waitDuration := 8 * time.Second
+	fmt.Printf("LF: Waiting up to %s for new leader election...\n", waitDuration)
+	newLeader, err := waitForNewLeader(currentLeader, waitDuration)
+	if err != nil {
+		return 0, err
+	}
+
+	for _, c := range clients {
+		c.UpdateLeader(newLeader)
+	}
+
+	return newLeader, nil
+}
+
+// Ask the cluster who the current leader is.
+// Returns the leader ID if known; otherwise an error.
+func findCurrentLeader() (int, error) {
+	leaderCounts := make(map[int]int)
+
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		address, ok := config.NodeAddresses[nodeID]
+		if !ok {
+			continue
+		}
+
+		client, err := rpc.Dial("tcp", address)
+		if err != nil {
+			continue // node might be down or partitioned
+		}
+
+		var info datatypes.LeaderInfo
+		err = client.Call("NodeService.GetLeader", true, &info)
+		client.Close()
+		if err != nil {
+			continue
+		}
+
+		// If a node says *it* is leader, trust that immediately.
+		if info.IsLeader && info.LeaderID != 0 {
+			return info.LeaderID, nil
+		}
+
+		// Otherwise tally what it believes is the leader.
+		if info.LeaderID != 0 {
+			leaderCounts[info.LeaderID]++
+		}
+	}
+
+	// Fallback: pick the most commonly reported leader among responders.
+	bestLeader, bestCount := 0, 0
+	for id, cnt := range leaderCounts {
+		if cnt > bestCount {
+			bestLeader, bestCount = id, cnt
+		}
+	}
+	if bestLeader == 0 {
+		return 0, fmt.Errorf("no leader information available from active nodes")
+	}
+	return bestLeader, nil
+}
+
+// Tell every node to mark `leaderID` as not live in its ActiveNodes map.
+func disableLeaderAcrossCluster(leaderID int) error {
+	var firstErr error
+
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		address, ok := config.NodeAddresses[nodeID]
+		if !ok {
+			continue
+		}
+
+		client, err := rpc.Dial("tcp", address)
+		if err != nil {
+			// keep the first error to return; continue trying others
+			if firstErr == nil {
+				firstErr = fmt.Errorf("node %d unreachable: %w", nodeID, err)
+			}
+			continue
+		}
+
+		args := datatypes.UpdateNodeArgs{NodeID: leaderID, IsLive: false}
+		var reply bool
+		if err := client.Call("NodeService.UpdateActiveStatus", args, &reply); err != nil && firstErr == nil {
+			firstErr = fmt.Errorf("update on node %d failed: %w", nodeID, err)
+		}
+		client.Close()
+	}
+	return firstErr
+}
+
+// Poll the cluster until a different leader than oldLeader appears, or time out.
+func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
+	deadline := time.Now().Add(timeout)
+	var lastObserved int
+
+	for time.Now().Before(deadline) {
+		time.Sleep(300 * time.Millisecond)
+
+		newLeader, err := findCurrentLeader()
+		if err != nil {
+			continue
+		}
+		lastObserved = newLeader
+
+		if newLeader != 0 && newLeader != oldLeader {
+			return newLeader, nil
+		}
+	}
+
+	if lastObserved == 0 {
+		return 0, fmt.Errorf("timed out waiting for new leader (previous leader: %d)", oldLeader)
+	}
+	return 0, fmt.Errorf("timed out waiting for new leader: still seeing Node %d as leader", lastObserved)
+}
+
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
 		fmt.Println("All sets have been processed.")
@@ -277,6 +405,19 @@ func processNextTestSet(reader *bufio.Reader) {
 	for i, tx := range currentSet.Txns {
 		fmt.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
 
+		if tx.Sender == lfSentinelSender {
+			fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
+			newLeader, err := triggerLeaderFailure()
+			if err != nil {
+				fmt.Printf("❌ LF failed: %v\n", err)
+				failCount++
+			} else {
+				fmt.Printf("✅ LF succeeded: new leader elected -> Node %d\n", newLeader)
+			}
+			time.Sleep(8 * time.Second) // allow election to stabilize
+			continue
+		}
+
 		c, exists := clients[tx.Sender]
 		if !exists {
 			fmt.Printf("Client %s not found\n", tx.Sender)
@@ -292,7 +433,7 @@ func processNextTestSet(reader *bufio.Reader) {
 			}
 			failCount++
 		} else if reply.Success {
-			fmt.Printf(" Success: %s (Seq: %d, Leader: Node %d)\n", reply.Message, reply.Ballot.NodeID)
+			fmt.Printf(" Success: %s (Seq: %d, Leader: Node %d)\n", reply.Message, reply.SeqNum, reply.Ballot.NodeID)
 			successCount++
 		} else {
 			fmt.Printf("Failed: %s\n", reply.Message)

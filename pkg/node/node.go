@@ -8,6 +8,7 @@ import (
 	"multipaxos/rituraj735/pkg/database"
 	"net"
 	"net/rpc"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -23,7 +24,7 @@ type Node struct {
 	lastLeaderMsg time.Time
 
 	//Heartbeat
-	lastHeartBeat    time.Time
+	//lastHeartBeat    time.Time
 	electionCoolDown time.Time
 	// Paxos state
 	CurrentBallot   datatypes.BallotNumber
@@ -79,7 +80,7 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		ActiveNodes:     make(map[int]bool),
 		MajoritySize:    config.MajoritySize,
 		shutdown:        make(chan bool),
-		lastHeartBeat:   time.Now(),
+		lastLeaderMsg:   time.Now(),
 	}
 	go node.monitorLeaderTimeout()
 	// Initialize all clients with initial balance
@@ -101,11 +102,14 @@ func (n *Node) monitorLeaderTimeout() {
 		time.Sleep(200 * time.Millisecond)
 		n.mu.RLock()
 		isLeader := n.IsLeader
-		last := n.lastHeartBeat
+		last := n.lastLeaderMsg
 		cooldown := n.electionCoolDown
 		n.mu.RUnlock()
 
 		if isLeader {
+			n.mu.Lock()
+			n.lastLeaderMsg = time.Now() // keep its own timer fresh
+			n.mu.Unlock()
 			continue
 		}
 
@@ -119,6 +123,12 @@ func (n *Node) monitorLeaderTimeout() {
 			n.electionCoolDown = time.Now()
 			n.mu.Unlock()
 
+			n.mu.RLock()
+			if n.IsLeader {
+				n.mu.RUnlock()
+				continue
+			}
+			n.mu.RUnlock()
 			success := n.StartLeaderElection()
 
 			if success {
@@ -206,10 +216,29 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
+
+	now := time.Now()
+	leaderID := 0
+
+	// If *this* node is leader and active, report it confidently.
+	if s.node.IsLeader && s.node.ActiveNodes[s.node.ID] {
+		leaderID = s.node.ID
+	} else {
+		// Otherwise, only report the remembered leader if:
+		// 1) that leader is still marked active, and
+		// 2) its last heartbeat/new-view was recent (not timed out).
+		if s.node.ActiveNodes[s.node.CurrentBallot.NodeID] &&
+			now.Sub(s.node.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond {
+			leaderID = s.node.CurrentBallot.NodeID
+		} else {
+			leaderID = 0 // unknown / stale
+		}
+	}
+
 	*reply = datatypes.LeaderInfo{
-		LeaderID: s.node.CurrentBallot.NodeID,
+		LeaderID: leaderID,
 		Ballot:   s.node.CurrentBallot,
-		IsLeader: s.node.IsLeader,
+		IsLeader: s.node.IsLeader && s.node.ActiveNodes[s.node.ID],
 	}
 	return nil
 }
@@ -242,6 +271,11 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 	ns.node.mu.Lock()
 	defer ns.node.mu.Unlock()
 
+	if args.Ballot.Number != ns.node.CurrentBallot.Number || args.Ballot.NodeID != ns.node.CurrentBallot.NodeID {
+		*reply = args
+		return nil
+	}
+
 	if ns.node.pendingAccepts[args.SeqNum] == nil {
 		ns.node.pendingAccepts[args.SeqNum] = make(map[int]datatypes.AcceptedMsg)
 	}
@@ -256,6 +290,15 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 	defer s.node.mu.Unlock()
 
 	s.node.ActiveNodes[args.NodeID] = args.IsLive
+
+	if args.NodeID == s.node.ID && !args.IsLive {
+		s.node.IsLeader = false
+	}
+
+	if !args.IsLive && args.NodeID == s.node.CurrentBallot.NodeID {
+		// Push the clock back so monitorLeaderTimeout notices immediately.
+		s.node.lastLeaderMsg = time.Unix(0, 0)
+	}
 
 	*reply = true
 	log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
@@ -312,7 +355,7 @@ func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) e
 		return nil
 	}
 
-	n.node.lastHeartBeat = time.Now()
+	n.node.lastLeaderMsg = time.Now()
 
 	if n.node.CurrentBallot.LessThan(msg.Ballot) {
 		n.node.CurrentBallot = msg.Ballot
@@ -331,6 +374,13 @@ func (n *Node) sendHeartbeats() {
 		select {
 		case <-ticker.C:
 			if !n.GetIsLeader() {
+				return
+			}
+
+			n.mu.RLock()
+			selfActive := n.ActiveNodes[n.ID]
+			n.mu.RUnlock()
+			if !selfActive {
 				return
 			}
 
@@ -390,7 +440,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 	fmt.Println("number of activeCount:", activeCount)
 
 	if activeCount < n.MajoritySize {
-		log.Printf("Node %d: insufficient active nodes %d (active nodes %d, needed %d) so skipping transactions", n.ID, activeCount, n.MajoritySize)
+		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions", n.ID, activeCount, n.MajoritySize)
 		n.mu.Unlock()
 		return datatypes.ReplyMsg{
 			Ballot:    n.CurrentBallot,
@@ -522,7 +572,9 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
 	n.mu.Lock()
-	n.lastHeartBeat = time.Now()
+	//n.lastHeartBeat = time.Now()
+	n.lastLeaderMsg = time.Now()
+
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
@@ -556,7 +608,9 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
 	n.mu.Lock()
-	n.lastHeartBeat = time.Now()
+	//n.lastHeartBeat = time.Now()
+	n.lastLeaderMsg = time.Now()
+
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThanOrEqual(n.HighestPromised) {
@@ -595,7 +649,9 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	n.mu.Lock()
-	n.lastHeartBeat = time.Now()
+	//n.lastHeartBeat = time.Now()
+	n.lastLeaderMsg = time.Now()
+
 	defer n.mu.Unlock()
 
 	activeCount := 0
@@ -632,15 +688,26 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	n.mu.Lock()
-	n.lastHeartBeat = time.Now()
 	defer n.mu.Unlock()
 
-	n.NewViewMsgs = append(n.NewViewMsgs, args)
-	n.CurrentBallot = args.Ballot
-	n.HighestPromised = args.Ballot
+	if args.Ballot.LessThan(n.HighestPromised) {
+		log.Printf("Node %d: Ignoring outdated New-View for ballot %v (current promise %v)", n.ID, args.Ballot, n.HighestPromised)
+		*reply = false
+		return nil
+	}
 
-	// Update next sequence number
-	maxSeq := n.NextSeqNum - 1
+	n.lastLeaderMsg = time.Now()
+	n.HighestPromised = args.Ballot
+	n.CurrentBallot = args.Ballot
+	n.IsLeader = args.Ballot.NodeID == n.ID
+
+	n.NewViewMsgs = append(n.NewViewMsgs, args)
+
+	prevAccepted := n.AcceptedLog
+	newAcceptedLog := make(map[int]datatypes.LogEntry, len(args.AcceptLog))
+	newRequestLog := make([]datatypes.LogEntry, 0, len(args.AcceptLog))
+	maxSeq := 0
+
 	for _, entry := range args.AcceptLog {
 		if entry.SeqNum > maxSeq {
 			maxSeq = entry.SeqNum
@@ -652,44 +719,53 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 			Request: entry.Request,
 			Status:  datatypes.StatusAccepted,
 		}
-		n.AcceptedLog[entry.SeqNum] = logEntry
-		updated := false
-		for i := range n.RequestLog {
-			if n.RequestLog[i].SeqNum == logEntry.SeqNum {
-				n.RequestLog[i] = logEntry
-				updated = true
-				break
+
+		if prevEntry, ok := prevAccepted[entry.SeqNum]; ok {
+			if prevEntry.Status == datatypes.StatusExecuted {
+				logEntry.Status = datatypes.StatusExecuted
+			} else if prevEntry.Status == datatypes.StatusCommitted {
+				logEntry.Status = datatypes.StatusCommitted
 			}
-		}
-		if !updated {
-			n.RequestLog = append(n.RequestLog, logEntry)
 		}
 
-		// Send accepted back to leader
-		go func(e datatypes.AcceptLogEntry) {
-			var acceptedReply datatypes.AcceptedMsg
-			acceptedMsg := datatypes.AcceptedMsg{
-				Ballot:  args.Ballot,
-				SeqNum:  e.SeqNum,
-				Request: e.Request,
-				NodeID:  n.ID,
-			}
-			// Find leader and send
-			for nodeID := range n.Peers {
-				if nodeID == args.Ballot.NodeID {
-					n.callRPC(nodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
-					break
-				}
-			}
-		}(entry)
+		newAcceptedLog[entry.SeqNum] = logEntry
+		newRequestLog = append(newRequestLog, logEntry)
 	}
 
-	if maxSeq >= n.NextSeqNum {
+	sort.Slice(newRequestLog, func(i, j int) bool {
+		return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum
+	})
+
+	n.AcceptedLog = newAcceptedLog
+	n.RequestLog = newRequestLog
+
+	// New view supersedes any pending accepts from a previous leadership attempt.
+	n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+
+	if maxSeq == 0 {
+		n.NextSeqNum = 1
+	} else {
 		n.NextSeqNum = maxSeq + 1
 	}
 
+	// Send accepted confirmation back to leader for each entry we adopt
+	if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
+		for _, entry := range args.AcceptLog {
+			go func(e datatypes.AcceptLogEntry) {
+				var acceptedReply datatypes.AcceptedMsg
+				acceptedMsg := datatypes.AcceptedMsg{
+					Ballot:  args.Ballot,
+					SeqNum:  e.SeqNum,
+					Request: e.Request,
+					NodeID:  n.ID,
+				}
+				_ = n.callRPC(args.Ballot.NodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
+			}(entry)
+		}
+	}
+
 	*reply = true
-	log.Printf("Node %d: Processed new-view from ballot %s with %d entries\n",
+	log.Printf("Node %d: Processed New-View from ballot %s with %d entries\n",
 		n.ID, args.Ballot, len(args.AcceptLog))
 	return nil
 }
@@ -735,6 +811,10 @@ func (n *Node) executeRequestsInOrder() {
 
 func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
+	if n.IsLeader {
+		n.mu.Unlock()
+		return false
+	}
 	n.CurrentBallot.Number++
 	ballot := n.CurrentBallot
 	n.mu.Unlock()
@@ -792,6 +872,10 @@ func (n *Node) StartLeaderElection() bool {
 
 	if promiseCount >= n.MajoritySize {
 		n.mu.Lock()
+		if !n.ActiveNodes[n.ID] {
+			n.mu.Unlock()
+			return false
+		}
 		n.IsLeader = true
 		n.CurrentBallot = ballot
 		go n.sendHeartbeats()
@@ -799,51 +883,50 @@ func (n *Node) StartLeaderElection() bool {
 			n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
+
+		newViewMsg := datatypes.NewViewMsg{
+			Ballot:    ballot,
+			AcceptLog: acceptLog,
+		}
+		n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
 		n.mu.Unlock()
 
-		if len(acceptLog) > 0 {
-			newViewMsg := datatypes.NewViewMsg{
-				Ballot:    ballot,
-				AcceptLog: acceptLog,
-			}
+		n.sendNewViewMessages(newViewMsg)
 
+		if len(acceptLog) == 0 {
+			return true
+		}
+
+		// Wait for accepted responses and commit
+		time.Sleep(500 * time.Millisecond)
+
+		for _, entry := range acceptLog {
 			n.mu.Lock()
-			n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
+			acceptCount := 0
+			if n.pendingAccepts[entry.SeqNum] != nil {
+				acceptCount = len(n.pendingAccepts[entry.SeqNum])
+			}
 			n.mu.Unlock()
 
-			n.sendNewViewMessages(newViewMsg)
+			if acceptCount >= n.MajoritySize {
+				commitMsg := datatypes.CommitMsg{
+					Ballot:  ballot,
+					SeqNum:  entry.SeqNum,
+					Request: entry.Request,
+				}
 
-			// Wait for accepted responses and commit
-			time.Sleep(500 * time.Millisecond)
+				for nodeID := range n.Peers {
+					if nodeID != n.ID {
+						go func(id int) {
+							var reply bool
+							n.callRPC(id, "Commit", commitMsg, &reply)
+						}(nodeID)
+					}
+				}
 
-			for _, entry := range acceptLog {
 				n.mu.Lock()
-				acceptCount := 0
-				if n.pendingAccepts[entry.SeqNum] != nil {
-					acceptCount = len(n.pendingAccepts[entry.SeqNum])
-				}
+				n.executeRequest(entry.SeqNum, entry.Request)
 				n.mu.Unlock()
-
-				if acceptCount >= n.MajoritySize {
-					commitMsg := datatypes.CommitMsg{
-						Ballot:  ballot,
-						SeqNum:  entry.SeqNum,
-						Request: entry.Request,
-					}
-
-					for nodeID := range n.Peers {
-						if nodeID != n.ID {
-							go func(id int) {
-								var reply bool
-								n.callRPC(id, "Commit", commitMsg, &reply)
-							}(nodeID)
-						}
-					}
-
-					n.mu.Lock()
-					n.executeRequest(entry.SeqNum, entry.Request)
-					n.mu.Unlock()
-				}
 			}
 		}
 
@@ -857,24 +940,17 @@ func (n *Node) StartLeaderElection() bool {
 
 func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) []datatypes.AcceptLogEntry {
 	allEntries := make(map[int]datatypes.AcceptLogEntry)
+	maxSeq := 0
 
 	for _, promise := range promises {
 		for _, entry := range promise.AcceptLog {
+			if entry.SeqNum > maxSeq {
+				maxSeq = entry.SeqNum
+			}
 			existing, exists := allEntries[entry.SeqNum]
 			if !exists || entry.AcceptNum.GreaterThan(existing.AcceptNum) {
 				allEntries[entry.SeqNum] = entry
 			}
-		}
-	}
-
-	if len(allEntries) == 0 {
-		return nil
-	}
-
-	maxSeq := 0
-	for seqNum := range allEntries {
-		if seqNum > maxSeq {
-			maxSeq = seqNum
 		}
 	}
 
@@ -883,38 +959,88 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		if entry, exists := allEntries[seqNum]; exists {
 			entry.AcceptNum = n.CurrentBallot
 			acceptLog = append(acceptLog, entry)
-		} else {
-
-			noOpRequest := datatypes.ClientRequest{
-				ClientID:  fmt.Sprintf("no-op-%d", seqNum),
-				Timestamp: time.Now().UnixNano(),
-				IsNoOp:    true,
-				Transaction: datatypes.Txn{
-					Sender:   "no-op",
-					Receiver: "no-op",
-					Amount:   0,
-				},
-			}
-			noOpEntry := datatypes.AcceptLogEntry{
-				AcceptNum: n.CurrentBallot,
-				SeqNum:    seqNum,
-				Request:   noOpRequest,
-			}
-			acceptLog = append(acceptLog, noOpEntry)
+			continue
 		}
+
+		noOpRequest := datatypes.ClientRequest{
+			ClientID:  fmt.Sprintf("no-op-%d", seqNum),
+			Timestamp: time.Now().UnixNano(),
+			IsNoOp:    true,
+			Transaction: datatypes.Txn{
+				Sender:   "no-op",
+				Receiver: "no-op",
+				Amount:   0,
+			},
+		}
+		noOpEntry := datatypes.AcceptLogEntry{
+			AcceptNum: n.CurrentBallot,
+			SeqNum:    seqNum,
+			Request:   noOpRequest,
+		}
+		acceptLog = append(acceptLog, noOpEntry)
 	}
 
-	// Initialize pending accepts for these entries
+	// Rebuild local canonical log based on acceptLog
+	if maxSeq == 0 {
+		n.AcceptedLog = make(map[int]datatypes.LogEntry)
+		n.RequestLog = make([]datatypes.LogEntry, 0)
+		if n.NextSeqNum < 1 {
+			n.NextSeqNum = 1
+		}
+	} else {
+		newAcceptedLog := make(map[int]datatypes.LogEntry, len(acceptLog))
+		newRequestLog := make([]datatypes.LogEntry, 0, len(acceptLog))
+
+		for _, entry := range acceptLog {
+			logEntry := datatypes.LogEntry{
+				Ballot:  entry.AcceptNum,
+				SeqNum:  entry.SeqNum,
+				Request: entry.Request,
+				Status:  datatypes.StatusAccepted,
+			}
+
+			if existing, ok := n.AcceptedLog[entry.SeqNum]; ok {
+				if existing.Status == datatypes.StatusExecuted {
+					logEntry.Status = datatypes.StatusExecuted
+				} else if existing.Status == datatypes.StatusCommitted {
+					logEntry.Status = datatypes.StatusCommitted
+				}
+			}
+
+			newAcceptedLog[entry.SeqNum] = logEntry
+			newRequestLog = append(newRequestLog, logEntry)
+		}
+
+		sort.Slice(newRequestLog, func(i, j int) bool {
+			return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum
+		})
+
+		n.AcceptedLog = newAcceptedLog
+		n.RequestLog = newRequestLog
+		n.NextSeqNum = maxSeq + 1
+	}
+
+	// Reset pending accepts to reflect new view
+	keepSeq := make(map[int]struct{}, len(acceptLog))
 	for _, entry := range acceptLog {
+		keepSeq[entry.SeqNum] = struct{}{}
 		if n.pendingAccepts[entry.SeqNum] == nil {
 			n.pendingAccepts[entry.SeqNum] = make(map[int]datatypes.AcceptedMsg)
+		} else {
+			for k := range n.pendingAccepts[entry.SeqNum] {
+				delete(n.pendingAccepts[entry.SeqNum], k)
+			}
 		}
-		// Count self as accepted
 		n.pendingAccepts[entry.SeqNum][n.ID] = datatypes.AcceptedMsg{
 			Ballot:  n.CurrentBallot,
 			SeqNum:  entry.SeqNum,
 			Request: entry.Request,
 			NodeID:  n.ID,
+		}
+	}
+	for seq := range n.pendingAccepts {
+		if _, ok := keepSeq[seq]; !ok {
+			delete(n.pendingAccepts, seq)
 		}
 	}
 

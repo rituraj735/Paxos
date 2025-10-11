@@ -111,4 +111,5 @@ func (c *Client) UpdateLeader(leaderID int) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.CurrentLeader = leaderID
+	log.Printf("Client %s: leader updated to Node %d", c.ID, leaderID)
 }
