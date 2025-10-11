@@ -8,6 +8,7 @@ import (
 	"multipaxos/rituraj735/pkg/database"
 	"net"
 	"net/rpc"
+	"strings"
 	"sync"
 	"time"
 )
@@ -202,6 +203,17 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 	}
 }
 
+func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
+	s.node.mu.RLock()
+	defer s.node.mu.RUnlock()
+	*reply = datatypes.LeaderInfo{
+		LeaderID: s.node.CurrentBallot.NodeID,
+		Ballot:   s.node.CurrentBallot,
+		IsLeader: s.node.IsLeader,
+	}
+	return nil
+}
+
 // RPC Service Methods
 func (ns *NodeService) HandleClientRequest(args datatypes.ClientRequestRPC, reply *datatypes.ClientReplyRPC) error {
 	fmt.Println("something reached handleClientRequest", args)
@@ -248,6 +260,16 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 	*reply = true
 	log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
 	log.Printf("Node %d: Active status updated -> %v", s.node.ID, s.node.ActiveNodes)
+	return nil
+}
+
+func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStatusArgs, reply *bool) error {
+	s.node.mu.Lock()
+	defer s.node.mu.Unlock()
+	for id, live := range args.Active {
+		s.node.ActiveNodes[id] = live
+	}
+	*reply = true
 	return nil
 }
 
@@ -396,7 +418,17 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		Status:  datatypes.StatusAccepted,
 	}
 	n.AcceptedLog[seqNum] = logEntry
-	n.RequestLog = append(n.RequestLog, logEntry)
+	updated := false
+	for i := range n.RequestLog {
+		if n.RequestLog[i].SeqNum == logEntry.SeqNum {
+			n.RequestLog[i] = logEntry
+			updated = true
+			break
+		}
+	}
+	if !updated {
+		n.RequestLog = append(n.RequestLog, logEntry)
+	}
 
 	if n.pendingAccepts[seqNum] == nil {
 		n.pendingAccepts[seqNum] = make(map[int]datatypes.AcceptedMsg)
@@ -536,7 +568,17 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 		}
 
 		n.AcceptedLog[args.SeqNum] = logEntry
-		n.RequestLog = append(n.RequestLog, logEntry)
+		updated := false
+		for i := range n.RequestLog {
+			if n.RequestLog[i].SeqNum == logEntry.SeqNum {
+				n.RequestLog[i] = logEntry
+				updated = true
+				break
+			}
+		}
+		if !updated {
+			n.RequestLog = append(n.RequestLog, logEntry)
+		}
 
 		*reply = datatypes.AcceptedMsg{
 			Ballot:  args.Ballot,
@@ -611,7 +653,17 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 			Status:  datatypes.StatusAccepted,
 		}
 		n.AcceptedLog[entry.SeqNum] = logEntry
-		n.RequestLog = append(n.RequestLog, logEntry)
+		updated := false
+		for i := range n.RequestLog {
+			if n.RequestLog[i].SeqNum == logEntry.SeqNum {
+				n.RequestLog[i] = logEntry
+				updated = true
+				break
+			}
+		}
+		if !updated {
+			n.RequestLog = append(n.RequestLog, logEntry)
+		}
 
 		// Send accepted back to leader
 		go func(e datatypes.AcceptLogEntry) {
@@ -808,7 +860,8 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 
 	for _, promise := range promises {
 		for _, entry := range promise.AcceptLog {
-			if existing, exists := allEntries[entry.SeqNum]; !exists || entry.AcceptNum.GreaterThan(existing.AcceptNum) {
+			existing, exists := allEntries[entry.SeqNum]
+			if !exists || entry.AcceptNum.GreaterThan(existing.AcceptNum) {
 				allEntries[entry.SeqNum] = entry
 			}
 		}
@@ -825,16 +878,27 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		}
 	}
 
-	acceptLog := make([]datatypes.AcceptLogEntry, 0)
+	acceptLog := make([]datatypes.AcceptLogEntry, 0, maxSeq)
 	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
 		if entry, exists := allEntries[seqNum]; exists {
 			entry.AcceptNum = n.CurrentBallot
 			acceptLog = append(acceptLog, entry)
 		} else {
+
+			noOpRequest := datatypes.ClientRequest{
+				ClientID:  fmt.Sprintf("no-op-%d", seqNum),
+				Timestamp: time.Now().UnixNano(),
+				IsNoOp:    true,
+				Transaction: datatypes.Txn{
+					Sender:   "no-op",
+					Receiver: "no-op",
+					Amount:   0,
+				},
+			}
 			noOpEntry := datatypes.AcceptLogEntry{
 				AcceptNum: n.CurrentBallot,
 				SeqNum:    seqNum,
-				Request:   datatypes.ClientRequest{IsNoOp: true},
+				Request:   noOpRequest,
 			}
 			acceptLog = append(acceptLog, noOpEntry)
 		}
@@ -870,41 +934,88 @@ func (n *Node) sendNewViewMessages(msg datatypes.NewViewMsg) {
 
 // Print Functions (Required by project specification)
 
-func (n *Node) PrintLog() {
-	n.mu.RLock()
-	defer n.mu.RUnlock()
+func (s *NodeService) PrintLog(_ bool, reply *string) error {
+	s.node.mu.RLock()
+	defer s.node.mu.RUnlock()
 
-	fmt.Printf("=== Node %d Log ===\n", n.ID)
-	for _, entry := range n.RequestLog {
-		fmt.Printf("Seq %d: %s Ballot %s Status %s\n",
-			entry.SeqNum, entry.Request, entry.Ballot, entry.Status)
+	builder := strings.Builder{}
+	builder.WriteString(fmt.Sprintf("===== Node %d Log =====\n", s.node.ID))
+	for _, entry := range s.node.RequestLog {
+		status := entry.Status
+		builder.WriteString(fmt.Sprintf("Seq %d | Ballot (%d,%d) | %s -> %s | Amount %d | Status %v\n",
+			entry.SeqNum,
+			entry.Ballot.Number,
+			entry.Ballot.NodeID,
+			entry.Request.Transaction.Sender,
+			entry.Request.Transaction.Receiver,
+			entry.Request.Transaction.Amount,
+			status))
 	}
-	fmt.Println()
+	*reply = builder.String()
+	return nil
 }
 
-func (n *Node) PrintStatus(seqNum int) datatypes.RequestStatus {
-	n.mu.RLock()
-	defer n.mu.RUnlock()
+// PrintStatus returns the status (A, C, E, or X) of the transaction at a given sequence number.
+// PrintStatus returns the status (A, C, E, or X) of the transaction at a given sequence number.
+func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
+	s.node.mu.RLock()
+	defer s.node.mu.RUnlock()
 
-	if entry, exists := n.AcceptedLog[seqNum]; exists {
-		return entry.Status
+	// Self inactive? → return X (StatusNoStatus)
+	if !s.node.ActiveNodes[s.node.ID] {
+		*reply = fmt.Sprintf("Node %d inactive (Status: %s)", s.node.ID, datatypes.StatusNoStatus)
+		return nil
 	}
-	return datatypes.StatusNoStatus
-}
 
-func (n *Node) PrintView() {
-	n.mu.RLock()
-	defer n.mu.RUnlock()
-
-	fmt.Printf("=== Node %d New-View Messages ===\n", n.ID)
-	for i, msg := range n.NewViewMsgs {
-		fmt.Printf("New-View %d: Ballot %s\n", i+1, msg.Ballot)
-		fmt.Printf("  AcceptLog entries: %d\n", len(msg.AcceptLog))
-		for _, entry := range msg.AcceptLog {
-			fmt.Printf("    Seq %d: %s Ballot %s\n", entry.SeqNum, entry.Request, entry.AcceptNum)
+	// 1️⃣ Check if sequence exists in AcceptedLog
+	if entry, exists := s.node.AcceptedLog[seqNum]; exists {
+		switch entry.Status {
+		case datatypes.StatusAccepted:
+			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Accepted)", s.node.ID, seqNum, datatypes.StatusAccepted)
+			return nil
+		case datatypes.StatusCommitted:
+			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Committed)", s.node.ID, seqNum, datatypes.StatusCommitted)
+			return nil
+		case datatypes.StatusExecuted:
+			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Executed)", s.node.ID, seqNum, datatypes.StatusExecuted)
+			return nil
+		default:
+			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Unknown)", s.node.ID, seqNum, datatypes.StatusNoStatus)
+			return nil
 		}
 	}
-	fmt.Println()
+
+	// 2️⃣ If not in AcceptedLog, check if in RequestLog (leader may have appended but not yet accepted)
+	for _, entry := range s.node.RequestLog {
+		if entry.SeqNum == seqNum {
+			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Pending/Accepted)", s.node.ID, seqNum, datatypes.StatusAccepted)
+			return nil
+		}
+	}
+
+	// 3️⃣ If still not found
+	*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Not Found)", s.node.ID, seqNum, datatypes.StatusNoStatus)
+	return nil
+}
+
+func (s *NodeService) PrintView(_ bool, reply *string) error {
+	s.node.mu.RLock()
+	defer s.node.mu.RUnlock()
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "===== Node %d: View Changes =====\n", s.node.ID)
+	for i, msg := range s.node.NewViewMsgs {
+		fmt.Fprintf(&b, "View %d: Ballot (%d,%d) | Leader: %d\n",
+			i+1, msg.Ballot.Number, msg.Ballot.NodeID, msg.Ballot.NodeID)
+		for _, acc := range msg.AcceptLog {
+			req := acc.Request.Transaction
+			fmt.Fprintf(&b, "  ⟨ACCEPT, (%d,%d), %d, (%s,%s,%d)⟩\n",
+				acc.AcceptNum.Number, acc.AcceptNum.NodeID,
+				acc.SeqNum, req.Sender, req.Receiver, req.Amount)
+		}
+	}
+	*reply = b.String()
+	return nil
 }
 
 //  1. Define the argument and reply structs for the new RPC call.

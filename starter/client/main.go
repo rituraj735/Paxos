@@ -29,6 +29,41 @@ var currentSetIndex int
 var clients map[string]*client.Client
 var clientsMu sync.Mutex
 
+var backlog []datatypes.Txn
+
+func deferTxn(tx datatypes.Txn) {
+	backlog = append(backlog, tx)
+}
+
+func flushBacklog() {
+	if len(backlog) == 0 {
+		return
+	}
+
+	fmt.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
+
+	i := 0
+	for i < len(backlog) {
+		tx := backlog[i]
+		c, ok := clients[tx.Sender]
+		if !ok {
+			fmt.Printf("Backlog: client %s not found; skipping\n", tx.Sender)
+			i++
+			continue
+		}
+
+		reply, err := c.SendTransaction(tx)
+		if err != nil || !reply.Success {
+			// still failed → keep for next round
+			i++
+			continue
+		}
+
+		// success → remove it
+		backlog = append(backlog[:i], backlog[i+1:]...)
+	}
+}
+
 func main() {
 	fmt.Println("Welcome to Bank of Paxos")
 	fmt.Println("==========================")
@@ -77,8 +112,6 @@ func main() {
 		case 1:
 			processNextTestSet(filePathReader)
 		case 2:
-			fmt.Printf("%+v\n", sets)
-			fmt.Println("PrintLog()")
 			printLogFromNode(filePathReader)
 		case 3:
 			fmt.Println("PrintDB()")
@@ -88,6 +121,7 @@ func main() {
 			printStatusFromNode(filePathReader)
 		case 5:
 			fmt.Println("PrintView()")
+			printViewFromAllNodes()
 		case 6:
 			fmt.Println("Exiting...")
 			return
@@ -150,7 +184,13 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 		}
 
 		txnStr := strings.Trim(record[1], " \"()") //Cutset removes space, " and ( and )"
-		txnParts := strings.Split(txnStr, ",")     // Splits A,B,3 into [A B 3]
+
+		if strings.EqualFold(strings.TrimSpace(txnStr), "LF") {
+			currentSet.Txns = append(currentSet.Txns, datatypes.Txn{Sender: "__LF__", Receiver: "", Amount: 0})
+			continue
+		}
+
+		txnParts := strings.Split(txnStr, ",") // Splits A,B,3 into [A B 3]
 
 		if len(txnParts) == 3 {
 			amount, _ := strconv.Atoi(strings.TrimSpace(txnParts[2]))
@@ -230,6 +270,8 @@ func processNextTestSet(reader *bufio.Reader) {
 		}
 	}
 
+	time.Sleep(300 * time.Millisecond)
+	flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
@@ -245,12 +287,18 @@ func processNextTestSet(reader *bufio.Reader) {
 		reply, err := c.SendTransaction(tx)
 		if err != nil {
 			fmt.Printf("Transaction failed: %v\n", err)
+			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
+				deferTxn(tx)
+			}
 			failCount++
 		} else if reply.Success {
 			fmt.Printf(" Success: %s (Seq: %d, Leader: Node %d)\n", reply.Message, reply.Ballot.NodeID)
 			successCount++
 		} else {
 			fmt.Printf("Failed: %s\n", reply.Message)
+			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
+				deferTxn(tx)
+			}
 			failCount++
 		}
 
@@ -260,6 +308,7 @@ func processNextTestSet(reader *bufio.Reader) {
 	currentSetIndex++
 }
 
+// printLogFromNode prompts for a node ID and fetches its log via RPC
 func printLogFromNode(reader *bufio.Reader) {
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
@@ -269,13 +318,27 @@ func printLogFromNode(reader *bufio.Reader) {
 		return
 	}
 
-	fmt.Printf("\n========================================\n")
-	fmt.Printf("Requesting PrintLog from Node %d...\n", nodeID)
-	fmt.Println("========================================")
+	address, ok := config.NodeAddresses[nodeID]
+	if !ok {
+		fmt.Printf("❌ Unknown node ID %d\n", nodeID)
+		return
+	}
 
-	fmt.Printf("⚠️  Note: PrintLog should be called directly on Node %d terminal\n", nodeID)
-	fmt.Printf("On Node %d terminal, enter command: 2 (Print Log)\n", nodeID)
-	fmt.Println("========================================")
+	client, err := rpc.Dial("tcp", address)
+	if err != nil {
+		fmt.Printf("❌ Could not connect to node %d at %s: %v\n", nodeID, address, err)
+		return
+	}
+	defer client.Close()
+
+	var reply string
+	err = client.Call("NodeService.PrintLog", true, &reply)
+	if err != nil {
+		fmt.Printf("❌ RPC error calling PrintLog on node %d: %v\n", nodeID, err)
+		return
+	}
+
+	fmt.Println(reply)
 }
 
 func printDBFromNode(reader *bufio.Reader) {
@@ -316,48 +379,66 @@ func printDBFromNode(reader *bufio.Reader) {
 	fmt.Println("========================================")
 }
 
+// printStatusFromNode prompts for node ID and sequence number, then prints transaction status (A/C/E/X)
 func printStatusFromNode(reader *bufio.Reader) {
-	fmt.Print("Enter node ID (1-5): ")
-	nodeInput, _ := reader.ReadString('\n')
-	nodeID, err := strconv.Atoi(strings.TrimSpace(nodeInput))
-	if err != nil || nodeID < 1 || nodeID > config.NumNodes {
-		fmt.Println("❌ Invalid node ID")
-		return
-	}
 
 	fmt.Print("Enter sequence number: ")
 	seqInput, _ := reader.ReadString('\n')
 	seqNum, err := strconv.Atoi(strings.TrimSpace(seqInput))
-	if err != nil {
+	if err != nil || seqNum < 1 {
 		fmt.Println("❌ Invalid sequence number")
 		return
 	}
 
-	fmt.Printf("\n========================================\n")
-	fmt.Printf("Requesting PrintStatus (Seq: %d) from Node %d...\n", seqNum, nodeID)
-	fmt.Println("========================================")
+	fmt.Printf("\n===== Status of Seq %d across all nodes =====\n", seqNum)
 
-	fmt.Printf("⚠️  Note: PrintStatus should be called directly on Node %d terminal\n", nodeID)
-	fmt.Printf("On Node %d terminal:\n", nodeID)
-	fmt.Printf("  1. Enter command: 3 (Print Status)\n")
-	fmt.Printf("  2. Enter sequence number: %d\n", seqNum)
-	fmt.Println("========================================")
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		address, ok := config.NodeAddresses[nodeID]
+		if !ok {
+			fmt.Printf("❌ Unknown node ID %d\n", nodeID)
+			continue
+		}
+		client, err := rpc.Dial("tcp", address)
+		if err != nil {
+			fmt.Printf("❌ Could not connect to node %d: %v\n", nodeID, err)
+			return
+		}
+		var reply string
+		err = client.Call("NodeService.PrintStatus", seqNum, &reply)
+		client.Close()
+
+		if err != nil {
+			fmt.Printf("❌ RPC error calling PrintStatus on node %d: %v\n", nodeID, err)
+			return
+		}
+
+		fmt.Println(reply)
+	}
 }
 
-func printViewFromNode(reader *bufio.Reader) {
-	fmt.Print("Enter node ID (1-5): ")
-	nodeInput, _ := reader.ReadString('\n')
-	nodeID, err := strconv.Atoi(strings.TrimSpace(nodeInput))
-	if err != nil || nodeID < 1 || nodeID > config.NumNodes {
-		fmt.Println("❌ Invalid node ID")
-		return
+func printViewFromAllNodes() {
+	fmt.Println("===== Printing NEW-VIEW messages from all nodes =====")
+
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		address := config.NodeAddresses[nodeID]
+
+		client, err := rpc.Dial("tcp", address)
+		if err != nil {
+			fmt.Printf("❌ Node %d unreachable: %v\n", nodeID, err)
+			continue
+		}
+
+		var reply string
+		err = client.Call("NodeService.PrintView", true, &reply)
+		client.Close()
+
+		if err != nil {
+			fmt.Printf("❌ RPC error on Node %d: %v\n", nodeID, err)
+			continue
+		}
+
+		fmt.Println(reply)
 	}
 
-	fmt.Printf("\n========================================\n")
-	fmt.Printf("Requesting PrintView from Node %d...\n", nodeID)
-	fmt.Println("========================================")
-
-	fmt.Printf("⚠️  Note: PrintView should be called directly on Node %d terminal\n", nodeID)
-	fmt.Printf("On Node %d terminal, enter command: 4 (Print View)\n", nodeID)
-	fmt.Println("========================================")
+	fmt.Println("==============================================")
 }

@@ -31,6 +31,16 @@ type UpdateNodeArgs struct {
 	IsLive bool
 }
 
+type LeaderInfo struct {
+	LeaderID int
+	Ballot   BallotNumber
+	IsLeader bool
+}
+
+type UpdateClusterStatusArgs struct {
+	Active map[int]bool
+}
+
 type ClientRequestRPC struct {
 	Request ClientRequest
 }
