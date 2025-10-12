@@ -62,6 +62,26 @@ type NodeService struct {
 	node *Node
 }
 
+func statusRank(status datatypes.RequestStatus) int {
+	switch status {
+	case datatypes.StatusExecuted:
+		return 3
+	case datatypes.StatusCommitted:
+		return 2
+	case datatypes.StatusAccepted:
+		return 1
+	default:
+		return 0
+	}
+}
+
+func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
+	if statusRank(b) > statusRank(a) {
+		return b
+	}
+	return a
+}
+
 func NewNode(id int, address string, peers map[int]string) *Node {
 	node := &Node{
 		ID:              id,
@@ -285,34 +305,81 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 	return nil
 }
 
+func (ns *NodeService) RequestStateTransfer(args datatypes.StateTransferArgs, reply *datatypes.StateTransferReply) error {
+	ns.node.mu.RLock()
+	isLeaderActive := ns.node.IsLeader && ns.node.ActiveNodes[ns.node.ID]
+	ns.node.mu.RUnlock()
+
+	if !isLeaderActive {
+		reply.Success = false
+		return nil
+	}
+
+	snapshot := ns.node.buildStateSnapshot()
+	reply.Snapshot = snapshot
+	reply.Success = true
+	return nil
+}
+
 func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *bool) error {
 	s.node.mu.Lock()
-	defer s.node.mu.Unlock()
-
-	s.node.ActiveNodes[args.NodeID] = args.IsLive
-
-	if args.NodeID == s.node.ID && !args.IsLive {
-		s.node.IsLeader = false
-	}
-
-	if !args.IsLive && args.NodeID == s.node.CurrentBallot.NodeID {
-		// Push the clock back so monitorLeaderTimeout notices immediately.
-		s.node.lastLeaderMsg = time.Unix(0, 0)
-	}
+	leaderDemoted, activated := s.node.setNodeLiveness(args.NodeID, args.IsLive)
+	isLeaderActive := s.node.IsLeader && s.node.ActiveNodes[s.node.ID]
+	activeSnapshot := fmt.Sprintf("%v", s.node.ActiveNodes)
+	selfID := s.node.ID
+	s.node.mu.Unlock()
 
 	*reply = true
 	log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
-	log.Printf("Node %d: Active status updated -> %v", s.node.ID, s.node.ActiveNodes)
+	log.Printf("Node %d: Active status updated -> %v", s.node.ID, activeSnapshot)
+
+	if leaderDemoted && !args.IsLive && selfID != args.NodeID {
+		go s.node.StartLeaderElection()
+	}
+
+	if activated {
+		if args.NodeID == selfID {
+			go s.node.requestStateSync()
+		} else if isLeaderActive {
+			go s.node.sendStateSnapshot(args.NodeID)
+		}
+	}
 	return nil
 }
 
 func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStatusArgs, reply *bool) error {
 	s.node.mu.Lock()
-	defer s.node.mu.Unlock()
+	leaderDemoted := false
+	activatedNodes := make([]int, 0)
 	for id, live := range args.Active {
-		s.node.ActiveNodes[id] = live
+		ld, activated := s.node.setNodeLiveness(id, live)
+		if ld && !live && s.node.ID != id {
+			leaderDemoted = true
+		}
+		if activated {
+			activatedNodes = append(activatedNodes, id)
+		}
 	}
+	isLeaderActive := s.node.IsLeader && s.node.ActiveNodes[s.node.ID]
+	activeSnapshot := fmt.Sprintf("%v", s.node.ActiveNodes)
+	selfID := s.node.ID
+	s.node.mu.Unlock()
+
 	*reply = true
+	log.Printf("Node %d: Bulk active status update -> %v", s.node.ID, activeSnapshot)
+
+	if leaderDemoted {
+		go s.node.StartLeaderElection()
+	}
+
+	for _, id := range activatedNodes {
+		if id == selfID {
+			go s.node.requestStateSync()
+		} else if isLeaderActive {
+			go s.node.sendStateSnapshot(id)
+		}
+	}
+
 	return nil
 }
 
@@ -362,6 +429,31 @@ func (n *Node) majorityThreshold() int {
 	n.mu.RLock()
 	defer n.mu.RUnlock()
 	return n.majorityThresholdLocked()
+}
+
+func (n *Node) setNodeLiveness(nodeID int, isLive bool) (bool, bool) {
+	prev, existed := n.ActiveNodes[nodeID]
+	n.ActiveNodes[nodeID] = isLive
+
+	becameActive := (!prev || !existed) && isLive
+	leaderDemoted := false
+
+	if nodeID == n.ID && !isLive {
+		n.IsLeader = false
+	}
+
+	if !isLive && n.CurrentBallot.NodeID == nodeID {
+		n.CurrentBallot.NodeID = 0
+		n.lastLeaderMsg = time.Now().Add(-2 * time.Duration(config.LeaderTimeout) * time.Millisecond)
+		n.electionCoolDown = time.Time{}
+		leaderDemoted = true
+	}
+
+	if isLive && nodeID == n.ID {
+		n.lastLeaderMsg = time.Now()
+	}
+
+	return leaderDemoted, becameActive
 }
 
 func (n *Node) GetCurrentBallot() datatypes.BallotNumber {
@@ -617,6 +709,7 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 				AcceptNum: entry.Ballot,
 				SeqNum:    seqNum,
 				Request:   entry.Request,
+				Status:    entry.Status,
 			})
 		}
 
@@ -745,19 +838,16 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 			maxSeq = entry.SeqNum
 		}
 
+		status := entry.Status
+		if prevEntry, ok := prevAccepted[entry.SeqNum]; ok {
+			status = maxStatus(status, prevEntry.Status)
+		}
+
 		logEntry := datatypes.LogEntry{
 			Ballot:  entry.AcceptNum,
 			SeqNum:  entry.SeqNum,
 			Request: entry.Request,
-			Status:  datatypes.StatusAccepted,
-		}
-
-		if prevEntry, ok := prevAccepted[entry.SeqNum]; ok {
-			if prevEntry.Status == datatypes.StatusExecuted {
-				logEntry.Status = datatypes.StatusExecuted
-			} else if prevEntry.Status == datatypes.StatusCommitted {
-				logEntry.Status = datatypes.StatusCommitted
-			}
+			Status:  status,
 		}
 
 		newAcceptedLog[entry.SeqNum] = logEntry
@@ -779,6 +869,8 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	} else {
 		n.NextSeqNum = maxSeq + 1
 	}
+
+	n.applyCommittedEntries(prevAccepted, maxSeq)
 
 	// Send accepted confirmation back to leader for each entry we adopt
 	if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
@@ -841,6 +933,33 @@ func (n *Node) executeRequestsInOrder() {
 	}
 }
 
+func (n *Node) applyCommittedEntries(prevAccepted map[int]datatypes.LogEntry, maxSeq int) {
+	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
+		entry, exists := n.AcceptedLog[seqNum]
+		if !exists {
+			continue
+		}
+
+		if entry.Status == datatypes.StatusCommitted || entry.Status == datatypes.StatusExecuted {
+			if prevEntry, ok := prevAccepted[seqNum]; ok && prevEntry.Status == datatypes.StatusExecuted {
+				if entry.Status == datatypes.StatusCommitted {
+					entry.Status = datatypes.StatusExecuted
+					n.AcceptedLog[seqNum] = entry
+					for i := range n.RequestLog {
+						if n.RequestLog[i].SeqNum == seqNum {
+							n.RequestLog[i].Status = datatypes.StatusExecuted
+							break
+						}
+					}
+				}
+				continue
+			}
+
+			n.executeRequest(seqNum, entry.Request)
+		}
+	}
+}
+
 func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
 	if !n.ActiveNodes[n.ID] {
@@ -887,6 +1006,7 @@ func (n *Node) StartLeaderElection() bool {
 			AcceptNum: entry.Ballot,
 			SeqNum:    seqNum,
 			Request:   entry.Request,
+			Status:    entry.Status,
 		})
 	}
 	promises[n.ID] = datatypes.PromiseMsg{Ballot: ballot, AcceptLog: selfLog, Success: true}
@@ -989,6 +1109,11 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 			existing, exists := allEntries[entry.SeqNum]
 			if !exists || entry.AcceptNum.GreaterThan(existing.AcceptNum) {
 				allEntries[entry.SeqNum] = entry
+			} else if exists && entry.AcceptNum.Number == existing.AcceptNum.Number && entry.AcceptNum.NodeID == existing.AcceptNum.NodeID {
+				if statusRank(entry.Status) > statusRank(existing.Status) {
+					existing.Status = entry.Status
+					allEntries[entry.SeqNum] = existing
+				}
 			}
 		}
 	}
@@ -1015,9 +1140,12 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 			AcceptNum: n.CurrentBallot,
 			SeqNum:    seqNum,
 			Request:   noOpRequest,
+			Status:    datatypes.StatusAccepted,
 		}
 		acceptLog = append(acceptLog, noOpEntry)
 	}
+
+	prevAccepted := n.AcceptedLog
 
 	// Rebuild local canonical log based on acceptLog
 	if maxSeq == 0 {
@@ -1031,19 +1159,16 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		newRequestLog := make([]datatypes.LogEntry, 0, len(acceptLog))
 
 		for _, entry := range acceptLog {
+			status := entry.Status
+			if existing, ok := prevAccepted[entry.SeqNum]; ok {
+				status = maxStatus(status, existing.Status)
+			}
+
 			logEntry := datatypes.LogEntry{
 				Ballot:  entry.AcceptNum,
 				SeqNum:  entry.SeqNum,
 				Request: entry.Request,
-				Status:  datatypes.StatusAccepted,
-			}
-
-			if existing, ok := n.AcceptedLog[entry.SeqNum]; ok {
-				if existing.Status == datatypes.StatusExecuted {
-					logEntry.Status = datatypes.StatusExecuted
-				} else if existing.Status == datatypes.StatusCommitted {
-					logEntry.Status = datatypes.StatusCommitted
-				}
+				Status:  status,
 			}
 
 			newAcceptedLog[entry.SeqNum] = logEntry
@@ -1058,6 +1183,8 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		n.RequestLog = newRequestLog
 		n.NextSeqNum = maxSeq + 1
 	}
+
+	n.applyCommittedEntries(prevAccepted, maxSeq)
 
 	// Reset pending accepts to reflect new view
 	keepSeq := make(map[int]struct{}, len(acceptLog))
@@ -1095,6 +1222,82 @@ func (n *Node) sendNewViewMessages(msg datatypes.NewViewMsg) {
 			}(nodeID)
 		}
 	}
+}
+
+func (n *Node) buildStateSnapshot() datatypes.NewViewMsg {
+	n.mu.RLock()
+	defer n.mu.RUnlock()
+
+	seqs := make([]int, 0, len(n.AcceptedLog))
+	for seq := range n.AcceptedLog {
+		seqs = append(seqs, seq)
+	}
+	sort.Ints(seqs)
+
+	acceptLog := make([]datatypes.AcceptLogEntry, 0, len(seqs))
+	for _, seq := range seqs {
+		entry := n.AcceptedLog[seq]
+		acceptLog = append(acceptLog, datatypes.AcceptLogEntry{
+			AcceptNum: entry.Ballot,
+			SeqNum:    seq,
+			Request:   entry.Request,
+			Status:    entry.Status,
+		})
+	}
+
+	return datatypes.NewViewMsg{
+		Ballot:    n.CurrentBallot,
+		AcceptLog: acceptLog,
+	}
+}
+
+func (n *Node) sendStateSnapshot(targetID int) {
+	if targetID == n.ID {
+		return
+	}
+
+	snapshot := n.buildStateSnapshot()
+	var reply bool
+	if err := n.callRPC(targetID, "NewView", snapshot, &reply); err != nil {
+		log.Printf("Node %d: state snapshot to %d failed: %v", n.ID, targetID, err)
+	}
+}
+
+func (n *Node) requestStateSync() {
+	for attempt := 0; attempt < 5; attempt++ {
+		n.mu.RLock()
+		leaderID := n.CurrentBallot.NodeID
+		isLeader := n.IsLeader && n.ActiveNodes[n.ID]
+		leaderActive := leaderID != 0 && n.ActiveNodes[leaderID]
+		n.mu.RUnlock()
+
+		if isLeader {
+			return
+		}
+
+		if !leaderActive || leaderID == n.ID {
+			time.Sleep(300 * time.Millisecond)
+			continue
+		}
+
+		args := datatypes.StateTransferArgs{RequesterID: n.ID}
+		var reply datatypes.StateTransferReply
+		if err := n.callRPC(leaderID, "RequestStateTransfer", args, &reply); err != nil || !reply.Success {
+			time.Sleep(300 * time.Millisecond)
+			continue
+		}
+
+		var applied bool
+		if err := n.HandleNewView(reply.Snapshot, &applied); err != nil || !applied {
+			time.Sleep(300 * time.Millisecond)
+			continue
+		}
+
+		log.Printf("Node %d: synchronized state from leader %d (%d entries)", n.ID, leaderID, len(reply.Snapshot.AcceptLog))
+		return
+	}
+
+	log.Printf("Node %d: failed to synchronize state after retries", n.ID)
 }
 
 // Print Functions (Required by project specification)
@@ -1174,9 +1377,9 @@ func (s *NodeService) PrintView(_ bool, reply *string) error {
 			i+1, msg.Ballot.Number, msg.Ballot.NodeID, msg.Ballot.NodeID)
 		for _, acc := range msg.AcceptLog {
 			req := acc.Request.Transaction
-			fmt.Fprintf(&b, "  ⟨ACCEPT, (%d,%d), %d, (%s,%s,%d)⟩\n",
+			fmt.Fprintf(&b, "  ⟨ACCEPT, (%d,%d), %d, (%s,%s,%d) | Status %s⟩\n",
 				acc.AcceptNum.Number, acc.AcceptNum.NodeID,
-				acc.SeqNum, req.Sender, req.Receiver, req.Amount)
+				acc.SeqNum, req.Sender, req.Receiver, req.Amount, acc.Status)
 		}
 	}
 	*reply = b.String()

@@ -72,6 +72,7 @@ type AcceptLogEntry struct {
 	AcceptNum BallotNumber
 	SeqNum    int
 	Request   ClientRequest
+	Status    RequestStatus
 }
 
 type RequestStatus string
@@ -158,6 +159,15 @@ type HeartbeatMsg struct {
 	Ballot    BallotNumber
 	LeaderID  int
 	Timestamp int64
+}
+
+type StateTransferArgs struct {
+	RequesterID int
+}
+
+type StateTransferReply struct {
+	Snapshot NewViewMsg
+	Success  bool
 }
 
 // RPC Request/Reply types for client-node communication
