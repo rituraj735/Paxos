@@ -40,26 +40,25 @@ func flushBacklog() {
 		return
 	}
 
-	fmt.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
+	//fmt.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
 
 	i := 0
 	for i < len(backlog) {
 		tx := backlog[i]
 		c, ok := clients[tx.Sender]
 		if !ok {
-			fmt.Printf("Backlog: client %s not found; skipping\n", tx.Sender)
+			//fmt.Printf("Backlog: client %s not found; skipping\n", tx.Sender)
 			i++
 			continue
 		}
 
 		reply, err := c.SendTransaction(tx)
 		if err != nil || !reply.Success {
-			// still failed → keep for next round
+
 			i++
 			continue
 		}
 
-		// success → remove it
 		backlog = append(backlog[:i], backlog[i+1:]...)
 	}
 }
@@ -88,7 +87,7 @@ func main() {
 	}
 	filePath = strings.TrimSpace(filePath)
 	sets, err = ParseTxnSetsFromCSV(filePath)
-	fmt.Println(sets)
+
 	if err != nil {
 		log.Fatalf("Failed to parse CSV file: %v", err)
 	}
@@ -114,13 +113,10 @@ func main() {
 		case 2:
 			printLogFromNode(filePathReader)
 		case 3:
-			fmt.Println("PrintDB()")
 			printDBFromNode(filePathReader)
 		case 4:
-			fmt.Println("PrintStatus()")
 			printStatusFromNode(filePathReader)
 		case 5:
-			fmt.Println("PrintView()")
 			printViewFromAllNodes()
 		case 6:
 			fmt.Println("Exiting...")
@@ -133,7 +129,7 @@ func main() {
 }
 
 func ClientWorker(clientID int, inputChan <-chan string) {
-	fmt.Printf("Client %d started and listening for commands...\n", clientID)
+	//fmt.Printf("Client %d started and listening for commands...\n", clientID)
 
 	for txn := range inputChan {
 		fmt.Println(txn)
@@ -183,7 +179,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 			}
 		}
 
-		txnStr := strings.Trim(record[1], " \"()") //Cutset removes space, " and ( and )"
+		txnStr := strings.Trim(record[1], " \"()")
 
 		if strings.EqualFold(strings.TrimSpace(txnStr), "LF") {
 			currentSet.Txns = append(currentSet.Txns, datatypes.Txn{Sender: "__LF__", Receiver: "", Amount: 0})
@@ -202,10 +198,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 			currentSet.Txns = append(currentSet.Txns, txn)
 		}
 
-		//Handle the LF case here
-
-		// Find out the live nodes
-		if len(currentSet.Txns) == 1 { // Why 1? Because the very first row of txn has live nodes entry
+		if len(currentSet.Txns) == 1 {
 			nodesStr := strings.Trim(record[2], " \"[]")
 			nodeStrs := strings.Split(nodesStr, ",")
 			for _, nodeStr := range nodeStrs {
@@ -220,7 +213,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 	if currentSet.SetNumber != 0 {
 		sets = append(sets, currentSet)
 	}
-	// fmt.Println("set is here :", sets)
+
 	return sets, nil
 
 }
@@ -233,13 +226,12 @@ func triggerLeaderFailure() (int, error) {
 		return 0, fmt.Errorf("unable to determine current leader: %w", err)
 	}
 
-	fmt.Printf("LF: Disabling current leader Node %d across cluster...\n", currentLeader)
 	if err := disableLeaderAcrossCluster(currentLeader); err != nil {
 		return 0, fmt.Errorf("failed to disable leader Node %d: %w", currentLeader, err)
 	}
 
-	waitDuration := 1 * time.Second
-	fmt.Printf("LF: Waiting up to %s for new leader election...\n", waitDuration)
+	waitDuration := 8 * time.Second
+
 	newLeader, err := waitForNewLeader(currentLeader, waitDuration)
 	if err != nil {
 		return 0, err
@@ -252,8 +244,6 @@ func triggerLeaderFailure() (int, error) {
 	return newLeader, nil
 }
 
-// Ask the cluster who the current leader is.
-// Returns the leader ID if known; otherwise an error.
 func findCurrentLeader() (int, error) {
 	leaderCounts := make(map[int]int)
 
@@ -265,7 +255,7 @@ func findCurrentLeader() (int, error) {
 
 		client, err := rpc.Dial("tcp", address)
 		if err != nil {
-			continue // node might be down or partitioned
+			continue
 		}
 
 		var info datatypes.LeaderInfo
@@ -275,18 +265,15 @@ func findCurrentLeader() (int, error) {
 			continue
 		}
 
-		// If a node says *it* is leader, trust that immediately.
 		if info.IsLeader && info.LeaderID != 0 {
 			return info.LeaderID, nil
 		}
 
-		// Otherwise tally what it believes is the leader.
 		if info.LeaderID != 0 {
 			leaderCounts[info.LeaderID]++
 		}
 	}
 
-	// Fallback: pick the most commonly reported leader among responders.
 	bestLeader, bestCount := 0, 0
 	for id, cnt := range leaderCounts {
 		if cnt > bestCount {
@@ -299,7 +286,6 @@ func findCurrentLeader() (int, error) {
 	return bestLeader, nil
 }
 
-// Tell every node to mark `leaderID` as not live in its ActiveNodes map.
 func disableLeaderAcrossCluster(leaderID int) error {
 	var firstErr error
 
@@ -311,7 +297,7 @@ func disableLeaderAcrossCluster(leaderID int) error {
 
 		client, err := rpc.Dial("tcp", address)
 		if err != nil {
-			// keep the first error to return; continue trying others
+
 			if firstErr == nil {
 				firstErr = fmt.Errorf("node %d unreachable: %w", nodeID, err)
 			}
@@ -328,7 +314,6 @@ func disableLeaderAcrossCluster(leaderID int) error {
 	return firstErr
 }
 
-// Poll the cluster until a different leader than oldLeader appears, or time out.
 func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	deadline := time.Now().Add(timeout)
 	var lastObserved int
@@ -355,20 +340,12 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
-		fmt.Println("All sets have been processed.")
+
 		return
 	}
 
 	currentSet := sets[currentSetIndex]
-	fmt.Println("printing current set", currentSet)
-	fmt.Printf("\n========================================\n")
-	fmt.Printf("=== Processing Set %d ===\n", currentSet.SetNumber)
-	fmt.Printf("=========================================\n")
-	fmt.Printf("Live Nodes: %v\n", currentSet.LiveNodes)
-	fmt.Printf("Total transactions: %d\n", len(currentSet.Txns))
-	fmt.Printf("-----------------------------------------\n")
 
-	// Update ActiveNodes for all nodes in the cluster
 	for _, nodeID := range []int{1, 2, 3, 4, 5} {
 		isLive := false
 		for _, liveID := range currentSet.LiveNodes {
@@ -378,7 +355,6 @@ func processNextTestSet(reader *bufio.Reader) {
 			}
 		}
 
-		// Send an RPC to update that node's ActiveNodes map
 		for _, targetID := range []int{1, 2, 3, 4, 5} {
 			go func(targetID, nodeID int, live bool) {
 				address := config.NodeAddresses[targetID]
@@ -391,7 +367,7 @@ func processNextTestSet(reader *bufio.Reader) {
 				args := datatypes.UpdateNodeArgs{
 					NodeID: nodeID,
 					IsLive: live,
-				} // or define a struct like UpdateNodeStatusArgs
+				}
 				var reply bool
 				_ = client.Call("NodeService.UpdateActiveStatus", args, &reply)
 			}(targetID, nodeID, isLive)
@@ -406,15 +382,15 @@ func processNextTestSet(reader *bufio.Reader) {
 		fmt.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
 
 		if tx.Sender == lfSentinelSender {
-			fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
+			//fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
 			newLeader, err := triggerLeaderFailure()
 			if err != nil {
-				fmt.Printf("❌ LF failed: %v\n", err)
+				//fmt.Printf("❌ LF failed: %v\n", err)
 				failCount++
 			} else {
-				fmt.Printf("✅ LF succeeded: new leader elected -> Node %d\n", newLeader)
+				fmt.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
 			}
-			time.Sleep(8 * time.Second) // allow election to stabilize
+			time.Sleep(8 * time.Second)
 			continue
 		}
 
@@ -427,29 +403,28 @@ func processNextTestSet(reader *bufio.Reader) {
 
 		reply, err := c.SendTransaction(tx)
 		if err != nil {
-			fmt.Printf("Transaction failed: %v\n", err)
+
 			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
 				deferTxn(tx)
 			}
 			failCount++
 		} else if reply.Success {
-			fmt.Printf(" Success: %s (Seq: %d, Leader: Node %d)\n", reply.Message, reply.SeqNum, reply.Ballot.NodeID)
+
 			successCount++
 		} else {
-			fmt.Printf("Failed: %s\n", reply.Message)
+
 			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
 				deferTxn(tx)
 			}
 			failCount++
 		}
 
-		time.Sleep(200 * time.Millisecond) //Slight delay has been put for clarity
+		time.Sleep(200 * time.Millisecond)
 
 	}
 	currentSetIndex++
 }
 
-// printLogFromNode prompts for a node ID and fetches its log via RPC
 func printLogFromNode(reader *bufio.Reader) {
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
@@ -498,10 +473,8 @@ func printDBFromNode(reader *bufio.Reader) {
 	}
 	defer client.Close()
 
-	// var balances map[string]int
 	args := datatypes.PrintDBArgs{NodeID: nodeID}
 	var reply datatypes.PrintDBReply
-	fmt.Printf("\nRequesting database contents from Node %d..\n", nodeID)
 
 	err = client.Call("NodeService.PrintDB", args, &reply)
 	if err != nil {
@@ -509,18 +482,10 @@ func printDBFromNode(reader *bufio.Reader) {
 		return
 	}
 
-	fmt.Printf("Database contents from Node %d:\n", nodeID)
 	fmt.Println(reply.DBContents)
-	fmt.Printf("\n========================================\n")
-	fmt.Printf("Requesting PrintDB from Node %d...\n", nodeID)
-	fmt.Println("========================================")
 
-	fmt.Printf("⚠️  Note: PrintDB should be called directly on Node %d terminal\n", nodeID)
-	fmt.Printf("On Node %d terminal, enter command: 1 (Print Database)\n", nodeID)
-	fmt.Println("========================================")
 }
 
-// printStatusFromNode prompts for node ID and sequence number, then prints transaction status (A/C/E/X)
 func printStatusFromNode(reader *bufio.Reader) {
 
 	fmt.Print("Enter sequence number: ")

@@ -32,7 +32,7 @@ func main() {
 		log.Fatalf("Failed to start node %d: %v", nodeID, err)
 	}
 
-	log.Printf("Node %d started at %s\n", nodeID, config.NodeAddresses[nodeID])
+	//log.Printf("Node %d started at %s\n", nodeID, config.NodeAddresses[nodeID])
 
 	time.Sleep(2 * time.Second)
 

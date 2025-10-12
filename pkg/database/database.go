@@ -72,14 +72,10 @@ func (db *Database) PrintDB(nodeID int) string {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
 
-	// 1. Create a strings.Builder. This is like an efficient, mutable string.
 	var builder strings.Builder
 
-	// 2. Instead of printing, we write to the builder.
-	//    fmt.Sprintf formats the string without printing it.
 	builder.WriteString(fmt.Sprintf("=== Node %d Database State ===\n", nodeID))
 
-	// The logic for sorting clients remains exactly the same.
 	clients := make([]string, 0, len(db.Balances))
 	for client := range db.Balances {
 		clients = append(clients, client)
@@ -87,12 +83,11 @@ func (db *Database) PrintDB(nodeID int) string {
 	sort.Strings(clients)
 
 	for _, client := range clients {
-		// 3. Append each client's data to the builder.
+
 		builder.WriteString(fmt.Sprintf("%s: %d\n", client, db.Balances[client]))
 	}
 	builder.WriteString("\n")
 
-	// 4. Return the final, complete string from the builder.
 	return builder.String()
 }
 

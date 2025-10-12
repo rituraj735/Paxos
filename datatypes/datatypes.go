@@ -116,7 +116,7 @@ func (b BallotNumber) LessThan(other BallotNumber) bool {
 	return b.NodeID < other.NodeID
 }
 
-// Transaction represents a banking transaction
+// Txn is a tuple to represent (c, c', amt)
 type Txn struct {
 	Sender   string `json:"sender"`
 	Receiver string `json:"receiver"`
@@ -169,5 +169,3 @@ type StateTransferReply struct {
 	Snapshot NewViewMsg
 	Success  bool
 }
-
-// RPC Request/Reply types for client-node communication

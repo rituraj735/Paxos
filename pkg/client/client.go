@@ -47,7 +47,7 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 		return reply, nil
 	}
 
-	//If the request to current leader fails, try other nodes
+	//If the request to current leader fails, try other nodes in a broadcast manner
 	log.Printf("Client %s: Leader %d failed, trying all nodes now\n", c.ID, c.CurrentLeader)
 
 	for nodeID := range c.NodeAddresses {

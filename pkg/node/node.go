@@ -20,41 +20,37 @@ type Node struct {
 	Peers    map[int]string
 	IsLeader bool
 
-	//checkForLastHeartbeat kind of variable
+	lastProcessedView datatypes.BallotNumber
+
+	acceptedFromNewViewCount int
+
+	ackFromNewView map[int]bool
+
 	lastLeaderMsg time.Time
 
-	//Heartbeat
-	//lastHeartBeat    time.Time
 	electionCoolDown time.Time
-	// Paxos state
+
 	CurrentBallot   datatypes.BallotNumber
 	HighestPromised datatypes.BallotNumber
 	NextSeqNum      int
 
-	// Logs
 	AcceptedLog map[int]datatypes.LogEntry
 	RequestLog  []datatypes.LogEntry
 	NewViewMsgs []datatypes.NewViewMsg
 
-	// Client state
 	LastReply map[string]datatypes.ReplyMsg
 	Database  *database.Database
 
-	// RPC server
 	rpcServer *rpc.Server
 	listener  net.Listener
 
-	// Synchronization
 	mu sync.RWMutex
 
-	// For consensus tracking
 	pendingAccepts map[int]map[int]datatypes.AcceptedMsg
 
-	// Network partition simulation
 	ActiveNodes  map[int]bool
 	MajoritySize int
 
-	// Shutdown
 	shutdown chan bool
 }
 
@@ -101,9 +97,10 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		MajoritySize:    config.MajoritySize,
 		shutdown:        make(chan bool),
 		lastLeaderMsg:   time.Now(),
+		ackFromNewView:  make(map[int]bool),
 	}
 	go node.monitorLeaderTimeout()
-	// Initialize all clients with initial balance
+	// Initialize all clients with initial balance of 10
 	for _, clientID := range config.ClientIDs {
 		node.Database.InitializeClient(clientID, config.InitialBalance)
 	}
@@ -128,7 +125,7 @@ func (n *Node) monitorLeaderTimeout() {
 
 		if isLeader {
 			n.mu.Lock()
-			n.lastLeaderMsg = time.Now() // keep its own timer fresh
+			n.lastLeaderMsg = time.Now() // the leader keeps its own timer fresh
 			n.mu.Unlock()
 			continue
 		}
@@ -240,18 +237,15 @@ func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
 	now := time.Now()
 	leaderID := 0
 
-	// If *this* node is leader and active, report it confidently.
 	if s.node.IsLeader && s.node.ActiveNodes[s.node.ID] {
 		leaderID = s.node.ID
 	} else {
-		// Otherwise, only report the remembered leader if:
-		// 1) that leader is still marked active, and
-		// 2) its last heartbeat/new-view was recent (not timed out).
+
 		if s.node.ActiveNodes[s.node.CurrentBallot.NodeID] &&
 			now.Sub(s.node.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond {
 			leaderID = s.node.CurrentBallot.NodeID
 		} else {
-			leaderID = 0 // unknown / stale
+			leaderID = 0
 		}
 	}
 
@@ -263,9 +257,8 @@ func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
 	return nil
 }
 
-// RPC Service Methods
 func (ns *NodeService) HandleClientRequest(args datatypes.ClientRequestRPC, reply *datatypes.ClientReplyRPC) error {
-	fmt.Println("something reached handleClientRequest", args)
+	//fmt.Println("something reached handleClientRequest", args)
 	replyMsg := ns.node.ProcessClientRequest(args.Request)
 	reply.Reply = replyMsg
 	return nil
@@ -291,7 +284,8 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 	ns.node.mu.Lock()
 	defer ns.node.mu.Unlock()
 
-	if args.Ballot.Number != ns.node.CurrentBallot.Number || args.Ballot.NodeID != ns.node.CurrentBallot.NodeID {
+	if args.Ballot.Number != ns.node.CurrentBallot.Number ||
+		args.Ballot.NodeID != ns.node.CurrentBallot.NodeID {
 		*reply = args
 		return nil
 	}
@@ -299,7 +293,21 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 	if ns.node.pendingAccepts[args.SeqNum] == nil {
 		ns.node.pendingAccepts[args.SeqNum] = make(map[int]datatypes.AcceptedMsg)
 	}
-	ns.node.pendingAccepts[args.SeqNum][args.NodeID] = args
+
+	if _, exists := ns.node.pendingAccepts[args.SeqNum][args.NodeID]; !exists {
+		ns.node.pendingAccepts[args.SeqNum][args.NodeID] = args
+	}
+
+	if ns.node.ackFromNewView == nil {
+		ns.node.ackFromNewView = make(map[int]bool)
+	}
+
+	if !ns.node.ackFromNewView[args.NodeID] {
+		ns.node.ackFromNewView[args.NodeID] = true
+		ns.node.acceptedFromNewViewCount++
+		//log.Printf("Node %d ACCEPTED_FROM_NEWVIEW from Node %d (first ack for ballot (%d,%d))",
+		//	ns.node.ID, args.NodeID, args.Ballot.Number, args.Ballot.NodeID)
+	}
 
 	*reply = args
 	return nil
@@ -325,13 +333,13 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 	s.node.mu.Lock()
 	leaderDemoted, activated := s.node.setNodeLiveness(args.NodeID, args.IsLive)
 	isLeaderActive := s.node.IsLeader && s.node.ActiveNodes[s.node.ID]
-	activeSnapshot := fmt.Sprintf("%v", s.node.ActiveNodes)
+	//activeSnapshot := fmt.Sprintf("%v", s.node.ActiveNodes)
 	selfID := s.node.ID
 	s.node.mu.Unlock()
 
 	*reply = true
-	log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
-	log.Printf("Node %d: Active status updated -> %v", s.node.ID, activeSnapshot)
+	//log.Printf("Node %d: Active status set to %v", s.node.ID, args.IsLive)
+	//log.Printf("Node %d: Active status updated -> %v", s.node.ID, activeSnapshot)
 
 	if leaderDemoted && !args.IsLive && selfID != args.NodeID {
 		go s.node.StartLeaderElection()
@@ -520,7 +528,7 @@ func (n *Node) sendHeartbeats() {
 					var ack bool
 					err := n.callRPC(pid, "HandleHeartbeat", msg, &ack)
 					if err != nil {
-						log.Printf("Leader %d: heartbeat to %d failed: %v", n.ID, pid, err)
+						// log.Printf("Leader %d: heartbeat to %d failed: %v", n.ID, pid, err)
 					}
 				}(peerID)
 			}
@@ -532,8 +540,8 @@ func (n *Node) sendHeartbeats() {
 
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
 	n.mu.Lock()
-	fmt.Println("Inside processClientRequest")
-	// Check for duplicate request (exactly-once semantics)
+	//fmt.Println("Inside processClientRequest")
+	// Check for duplicate request to not process it again
 	if lastReply, exists := n.LastReply[request.ClientID]; exists {
 		if request.Timestamp <= lastReply.Timestamp {
 			n.mu.Unlock()
@@ -552,6 +560,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 	}
 
+	// Check if majority nodes are active
 	activeCount := 0
 	for _, active := range n.ActiveNodes {
 		if active {
@@ -559,11 +568,11 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 	}
 
-	fmt.Println("number of activeCount:", activeCount)
-	requiredMajority := n.majorityThresholdLocked()
+	//fmt.Printf("----number of activeCount:------- %d\n", activeCount)
 
-	if activeCount < requiredMajority {
-		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions", n.ID, activeCount, requiredMajority)
+	if activeCount < n.MajoritySize {
+		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions",
+			n.ID, activeCount, n.MajoritySize)
 		n.mu.Unlock()
 		return datatypes.ReplyMsg{
 			Ballot:    n.CurrentBallot,
@@ -584,6 +593,7 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		Request: request,
 	}
 
+	// Leader logs accepted entry
 	logEntry := datatypes.LogEntry{
 		Ballot:  n.CurrentBallot,
 		SeqNum:  seqNum,
@@ -615,7 +625,6 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 	n.mu.Unlock()
 
-	// Send accept messages to all peers
 	for nodeID := range n.Peers {
 		if nodeID != n.ID {
 			go func(id int) {
@@ -633,15 +642,14 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 	}
 
-	// Wait for majority accepts
+	// Wait for majority ACCEPTS to move forward
 	maxWait := 50
 	for i := 0; i < maxWait; i++ {
 		time.Sleep(10 * time.Millisecond)
 		n.mu.RLock()
 		acceptCount := len(n.pendingAccepts[seqNum])
 		n.mu.RUnlock()
-
-		if acceptCount >= n.majorityThreshold() {
+		if acceptCount >= n.MajoritySize {
 			break
 		}
 	}
@@ -650,14 +658,13 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 	acceptCount := len(n.pendingAccepts[seqNum])
 	n.mu.Unlock()
 
-	if acceptCount >= n.majorityThreshold() {
+	if acceptCount >= n.MajoritySize {
 		commitMsg := datatypes.CommitMsg{
 			Ballot:  n.CurrentBallot,
 			SeqNum:  seqNum,
 			Request: request,
 		}
 
-		// Send commit messages
 		for nodeID := range n.Peers {
 			if nodeID != n.ID {
 				go func(id int) {
@@ -667,9 +674,21 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 			}
 		}
 
-		// Execute locally
+		//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
+
+		//log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)",n.ID,seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
+
 		n.mu.Lock()
 		success, message := n.executeRequest(seqNum, request)
+		n.mu.Unlock()
+
+		// if success {
+		// 	log.Printf("Node %d: EXECUTED seq=%d SUCCESS (%s)", n.ID, seqNum, message)
+		// } else {
+		// 	log.Printf("Node %d: EXECUTION FAILED seq=%d (%s)", n.ID, seqNum, message)
+		// }
+
+		n.mu.Lock()
 		reply := datatypes.ReplyMsg{
 			Ballot:    n.CurrentBallot,
 			Timestamp: request.Timestamp,
@@ -699,6 +718,15 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 	n.lastLeaderMsg = time.Now()
 
 	defer n.mu.Unlock()
+
+	recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
+	if recent && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
+
+		*reply = datatypes.PromiseMsg{Ballot: args.Ballot, Success: false}
+		log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
+			n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
+		return nil
+	}
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
 		n.HighestPromised = args.Ballot
@@ -757,6 +785,9 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 		if !updated {
 			n.RequestLog = append(n.RequestLog, logEntry)
 		}
+		tx := args.Request.Transaction
+		log.Printf("Node %d ACCEPT seq=%d ballot=(%d,%d) txn=(%s→%s,%d)\n",
+			n.ID, args.SeqNum, args.Ballot.Number, args.Ballot.NodeID, tx.Sender, tx.Receiver, tx.Amount)
 
 		*reply = datatypes.AcceptedMsg{
 			Ballot:  args.Ballot,
@@ -773,41 +804,51 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	n.mu.Lock()
-	//n.lastHeartBeat = time.Now()
-	n.lastLeaderMsg = time.Now()
-
 	defer n.mu.Unlock()
 
+	n.lastLeaderMsg = time.Now()
+
+	// Check active nodes
 	activeCount := 0
 	for _, active := range n.ActiveNodes {
 		if active {
 			activeCount++
 		}
 	}
-
-	requiredMajority := n.majorityThresholdLocked()
-	if activeCount < requiredMajority {
-		log.Printf("Node %d: ignoring commit seq %d (active nodes %d, needed %d)", n.ID, args.SeqNum, activeCount, requiredMajority)
+	if activeCount < n.MajoritySize {
+		log.Printf("Node %d: ignoring commit seq=%d (active=%d, needed=%d)",
+			n.ID, args.SeqNum, activeCount, n.MajoritySize)
 		*reply = false
 		return nil
 	}
 
-	if entry, exists := n.AcceptedLog[args.SeqNum]; exists {
+	entry, exists := n.AcceptedLog[args.SeqNum]
+	if !exists {
+
+		entry = datatypes.LogEntry{
+			Ballot:  args.Ballot,
+			SeqNum:  args.SeqNum,
+			Request: args.Request,
+			Status:  datatypes.StatusCommitted,
+		}
+		n.AcceptedLog[args.SeqNum] = entry
+	} else {
 		entry.Status = datatypes.StatusCommitted
 		n.AcceptedLog[args.SeqNum] = entry
+	}
 
-		for i := range n.RequestLog {
-			if n.RequestLog[i].SeqNum == args.SeqNum && n.RequestLog[i].Ballot == args.Ballot {
-				n.RequestLog[i].Status = datatypes.StatusCommitted
-				break
-			}
+	for i := range n.RequestLog {
+		if n.RequestLog[i].SeqNum == args.SeqNum {
+			n.RequestLog[i].Status = datatypes.StatusCommitted
+			break
 		}
 	}
 
-	n.executeRequestsInOrder()
-	*reply = true
+	//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
 
-	log.Printf("Node %d: Committed seq %d\n", n.ID, args.SeqNum)
+	go n.executeRequestsInOrder()
+
+	*reply = true
 	return nil
 }
 
@@ -816,10 +857,16 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	defer n.mu.Unlock()
 
 	if args.Ballot.LessThan(n.HighestPromised) {
-		log.Printf("Node %d: Ignoring outdated New-View for ballot %v (current promise %v)", n.ID, args.Ballot, n.HighestPromised)
+		//log.Printf("Node %d: Ignoring outdated New-View for ballot %v (current promise %v)", n.ID, args.Ballot, n.HighestPromised)
 		*reply = false
 		return nil
 	}
+
+	if args.Ballot.Number == n.lastProcessedView.Number && args.Ballot.NodeID == n.lastProcessedView.NodeID {
+		*reply = true
+		return nil
+	}
+	n.lastProcessedView = args.Ballot
 
 	n.lastLeaderMsg = time.Now()
 	n.HighestPromised = args.Ballot
@@ -861,7 +908,6 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 	n.AcceptedLog = newAcceptedLog
 	n.RequestLog = newRequestLog
 
-	// New view supersedes any pending accepts from a previous leadership attempt.
 	n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
 
 	if maxSeq == 0 {
@@ -872,7 +918,6 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 
 	n.applyCommittedEntries(prevAccepted, maxSeq)
 
-	// Send accepted confirmation back to leader for each entry we adopt
 	if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
 		for _, entry := range args.AcceptLog {
 			go func(e datatypes.AcceptLogEntry) {
@@ -887,10 +932,11 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 			}(entry)
 		}
 	}
+	// Execute the entries from the new view here
+	go n.executeRequestsInOrder()
 
 	*reply = true
-	log.Printf("Node %d: Processed New-View from ballot %s with %d entries\n",
-		n.ID, args.Ballot, len(args.AcceptLog))
+	//log.Printf("Node %d: Processed New-View from ballot %s with %d entries\n",n.ID, args.Ballot, len(args.AcceptLog))
 	return nil
 }
 
@@ -903,6 +949,7 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 		return true, "no-op executed"
 	}
 
+	// Try applying the transaction
 	success, message := n.Database.ExecuteTransaction(request.Transaction)
 
 	if entry, exists := n.AcceptedLog[seqNum]; exists {
@@ -917,6 +964,12 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 		}
 	}
 
+	// if success {
+	// 	log.Printf("Node %d: EXECUTED seq=%d SUCCESS (%s→%s,%d)",n.ID, seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
+	// } else {
+	// 	log.Printf("Node %d: EXECUTION FAILED seq=%d (%s→%s,%d) — %s",n.ID, seqNum, request.Transaction.Sender, request.Transaction.Receiver, request.Transaction.Amount, message)
+	// }
+
 	return success, message
 }
 
@@ -927,7 +980,13 @@ func (n *Node) executeRequestsInOrder() {
 			break
 		}
 
+		if entry.Status == datatypes.StatusExecuted {
+			continue
+		}
+
 		if entry.Status == datatypes.StatusCommitted {
+			//log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)",n.ID, seqNum,entry.Request.Transaction.Sender,entry.Request.Transaction.Receiver,entry.Request.Transaction.Amount)
+
 			n.executeRequest(seqNum, entry.Request)
 		}
 	}
@@ -970,12 +1029,25 @@ func (n *Node) StartLeaderElection() bool {
 		n.mu.Unlock()
 		return false
 	}
-	n.CurrentBallot.Number++
+
+	// if n.CurrentBallot.Number <= n.HighestPromised.Number {
+	// 	n.CurrentBallot.Number = n.HighestPromised.Number + 1
+	// }
+
+	//log.Printf("Node %d: Starting election, current=%d, highestPromised=%d",n.ID, n.CurrentBallot.Number, n.HighestPromised.Number)
+
+	next := n.CurrentBallot.Number + 1
+	if next <= n.HighestPromised.Number {
+		next = n.HighestPromised.Number + 1
+	}
+	n.CurrentBallot.Number = next
+
+	//n.CurrentBallot.Number++
 	n.CurrentBallot.NodeID = n.ID
 	ballot := n.CurrentBallot
 	n.mu.Unlock()
 
-	log.Printf("Node %d: Starting leader election with ballot %s\n", n.ID, ballot)
+	//log.Printf("Node %d: Starting leader election with ballot %s\n", n.ID, ballot)
 
 	promises := make(map[int]datatypes.PromiseMsg)
 	promiseMu := sync.Mutex{}
@@ -1027,8 +1099,8 @@ func (n *Node) StartLeaderElection() bool {
 	promiseCount := len(promises)
 	promiseMu.Unlock()
 
-	requiredMajority := n.majorityThreshold()
-
+	//requiredMajority := n.majorityThreshold()
+	requiredMajority := config.MajoritySize
 	if promiseCount >= requiredMajority {
 		n.mu.Lock()
 		if !n.ActiveNodes[n.ID] {
@@ -1036,10 +1108,12 @@ func (n *Node) StartLeaderElection() bool {
 			return false
 		}
 		n.IsLeader = true
+		n.acceptedFromNewViewCount = 0
+		n.ackFromNewView = make(map[int]bool)
+
 		n.CurrentBallot = ballot
 		go n.sendHeartbeats()
-		log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",
-			n.ID, ballot, promiseCount)
+		//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
 
@@ -1050,14 +1124,29 @@ func (n *Node) StartLeaderElection() bool {
 		n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
 		n.mu.Unlock()
 
+		n.acceptedFromNewViewCount = 0
+
 		n.sendNewViewMessages(newViewMsg)
 
-		if len(acceptLog) == 0 {
-			return true
+		//log.Printf("Node %d: Waiting for majority AcceptedFromNewView responses...", n.ID)
+		deadline := time.Now().Add(3 * time.Second)
+		for time.Now().Before(deadline) {
+			n.mu.RLock()
+			count := n.acceptedFromNewViewCount
+			majority := n.MajoritySize
+			n.mu.RUnlock()
+			if count >= majority {
+				//log.Printf("Node %d: NewView accepted by majority (%d/%d), safe to proceed", n.ID, count, majority)
+				break
+			}
+			time.Sleep(100 * time.Millisecond)
 		}
 
-		// Wait for accepted responses and commit
-		time.Sleep(500 * time.Millisecond)
+		n.mu.RLock()
+		if n.acceptedFromNewViewCount < n.MajoritySize {
+			// log.Printf("Node %d: Proceeding with less than majority NewView confirmations (%d/%d)",n.ID, n.acceptedFromNewViewCount, n.MajoritySize)
+		}
+		n.mu.RUnlock()
 
 		for _, entry := range acceptLog {
 			n.mu.Lock()
@@ -1067,7 +1156,7 @@ func (n *Node) StartLeaderElection() bool {
 			}
 			n.mu.Unlock()
 
-			if acceptCount >= n.majorityThreshold() {
+			if acceptCount >= config.MajoritySize {
 				commitMsg := datatypes.CommitMsg{
 					Ballot:  ballot,
 					SeqNum:  entry.SeqNum,
@@ -1092,8 +1181,7 @@ func (n *Node) StartLeaderElection() bool {
 		return true
 	}
 
-	log.Printf("Node %d: Leader election failed (promises: %d, needed: %d)\n",
-		n.ID, promiseCount, requiredMajority)
+	// log.Printf("Node %d: Leader election failed (promises: %d, needed: %d)\n", n.ID, promiseCount, requiredMajority)
 	return false
 }
 
@@ -1110,6 +1198,7 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 			if !exists || entry.AcceptNum.GreaterThan(existing.AcceptNum) {
 				allEntries[entry.SeqNum] = entry
 			} else if exists && entry.AcceptNum.Number == existing.AcceptNum.Number && entry.AcceptNum.NodeID == existing.AcceptNum.NodeID {
+
 				if statusRank(entry.Status) > statusRank(existing.Status) {
 					existing.Status = entry.Status
 					allEntries[entry.SeqNum] = existing
@@ -1118,89 +1207,95 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		}
 	}
 
+	maxCommitted := 0
+	for _, e := range allEntries {
+		if e.Status == datatypes.StatusCommitted || e.Status == datatypes.StatusExecuted {
+			if e.SeqNum > maxCommitted {
+				maxCommitted = e.SeqNum
+			}
+		}
+	}
+
 	acceptLog := make([]datatypes.AcceptLogEntry, 0, maxSeq)
-	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
-		if entry, exists := allEntries[seqNum]; exists {
-			entry.AcceptNum = n.CurrentBallot
-			acceptLog = append(acceptLog, entry)
+	for seq := 1; seq <= maxSeq; seq++ {
+		if e, ok := allEntries[seq]; ok {
+
+			if e.AcceptNum.LessThan(n.CurrentBallot) {
+				e.AcceptNum = n.CurrentBallot
+			}
+			acceptLog = append(acceptLog, e)
 			continue
 		}
 
-		noOpRequest := datatypes.ClientRequest{
-			ClientID:  fmt.Sprintf("no-op-%d", seqNum),
-			Timestamp: time.Now().UnixNano(),
-			IsNoOp:    true,
-			Transaction: datatypes.Txn{
-				Sender:   "no-op",
-				Receiver: "no-op",
-				Amount:   0,
-			},
+		if seq <= maxCommitted {
+			noOpRequest := datatypes.ClientRequest{
+				ClientID:  fmt.Sprintf("no-op-%d", seq),
+				Timestamp: time.Now().UnixNano(),
+				IsNoOp:    true,
+				Transaction: datatypes.Txn{
+					Sender:   "no-op",
+					Receiver: "no-op",
+					Amount:   0,
+				},
+			}
+			noOp := datatypes.AcceptLogEntry{
+				AcceptNum: n.CurrentBallot,
+				SeqNum:    seq,
+				Request:   noOpRequest,
+				Status:    datatypes.StatusAccepted,
+			}
+			acceptLog = append(acceptLog, noOp)
 		}
-		noOpEntry := datatypes.AcceptLogEntry{
-			AcceptNum: n.CurrentBallot,
-			SeqNum:    seqNum,
-			Request:   noOpRequest,
-			Status:    datatypes.StatusAccepted,
-		}
-		acceptLog = append(acceptLog, noOpEntry)
 	}
 
 	prevAccepted := n.AcceptedLog
+	newAcceptedLog := make(map[int]datatypes.LogEntry, len(acceptLog))
+	newRequestLog := make([]datatypes.LogEntry, 0, len(acceptLog))
 
-	// Rebuild local canonical log based on acceptLog
+	for _, e := range acceptLog {
+		finalStatus := e.Status
+		if prev, ok := prevAccepted[e.SeqNum]; ok {
+			finalStatus = maxStatus(finalStatus, prev.Status)
+		}
+
+		logEntry := datatypes.LogEntry{
+			Ballot:  e.AcceptNum,
+			SeqNum:  e.SeqNum,
+			Request: e.Request,
+			Status:  finalStatus,
+		}
+		newAcceptedLog[e.SeqNum] = logEntry
+		newRequestLog = append(newRequestLog, logEntry)
+	}
+
+	sort.Slice(newRequestLog, func(i, j int) bool {
+		return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum
+	})
+
+	n.AcceptedLog = newAcceptedLog
+	n.RequestLog = newRequestLog
 	if maxSeq == 0 {
-		n.AcceptedLog = make(map[int]datatypes.LogEntry)
-		n.RequestLog = make([]datatypes.LogEntry, 0)
-		if n.NextSeqNum < 1 {
-			n.NextSeqNum = 1
-		}
+		n.NextSeqNum = 1
 	} else {
-		newAcceptedLog := make(map[int]datatypes.LogEntry, len(acceptLog))
-		newRequestLog := make([]datatypes.LogEntry, 0, len(acceptLog))
-
-		for _, entry := range acceptLog {
-			status := entry.Status
-			if existing, ok := prevAccepted[entry.SeqNum]; ok {
-				status = maxStatus(status, existing.Status)
-			}
-
-			logEntry := datatypes.LogEntry{
-				Ballot:  entry.AcceptNum,
-				SeqNum:  entry.SeqNum,
-				Request: entry.Request,
-				Status:  status,
-			}
-
-			newAcceptedLog[entry.SeqNum] = logEntry
-			newRequestLog = append(newRequestLog, logEntry)
-		}
-
-		sort.Slice(newRequestLog, func(i, j int) bool {
-			return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum
-		})
-
-		n.AcceptedLog = newAcceptedLog
-		n.RequestLog = newRequestLog
 		n.NextSeqNum = maxSeq + 1
 	}
 
 	n.applyCommittedEntries(prevAccepted, maxSeq)
 
-	// Reset pending accepts to reflect new view
 	keepSeq := make(map[int]struct{}, len(acceptLog))
-	for _, entry := range acceptLog {
-		keepSeq[entry.SeqNum] = struct{}{}
-		if n.pendingAccepts[entry.SeqNum] == nil {
-			n.pendingAccepts[entry.SeqNum] = make(map[int]datatypes.AcceptedMsg)
+	for _, e := range acceptLog {
+		keepSeq[e.SeqNum] = struct{}{}
+		if n.pendingAccepts[e.SeqNum] == nil {
+			n.pendingAccepts[e.SeqNum] = make(map[int]datatypes.AcceptedMsg)
 		} else {
-			for k := range n.pendingAccepts[entry.SeqNum] {
-				delete(n.pendingAccepts[entry.SeqNum], k)
+			for k := range n.pendingAccepts[e.SeqNum] {
+				delete(n.pendingAccepts[e.SeqNum], k)
 			}
 		}
-		n.pendingAccepts[entry.SeqNum][n.ID] = datatypes.AcceptedMsg{
+		n.pendingAccepts[e.SeqNum][n.ID] = datatypes.AcceptedMsg{
 			Ballot:  n.CurrentBallot,
-			SeqNum:  entry.SeqNum,
-			Request: entry.Request,
+			SeqNum:  e.SeqNum,
+			Request: e.Request,
 			NodeID:  n.ID,
 		}
 	}
@@ -1293,14 +1388,11 @@ func (n *Node) requestStateSync() {
 			continue
 		}
 
-		log.Printf("Node %d: synchronized state from leader %d (%d entries)", n.ID, leaderID, len(reply.Snapshot.AcceptLog))
 		return
 	}
 
-	log.Printf("Node %d: failed to synchronize state after retries", n.ID)
+	//log.Printf("Node %d: failed to synchronize state after retries", n.ID)
 }
-
-// Print Functions (Required by project specification)
 
 func (s *NodeService) PrintLog(_ bool, reply *string) error {
 	s.node.mu.RLock()
@@ -1323,19 +1415,15 @@ func (s *NodeService) PrintLog(_ bool, reply *string) error {
 	return nil
 }
 
-// PrintStatus returns the status (A, C, E, or X) of the transaction at a given sequence number.
-// PrintStatus returns the status (A, C, E, or X) of the transaction at a given sequence number.
 func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
 
-	// Self inactive? → return X (StatusNoStatus)
 	if !s.node.ActiveNodes[s.node.ID] {
 		*reply = fmt.Sprintf("Node %d inactive (Status: %s)", s.node.ID, datatypes.StatusNoStatus)
 		return nil
 	}
 
-	// 1️⃣ Check if sequence exists in AcceptedLog
 	if entry, exists := s.node.AcceptedLog[seqNum]; exists {
 		switch entry.Status {
 		case datatypes.StatusAccepted:
@@ -1353,7 +1441,6 @@ func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
 		}
 	}
 
-	// 2️⃣ If not in AcceptedLog, check if in RequestLog (leader may have appended but not yet accepted)
 	for _, entry := range s.node.RequestLog {
 		if entry.SeqNum == seqNum {
 			*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Pending/Accepted)", s.node.ID, seqNum, datatypes.StatusAccepted)
@@ -1361,7 +1448,6 @@ func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
 		}
 	}
 
-	// 3️⃣ If still not found
 	*reply = fmt.Sprintf("Node %d: Seq %d | Status: %s (Not Found)", s.node.ID, seqNum, datatypes.StatusNoStatus)
 	return nil
 }
@@ -1386,20 +1472,11 @@ func (s *NodeService) PrintView(_ bool, reply *string) error {
 	return nil
 }
 
-//  1. Define the argument and reply structs for the new RPC call.
-//     (You would add these in your datatypes package)
-//
-// In datatypes/types.go:
-
-// 2. Add the new method to your NodeService.
-// This is the public-facing "menu item".
 func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.PrintDBReply) error {
-	log.Printf("Node %d: Received RPC request to print DB.\n", ns.node.ID)
+	//log.Printf("Node %d: Received RPC request to print DB.\n", ns.node.ID)
 
-	// It calls the internal function to get the data.
 	dbContents := ns.node.Database.PrintDB(ns.node.ID)
 
-	// It populates the reply struct to send the data back to the client.
 	reply.DBContents = dbContents
 
 	return nil
