@@ -6,6 +6,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"multipaxos/rituraj735/config"
 	"multipaxos/rituraj735/pkg/node"
@@ -29,6 +30,20 @@ func main() {
 		fmt.Println("Invalid node ID. It should be between 1 and", config.NumNodes)
 		os.Exit(1)
 	}
+
+	logDir := "logs"
+	if err := os.MkdirAll(logDir, 0o755); err != nil {
+		log.Fatalf("failed to create log directory: %v", err)
+	}
+	logPath := fmt.Sprintf("%s/node-%d.log", logDir, nodeID)
+	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+	if err != nil {
+		log.Fatalf("failed to open log file %s: %v", logPath, err)
+	}
+	defer logFile.Close()
+	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	log.SetPrefix(fmt.Sprintf("[Node %d] ", nodeID))
 
 	n := node.NewNode(nodeID, config.NodeAddresses[nodeID], config.NodeAddresses)
 

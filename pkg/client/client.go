@@ -39,6 +39,8 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 	timestamp := c.LastTimestamp
 	c.mu.Unlock()
 
+	log.Printf("Client %s: sending txn %s with ts=%d (leader=%d)", c.ID, txn.String(), timestamp, c.GetCurrentLeader())
+
 	request := datatypes.ClientRequest{
 		MessageType: "REQUEST",
 		Transaction: txn,
@@ -50,8 +52,10 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 	// Send the request to the current leader first
 	reply, err := c.sendToNode(c.CurrentLeader, request)
 	if err == nil {
+		log.Printf("Client %s: leader %d succeeded for ts=%d seq=%d", c.ID, c.CurrentLeader, reply.Timestamp, reply.SeqNum)
 		return reply, nil
 	}
+	log.Printf("Client %s: leader %d request failed: %v", c.ID, c.CurrentLeader, err)
 
 	//If the request to current leader fails, try other nodes in a broadcast manner
 	log.Printf("Client %s: Leader %d failed, trying all nodes now\n", c.ID, c.CurrentLeader)
@@ -62,6 +66,7 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 		}
 		reply, err := c.sendToNode(nodeID, request)
 		if err == nil && reply.Success {
+			log.Printf("Client %s: node %d processed txn with new leader hint=%d", c.ID, nodeID, reply.Ballot.NodeID)
 			c.mu.Lock()
 			c.CurrentLeader = reply.Ballot.NodeID
 			c.mu.Unlock()
@@ -71,6 +76,7 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 		}
 	}
 
+	log.Printf("Client %s: no leader available for txn %s", c.ID, txn.String())
 	return datatypes.ReplyMsg{}, fmt.Errorf("No leader available")
 
 }
@@ -79,15 +85,18 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 func (c *Client) sendToNode(nodeID int, request datatypes.ClientRequest) (datatypes.ReplyMsg, error) {
 	address, exists := c.NodeAddresses[nodeID]
 	if !exists {
+		log.Printf("Client %s: node %d address missing", c.ID, nodeID)
 		return datatypes.ReplyMsg{}, fmt.Errorf("Node %d address not found", nodeID)
 	}
 
 	client, err := rpc.Dial("tcp", address)
 	if err != nil {
+		log.Printf("Client %s: dial to node %d(%s) failed: %v", c.ID, nodeID, address, err)
 		return datatypes.ReplyMsg{}, err
 	}
 
 	defer client.Close()
+	log.Printf("Client %s: sending request to node %d seq? pending ts=%d", c.ID, nodeID, request.Timestamp)
 
 	args := datatypes.ClientRequestRPC{Request: request}
 	var reply datatypes.ClientReplyRPC
@@ -100,10 +109,13 @@ func (c *Client) sendToNode(nodeID int, request datatypes.ClientRequest) (dataty
 	select {
 	case err := <-done:
 		if err != nil {
+			log.Printf("Client %s: node %d RPC error: %v", c.ID, nodeID, err)
 			return datatypes.ReplyMsg{}, err
 		}
+		log.Printf("Client %s: node %d replied success=%v seq=%d", c.ID, nodeID, reply.Reply.Success, reply.Reply.SeqNum)
 		return reply.Reply, nil
 	case <-time.After(config.ClientTimeout * time.Millisecond):
+		log.Printf("Client %s: timeout talking to node %d", c.ID, nodeID)
 		return datatypes.ReplyMsg{}, fmt.Errorf("Timeout while waiting for response from Node %d", nodeID)
 	}
 }

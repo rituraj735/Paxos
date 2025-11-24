@@ -86,6 +86,7 @@ func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
 
 // NewNode wires up a node with default state, DB, and leader monitor.
 func NewNode(id int, address string, peers map[int]string) *Node {
+	log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
 	node := &Node{
 		ID:              id,
 		Address:         address,
@@ -118,11 +119,13 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 	}
 	node.ActiveNodes[id] = true
 
+	log.Printf("Node %d: initialization complete (maj=%d)", id, node.MajoritySize)
 	return node
 }
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.
 func (n *Node) monitorLeaderTimeout() {
+	log.Printf("Node %d: leader timeout monitor running", n.ID)
 	for {
 		time.Sleep(200 * time.Millisecond)
 		n.mu.RLock()
@@ -164,6 +167,7 @@ func (n *Node) monitorLeaderTimeout() {
 
 		select {
 		case <-n.shutdown:
+			log.Printf("Node %d: leader timeout monitor exiting", n.ID)
 			return
 		default:
 		}
@@ -175,9 +179,10 @@ func (n *Node) StartRPCServer() error {
 	n.rpcServer = rpc.NewServer()
 	service := &NodeService{node: n}
 	n.rpcServer.Register(service)
-	fmt.Println("Listening RPC server at", n.Address)
+	log.Printf("Node %d: starting RPC server at %s", n.ID, n.Address)
 	listener, err := net.Listen("tcp", n.Address)
 	if err != nil {
+		log.Printf("Node %d: failed to listen on %s: %v", n.ID, n.Address, err)
 		return err
 	}
 	n.listener = listener
@@ -186,10 +191,12 @@ func (n *Node) StartRPCServer() error {
 		for {
 			select {
 			case <-n.shutdown:
+				log.Printf("Node %d: RPC server shutting down", n.ID)
 				return
 			default:
 				conn, err := listener.Accept()
 				if err != nil {
+					log.Printf("Node %d: accept error: %v", n.ID, err)
 					continue
 				}
 				go n.rpcServer.ServeConn(conn)
@@ -202,6 +209,7 @@ func (n *Node) StartRPCServer() error {
 
 // Stop shuts down network listeners and background goroutines.
 func (n *Node) Stop() {
+	log.Printf("Node %d: stopping node", n.ID)
 	close(n.shutdown)
 	if n.listener != nil {
 		n.listener.Close()
@@ -213,9 +221,11 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 	n.mu.RLock()
 	if !n.ActiveNodes[nodeID] {
 		n.mu.RUnlock()
+		log.Printf("Node %d: skipping RPC %s to inactive node %d", n.ID, method, nodeID)
 		return fmt.Errorf("node %d is not active", nodeID)
 	}
 	n.mu.RUnlock()
+	log.Printf("Node %d: RPC %s->node %d", n.ID, method, nodeID)
 
 	address, exists := n.Peers[nodeID]
 	if !exists {
@@ -224,6 +234,7 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 
 	client, err := rpc.Dial("tcp", address)
 	if err != nil {
+		log.Printf("Node %d: RPC dial %s to node %d failed: %v", n.ID, method, nodeID, err)
 		return err
 	}
 	defer client.Close()
@@ -235,14 +246,19 @@ func (n *Node) callRPC(nodeID int, method string, args interface{}, reply interf
 
 	select {
 	case err := <-done:
+		if err != nil {
+			log.Printf("Node %d: RPC %s to node %d error: %v", n.ID, method, nodeID, err)
+		}
 		return err
 	case <-time.After(1 * time.Second):
+		log.Printf("Node %d: RPC %s to node %d timed out", n.ID, method, nodeID)
 		return fmt.Errorf("RPC timeout")
 	}
 }
 
 // GetLeader reports the node's view of the current leader and ballot.
 func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
+	log.Printf("Node %d: GetLeader RPC invoked", s.node.ID)
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
 
@@ -272,6 +288,7 @@ func (s *NodeService) GetLeader(_ bool, reply *datatypes.LeaderInfo) error {
 // HandleClientRequest routes client traffic into the node's consensus pipeline.
 func (ns *NodeService) HandleClientRequest(args datatypes.ClientRequestRPC, reply *datatypes.ClientReplyRPC) error {
 	//fmt.Println("something reached handleClientRequest", args)
+	log.Printf("Node %d: HandleClientRequest type=%s client=%s ts=%d", ns.node.ID, args.Request.MessageType, args.Request.ClientID, args.Request.Timestamp)
 	replyMsg := ns.node.ProcessClientRequest(args.Request)
 	reply.Reply = replyMsg
 	return nil
@@ -279,26 +296,31 @@ func (ns *NodeService) HandleClientRequest(args datatypes.ClientRequestRPC, repl
 
 // Prepare handles Phase-1 prepare RPCs during leader election.
 func (ns *NodeService) Prepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
+	log.Printf("Node %d: Prepare RPC from ballot (%d,%d)", ns.node.ID, args.Ballot.Number, args.Ballot.NodeID)
 	return ns.node.HandlePrepare(args, reply)
 }
 
 // Accept handles Phase-2 accept RPCs from the leader.
 func (ns *NodeService) Accept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
+	log.Printf("Node %d: Accept RPC seq=%d ballot=(%d,%d)", ns.node.ID, args.SeqNum, args.Ballot.Number, args.Ballot.NodeID)
 	return ns.node.HandleAccept(args, reply)
 }
 
 // Commit records a leader's commit notification for a sequence number.
 func (ns *NodeService) Commit(args datatypes.CommitMsg, reply *bool) error {
+	log.Printf("Node %d: Commit RPC seq=%d ballot=(%d,%d)", ns.node.ID, args.SeqNum, args.Ballot.Number, args.Ballot.NodeID)
 	return ns.node.HandleCommit(args, reply)
 }
 
 // NewView ingests the leader's accepted log during view changes.
 func (ns *NodeService) NewView(args datatypes.NewViewMsg, reply *bool) error {
+	log.Printf("Node %d: NewView RPC ballot=(%d,%d) entries=%d", ns.node.ID, args.Ballot.Number, args.Ballot.NodeID, len(args.AcceptLog))
 	return ns.node.HandleNewView(args, reply)
 }
 
 // AcceptedFromNewView acknowledges acceptance of entries during recovery.
 func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *datatypes.AcceptedMsg) error {
+	log.Printf("Node %d: AcceptedFromNewView from node %d seq=%d", ns.node.ID, args.NodeID, args.SeqNum)
 	ns.node.mu.Lock()
 	defer ns.node.mu.Unlock()
 
@@ -333,6 +355,7 @@ func (ns *NodeService) AcceptedFromNewView(args datatypes.AcceptedMsg, reply *da
 
 // RequestStateTransfer lets lagging nodes fetch a snapshot from the leader.
 func (ns *NodeService) RequestStateTransfer(args datatypes.StateTransferArgs, reply *datatypes.StateTransferReply) error {
+	log.Printf("Node %d: RequestStateTransfer from node %d", ns.node.ID, args.RequesterID)
 	ns.node.mu.RLock()
 	isLeaderActive := ns.node.IsLeader && ns.node.ActiveNodes[ns.node.ID]
 	ns.node.mu.RUnlock()
@@ -350,6 +373,7 @@ func (ns *NodeService) RequestStateTransfer(args datatypes.StateTransferArgs, re
 
 // UpdateActiveStatus toggles a node's liveness entry and triggers sync/election.
 func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *bool) error {
+	log.Printf("Node %d: UpdateActiveStatus node=%d live=%v", s.node.ID, args.NodeID, args.IsLive)
 	s.node.mu.Lock()
 	leaderDemoted, activated := s.node.setNodeLiveness(args.NodeID, args.IsLive)
 	isLeaderActive := s.node.IsLeader && s.node.ActiveNodes[s.node.ID]
@@ -377,6 +401,7 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 
 // UpdateActiveStatusForBulk applies liveness changes for many nodes at once.
 func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStatusArgs, reply *bool) error {
+	log.Printf("Node %d: Bulk active update request (%d entries)", s.node.ID, len(args.Active))
 	s.node.mu.Lock()
 	leaderDemoted := false
 	activatedNodes := make([]int, 0)
@@ -417,6 +442,7 @@ func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStat
 func (n *Node) SetActiveNodes(activeNodeIDs []int) {
 	n.mu.Lock()
 	defer n.mu.Unlock()
+	log.Printf("Node %d: SetActiveNodes %v", n.ID, activeNodeIDs)
 
 	for nodeID := range n.ActiveNodes {
 		n.ActiveNodes[nodeID] = false
@@ -443,6 +469,7 @@ func (n *Node) calcMajorityFromActive(activeCount int) int {
 	if maj < 1 {
 		maj = 1
 	}
+	log.Printf("Node %d: calc majority from active=%d => %d", n.ID, activeCount, maj)
 	return maj
 }
 
@@ -454,7 +481,9 @@ func (n *Node) majorityThresholdLocked() int {
 			activeCount++
 		}
 	}
-	return n.calcMajorityFromActive(activeCount)
+	threshold := n.calcMajorityFromActive(activeCount)
+	log.Printf("Node %d: majorityThresholdLocked active=%d threshold=%d", n.ID, activeCount, threshold)
+	return threshold
 }
 
 // majorityThreshold safely returns the majority threshold.
@@ -466,6 +495,7 @@ func (n *Node) majorityThreshold() int {
 
 // setNodeLiveness updates a node's status and returns leaderDemoted/becameActive.
 func (n *Node) setNodeLiveness(nodeID int, isLive bool) (bool, bool) {
+	log.Printf("Node %d: setNodeLiveness node=%d live=%v", n.ID, nodeID, isLive)
 	prev, existed := n.ActiveNodes[nodeID]
 	n.ActiveNodes[nodeID] = isLive
 
@@ -506,6 +536,7 @@ func (n *Node) GetIsLeader() bool {
 
 // HandleHeartbeat refreshes leader liveness info and ballot tracking.
 func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) error {
+	log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
 	n.node.mu.Lock()
 	defer n.node.mu.Unlock()
 
@@ -529,6 +560,7 @@ func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) e
 func (n *Node) sendHeartbeats() {
 	ticker := time.NewTicker(500 * time.Millisecond)
 	defer ticker.Stop()
+	log.Printf("Node %d: heartbeat loop started", n.ID)
 
 	for {
 		select {
@@ -563,6 +595,7 @@ func (n *Node) sendHeartbeats() {
 				}(peerID)
 			}
 		case <-n.shutdown:
+			log.Printf("Node %d: heartbeat loop exiting", n.ID)
 			return
 		}
 	}
@@ -571,6 +604,7 @@ func (n *Node) sendHeartbeats() {
 // ProcessClientRequest validates leader status and drives accept/commit.
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
 	n.mu.Lock()
+	log.Printf("Node %d: ProcessClientRequest client=%s ts=%d no-op=%v", n.ID, request.ClientID, request.Timestamp, request.IsNoOp)
 	//fmt.Println("Inside processClientRequest")
 	// Check for duplicate request to not process it again
 	if lastReply, exists := n.LastReply[request.ClientID]; exists {
@@ -730,10 +764,12 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 		n.LastReply[request.ClientID] = reply
 		n.mu.Unlock()
+		log.Printf("Node %d: ProcessClientRequest seq=%d success=%v msg=%s", n.ID, seqNum, success, message)
 
 		return reply
 	}
 
+	log.Printf("Node %d: consensus failed for client=%s ts=%d", n.ID, request.ClientID, request.Timestamp)
 	return datatypes.ReplyMsg{
 		Ballot:    n.CurrentBallot,
 		Timestamp: request.Timestamp,
@@ -1011,9 +1047,11 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 
 // executeRequestsInOrder walks committed entries sequentially and executes them.
 func (n *Node) executeRequestsInOrder() {
+	log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
 	for seqNum := 1; ; seqNum++ {
 		entry, exists := n.AcceptedLog[seqNum]
 		if !exists {
+			log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d", n.ID, seqNum)
 			break
 		}
 
@@ -1031,6 +1069,7 @@ func (n *Node) executeRequestsInOrder() {
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
 func (n *Node) applyCommittedEntries(prevAccepted map[int]datatypes.LogEntry, maxSeq int) {
+	log.Printf("Node %d: applyCommittedEntries up to seq=%d", n.ID, maxSeq)
 	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
 		entry, exists := n.AcceptedLog[seqNum]
 		if !exists {
@@ -1060,6 +1099,7 @@ func (n *Node) applyCommittedEntries(prevAccepted map[int]datatypes.LogEntry, ma
 // StartLeaderElection initiates Paxos phase-1 to try becoming leader.
 func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
+	log.Printf("Node %d: StartLeaderElection invoked (leader=%v active=%v)", n.ID, n.IsLeader, n.ActiveNodes[n.ID])
 	if !n.ActiveNodes[n.ID] {
 		n.mu.Unlock()
 		return false
@@ -1086,7 +1126,7 @@ func (n *Node) StartLeaderElection() bool {
 	ballot := n.CurrentBallot
 	n.mu.Unlock()
 
-	//log.Printf("Node %d: Starting leader election with ballot %s\n", n.ID, ballot)
+	log.Printf("Node %d: Starting leader election with ballot %s", n.ID, ballot)
 
 	promises := make(map[int]datatypes.PromiseMsg)
 	promiseMu := sync.Mutex{}
@@ -1217,15 +1257,17 @@ func (n *Node) StartLeaderElection() bool {
 			}
 		}
 
+		log.Printf("Node %d: leader election success with ballot %s", n.ID, ballot)
 		return true
 	}
 
-	// log.Printf("Node %d: Leader election failed (promises: %d, needed: %d)\n", n.ID, promiseCount, requiredMajority)
+	log.Printf("Node %d: leader election failed (promises=%d need=%d)", n.ID, promiseCount, requiredMajority)
 	return false
 }
 
 // createNewViewFromPromises merges promise logs into a consolidated accept log.
 func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) []datatypes.AcceptLogEntry {
+	log.Printf("Node %d: creating new view from %d promises", n.ID, len(promises))
 	allEntries := make(map[int]datatypes.AcceptLogEntry)
 	maxSeq := 0
 
@@ -1345,11 +1387,13 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		}
 	}
 
+	log.Printf("Node %d: new view constructed with %d entries (maxSeq=%d)", n.ID, len(acceptLog), maxSeq)
 	return acceptLog
 }
 
 // sendNewViewMessages distributes the leader's view-change log to peers.
 func (n *Node) sendNewViewMessages(msg datatypes.NewViewMsg) {
+	log.Printf("Node %d: broadcasting NewView ballot=%s entries=%d", n.ID, msg.Ballot.String(), len(msg.AcceptLog))
 	for nodeID := range n.Peers {
 		if nodeID != n.ID {
 			go func(id int) {
@@ -1364,6 +1408,7 @@ func (n *Node) sendNewViewMessages(msg datatypes.NewViewMsg) {
 func (n *Node) buildStateSnapshot() datatypes.NewViewMsg {
 	n.mu.RLock()
 	defer n.mu.RUnlock()
+	log.Printf("Node %d: buildStateSnapshot generating from %d entries", n.ID, len(n.AcceptedLog))
 
 	seqs := make([]int, 0, len(n.AcceptedLog))
 	for seq := range n.AcceptedLog {
@@ -1382,10 +1427,12 @@ func (n *Node) buildStateSnapshot() datatypes.NewViewMsg {
 		})
 	}
 
-	return datatypes.NewViewMsg{
+	snapshot := datatypes.NewViewMsg{
 		Ballot:    n.CurrentBallot,
 		AcceptLog: acceptLog,
 	}
+	log.Printf("Node %d: snapshot ready entries=%d ballot=%s", n.ID, len(acceptLog), snapshot.Ballot.String())
+	return snapshot
 }
 
 // sendStateSnapshot pushes the latest snapshot to a specific follower.
@@ -1395,6 +1442,7 @@ func (n *Node) sendStateSnapshot(targetID int) {
 	}
 
 	snapshot := n.buildStateSnapshot()
+	log.Printf("Node %d: sending snapshot entries=%d to node %d", n.ID, len(snapshot.AcceptLog), targetID)
 	var reply bool
 	if err := n.callRPC(targetID, "NewView", snapshot, &reply); err != nil {
 		log.Printf("Node %d: state snapshot to %d failed: %v", n.ID, targetID, err)
@@ -1403,6 +1451,7 @@ func (n *Node) sendStateSnapshot(targetID int) {
 
 // requestStateSync asks the leader for a snapshot to catch up after downtime.
 func (n *Node) requestStateSync() {
+	log.Printf("Node %d: initiating state sync attempts", n.ID)
 	for attempt := 0; attempt < 5; attempt++ {
 		n.mu.RLock()
 		leaderID := n.CurrentBallot.NodeID
@@ -1411,10 +1460,12 @@ func (n *Node) requestStateSync() {
 		n.mu.RUnlock()
 
 		if isLeader {
+			log.Printf("Node %d: aborting state sync because self is leader", n.ID)
 			return
 		}
 
 		if !leaderActive || leaderID == n.ID {
+			log.Printf("Node %d: state sync attempt %d waiting for active leader", n.ID, attempt+1)
 			time.Sleep(300 * time.Millisecond)
 			continue
 		}
@@ -1422,24 +1473,29 @@ func (n *Node) requestStateSync() {
 		args := datatypes.StateTransferArgs{RequesterID: n.ID}
 		var reply datatypes.StateTransferReply
 		if err := n.callRPC(leaderID, "RequestStateTransfer", args, &reply); err != nil || !reply.Success {
+			log.Printf("Node %d: state transfer request attempt %d failed: %v success=%v", n.ID, attempt+1, err, reply.Success)
 			time.Sleep(300 * time.Millisecond)
 			continue
 		}
 
 		var applied bool
 		if err := n.HandleNewView(reply.Snapshot, &applied); err != nil || !applied {
+			log.Printf("Node %d: apply snapshot attempt %d failed: %v applied=%v", n.ID, attempt+1, err, applied)
 			time.Sleep(300 * time.Millisecond)
 			continue
 		}
 
+		log.Printf("Node %d: state sync completed", n.ID)
 		return
 	}
 
 	//log.Printf("Node %d: failed to synchronize state after retries", n.ID)
+	log.Printf("Node %d: failed to synchronize state after retries", n.ID)
 }
 
 // PrintLog dumps the node's request log via RPC.
 func (s *NodeService) PrintLog(_ bool, reply *string) error {
+	log.Printf("Node %d: PrintLog RPC invoked", s.node.ID)
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
 
@@ -1462,6 +1518,7 @@ func (s *NodeService) PrintLog(_ bool, reply *string) error {
 
 // PrintStatus reports the consensus status of a sequence number.
 func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
+	log.Printf("Node %d: PrintStatus RPC for seq=%d", s.node.ID, seqNum)
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
 
@@ -1500,6 +1557,7 @@ func (s *NodeService) PrintStatus(seqNum int, reply *string) error {
 
 // PrintView lists processed new-view messages for inspection.
 func (s *NodeService) PrintView(_ bool, reply *string) error {
+	log.Printf("Node %d: PrintView RPC invoked", s.node.ID)
 	s.node.mu.RLock()
 	defer s.node.mu.RUnlock()
 
@@ -1522,6 +1580,7 @@ func (s *NodeService) PrintView(_ bool, reply *string) error {
 // PrintDB returns the node's database contents over RPC.
 func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.PrintDBReply) error {
 	//log.Printf("Node %d: Received RPC request to print DB.\n", ns.node.ID)
+	log.Printf("Node %d: PrintDB RPC invoked", ns.node.ID)
 
 	dbContents := ns.node.Database.PrintDB(ns.node.ID)
 

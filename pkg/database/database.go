@@ -6,6 +6,7 @@ package database
 
 import (
 	"fmt"
+	"log"
 	"multipaxos/rituraj735/datatypes"
 	"sort"
 	"strings"
@@ -19,6 +20,7 @@ type Database struct {
 
 // NewDatabase creates a new empty balance store.
 func NewDatabase() *Database {
+	log.Printf("[Database] initializing new in-memory store")
 	return &Database{
 		Balances: make(map[string]int),
 	}
@@ -29,19 +31,23 @@ func (db *Database) InitializeClient(clientID string, balance int) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 	db.Balances[clientID] = balance
+	log.Printf("[Database] client %s initialized with balance %d", clientID, balance)
 }
 
 // ExecuteTransaction debits sender and credits receiver if funds exist.
 func (db *Database) ExecuteTransaction(tx datatypes.Txn) (bool, string) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
+	log.Printf("[Database] executing txn %s", tx.String())
 
 	senderBalance, senderExists := db.Balances[tx.Sender]
 	if !senderExists {
+		log.Printf("[Database] txn failed: sender %s missing", tx.Sender)
 		return false, "sender does not exist"
 	}
 
 	if senderBalance < tx.Amount {
+		log.Printf("[Database] txn failed: sender %s insufficient balance %d (amt %d)", tx.Sender, senderBalance, tx.Amount)
 		return false, "insufficient balance"
 	}
 
@@ -52,6 +58,7 @@ func (db *Database) ExecuteTransaction(tx datatypes.Txn) (bool, string) {
 	db.Balances[tx.Sender] -= tx.Amount
 	db.Balances[tx.Receiver] += tx.Amount
 
+	log.Printf("[Database] txn success: %s -> %s amount %d", tx.Sender, tx.Receiver, tx.Amount)
 	return true, "success"
 }
 
@@ -59,7 +66,9 @@ func (db *Database) ExecuteTransaction(tx datatypes.Txn) (bool, string) {
 func (db *Database) GetBalance(clientID string) int {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
-	return db.Balances[clientID]
+	bal := db.Balances[clientID]
+	log.Printf("[Database] queried balance %s=%d", clientID, bal)
+	return bal
 }
 
 // PrintDB renders the database contents for a node.
@@ -97,13 +106,16 @@ func (db *Database) PrintDB(nodeID int) string {
 	}
 	builder.WriteString("\n")
 
-	return builder.String()
+	report := builder.String()
+	log.Printf("[Database] printing DB for node %d (%d accounts)", nodeID, len(clients))
+	return report
 }
 
 // GetAllBalances returns a copy of all balances.
 func (db *Database) GetAllBalances() map[string]int {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
+	log.Printf("[Database] snapshotting %d balances", len(db.Balances))
 
 	balances := make(map[string]int)
 	for client, balance := range db.Balances {
