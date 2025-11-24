@@ -798,20 +798,23 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 // HandlePrepare responds to prepare RPCs with promises and prior log state.
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
-	n.mu.Lock()
-	//n.lastHeartBeat = time.Now()
-	n.lastLeaderMsg = time.Now()
+    n.mu.Lock()
+    // Do not refresh lastLeaderMsg here; only heartbeats should extend leader recency
 
-	defer n.mu.Unlock()
+    defer n.mu.Unlock()
 
-	recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
-	if recent && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
-
-		*reply = datatypes.PromiseMsg{Ballot: args.Ballot, Success: false}
-		log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
-			n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
-		return nil
-	}
+    recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
+    if recent && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
+        // Reject with higher ballot hint so candidate can jump ahead
+        higher := n.HighestPromised
+        if n.CurrentBallot.GreaterThan(higher) {
+            higher = n.CurrentBallot
+        }
+        *reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
+        log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
+            n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
+        return nil
+    }
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
 		n.HighestPromised = args.Ballot
@@ -834,22 +837,23 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 		log.Printf("Node %d: Promised ballot %s\n", n.ID, args.Ballot)
 	} else {
-		*reply = datatypes.PromiseMsg{
-			Ballot:  args.Ballot,
-			Success: false,
-		}
-	}
+        // Nack with highest promised so proposer can bump above it
+        higher := n.HighestPromised
+        if n.CurrentBallot.GreaterThan(higher) {
+            higher = n.CurrentBallot
+        }
+        *reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
+    }
 
-	return nil
+    return nil
 }
 
 // HandleAccept stores a leader's proposal when the ballot is acceptable.
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
-	n.mu.Lock()
-	//n.lastHeartBeat = time.Now()
-	n.lastLeaderMsg = time.Now()
+    n.mu.Lock()
+    // Do not refresh lastLeaderMsg here; heartbeats keep recency
 
-	defer n.mu.Unlock()
+    defer n.mu.Unlock()
 
 	// If this node is marked inactive, ignore accept requests
 	if !n.ActiveNodes[n.ID] {
@@ -905,10 +909,9 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 // HandleCommit marks an entry committed and triggers execution ordering.
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
-	n.mu.Lock()
-	defer n.mu.Unlock()
-
-	n.lastLeaderMsg = time.Now()
+    n.mu.Lock()
+    defer n.mu.Unlock()
+    // Do not refresh lastLeaderMsg here; heartbeats keep recency
 
 	// If this node is marked inactive, ignore commit to keep it unchanged
 	if !n.ActiveNodes[n.ID] {
