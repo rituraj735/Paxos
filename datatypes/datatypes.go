@@ -1,3 +1,7 @@
+// =======================================
+// File: datatypes/datatypes.go
+// Description: All RPC payloads, consensus structs, and helper types shared by nodes and clients.
+// =======================================
 package datatypes
 
 import (

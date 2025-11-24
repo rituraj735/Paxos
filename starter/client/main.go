@@ -1,3 +1,7 @@
+// =======================================
+// File: starter/client/main.go
+// Description: CLI driver that parses CSV test sets, orchestrates liveness changes, and submits txns.
+// =======================================
 package main
 
 import (

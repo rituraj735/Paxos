@@ -1,3 +1,7 @@
+// =======================================
+// File: pkg/node/node.go
+// Description: Multi-Paxos replica with leader election, RPC handlers, log management, and execution.
+// =======================================
 package node
 
 import (

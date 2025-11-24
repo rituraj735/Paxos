@@ -1,3 +1,7 @@
+// =======================================
+// File: pkg/client/client.go
+// Description: Client implementation that submits transactions, tracks leaders, and retries on failure.
+// =======================================
 package client
 
 import (

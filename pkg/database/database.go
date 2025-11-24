@@ -1,3 +1,7 @@
+// =======================================
+// File: pkg/database/database.go
+// Description: Thread-safe in-memory ledger supporting transaction execution and inspection.
+// =======================================
 package database
 
 import (

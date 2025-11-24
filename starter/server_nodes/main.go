@@ -1,3 +1,7 @@
+// =======================================
+// File: starter/server_nodes/main.go
+// Description: Entry point to launch and supervise an individual Paxos node process.
+// =======================================
 package main
 
 import (
