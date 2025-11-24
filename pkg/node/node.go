@@ -513,9 +513,19 @@ func (n *Node) setNodeLiveness(nodeID int, isLive bool) (bool, bool) {
 		leaderDemoted = true
 	}
 
-	if isLive && nodeID == n.ID {
-		n.lastLeaderMsg = time.Now()
-	}
+    if isLive && nodeID == n.ID {
+        // On self reactivation, trigger prompt election only if no known active leader.
+        leaderID := n.CurrentBallot.NodeID
+        if leaderID != 0 && n.ActiveNodes[leaderID] {
+            // A leader is believed active; keep timer fresh to avoid unnecessary elections.
+            n.lastLeaderMsg = time.Now()
+        } else {
+            // No known active leader — make timeout appear expired and clear cooldown
+            // so monitorLeaderTimeout can start an election promptly.
+            n.lastLeaderMsg = time.Now().Add(-2 * time.Duration(config.LeaderTimeout) * time.Millisecond)
+            n.electionCoolDown = time.Time{}
+        }
+    }
 
 	return leaderDemoted, becameActive
 }

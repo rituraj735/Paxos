@@ -368,6 +368,24 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	return 0, fmt.Errorf("timed out waiting for new leader: still seeing Node %d as leader", lastObserved)
 }
 
+// waitForStableLeader blocks until a node reports IsLeader==true or timeout.
+func waitForStableLeader(timeout time.Duration) (int, error) {
+    deadline := time.Now().Add(timeout)
+    var lastErr error
+    for time.Now().Before(deadline) {
+        id, err := findCurrentLeader()
+        if err == nil && id != 0 {
+            return id, nil
+        }
+        lastErr = err
+        time.Sleep(300 * time.Millisecond)
+    }
+    if lastErr == nil {
+        lastErr = fmt.Errorf("no leader observed before timeout")
+    }
+    return 0, lastErr
+}
+
 // processNextTestSet enforces liveness pattern then executes the set's txns.
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
@@ -407,8 +425,18 @@ func processNextTestSet(reader *bufio.Reader) {
 		}
 	}
 
-	time.Sleep(300 * time.Millisecond)
-	flushBacklog()
+    time.Sleep(300 * time.Millisecond)
+
+    // Wait briefly for a real leader before flushing and sending txns.
+    // This prevents premature "no leader available" deferrals right after liveness changes.
+    waitBudget := time.Duration(config.LeaderTimeout)*time.Millisecond + 500*time.Millisecond
+    if leaderID, err := waitForStableLeader(waitBudget); err == nil && leaderID != 0 {
+        for _, c := range clients {
+            c.UpdateLeader(leaderID)
+        }
+    }
+
+    flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
