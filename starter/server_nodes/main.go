@@ -16,6 +16,7 @@ import (
 	"time"
 )
 
+// main bootstraps a node instance and kicks off initial leader election.
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: go run main.go <node_id>")

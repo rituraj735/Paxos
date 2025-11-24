@@ -98,6 +98,7 @@ type CommitMsg struct {
 	Request ClientRequest
 }
 
+// GreaterThan compares ballots lexicographically by number then node ID.
 func (b BallotNumber) GreaterThan(other BallotNumber) bool {
 	if b.Number != other.Number {
 		return b.Number > other.Number
@@ -105,14 +106,17 @@ func (b BallotNumber) GreaterThan(other BallotNumber) bool {
 	return b.NodeID > other.NodeID
 }
 
+// GreaterThanOrEqual checks whether the ballot is >= another ballot.
 func (b BallotNumber) GreaterThanOrEqual(other BallotNumber) bool {
 	return b.GreaterThan(other) || (b.Number == other.Number && b.NodeID == other.NodeID)
 }
 
+// String renders the ballot for debug logging.
 func (b BallotNumber) String() string {
 	return fmt.Sprintf("(%d,%d)", b.Number, b.NodeID)
 }
 
+// LessThan reports whether the ballot precedes another ballot.
 func (b BallotNumber) LessThan(other BallotNumber) bool {
 	if b.Number != other.Number {
 		return b.Number < other.Number
@@ -127,10 +131,12 @@ type Txn struct {
 	Amount   int    `json:"amount"`
 }
 
+// String formats a transaction tuple.
 func (t Txn) String() string {
 	return fmt.Sprintf("(%s,%s,%d)", t.Sender, t.Receiver, t.Amount)
 }
 
+// String summarizes the request, showing "no-op" or the txn payload.
 func (cr ClientRequest) String() string {
 	if cr.IsNoOp {
 		return "no-op"

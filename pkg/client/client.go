@@ -22,6 +22,7 @@ type Client struct {
 	mu            sync.Mutex
 }
 
+// NewClient constructs a client bound to known node addresses.
 func NewClient(id string, nodeAddresses map[int]string) *Client {
 	return &Client{
 		ID:            id,
@@ -31,6 +32,7 @@ func NewClient(id string, nodeAddresses map[int]string) *Client {
 	}
 }
 
+// SendTransaction submits a txn to the current leader with broadcast fallback.
 func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) {
 	c.mu.Lock()
 	c.LastTimestamp = time.Now().UnixNano()
@@ -73,6 +75,7 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 
 }
 
+// sendToNode performs the RPC to a specific node with timeout protection.
 func (c *Client) sendToNode(nodeID int, request datatypes.ClientRequest) (datatypes.ReplyMsg, error) {
 	address, exists := c.NodeAddresses[nodeID]
 	if !exists {
@@ -105,12 +108,14 @@ func (c *Client) sendToNode(nodeID int, request datatypes.ClientRequest) (dataty
 	}
 }
 
+// GetCurrentLeader returns the leader ID the client believes in.
 func (c *Client) GetCurrentLeader() int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	return c.CurrentLeader
 }
 
+// UpdateLeader updates the local cached leader ID.
 func (c *Client) UpdateLeader(leaderID int) {
 	c.mu.Lock()
 	defer c.mu.Unlock()

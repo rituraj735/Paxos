@@ -17,18 +17,21 @@ type Database struct {
 	mu       sync.RWMutex
 }
 
+// NewDatabase creates a new empty balance store.
 func NewDatabase() *Database {
 	return &Database{
 		Balances: make(map[string]int),
 	}
 }
 
+// InitializeClient seeds a client with a starting balance.
 func (db *Database) InitializeClient(clientID string, balance int) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
 	db.Balances[clientID] = balance
 }
 
+// ExecuteTransaction debits sender and credits receiver if funds exist.
 func (db *Database) ExecuteTransaction(tx datatypes.Txn) (bool, string) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
@@ -52,12 +55,14 @@ func (db *Database) ExecuteTransaction(tx datatypes.Txn) (bool, string) {
 	return true, "success"
 }
 
+// GetBalance returns the current balance for a client.
 func (db *Database) GetBalance(clientID string) int {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
 	return db.Balances[clientID]
 }
 
+// PrintDB renders the database contents for a node.
 func (db *Database) PrintDB(nodeID int) string {
 	// db.mu.RLock()
 	// defer db.mu.RUnlock()
@@ -95,6 +100,7 @@ func (db *Database) PrintDB(nodeID int) string {
 	return builder.String()
 }
 
+// GetAllBalances returns a copy of all balances.
 func (db *Database) GetAllBalances() map[string]int {
 	db.mu.RLock()
 	defer db.mu.RUnlock()

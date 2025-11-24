@@ -35,10 +35,12 @@ var clientsMu sync.Mutex
 
 var backlog []datatypes.Txn
 
+// deferTxn queues a txn for later when quorum is unavailable.
 func deferTxn(tx datatypes.Txn) {
 	backlog = append(backlog, tx)
 }
 
+// flushBacklog retries deferred transactions against the cluster.
 func flushBacklog() {
 	if len(backlog) == 0 {
 		return
@@ -67,6 +69,7 @@ func flushBacklog() {
 	}
 }
 
+// main boots the CLI, reads CSV input, and drives the menu loop.
 func main() {
 	fmt.Println("Welcome to Bank of Paxos")
 	fmt.Println("==========================")
@@ -132,6 +135,7 @@ func main() {
 
 }
 
+// ClientWorker is a placeholder goroutine for future async work per client.
 func ClientWorker(clientID int, inputChan <-chan string) {
 	//fmt.Printf("Client %d started and listening for commands...\n", clientID)
 
@@ -140,6 +144,7 @@ func ClientWorker(clientID int, inputChan <-chan string) {
 	}
 }
 
+// ParseTxnSetsFromCSV ingests the CSV test plan into structured sets.
 func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -224,6 +229,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 
 const lfSentinelSender = "__LF__"
 
+// triggerLeaderFailure disables the current leader and waits for a new one.
 func triggerLeaderFailure() (int, error) {
 	currentLeader, err := findCurrentLeader()
 	if err != nil {
@@ -248,6 +254,7 @@ func triggerLeaderFailure() (int, error) {
 	return newLeader, nil
 }
 
+// findCurrentLeader queries nodes to determine the prevailing leader.
 func findCurrentLeader() (int, error) {
 	leaderCounts := make(map[int]int)
 
@@ -290,6 +297,7 @@ func findCurrentLeader() (int, error) {
 	return bestLeader, nil
 }
 
+// disableLeaderAcrossCluster asks every node to mark the leader inactive.
 func disableLeaderAcrossCluster(leaderID int) error {
 	var firstErr error
 
@@ -318,6 +326,7 @@ func disableLeaderAcrossCluster(leaderID int) error {
 	return firstErr
 }
 
+// waitForNewLeader polls until a different leader is observed or timeout.
 func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	deadline := time.Now().Add(timeout)
 	var lastObserved int
@@ -342,6 +351,7 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	return 0, fmt.Errorf("timed out waiting for new leader: still seeing Node %d as leader", lastObserved)
 }
 
+// processNextTestSet enforces liveness pattern then executes the set's txns.
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
 
@@ -429,6 +439,7 @@ func processNextTestSet(reader *bufio.Reader) {
 	currentSetIndex++
 }
 
+// printLogFromNode calls the PrintLog RPC on a chosen node.
 func printLogFromNode(reader *bufio.Reader) {
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
@@ -461,6 +472,7 @@ func printLogFromNode(reader *bufio.Reader) {
 	fmt.Println(reply)
 }
 
+// printDBFromNode fetches the DB contents from a node.
 func printDBFromNode(reader *bufio.Reader) {
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
@@ -490,6 +502,7 @@ func printDBFromNode(reader *bufio.Reader) {
 
 }
 
+// printStatusFromNode prints consensus status for one seq across nodes.
 func printStatusFromNode(reader *bufio.Reader) {
 
 	fmt.Print("Enter sequence number: ")
@@ -526,6 +539,7 @@ func printStatusFromNode(reader *bufio.Reader) {
 	}
 }
 
+// printViewFromAllNodes invokes PrintView on every node for diagnostics.
 func printViewFromAllNodes() {
 	fmt.Println("===== Printing NEW-VIEW messages from all nodes =====")
 
