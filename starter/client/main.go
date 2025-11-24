@@ -282,47 +282,32 @@ func triggerLeaderFailure() (int, error) {
 
 // findCurrentLeader queries nodes to determine the prevailing leader.
 func findCurrentLeader() (int, error) {
-	log.Printf("ClientDriver: findCurrentLeader scanning nodes")
-	leaderCounts := make(map[int]int)
+    log.Printf("ClientDriver: findCurrentLeader scanning nodes")
 
-	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-		address, ok := config.NodeAddresses[nodeID]
-		if !ok {
-			continue
-		}
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        address, ok := config.NodeAddresses[nodeID]
+        if !ok {
+            continue
+        }
 
-		client, err := rpc.Dial("tcp", address)
-		if err != nil {
-			continue
-		}
+        client, err := rpc.Dial("tcp", address)
+        if err != nil {
+            continue
+        }
 
-		var info datatypes.LeaderInfo
-		err = client.Call("NodeService.GetLeader", true, &info)
-		client.Close()
-		if err != nil {
-			continue
-		}
+        var info datatypes.LeaderInfo
+        err = client.Call("NodeService.GetLeader", true, &info)
+        client.Close()
+        if err != nil {
+            continue
+        }
 
-		if info.IsLeader && info.LeaderID != 0 {
-			return info.LeaderID, nil
-		}
+        if info.IsLeader && info.LeaderID != 0 {
+            return info.LeaderID, nil
+        }
+    }
 
-		if info.LeaderID != 0 {
-			leaderCounts[info.LeaderID]++
-		}
-	}
-
-	bestLeader, bestCount := 0, 0
-	for id, cnt := range leaderCounts {
-		if cnt > bestCount {
-			bestLeader, bestCount = id, cnt
-		}
-	}
-	if bestLeader == 0 {
-		return 0, fmt.Errorf("no leader information available from active nodes")
-	}
-	log.Printf("ClientDriver: inferred leader %d (%d votes)", bestLeader, bestCount)
-	return bestLeader, nil
+    return 0, fmt.Errorf("no leader information available from active nodes")
 }
 
 // disableLeaderAcrossCluster asks every node to mark the leader inactive.
@@ -450,14 +435,16 @@ func processNextTestSet(reader *bufio.Reader) {
 			continue
 		}
 
-		reply, err := c.SendTransaction(tx)
-		if err != nil {
+        reply, err := c.SendTransaction(tx)
+        if err != nil {
 
-			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
-				deferTxn(tx)
-			}
-			failCount++
-		} else if reply.Success {
+            // Defer if no leader is currently available or quorum is insufficient
+            if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
+                strings.Contains(strings.ToLower(err.Error()), "no leader available") {
+                deferTxn(tx)
+            }
+            failCount++
+        } else if reply.Success {
 			log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
 
 			successCount++
