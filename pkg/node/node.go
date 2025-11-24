@@ -536,7 +536,7 @@ func (n *Node) GetIsLeader() bool {
 
 // HandleHeartbeat refreshes leader liveness info and ballot tracking.
 func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) error {
-	log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
+	// log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
 	n.node.mu.Lock()
 	defer n.node.mu.Unlock()
 
@@ -835,18 +835,28 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 	defer n.mu.Unlock()
 
 	if args.Ballot.GreaterThanOrEqual(n.HighestPromised) {
+		// Do not downgrade an already more-advanced status (e.g., Executed)
+		prev, ok := n.AcceptedLog[args.SeqNum]
+		newStatus := datatypes.StatusAccepted
+		if ok {
+			newStatus = maxStatus(prev.Status, newStatus)
+		}
+
 		logEntry := datatypes.LogEntry{
 			Ballot:  args.Ballot,
 			SeqNum:  args.SeqNum,
 			Request: args.Request,
-			Status:  datatypes.StatusAccepted,
+			Status:  newStatus,
 		}
 
 		n.AcceptedLog[args.SeqNum] = logEntry
 		updated := false
 		for i := range n.RequestLog {
 			if n.RequestLog[i].SeqNum == logEntry.SeqNum {
-				n.RequestLog[i] = logEntry
+				// Preserve the higher status in the request log
+				n.RequestLog[i].Status = maxStatus(n.RequestLog[i].Status, logEntry.Status)
+				n.RequestLog[i].Ballot = logEntry.Ballot
+				n.RequestLog[i].Request = logEntry.Request
 				updated = true
 				break
 			}
@@ -878,16 +888,9 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 	n.lastLeaderMsg = time.Now()
 
-	// Check active nodes
-	activeCount := 0
-	for _, active := range n.ActiveNodes {
-		if active {
-			activeCount++
-		}
-	}
-	if activeCount < n.MajoritySize {
-		log.Printf("Node %d: ignoring commit seq=%d (active=%d, needed=%d)",
-			n.ID, args.SeqNum, activeCount, n.MajoritySize)
+	// Accept commits from current/newer ballots; ignore only stale ballots
+	if args.Ballot.LessThan(n.HighestPromised) {
+		log.Printf("Node %d: ignoring stale commit seq=%d ballot=%s (promise=%s)", n.ID, args.SeqNum, args.Ballot.String(), n.HighestPromised.String())
 		*reply = false
 		return nil
 	}
@@ -903,13 +906,18 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 		}
 		n.AcceptedLog[args.SeqNum] = entry
 	} else {
-		entry.Status = datatypes.StatusCommitted
-		n.AcceptedLog[args.SeqNum] = entry
+		// Do not downgrade Executed -> Committed
+		if entry.Status != datatypes.StatusExecuted {
+			entry.Status = datatypes.StatusCommitted
+			n.AcceptedLog[args.SeqNum] = entry
+		}
 	}
 
 	for i := range n.RequestLog {
 		if n.RequestLog[i].SeqNum == args.SeqNum {
-			n.RequestLog[i].Status = datatypes.StatusCommitted
+			if n.RequestLog[i].Status != datatypes.StatusExecuted {
+				n.RequestLog[i].Status = datatypes.StatusCommitted
+			}
 			break
 		}
 	}
