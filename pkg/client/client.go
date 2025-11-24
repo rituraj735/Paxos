@@ -49,35 +49,85 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 		IsNoOp:      false,
 	}
 
-	// Send the request to the current leader first
-	reply, err := c.sendToNode(c.CurrentLeader, request)
-	if err == nil {
-		log.Printf("Client %s: leader %d succeeded for ts=%d seq=%d", c.ID, c.CurrentLeader, reply.Timestamp, reply.SeqNum)
-		return reply, nil
-	}
-	log.Printf("Client %s: leader %d request failed: %v", c.ID, c.CurrentLeader, err)
+    // Send the request to the current leader first
+    reply, err := c.sendToNode(c.CurrentLeader, request)
+    if err == nil {
+        if reply.Success {
+            log.Printf("Client %s: leader %d succeeded for ts=%d seq=%d", c.ID, c.CurrentLeader, reply.Timestamp, reply.SeqNum)
+            return reply, nil
+        }
 
-	//If the request to current leader fails, try other nodes in a broadcast manner
-	log.Printf("Client %s: Leader %d failed, trying all nodes now\n", c.ID, c.CurrentLeader)
+        // Minimal fallback: if not leader, try hinted leader once, then broadcast
+        if reply.Message == "not leader" {
+            triedHint := false
+            hint := reply.Ballot.NodeID
+            if hint != 0 && hint != c.CurrentLeader {
+                hintedReply, herr := c.sendToNode(hint, request)
+                triedHint = true
+                if herr == nil && hintedReply.Success {
+                    c.mu.Lock()
+                    c.CurrentLeader = hintedReply.Ballot.NodeID
+                    c.mu.Unlock()
+                    log.Printf("Client %s: adopted hinted leader %d", c.ID, hintedReply.Ballot.NodeID)
+                    return hintedReply, nil
+                }
+                if herr == nil && hintedReply.Message != "not leader" {
+                    // e.g., insufficient active nodes — bubble up immediately
+                    return hintedReply, nil
+                }
+            }
 
-	for nodeID := range c.NodeAddresses {
-		if nodeID == c.CurrentLeader {
-			continue // Skip the current leader as we've already tried it
-		}
-		reply, err := c.sendToNode(nodeID, request)
-		if err == nil && reply.Success {
-			log.Printf("Client %s: node %d processed txn with new leader hint=%d", c.ID, nodeID, reply.Ballot.NodeID)
-			c.mu.Lock()
-			c.CurrentLeader = reply.Ballot.NodeID
-			c.mu.Unlock()
-			return reply, nil
-		} else if reply.Message != "not leader" {
-			return reply, nil
-		}
-	}
+            // Try other nodes (skip current leader and tried hint if any)
+            for nodeID := range c.NodeAddresses {
+                if nodeID == c.CurrentLeader || (triedHint && nodeID == hint) {
+                    continue
+                }
+                r, e := c.sendToNode(nodeID, request)
+                if e == nil && r.Success {
+                    // update leader if hinted
+                    if r.Ballot.NodeID != 0 {
+                        c.mu.Lock()
+                        c.CurrentLeader = r.Ballot.NodeID
+                        c.mu.Unlock()
+                    }
+                    log.Printf("Client %s: node %d processed txn with new leader hint=%d", c.ID, nodeID, r.Ballot.NodeID)
+                    return r, nil
+                } else if e == nil && r.Message != "not leader" {
+                    // return first definitive failure (e.g., insufficient active nodes)
+                    return r, nil
+                }
+            }
 
-	log.Printf("Client %s: no leader available for txn %s", c.ID, txn.String())
-	return datatypes.ReplyMsg{}, fmt.Errorf("No leader available")
+            log.Printf("Client %s: no leader available for txn %s", c.ID, txn.String())
+            return datatypes.ReplyMsg{}, fmt.Errorf("No leader available")
+        }
+
+        // For other non-success replies, keep old behavior (return immediately)
+        return reply, nil
+    }
+    log.Printf("Client %s: leader %d request failed: %v", c.ID, c.CurrentLeader, err)
+
+    //If the request to current leader fails, try other nodes in a broadcast manner
+    log.Printf("Client %s: Leader %d failed, trying all nodes now\n", c.ID, c.CurrentLeader)
+
+    for nodeID := range c.NodeAddresses {
+        if nodeID == c.CurrentLeader {
+            continue // Skip the current leader as we've already tried it
+        }
+        reply, err := c.sendToNode(nodeID, request)
+        if err == nil && reply.Success {
+            log.Printf("Client %s: node %d processed txn with new leader hint=%d", c.ID, nodeID, reply.Ballot.NodeID)
+            c.mu.Lock()
+            c.CurrentLeader = reply.Ballot.NodeID
+            c.mu.Unlock()
+            return reply, nil
+        } else if reply.Message != "not leader" {
+            return reply, nil
+        }
+    }
+
+    log.Printf("Client %s: no leader available for txn %s", c.ID, txn.String())
+    return datatypes.ReplyMsg{}, fmt.Errorf("No leader available")
 
 }
 
