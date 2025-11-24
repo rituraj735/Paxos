@@ -1,1223 +1,888 @@
-[Node 1] 2025/11/23 22:47:20.375852 Node 1: initializing at localhost:8001 with 5 peers
-[Node 1] 2025/11/23 22:47:20.376198 [Database] initializing new in-memory store
-[Node 1] 2025/11/23 22:47:20.376224 [Database] client A initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376233 [Database] client B initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376239 [Database] client C initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376244 [Database] client D initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376249 [Database] client E initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376254 [Database] client F initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376258 [Database] client G initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376262 [Database] client H initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376266 [Database] client I initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376270 [Database] client J initialized with balance 10
-[Node 1] 2025/11/23 22:47:20.376277 Node 1: initialization complete (maj=3)
-[Node 1] 2025/11/23 22:47:20.376247 Node 1: leader timeout monitor running
-[Node 1] 2025/11/23 22:47:20.376433 Node 1: starting RPC server at localhost:8001
-[Node 1] 2025/11/23 22:47:22.379300 Node 1: Starting initial leader election
-[Node 1] 2025/11/23 22:47:22.379523 Node 1: StartLeaderElection invoked (leader=false active=true)
-[Node 1] 2025/11/23 22:47:22.379632 Node 1: Starting leader election with ballot (1,1)
-[Node 1] 2025/11/23 22:47:22.379928 Node 1: RPC Prepare->node 3
-[Node 1] 2025/11/23 22:47:22.380090 Node 1: RPC Prepare->node 2
-[Node 1] 2025/11/23 22:47:22.379976 Node 1: RPC Prepare->node 4
-[Node 1] 2025/11/23 22:47:22.379985 Node 1: RPC Prepare->node 5
-[Node 1] 2025/11/23 22:47:22.382692 Node 1: RPC dial Prepare to node 3 failed: dial tcp 127.0.0.1:8003: connect: connection refused
-[Node 1] 2025/11/23 22:47:22.382692 Node 1: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 1] 2025/11/23 22:47:22.382380 Node 1: RPC dial Prepare to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:22.384300 Node 1: leader election failed (promises=2 need=3)
-[Node 1] 2025/11/23 22:47:23.389413 Node 1: Leader timeout (3.013173s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:47:23.389520 Node 1: StartLeaderElection invoked (leader=false active=true)
-[Node 1] 2025/11/23 22:47:23.389531 Node 1: Starting leader election with ballot (2,1)
-[Node 1] 2025/11/23 22:47:23.389623 Node 1: RPC Prepare->node 4
-[Node 1] 2025/11/23 22:47:23.389664 Node 1: RPC Prepare->node 3
-[Node 1] 2025/11/23 22:47:23.389627 Node 1: RPC Prepare->node 5
-[Node 1] 2025/11/23 22:47:23.389631 Node 1: RPC Prepare->node 2
-[Node 1] 2025/11/23 22:47:23.390500 Node 1: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 1] 2025/11/23 22:47:23.390546 Node 1: RPC dial Prepare to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:23.391035 Node 1: creating new view from 3 promises
-[Node 1] 2025/11/23 22:47:23.391050 Node 1: applyCommittedEntries up to seq=0
-[Node 1] 2025/11/23 22:47:23.391056 Node 1: new view constructed with 0 entries (maxSeq=0)
-[Node 1] 2025/11/23 22:47:23.391062 Node 1: broadcasting NewView ballot=(2,1) entries=0
-[Node 1] 2025/11/23 22:47:23.391078 Node 1: RPC NewView->node 4
-[Node 1] 2025/11/23 22:47:23.391100 Node 1: heartbeat loop started
-[Node 1] 2025/11/23 22:47:23.391110 Node 1: RPC NewView->node 2
-[Node 1] 2025/11/23 22:47:23.391128 Node 1: RPC NewView->node 5
-[Node 1] 2025/11/23 22:47:23.391130 Node 1: RPC NewView->node 3
-[Node 1] 2025/11/23 22:47:23.391654 Node 1: RPC dial NewView to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 1] 2025/11/23 22:47:23.391665 Node 1: RPC dial NewView to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:23.892243 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:23.892249 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:23.892257 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:23.892261 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:23.893179 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 1] 2025/11/23 22:47:23.893239 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:24.392275 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:24.392268 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:24.392290 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:24.392297 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:24.394248 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 1] 2025/11/23 22:47:24.394433 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:24.892272 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:24.892262 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:24.892284 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:24.892290 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:24.894334 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:25.391299 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:25.391329 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:25.391343 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:25.391376 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:25.395091 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:25.894185 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:25.894500 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:25.894518 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:25.894538 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:25.895287 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
-[Node 1] 2025/11/23 22:47:26.392332 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:26.392348 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:26.392365 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:26.392374 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:26.416184 Node 1: leader election success with ballot (2,1)
-[Node 1] 2025/11/23 22:47:26.416306 Node 1: Became leader after election, successful
-[Node 1] 2025/11/23 22:47:26.416415 Node 1: heartbeat loop started
-[Node 1] 2025/11/23 22:47:26.892276 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:26.892276 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:26.892292 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:26.892322 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:26.917469 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:26.917488 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:26.917491 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:26.917511 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:27.392295 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:27.392323 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:27.392340 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:27.392349 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:27.417568 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:27.417624 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:27.417632 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:27.417669 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:27.892257 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:27.892274 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:27.892280 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:27.892284 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:27.917491 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:27.917519 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:27.917523 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:27.917554 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:28.392311 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:28.392308 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:28.392327 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:28.392308 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:28.417339 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:28.417367 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:28.417375 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:28.417410 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:28.892273 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:28.892298 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:28.892312 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:28.892323 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:28.917549 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:28.917569 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:28.917581 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:28.917631 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:29.392270 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:29.392277 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:29.392289 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:29.392293 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:29.417558 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:29.417570 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:29.417574 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:29.417575 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:29.892290 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:29.892290 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:29.892297 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:29.892302 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:29.917566 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:29.917614 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:29.917594 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:29.917605 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:30.392310 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:30.392312 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:30.392334 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:30.392344 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:30.417241 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:30.417282 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:30.417287 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:30.417294 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:30.892268 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:30.892274 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:30.892284 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:30.892287 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:30.917506 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:30.917513 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:30.917519 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:30.917522 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:31.392282 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:31.392378 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:31.392307 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:31.392321 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:31.417274 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:31.417291 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:31.417303 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:31.417312 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:31.892285 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:31.892284 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:31.892299 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:31.892317 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:31.917206 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:31.917221 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:31.917224 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:31.917237 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:32.392262 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:32.392261 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:32.392267 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:32.392283 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:32.417527 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:32.417545 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:32.417550 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:32.417552 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:32.892327 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:32.892332 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:32.892342 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:32.892351 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:32.917572 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:32.917601 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:32.917596 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:32.917635 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:33.392305 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:33.392348 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:33.392366 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:33.392380 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:33.417589 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:33.417666 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:33.417678 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:33.417708 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:33.892325 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:33.892311 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:33.892341 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:33.892346 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:33.917757 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:33.917757 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:33.917773 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:33.917780 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:34.392313 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:34.392313 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:34.392326 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:34.392331 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:34.417545 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:34.417563 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:34.417566 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:34.417592 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:34.892261 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:34.892291 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:34.892305 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:34.892315 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:34.917599 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:34.917666 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:34.917678 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:34.917706 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:35.392301 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:35.392335 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:35.392351 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:35.392361 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:35.417627 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:35.417653 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:35.417667 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:35.417677 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:35.892337 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:35.892337 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:35.892352 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:35.892363 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:35.917602 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:35.917605 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:35.917608 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:35.917612 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:36.392340 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:36.392331 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:36.392362 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:36.392366 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:36.417609 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:36.417646 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:36.417753 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:36.417707 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:36.892555 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:36.892556 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:36.892584 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:36.892596 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:36.917709 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:36.917755 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:36.917771 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:36.917791 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:37.392403 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:37.392425 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:37.392455 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:37.392465 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:37.417616 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:37.417632 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:37.417640 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:37.417647 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:37.892092 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:37.892093 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:37.892110 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:37.892117 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:37.917656 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:37.917670 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:37.917679 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:37.917686 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:38.392378 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:38.392397 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:38.392379 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:38.392435 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:38.417615 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:38.417658 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:38.417666 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:38.417672 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:38.892341 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:38.892341 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:38.892363 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:38.892391 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:38.917644 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:38.917683 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:38.917696 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:38.917705 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:39.392312 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:39.392355 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:39.392399 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:39.392430 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:39.417268 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:39.417305 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:39.417315 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:39.417323 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:39.892407 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:39.892487 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:39.892548 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:39.892390 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:39.917362 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:39.917416 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:39.917429 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:39.917442 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:40.392297 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:40.392324 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:40.392339 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:40.392348 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:40.417647 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:40.417708 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:40.417707 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:40.417717 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:40.892282 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:40.892299 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:40.892310 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:40.892317 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:40.917625 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:40.917654 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:40.917656 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:40.917673 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:41.392306 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:41.392338 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:41.392356 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:41.392374 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:41.417694 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:41.417736 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:41.417747 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:41.417816 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:41.891650 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:41.891687 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:41.891701 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:41.891711 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:41.917688 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:41.917761 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:41.917774 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:41.917788 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:42.392491 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:42.392477 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:42.392531 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:42.392578 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:42.417729 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:42.418161 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:42.418340 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:42.418436 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:42.892294 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:42.892332 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:42.892348 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:42.892358 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:42.917654 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:42.917697 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:42.917709 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:42.917717 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:43.392460 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:43.392480 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:43.392495 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:43.392509 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:43.417682 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:43.417730 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:43.417744 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:43.417748 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:43.892448 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:43.892460 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:43.892475 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:43.892516 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:43.917220 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:43.917256 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:43.917268 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:43.917297 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:44.392334 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:44.392331 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:44.392349 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:44.392354 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:44.417706 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:44.417785 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:44.417797 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:44.417807 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:44.892298 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:44.892335 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:44.892351 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:44.892362 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:44.917282 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:44.917408 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:44.917532 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:44.917543 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:45.392449 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:45.392525 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:45.392540 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:45.392681 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:45.417757 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:45.417777 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:45.417787 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:45.417826 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:45.892461 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:45.892470 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:45.892481 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:45.892484 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:45.917560 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:45.917582 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:45.917602 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:45.917612 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:46.392475 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:46.392479 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:46.392495 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:46.392503 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:46.417744 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:46.418074 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:46.418166 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:46.418222 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:46.892461 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:46.892485 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:46.892499 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:46.892510 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:46.916887 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:46.916926 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:46.916937 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:46.916945 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:47.392440 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:47.392440 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:47.392454 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:47.392471 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:47.417684 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:47.417706 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:47.417708 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:47.417745 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:47.892478 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:47.892490 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:47.892504 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:47.892515 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:47.917761 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:47.917790 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:47.917806 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:47.917814 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:48.392479 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:48.392486 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:48.392503 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:48.392514 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:48.417752 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:48.417780 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:48.417791 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:48.417800 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:48.892501 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:48.892526 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:48.892542 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:48.892551 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:48.917779 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:48.917851 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:48.917863 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:48.917871 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:49.392208 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:49.392232 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:49.392247 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:49.392261 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:49.417794 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:49.417887 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:49.417900 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:49.417965 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:49.561970 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:47:49.562007 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:47:49.562163 Node 1: UpdateActiveStatus node=3 live=true
-[Node 1] 2025/11/23 22:47:49.562209 Node 1: setNodeLiveness node=3 live=true
-[Node 1] 2025/11/23 22:47:49.562261 Node 1: UpdateActiveStatus node=4 live=true
-[Node 1] 2025/11/23 22:47:49.562285 Node 1: setNodeLiveness node=4 live=true
-[Node 1] 2025/11/23 22:47:49.562308 Node 1: UpdateActiveStatus node=5 live=true
-[Node 1] 2025/11/23 22:47:49.562328 Node 1: setNodeLiveness node=5 live=true
-[Node 1] 2025/11/23 22:47:49.562405 Node 1: UpdateActiveStatus node=2 live=true
-[Node 1] 2025/11/23 22:47:49.562427 Node 1: setNodeLiveness node=2 live=true
-[Node 1] 2025/11/23 22:47:49.855387 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956069852753000
-[Node 1] 2025/11/23 22:47:49.855500 Node 1: ProcessClientRequest client=A ts=1763956069852753000 no-op=false
-[Node 1] 2025/11/23 22:47:49.855607 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:49.855607 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:49.855645 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:49.855661 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:49.866562 [Database] executing txn (A,J,3)
-[Node 1] 2025/11/23 22:47:49.866646 [Database] txn success: A -> J amount 3
-[Node 1] 2025/11/23 22:47:49.866672 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:49.866679 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:49.866705 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:49.866715 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:49.866730 Node 1: ProcessClientRequest seq=1 success=true msg=success
-[Node 1] 2025/11/23 22:47:49.892474 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:49.892482 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:49.892486 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:49.892498 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:49.917702 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:49.917732 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:49.917735 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:49.917769 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:50.070679 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956070068626000
-[Node 1] 2025/11/23 22:47:50.070775 Node 1: ProcessClientRequest client=C ts=1763956070068626000 no-op=false
-[Node 1] 2025/11/23 22:47:50.070859 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:50.070863 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:50.070873 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:50.070878 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:50.081847 [Database] executing txn (C,D,1)
-[Node 1] 2025/11/23 22:47:50.081896 [Database] txn success: C -> D amount 1
-[Node 1] 2025/11/23 22:47:50.081921 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:50.081938 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:50.081947 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:50.081966 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:50.081972 Node 1: ProcessClientRequest seq=2 success=true msg=success
-[Node 1] 2025/11/23 22:47:50.285465 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956070283621000
-[Node 1] 2025/11/23 22:47:50.285560 Node 1: ProcessClientRequest client=B ts=1763956070283621000 no-op=false
-[Node 1] 2025/11/23 22:47:50.285662 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:50.285666 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:50.285678 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:50.285678 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:50.296727 [Database] executing txn (B,E,4)
-[Node 1] 2025/11/23 22:47:50.296819 [Database] txn success: B -> E amount 4
-[Node 1] 2025/11/23 22:47:50.296847 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:50.296865 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:50.296903 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:50.296902 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:50.296915 Node 1: ProcessClientRequest seq=3 success=true msg=success
-[Node 1] 2025/11/23 22:47:50.392560 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:50.392572 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:50.392587 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:50.392596 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:50.417745 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:50.417792 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:50.417803 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:50.417804 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:50.500979 Node 1: HandleClientRequest type=REQUEST client=F ts=1763956070498800000
-[Node 1] 2025/11/23 22:47:50.501095 Node 1: ProcessClientRequest client=F ts=1763956070498800000 no-op=false
-[Node 1] 2025/11/23 22:47:50.501194 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:50.501204 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:50.501215 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:50.501237 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:50.511544 [Database] executing txn (F,G,2)
-[Node 1] 2025/11/23 22:47:50.511631 [Database] txn success: F -> G amount 2
-[Node 1] 2025/11/23 22:47:50.511664 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:50.511672 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:50.511687 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:50.511696 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:50.511699 Node 1: ProcessClientRequest seq=4 success=true msg=success
-[Node 1] 2025/11/23 22:47:50.714517 Node 1: HandleClientRequest type=REQUEST client=H ts=1763956070713481000
-[Node 1] 2025/11/23 22:47:50.714550 Node 1: ProcessClientRequest client=H ts=1763956070713481000 no-op=false
-[Node 1] 2025/11/23 22:47:50.714573 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:50.714578 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:50.714583 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:50.714588 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:50.725676 [Database] executing txn (H,I,2)
-[Node 1] 2025/11/23 22:47:50.725702 [Database] txn success: H -> I amount 2
-[Node 1] 2025/11/23 22:47:50.725717 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:50.725721 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:50.725732 Node 1: ProcessClientRequest seq=5 success=true msg=success
-[Node 1] 2025/11/23 22:47:50.725754 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:50.725717 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:50.892495 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:50.892508 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:50.892516 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:50.892521 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:50.917779 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:50.917781 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:50.917781 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:50.917786 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:51.392493 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:51.392532 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:51.392547 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:51.392559 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:51.417821 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:51.417876 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:51.417922 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:51.417937 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:51.892532 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:51.892551 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:51.892571 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:51.892583 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:51.917890 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:51.917937 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:51.917949 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:51.917959 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:51.947377 Node 1: UpdateActiveStatus node=5 live=false
-[Node 1] 2025/11/23 22:47:51.947483 Node 1: setNodeLiveness node=5 live=false
-[Node 1] 2025/11/23 22:47:51.947696 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:47:51.947750 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:47:51.947917 Node 1: UpdateActiveStatus node=2 live=true
-[Node 1] 2025/11/23 22:47:51.947957 Node 1: setNodeLiveness node=2 live=true
-[Node 1] 2025/11/23 22:47:51.948219 Node 1: UpdateActiveStatus node=3 live=true
-[Node 1] 2025/11/23 22:47:51.948259 Node 1: setNodeLiveness node=3 live=true
-[Node 1] 2025/11/23 22:47:51.948517 Node 1: UpdateActiveStatus node=4 live=true
-[Node 1] 2025/11/23 22:47:51.948573 Node 1: setNodeLiveness node=4 live=true
-[Node 1] 2025/11/23 22:47:52.246626 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956072245192000
-[Node 1] 2025/11/23 22:47:52.246699 Node 1: ProcessClientRequest client=B ts=1763956072245192000 no-op=false
-[Node 1] 2025/11/23 22:47:52.246763 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:52.246773 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:52.246785 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:52.246784 Node 1: skipping RPC Accept to inactive node 5
-[Node 1] 2025/11/23 22:47:52.257693 [Database] executing txn (B,I,2)
-[Node 1] 2025/11/23 22:47:52.257747 [Database] txn success: B -> I amount 2
-[Node 1] 2025/11/23 22:47:52.257769 Node 1: skipping RPC Commit to inactive node 5
-[Node 1] 2025/11/23 22:47:52.257784 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:52.257792 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:52.257802 Node 1: ProcessClientRequest seq=6 success=true msg=success
-[Node 1] 2025/11/23 22:47:52.257785 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:52.392313 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:52.392333 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:52.392351 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:52.392373 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:52.417501 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:52.417471 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:52.417518 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:52.417519 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:52.461660 Node 1: HandleClientRequest type=REQUEST client=J ts=1763956072459447000
-[Node 1] 2025/11/23 22:47:52.461765 Node 1: ProcessClientRequest client=J ts=1763956072459447000 no-op=false
-[Node 1] 2025/11/23 22:47:52.461848 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:52.461857 Node 1: skipping RPC Accept to inactive node 5
-[Node 1] 2025/11/23 22:47:52.461863 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:47:52.461873 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:52.472780 [Database] executing txn (J,C,4)
-[Node 1] 2025/11/23 22:47:52.472862 [Database] txn success: J -> C amount 4
-[Node 1] 2025/11/23 22:47:52.472888 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:47:52.472906 Node 1: skipping RPC Commit to inactive node 5
-[Node 1] 2025/11/23 22:47:52.472922 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:52.472934 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:52.472942 Node 1: ProcessClientRequest seq=7 success=true msg=success
-[Node 1] 2025/11/23 22:47:52.892534 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:52.892560 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:52.892577 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:52.892586 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:52.917778 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:52.917808 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:52.917826 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:52.917860 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:53.392562 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:53.392581 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:53.392580 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:53.392594 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:53.417811 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:53.417857 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:53.417803 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:53.417882 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:47:53.764763 Node 1: UpdateActiveStatus node=2 live=false
-[Node 1] 2025/11/23 22:47:53.764818 Node 1: setNodeLiveness node=2 live=false
-[Node 1] 2025/11/23 22:47:53.764969 Node 1: UpdateActiveStatus node=5 live=true
-[Node 1] 2025/11/23 22:47:53.765015 Node 1: setNodeLiveness node=5 live=true
-[Node 1] 2025/11/23 22:47:53.765155 Node 1: buildStateSnapshot generating from 7 entries
-[Node 1] 2025/11/23 22:47:53.765190 Node 1: snapshot ready entries=7 ballot=(2,1)
-[Node 1] 2025/11/23 22:47:53.765209 Node 1: sending snapshot entries=7 to node 5
-[Node 1] 2025/11/23 22:47:53.765222 Node 1: RPC NewView->node 5
-[Node 1] 2025/11/23 22:47:53.767559 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:47:53.767612 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:47:53.768419 Node 1: UpdateActiveStatus node=4 live=false
-[Node 1] 2025/11/23 22:47:53.768454 Node 1: setNodeLiveness node=4 live=false
-[Node 1] 2025/11/23 22:47:53.768584 Node 1: UpdateActiveStatus node=3 live=true
-[Node 1] 2025/11/23 22:47:53.768658 Node 1: setNodeLiveness node=3 live=true
-[Node 1] 2025/11/23 22:47:53.768650 Node 1: RequestStateTransfer from node 5
-[Node 1] 2025/11/23 22:47:53.768713 Node 1: buildStateSnapshot generating from 7 entries
-[Node 1] 2025/11/23 22:47:53.768731 Node 1: snapshot ready entries=7 ballot=(2,1)
-[Node 1] 2025/11/23 22:47:53.770414 Node 1: AcceptedFromNewView from node 5 seq=6
-[Node 1] 2025/11/23 22:47:53.770423 Node 1: AcceptedFromNewView from node 5 seq=5
-[Node 1] 2025/11/23 22:47:53.770504 Node 1: AcceptedFromNewView from node 5 seq=7
-[Node 1] 2025/11/23 22:47:53.770565 Node 1: AcceptedFromNewView from node 5 seq=4
-[Node 1] 2025/11/23 22:47:53.770514 Node 1: AcceptedFromNewView from node 5 seq=1
-[Node 1] 2025/11/23 22:47:53.770433 Node 1: AcceptedFromNewView from node 5 seq=2
-[Node 1] 2025/11/23 22:47:53.770519 Node 1: AcceptedFromNewView from node 5 seq=3
-[Node 1] 2025/11/23 22:47:53.892581 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:53.892609 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:53.892618 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:53.892626 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:53.916863 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:53.916903 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:53.916916 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:53.916925 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:54.065260 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956074063025000
-[Node 1] 2025/11/23 22:47:54.065457 Node 1: ProcessClientRequest client=B ts=1763956074063025000 no-op=false
-[Node 1] 2025/11/23 22:47:54.065575 Node 1: skipping RPC Accept to inactive node 2
-[Node 1] 2025/11/23 22:47:54.065634 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:54.065590 Node 1: skipping RPC Accept to inactive node 4
-[Node 1] 2025/11/23 22:47:54.065603 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:54.076385 [Database] executing txn (B,F,3)
-[Node 1] 2025/11/23 22:47:54.076510 [Database] txn success: B -> F amount 3
-[Node 1] 2025/11/23 22:47:54.076568 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:54.076585 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:54.076577 Node 1: skipping RPC Commit to inactive node 4
-[Node 1] 2025/11/23 22:47:54.076608 Node 1: skipping RPC Commit to inactive node 2
-[Node 1] 2025/11/23 22:47:54.076618 Node 1: ProcessClientRequest seq=8 success=true msg=success
-[Node 1] 2025/11/23 22:47:54.280335 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956074278299000
-[Node 1] 2025/11/23 22:47:54.280440 Node 1: ProcessClientRequest client=C ts=1763956074278299000 no-op=false
-[Node 1] 2025/11/23 22:47:54.280536 Node 1: skipping RPC Accept to inactive node 2
-[Node 1] 2025/11/23 22:47:54.280542 Node 1: skipping RPC Accept to inactive node 4
-[Node 1] 2025/11/23 22:47:54.280555 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:54.280572 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:54.291504 [Database] executing txn (C,A,2)
-[Node 1] 2025/11/23 22:47:54.291605 [Database] txn success: C -> A amount 2
-[Node 1] 2025/11/23 22:47:54.291629 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:54.291646 Node 1: skipping RPC Commit to inactive node 2
-[Node 1] 2025/11/23 22:47:54.291659 Node 1: skipping RPC Commit to inactive node 4
-[Node 1] 2025/11/23 22:47:54.291719 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:54.291722 Node 1: ProcessClientRequest seq=9 success=true msg=success
-[Node 1] 2025/11/23 22:47:54.392411 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:54.392378 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:54.392456 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:54.392470 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:54.417826 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:54.417888 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:54.417912 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:54.417898 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:54.892575 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:54.892575 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:54.892585 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:54.892589 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:54.917800 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:54.917840 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:54.917861 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:54.917888 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:55.392596 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:55.392579 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:55.392594 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:55.392638 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:55.417852 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:55.417936 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:55.417948 Node 1: skipping RPC HandleHeartbeat to inactive node 2
-[Node 1] 2025/11/23 22:47:55.417954 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:55.524220 Node 1: UpdateActiveStatus node=5 live=true
-[Node 1] 2025/11/23 22:47:55.524324 Node 1: setNodeLiveness node=5 live=true
-[Node 1] 2025/11/23 22:47:55.524816 Node 1: UpdateActiveStatus node=3 live=true
-[Node 1] 2025/11/23 22:47:55.524870 Node 1: setNodeLiveness node=3 live=true
-[Node 1] 2025/11/23 22:47:55.526138 Node 1: UpdateActiveStatus node=4 live=false
-[Node 1] 2025/11/23 22:47:55.526188 Node 1: setNodeLiveness node=4 live=false
-[Node 1] 2025/11/23 22:47:55.526309 Node 1: UpdateActiveStatus node=2 live=true
-[Node 1] 2025/11/23 22:47:55.526414 Node 1: setNodeLiveness node=2 live=true
-[Node 1] 2025/11/23 22:47:55.526491 Node 1: buildStateSnapshot generating from 9 entries
-[Node 1] 2025/11/23 22:47:55.526537 Node 1: snapshot ready entries=9 ballot=(2,1)
-[Node 1] 2025/11/23 22:47:55.526561 Node 1: sending snapshot entries=9 to node 2
-[Node 1] 2025/11/23 22:47:55.526577 Node 1: RPC NewView->node 2
-[Node 1] 2025/11/23 22:47:55.526632 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:47:55.526670 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:47:55.527970 Node 1: RequestStateTransfer from node 2
-[Node 1] 2025/11/23 22:47:55.528007 Node 1: buildStateSnapshot generating from 9 entries
-[Node 1] 2025/11/23 22:47:55.528020 Node 1: snapshot ready entries=9 ballot=(2,1)
-[Node 1] 2025/11/23 22:47:55.823428 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956075822570000
-[Node 1] 2025/11/23 22:47:55.823447 Node 1: ProcessClientRequest client=B ts=1763956075822570000 no-op=false
-[Node 1] 2025/11/23 22:47:55.823462 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:55.823469 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:55.823485 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:55.823486 Node 1: skipping RPC Accept to inactive node 4
-[Node 1] 2025/11/23 22:47:55.834488 [Database] executing txn (B,F,3)
-[Node 1] 2025/11/23 22:47:55.834508 [Database] txn failed: sender B insufficient balance 1 (amt 3)
-[Node 1] 2025/11/23 22:47:55.834517 Node 1: skipping RPC Commit to inactive node 4
-[Node 1] 2025/11/23 22:47:55.834522 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:55.834537 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:55.834546 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:55.834562 Node 1: ProcessClientRequest seq=10 success=false msg=insufficient balance
-[Node 1] 2025/11/23 22:47:55.892505 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:55.892527 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:55.892530 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:55.892531 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:55.917245 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:55.917285 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:55.917301 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:55.917298 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:56.037820 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956076035966000
-[Node 1] 2025/11/23 22:47:56.037914 Node 1: ProcessClientRequest client=A ts=1763956076035966000 no-op=false
-[Node 1] 2025/11/23 22:47:56.037988 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:47:56.037987 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:47:56.037997 Node 1: skipping RPC Accept to inactive node 4
-[Node 1] 2025/11/23 22:47:56.038005 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:47:56.048460 [Database] executing txn (A,H,3)
-[Node 1] 2025/11/23 22:47:56.048594 [Database] txn success: A -> H amount 3
-[Node 1] 2025/11/23 22:47:56.048764 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:47:56.048764 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:47:56.048783 Node 1: skipping RPC Commit to inactive node 4
-[Node 1] 2025/11/23 22:47:56.048816 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:47:56.048819 Node 1: ProcessClientRequest seq=11 success=true msg=success
-[Node 1] 2025/11/23 22:47:56.392590 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:56.392590 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:56.392614 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:56.392639 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:56.417823 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:56.417858 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:56.417867 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:56.417888 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:56.892582 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:56.892598 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:56.892639 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:56.892582 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:56.917864 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:56.917931 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:56.917943 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:56.917980 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:57.392595 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:57.392608 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:57.392621 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:47:57.392632 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:47:57.404919 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:47:57.405074 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:47:57.405257 Node 1: UpdateActiveStatus node=5 live=false
-[Node 1] 2025/11/23 22:47:57.405282 Node 1: setNodeLiveness node=5 live=false
-[Node 1] 2025/11/23 22:47:57.405325 Node 1: UpdateActiveStatus node=4 live=false
-[Node 1] 2025/11/23 22:47:57.405347 Node 1: setNodeLiveness node=4 live=false
-[Node 1] 2025/11/23 22:47:57.405311 Node 1: UpdateActiveStatus node=3 live=false
-[Node 1] 2025/11/23 22:47:57.405386 Node 1: setNodeLiveness node=3 live=false
-[Node 1] 2025/11/23 22:47:57.405376 Node 1: UpdateActiveStatus node=2 live=true
-[Node 1] 2025/11/23 22:47:57.405420 Node 1: setNodeLiveness node=2 live=true
-[Node 1] 2025/11/23 22:47:57.417860 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:57.417864 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:57.417873 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:57.417877 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:57.704425 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956077702420000
-[Node 1] 2025/11/23 22:47:57.704524 Node 1: ProcessClientRequest client=C ts=1763956077702420000 no-op=false
-[Node 1] 2025/11/23 22:47:57.704561 Node 1: insufficient active nodes 2 (needed 3) so skipping transactions
-[Node 1] 2025/11/23 22:47:57.892665 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:57.892668 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:57.892684 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:57.892695 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:57.908455 Node 1: HandleClientRequest type=REQUEST client=D ts=1763956077906368000
-[Node 1] 2025/11/23 22:47:57.908552 Node 1: ProcessClientRequest client=D ts=1763956077906368000 no-op=false
-[Node 1] 2025/11/23 22:47:57.908593 Node 1: insufficient active nodes 2 (needed 3) so skipping transactions
-[Node 1] 2025/11/23 22:47:57.917752 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:57.917805 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:57.917819 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:57.917826 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:58.392605 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:58.392620 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:58.392644 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:58.392660 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:58.417869 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:58.417886 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:58.417893 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:58.417898 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:58.892586 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:58.892600 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:58.892613 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:58.892629 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:58.917900 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:58.917937 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:58.917947 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:58.917954 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:59.392655 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:59.392654 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:59.392679 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:59.392678 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:59.417860 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:59.417940 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:59.417953 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:59.417962 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:59.892625 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:47:59.892626 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:59.892646 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:59.892655 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:59.917847 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:47:59.917862 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:47:59.917867 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:47:59.917874 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:48:00.392603 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:48:00.392617 Node 1: skipping RPC HandleHeartbeat to inactive node 4
-[Node 1] 2025/11/23 22:48:00.392632 Node 1: skipping RPC HandleHeartbeat to inactive node 3
-[Node 1] 2025/11/23 22:48:00.392641 Node 1: skipping RPC HandleHeartbeat to inactive node 5
-[Node 1] 2025/11/23 22:48:00.413241 Node 1: UpdateActiveStatus node=4 live=true
-[Node 1] 2025/11/23 22:48:00.413274 Node 1: setNodeLiveness node=4 live=true
-[Node 1] 2025/11/23 22:48:00.413311 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.413329 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.413337 Node 1: sending snapshot entries=11 to node 4
-[Node 1] 2025/11/23 22:48:00.413344 Node 1: RPC NewView->node 4
-[Node 1] 2025/11/23 22:48:00.413363 Node 1: UpdateActiveStatus node=2 live=true
-[Node 1] 2025/11/23 22:48:00.413388 Node 1: setNodeLiveness node=2 live=true
-[Node 1] 2025/11/23 22:48:00.413805 Node 1: UpdateActiveStatus node=1 live=true
-[Node 1] 2025/11/23 22:48:00.413854 Node 1: setNodeLiveness node=1 live=true
-[Node 1] 2025/11/23 22:48:00.413972 Node 1: UpdateActiveStatus node=3 live=true
-[Node 1] 2025/11/23 22:48:00.413994 Node 1: setNodeLiveness node=3 live=true
-[Node 1] 2025/11/23 22:48:00.413943 Node 1: UpdateActiveStatus node=5 live=true
-[Node 1] 2025/11/23 22:48:00.414028 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.414056 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.414088 Node 1: sending snapshot entries=11 to node 3
-[Node 1] 2025/11/23 22:48:00.414098 Node 1: setNodeLiveness node=5 live=true
-[Node 1] 2025/11/23 22:48:00.414124 Node 1: RPC NewView->node 3
-[Node 1] 2025/11/23 22:48:00.414135 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.414250 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.414263 Node 1: sending snapshot entries=11 to node 5
-[Node 1] 2025/11/23 22:48:00.414276 Node 1: RPC NewView->node 5
-[Node 1] 2025/11/23 22:48:00.414419 Node 1: RequestStateTransfer from node 4
-[Node 1] 2025/11/23 22:48:00.414458 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.414473 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.414530 Node 1: RequestStateTransfer from node 5
-[Node 1] 2025/11/23 22:48:00.414548 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.414560 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.414468 Node 1: RequestStateTransfer from node 3
-[Node 1] 2025/11/23 22:48:00.414602 Node 1: buildStateSnapshot generating from 11 entries
-[Node 1] 2025/11/23 22:48:00.414617 Node 1: snapshot ready entries=11 ballot=(2,1)
-[Node 1] 2025/11/23 22:48:00.415976 Node 1: AcceptedFromNewView from node 4 seq=10
-[Node 1] 2025/11/23 22:48:00.416029 Node 1: AcceptedFromNewView from node 4 seq=11
-[Node 1] 2025/11/23 22:48:00.416076 Node 1: AcceptedFromNewView from node 4 seq=7
-[Node 1] 2025/11/23 22:48:00.416049 Node 1: AcceptedFromNewView from node 4 seq=8
-[Node 1] 2025/11/23 22:48:00.416195 Node 1: AcceptedFromNewView from node 4 seq=2
-[Node 1] 2025/11/23 22:48:00.415985 Node 1: AcceptedFromNewView from node 4 seq=4
-[Node 1] 2025/11/23 22:48:00.416098 Node 1: AcceptedFromNewView from node 4 seq=6
-[Node 1] 2025/11/23 22:48:00.416288 Node 1: AcceptedFromNewView from node 4 seq=9
-[Node 1] 2025/11/23 22:48:00.415989 Node 1: AcceptedFromNewView from node 4 seq=1
-[Node 1] 2025/11/23 22:48:00.416043 Node 1: AcceptedFromNewView from node 4 seq=3
-[Node 1] 2025/11/23 22:48:00.416104 Node 1: AcceptedFromNewView from node 4 seq=5
-[Node 1] 2025/11/23 22:48:00.416836 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:48:00.416863 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:48:00.416884 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:48:00.416903 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:48:00.711924 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956080710955000
-[Node 1] 2025/11/23 22:48:00.711954 Node 1: ProcessClientRequest client=C ts=1763956080710955000 no-op=false
-[Node 1] 2025/11/23 22:48:00.711978 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:48:00.711989 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:48:00.711999 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:48:00.712013 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:48:00.723023 [Database] executing txn (C,B,1)
-[Node 1] 2025/11/23 22:48:00.723055 [Database] txn success: C -> B amount 1
-[Node 1] 2025/11/23 22:48:00.723072 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:48:00.723073 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:48:00.723077 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:48:00.723078 Node 1: ProcessClientRequest seq=12 success=true msg=success
-[Node 1] 2025/11/23 22:48:00.723082 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:48:00.723844 Node 1: HandleClientRequest type=REQUEST client=D ts=1763956080723332000
-[Node 1] 2025/11/23 22:48:00.723899 Node 1: ProcessClientRequest client=D ts=1763956080723332000 no-op=false
-[Node 1] 2025/11/23 22:48:00.723922 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:48:00.723942 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:48:00.723949 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:48:00.723962 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:48:00.734986 [Database] executing txn (D,F,2)
-[Node 1] 2025/11/23 22:48:00.735050 [Database] txn success: D -> F amount 2
-[Node 1] 2025/11/23 22:48:00.735065 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:48:00.735084 Node 1: ProcessClientRequest seq=13 success=true msg=success
-[Node 1] 2025/11/23 22:48:00.735073 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:48:00.735079 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:48:00.735082 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:48:00.736090 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956080735546000
-[Node 1] 2025/11/23 22:48:00.736109 Node 1: ProcessClientRequest client=A ts=1763956080735546000 no-op=false
-[Node 1] 2025/11/23 22:48:00.736126 Node 1: RPC Accept->node 2
-[Node 1] 2025/11/23 22:48:00.736131 Node 1: RPC Accept->node 3
-[Node 1] 2025/11/23 22:48:00.736128 Node 1: RPC Accept->node 4
-[Node 1] 2025/11/23 22:48:00.736140 Node 1: RPC Accept->node 5
-[Node 1] 2025/11/23 22:48:00.746430 [Database] executing txn (A,B,4)
-[Node 1] 2025/11/23 22:48:00.746464 [Database] txn success: A -> B amount 4
-[Node 1] 2025/11/23 22:48:00.746482 Node 1: RPC Commit->node 2
-[Node 1] 2025/11/23 22:48:00.746488 Node 1: RPC Commit->node 4
-[Node 1] 2025/11/23 22:48:00.746499 Node 1: ProcessClientRequest seq=14 success=true msg=success
-[Node 1] 2025/11/23 22:48:00.746536 Node 1: RPC Commit->node 5
-[Node 1] 2025/11/23 22:48:00.746536 Node 1: RPC Commit->node 3
-[Node 1] 2025/11/23 22:48:00.892596 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:48:00.892610 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:48:00.892614 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:48:00.892617 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:48:00.917828 Node 1: RPC HandleHeartbeat->node 5
-[Node 1] 2025/11/23 22:48:00.917874 Node 1: RPC HandleHeartbeat->node 2
-[Node 1] 2025/11/23 22:48:00.917888 Node 1: RPC HandleHeartbeat->node 3
-[Node 1] 2025/11/23 22:48:00.917903 Node 1: RPC HandleHeartbeat->node 4
-[Node 1] 2025/11/23 22:48:00.948454 Node 1: GetLeader RPC invoked
-[Node 1] 2025/11/23 22:48:00.949170 Node 1: UpdateActiveStatus node=1 live=false
-[Node 1] 2025/11/23 22:48:00.949189 Node 1: setNodeLiveness node=1 live=false
-[Node 1] 2025/11/23 22:48:00.981731 Node 1: Leader timeout (6.032534s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:00.981773 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:01.255579 Node 1: GetLeader RPC invoked
-[Node 1] 2025/11/23 22:48:02.991972 Node 1: Leader timeout (8.042753s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:02.992186 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:05.002685 Node 1: Leader timeout (10.053443s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:05.002876 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:07.012987 Node 1: Leader timeout (12.063725s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:07.013150 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:09.023595 Node 1: Leader timeout (14.074311s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:09.023786 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:11.032895 Node 1: Leader timeout (16.083590s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:11.033071 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:13.043748 Node 1: Leader timeout (18.094421s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:13.043925 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:14.826056 Node 1: PrintDB RPC invoked
-[Node 1] 2025/11/23 22:48:14.826208 [Database] printing DB for node 1 (10 accounts)
-[Node 1] 2025/11/23 22:48:15.053399 Node 1: Leader timeout (20.104053s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:15.053571 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:17.063973 Node 1: Leader timeout (22.114605s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:17.064220 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:19.074018 Node 1: Leader timeout (24.124628s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:19.074193 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:21.084146 Node 1: Leader timeout (26.134736s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:21.084308 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:23.094273 Node 1: Leader timeout (28.144840s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:23.094476 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:25.104627 Node 1: Leader timeout (30.155175s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:25.104811 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:27.114046 Node 1: Leader timeout (32.164568s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:27.114235 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:29.122520 Node 1: Leader timeout (34.173025s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:29.122726 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:31.132859 Node 1: Leader timeout (36.183342s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:31.133037 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:33.143294 Node 1: Leader timeout (38.193757s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:33.143514 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:35.153558 Node 1: Leader timeout (40.203999s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:35.153721 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:37.163111 Node 1: Leader timeout (42.213532s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:37.163301 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:39.172571 Node 1: Leader timeout (44.222969s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:39.172753 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:41.182996 Node 1: Leader timeout (46.233373s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:41.183202 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:43.193905 Node 1: Leader timeout (48.244263s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:43.194106 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:45.204895 Node 1: Leader timeout (50.255230s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:45.205088 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:47.215077 Node 1: Leader timeout (52.265392s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:47.215267 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:49.225572 Node 1: Leader timeout (54.275866s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:49.225754 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:51.236175 Node 1: Leader timeout (56.286446s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:51.236342 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:53.247017 Node 1: Leader timeout (58.297269s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:53.247192 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:55.256543 Node 1: Leader timeout (60.306772s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:55.256762 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:57.264943 Node 1: Leader timeout (62.315151s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:57.265127 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:48:59.275828 Node 1: Leader timeout (64.326016s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:48:59.276044 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:01.286789 Node 1: Leader timeout (66.336956s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:01.287054 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:03.296500 Node 1: Leader timeout (68.346644s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:03.296725 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:05.307235 Node 1: Leader timeout (70.357359s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:05.307448 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:07.317204 Node 1: Leader timeout (72.367308s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:07.317403 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:09.326685 Node 1: Leader timeout (74.376766s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:09.326896 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:11.335891 Node 1: Leader timeout (76.385951s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:11.336084 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:13.346211 Node 1: Leader timeout (78.396250s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:13.346399 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:15.357068 Node 1: Leader timeout (80.407086s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:15.357281 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:17.367217 Node 1: Leader timeout (82.417214s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:17.367416 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:19.378265 Node 1: Leader timeout (84.428239s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:19.378450 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:21.389118 Node 1: Leader timeout (86.439073s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:21.389301 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:23.399571 Node 1: Leader timeout (88.449504s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:23.399780 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:25.409124 Node 1: Leader timeout (90.459036s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:25.409367 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:27.420064 Node 1: Leader timeout (92.469955s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:27.420256 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:29.429891 Node 1: Leader timeout (94.479720s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:29.430070 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:31.439765 Node 1: Leader timeout (96.489615s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:31.439940 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:33.450641 Node 1: Leader timeout (98.500469s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:33.450870 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:35.459568 Node 1: Leader timeout (100.509373s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:35.459728 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:37.470142 Node 1: Leader timeout (102.519929s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:37.470238 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:39.480678 Node 1: Leader timeout (104.530441s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:39.480912 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:41.490782 Node 1: Leader timeout (106.540525s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:41.490952 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:43.500819 Node 1: Leader timeout (108.550540s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:43.500995 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:45.511109 Node 1: Leader timeout (110.560810s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:45.511339 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:47.521587 Node 1: Leader timeout (112.571266s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:47.522227 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:49.532528 Node 1: Leader timeout (114.582185s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:49.532717 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:51.543550 Node 1: Leader timeout (116.593186s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:51.543732 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:53.554157 Node 1: Leader timeout (118.603773s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:53.554337 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:55.564296 Node 1: Leader timeout (120.613889s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:55.564509 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:57.571940 Node 1: Leader timeout (122.621506s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:57.572143 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:49:59.582991 Node 1: Leader timeout (124.632539s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:49:59.583177 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:01.593461 Node 1: Leader timeout (126.642993s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:01.593666 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:03.603568 Node 1: Leader timeout (128.653075s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:03.603957 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:05.614543 Node 1: Leader timeout (130.664031s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:05.614706 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:07.625660 Node 1: Leader timeout (132.675129s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:07.625880 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:09.635160 Node 1: Leader timeout (134.684605s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:09.635405 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:11.646280 Node 1: Leader timeout (136.695704s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:11.646431 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:13.656184 Node 1: Leader timeout (138.705590s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:13.656289 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:15.666187 Node 1: Leader timeout (140.715570s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:15.666289 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:17.676948 Node 1: Leader timeout (142.726310s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:17.677128 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:19.687907 Node 1: Leader timeout (144.737248s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:19.688097 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:21.697682 Node 1: Leader timeout (146.747001s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:21.697861 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:23.708375 Node 1: Leader timeout (148.757675s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:23.708575 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:25.717367 Node 1: Leader timeout (150.766647s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:25.717421 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:27.727667 Node 1: Leader timeout (152.776922s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:27.728556 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:29.736224 Node 1: Leader timeout (154.785460s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:29.736496 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:31.747699 Node 1: Leader timeout (156.796913s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:31.747918 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:33.758025 Node 1: Leader timeout (158.807217s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:33.758252 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:35.767154 Node 1: Leader timeout (160.816326s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:35.767261 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:37.776839 Node 1: Leader timeout (162.825989s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:37.777034 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:39.785960 Node 1: Leader timeout (164.835089s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:39.786142 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:41.795490 Node 1: Leader timeout (166.844597s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:41.795863 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:43.805332 Node 1: Leader timeout (168.854420s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:43.805433 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:45.814228 Node 1: Leader timeout (170.863296s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:45.814278 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:47.824512 Node 1: Leader timeout (172.873557s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:47.824629 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:49.834904 Node 1: Leader timeout (174.883929s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:49.834960 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:51.845041 Node 1: Leader timeout (176.894043s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:51.845233 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:53.853886 Node 1: Leader timeout (178.902867s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:53.853995 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:55.864140 Node 1: Leader timeout (180.913102s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:55.864197 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:57.874168 Node 1: Leader timeout (182.923105s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:57.874365 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:50:59.884516 Node 1: Leader timeout (184.933434s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:50:59.885152 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:01.895392 Node 1: Leader timeout (186.944290s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:01.895439 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:03.905151 Node 1: Leader timeout (188.954028s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:03.905218 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:05.915211 Node 1: Leader timeout (190.964066s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:05.915296 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:07.924176 Node 1: Leader timeout (192.973008s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:07.924362 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:09.935166 Node 1: Leader timeout (194.983979s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:09.935299 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:11.945221 Node 1: Leader timeout (196.994013s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:11.945274 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:13.955377 Node 1: Leader timeout (199.004147s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:13.955743 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:15.964513 Node 1: Leader timeout (201.013263s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:15.964547 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:17.974717 Node 1: Leader timeout (203.023444s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:17.974812 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:19.982839 Node 1: Leader timeout (205.031545s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:19.982956 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:21.991541 Node 1: Leader timeout (207.040228s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:21.991596 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:24.000805 Node 1: Leader timeout (209.049471s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:24.000905 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:26.010088 Node 1: Leader timeout (211.058732s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:26.010136 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:28.019406 Node 1: Leader timeout (213.068030s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:28.019455 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:30.029861 Node 1: Leader timeout (215.078463s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:30.029928 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:32.040277 Node 1: Leader timeout (217.088858s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:32.040387 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:34.050658 Node 1: Leader timeout (219.099217s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:34.050707 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:36.059926 Node 1: Leader timeout (221.108456s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:36.059999 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:38.068481 Node 1: Leader timeout (223.116996s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:38.068638 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:40.077990 Node 1: Leader timeout (225.126484s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:40.078603 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:42.087609 Node 1: Leader timeout (227.136081s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:42.087842 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:44.096754 Node 1: Leader timeout (229.145207s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:44.096970 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:46.105077 Node 1: Leader timeout (231.153510s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:46.105133 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:48.115745 Node 1: Leader timeout (233.164153s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:48.115969 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:50.124457 Node 1: Leader timeout (235.172845s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:50.124912 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:52.134887 Node 1: Leader timeout (237.183255s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:52.135095 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:54.145909 Node 1: Leader timeout (239.194247s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:54.146099 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:56.153946 Node 1: Leader timeout (241.202270s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:56.154347 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:51:58.162067 Node 1: Leader timeout (243.210365s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:51:58.162214 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:00.171356 Node 1: Leader timeout (245.219637s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:00.171545 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:02.181114 Node 1: Leader timeout (247.229375s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:02.181296 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:04.188407 Node 1: Leader timeout (249.236640s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:04.188612 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:06.197666 Node 1: Leader timeout (251.245884s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:06.197842 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:08.206911 Node 1: Leader timeout (253.255110s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:08.207020 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:10.215545 Node 1: Leader timeout (255.263720s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:10.215751 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:12.225548 Node 1: Leader timeout (257.273702s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:12.225747 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:14.235628 Node 1: Leader timeout (259.283764s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:14.235767 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:16.243804 Node 1: Leader timeout (261.291916s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:16.244060 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:18.253201 Node 1: Leader timeout (263.301294s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:18.253369 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:20.261307 Node 1: Leader timeout (265.309376s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:20.261511 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:22.270706 Node 1: Leader timeout (267.318756s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:22.270885 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:24.279739 Node 1: Leader timeout (269.327765s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:24.279937 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:26.289769 Node 1: Leader timeout (271.337776s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:26.290005 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:28.300324 Node 1: Leader timeout (273.348311s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:28.300442 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:30.310440 Node 1: Leader timeout (275.358405s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:30.310782 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:32.319527 Node 1: Leader timeout (277.367470s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:32.319718 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:34.328891 Node 1: Leader timeout (279.376813s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:34.329114 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:36.338461 Node 1: Leader timeout (281.386362s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:36.338667 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:38.345849 Node 1: Leader timeout (283.393729s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:38.346027 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:40.354279 Node 1: Leader timeout (285.402138s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:40.354470 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:42.365274 Node 1: Leader timeout (287.413112s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:42.365477 Node 1: StartLeaderElection invoked (leader=false active=false)
-[Node 1] 2025/11/23 22:52:44.374769 Node 1: Leader timeout (289.422584s), no leader msgs, starting election
-[Node 1] 2025/11/23 22:52:44.374948 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:56:36.614086 Node 1: initializing at localhost:8001 with 5 peers
+[Node 1] 2025/11/23 22:56:36.614356 [Database] initializing new in-memory store
+[Node 1] 2025/11/23 22:56:36.614373 [Database] client A initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614378 [Database] client B initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614381 [Database] client C initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614384 [Database] client D initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614386 [Database] client E initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614389 [Database] client F initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614391 [Database] client G initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614395 [Database] client H initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614399 [Database] client I initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614403 [Database] client J initialized with balance 10
+[Node 1] 2025/11/23 22:56:36.614378 Node 1: leader timeout monitor running
+[Node 1] 2025/11/23 22:56:36.614409 Node 1: initialization complete (maj=3)
+[Node 1] 2025/11/23 22:56:36.614569 Node 1: starting RPC server at localhost:8001
+[Node 1] 2025/11/23 22:56:38.617588 Node 1: Starting initial leader election
+[Node 1] 2025/11/23 22:56:38.617976 Node 1: StartLeaderElection invoked (leader=false active=true)
+[Node 1] 2025/11/23 22:56:38.618060 Node 1: Starting leader election with ballot (1,1)
+[Node 1] 2025/11/23 22:56:38.618366 Node 1: RPC Prepare->node 4
+[Node 1] 2025/11/23 22:56:38.618393 Node 1: RPC Prepare->node 2
+[Node 1] 2025/11/23 22:56:38.618416 Node 1: RPC Prepare->node 3
+[Node 1] 2025/11/23 22:56:38.618502 Node 1: RPC Prepare->node 5
+[Node 1] 2025/11/23 22:56:38.620618 Node 1: RPC dial Prepare to node 3 failed: dial tcp 127.0.0.1:8003: connect: connection refused
+[Node 1] 2025/11/23 22:56:38.620891 Node 1: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:38.620824 Node 1: RPC dial Prepare to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:38.622922 Node 1: leader election failed (promises=2 need=3)
+[Node 1] 2025/11/23 22:56:39.628334 Node 1: Leader timeout (3.013828s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:56:39.628617 Node 1: StartLeaderElection invoked (leader=false active=true)
+[Node 1] 2025/11/23 22:56:39.629067 Node 1: Starting leader election with ballot (2,1)
+[Node 1] 2025/11/23 22:56:39.629684 Node 1: RPC Prepare->node 3
+[Node 1] 2025/11/23 22:56:39.629688 Node 1: RPC Prepare->node 4
+[Node 1] 2025/11/23 22:56:39.629720 Node 1: RPC Prepare->node 5
+[Node 1] 2025/11/23 22:56:39.629736 Node 1: RPC Prepare->node 2
+[Node 1] 2025/11/23 22:56:39.632587 Node 1: RPC dial Prepare to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:39.632908 Node 1: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:39.634426 Node 1: creating new view from 3 promises
+[Node 1] 2025/11/23 22:56:39.634527 Node 1: applyCommittedEntries up to seq=0
+[Node 1] 2025/11/23 22:56:39.634578 Node 1: new view constructed with 0 entries (maxSeq=0)
+[Node 1] 2025/11/23 22:56:39.634688 Node 1: broadcasting NewView ballot=(2,1) entries=0
+[Node 1] 2025/11/23 22:56:39.634776 Node 1: RPC NewView->node 5
+[Node 1] 2025/11/23 22:56:39.634566 Node 1: heartbeat loop started
+[Node 1] 2025/11/23 22:56:39.634776 Node 1: RPC NewView->node 2
+[Node 1] 2025/11/23 22:56:39.634782 Node 1: RPC NewView->node 3
+[Node 1] 2025/11/23 22:56:39.634790 Node 1: RPC NewView->node 4
+[Node 1] 2025/11/23 22:56:39.636256 Node 1: RPC dial NewView to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:39.636780 Node 1: RPC dial NewView to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:40.135736 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:40.135765 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:40.135778 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:40.135788 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:40.137255 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:40.137296 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:40.635758 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:40.636215 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:40.636233 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:40.636346 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:40.639340 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:40.639399 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:41.135704 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:41.135701 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:41.135719 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:41.135720 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:41.137267 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:41.137282 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:41.635603 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:41.635584 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:41.635614 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:41.635626 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:41.637901 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:41.637920 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:42.135753 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:42.135757 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:42.135772 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:42.135778 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:42.137581 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:42.137605 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:42.634728 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:42.634762 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:42.634771 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:42.634783 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:42.636169 Node 1: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 1] 2025/11/23 22:56:42.636338 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:42.661267 Node 1: leader election success with ballot (2,1)
+[Node 1] 2025/11/23 22:56:42.661316 Node 1: Became leader after election, successful
+[Node 1] 2025/11/23 22:56:42.661340 Node 1: heartbeat loop started
+[Node 1] 2025/11/23 22:56:43.134837 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:43.134910 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:43.134931 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:43.134943 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:43.137330 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:43.162488 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:43.162533 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:43.162542 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:43.162567 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:43.166340 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:43.634799 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:43.634805 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:43.634842 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:43.634852 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:43.638428 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:43.662439 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:43.662439 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:43.662448 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:43.662452 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:43.663578 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:44.135762 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:44.135760 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:44.135784 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:44.135792 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:44.138491 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:44.162458 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:44.162585 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:44.162722 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:44.162813 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:44.165340 Node 1: RPC dial HandleHeartbeat to node 5 failed: dial tcp 127.0.0.1:8005: connect: connection refused
+[Node 1] 2025/11/23 22:56:44.635728 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:44.635747 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:44.635756 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:44.635761 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:44.662426 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:44.662460 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:44.662463 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:44.662468 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:45.135760 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:45.135769 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:45.135783 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:45.135790 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:45.162493 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:45.162510 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:45.162520 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:45.162518 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:45.635733 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:45.635723 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:45.635733 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:45.635772 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:45.662469 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:45.662466 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:45.662479 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:45.662485 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:46.135816 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:46.135864 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:46.135873 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:46.135896 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:46.162553 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:46.163019 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:46.163050 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:46.163070 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:46.635819 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:46.635859 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:46.635876 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:46.635906 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:46.662496 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:46.662550 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:46.662561 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:46.662567 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:47.135770 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:47.135813 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:47.135821 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:47.135820 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:47.161806 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:47.161838 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:47.161855 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:47.161865 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:47.635690 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:47.635711 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:47.635728 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:47.635741 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:47.662456 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:47.662495 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:47.662507 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:47.662515 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:48.134876 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:48.134868 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:48.134888 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:48.134892 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:48.162556 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:48.162557 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:48.162570 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:48.162577 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:48.635798 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:48.635802 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:48.635807 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:48.635810 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:48.662486 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:48.662521 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:48.662526 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:48.662557 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:49.135900 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:49.135992 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:49.136016 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:49.136093 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:49.162582 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:49.162632 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:49.162644 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:49.162653 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:49.635779 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:49.635792 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:49.635807 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:49.635810 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:49.662485 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:49.662518 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:49.662525 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:49.662538 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:50.135817 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:50.135810 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:50.135819 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:50.135889 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:50.162515 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:50.162559 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:50.162574 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:50.162583 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:50.635800 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:50.635828 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:50.635842 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:50.635855 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:50.661590 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:50.661638 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:50.661650 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:50.661658 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:51.135925 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:51.135909 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:51.135954 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:51.135955 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:51.162526 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:51.162568 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:51.162579 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:51.162588 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:51.635834 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:51.635883 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:51.635899 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:51.635940 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:51.661586 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:51.661829 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:51.661757 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:51.661770 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:52.135875 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:52.135895 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:52.135905 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:52.135944 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:52.162603 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:52.162573 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:52.162615 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:52.162626 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:52.635892 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:52.636000 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:52.636024 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:52.636047 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:52.662525 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:52.662575 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:52.662593 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:52.662590 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:53.135834 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:53.135851 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:53.135849 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:53.135862 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:53.161575 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:53.161600 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:53.161602 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:53.161607 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:53.635824 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:53.635899 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:53.635925 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:53.635937 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:53.662532 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:53.662583 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:53.662590 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:53.662597 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:54.135898 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:54.135885 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:54.135914 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:54.135925 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:54.162546 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:54.162591 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:54.162602 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:54.162610 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:54.635872 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:54.635896 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:54.635911 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:54.635924 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:54.662571 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:54.662620 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:54.662632 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:54.662677 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:55.135897 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:55.135886 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:55.135927 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:55.135960 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:55.162570 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:55.162615 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:55.162631 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:55.162643 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:55.635886 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:55.635866 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:55.635887 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:55.635960 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:55.662584 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:55.662658 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:55.662668 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:55.662705 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:56.135679 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:56.135715 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:56.135729 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:56.135760 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:56.161691 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:56.161700 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:56.161711 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:56.161719 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:56.635930 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:56.635932 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:56.635955 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:56.635959 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:56.662583 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:56.662634 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:56.662646 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:56.662646 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:57.012324 Node 1: UpdateActiveStatus node=4 live=true
+[Node 1] 2025/11/23 22:56:57.012397 Node 1: setNodeLiveness node=4 live=true
+[Node 1] 2025/11/23 22:56:57.012320 Node 1: UpdateActiveStatus node=2 live=true
+[Node 1] 2025/11/23 22:56:57.012503 Node 1: setNodeLiveness node=2 live=true
+[Node 1] 2025/11/23 22:56:57.012471 Node 1: UpdateActiveStatus node=5 live=true
+[Node 1] 2025/11/23 22:56:57.012552 Node 1: setNodeLiveness node=5 live=true
+[Node 1] 2025/11/23 22:56:57.012561 Node 1: UpdateActiveStatus node=3 live=true
+[Node 1] 2025/11/23 22:56:57.012594 Node 1: setNodeLiveness node=3 live=true
+[Node 1] 2025/11/23 22:56:57.012644 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:56:57.012661 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:56:57.135208 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:57.135217 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:57.135226 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:57.135227 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:57.162651 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:57.162670 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:57.162679 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:57.162685 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:57.309680 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956617307376000
+[Node 1] 2025/11/23 22:56:57.309780 Node 1: ProcessClientRequest client=A ts=1763956617307376000 no-op=false
+[Node 1] 2025/11/23 22:56:57.309882 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:56:57.309895 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:57.309905 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:57.309908 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:57.320878 [Database] executing txn (A,J,3)
+[Node 1] 2025/11/23 22:56:57.320958 [Database] txn success: A -> J amount 3
+[Node 1] 2025/11/23 22:56:57.320981 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:56:57.320990 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:57.320997 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:57.321006 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:57.321012 Node 1: ProcessClientRequest seq=1 success=true msg=success
+[Node 1] 2025/11/23 22:56:57.524709 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956617522788000
+[Node 1] 2025/11/23 22:56:57.524893 Node 1: ProcessClientRequest client=C ts=1763956617522788000 no-op=false
+[Node 1] 2025/11/23 22:56:57.525006 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:57.525015 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:57.525024 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:56:57.525039 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:57.535274 [Database] executing txn (C,D,1)
+[Node 1] 2025/11/23 22:56:57.535423 [Database] txn success: C -> D amount 1
+[Node 1] 2025/11/23 22:56:57.535528 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:57.535556 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:57.535599 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:57.535609 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:56:57.535612 Node 1: ProcessClientRequest seq=2 success=true msg=success
+[Node 1] 2025/11/23 22:56:57.635921 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:57.635935 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:57.635952 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:57.635967 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:57.662249 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:57.662299 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:57.662300 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:57.662309 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:57.739513 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956617737487000
+[Node 1] 2025/11/23 22:56:57.739619 Node 1: ProcessClientRequest client=B ts=1763956617737487000 no-op=false
+[Node 1] 2025/11/23 22:56:57.739703 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:56:57.739712 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:57.739719 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:57.739737 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:57.753552 [Database] executing txn (B,E,4)
+[Node 1] 2025/11/23 22:56:57.753647 [Database] txn success: B -> E amount 4
+[Node 1] 2025/11/23 22:56:57.753695 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:56:57.753706 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:57.753717 Node 1: ProcessClientRequest seq=3 success=true msg=success
+[Node 1] 2025/11/23 22:56:57.753702 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:57.753697 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:57.957255 Node 1: HandleClientRequest type=REQUEST client=F ts=1763956617955389000
+[Node 1] 2025/11/23 22:56:57.957350 Node 1: ProcessClientRequest client=F ts=1763956617955389000 no-op=false
+[Node 1] 2025/11/23 22:56:57.957437 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:56:57.957463 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:57.957439 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:57.957451 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:57.968278 [Database] executing txn (F,G,2)
+[Node 1] 2025/11/23 22:56:57.968841 [Database] txn success: F -> G amount 2
+[Node 1] 2025/11/23 22:56:57.969189 Node 1: ProcessClientRequest seq=4 success=true msg=success
+[Node 1] 2025/11/23 22:56:57.969382 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:57.969393 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:57.969425 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:56:57.969431 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:58.135865 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:58.135865 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:58.135877 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:58.135882 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:58.162572 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:58.162604 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:58.162604 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:58.162600 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:58.171251 Node 1: HandleClientRequest type=REQUEST client=H ts=1763956618170527000
+[Node 1] 2025/11/23 22:56:58.171271 Node 1: ProcessClientRequest client=H ts=1763956618170527000 no-op=false
+[Node 1] 2025/11/23 22:56:58.171287 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:58.171294 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:58.171315 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:56:58.171318 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:58.182321 [Database] executing txn (H,I,2)
+[Node 1] 2025/11/23 22:56:58.182344 [Database] txn success: H -> I amount 2
+[Node 1] 2025/11/23 22:56:58.182357 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:58.182364 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:58.182374 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:58.182371 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:56:58.182381 Node 1: ProcessClientRequest seq=5 success=true msg=success
+[Node 1] 2025/11/23 22:56:58.635933 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:58.635965 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:58.635982 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:58.635991 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:58.662641 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:58.662680 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:58.662690 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:58.662699 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:59.135912 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:59.135922 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:59.135938 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:59.135948 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:59.162613 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:56:59.162661 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:59.162673 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:59.162685 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:59.298763 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:56:59.298796 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:56:59.298936 Node 1: UpdateActiveStatus node=3 live=true
+[Node 1] 2025/11/23 22:56:59.298971 Node 1: setNodeLiveness node=3 live=true
+[Node 1] 2025/11/23 22:56:59.299056 Node 1: UpdateActiveStatus node=2 live=true
+[Node 1] 2025/11/23 22:56:59.299072 Node 1: setNodeLiveness node=2 live=true
+[Node 1] 2025/11/23 22:56:59.299149 Node 1: UpdateActiveStatus node=4 live=true
+[Node 1] 2025/11/23 22:56:59.299232 Node 1: setNodeLiveness node=4 live=true
+[Node 1] 2025/11/23 22:56:59.299396 Node 1: UpdateActiveStatus node=5 live=false
+[Node 1] 2025/11/23 22:56:59.299415 Node 1: setNodeLiveness node=5 live=false
+[Node 1] 2025/11/23 22:56:59.600831 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956619598356000
+[Node 1] 2025/11/23 22:56:59.600970 Node 1: ProcessClientRequest client=B ts=1763956619598356000 no-op=false
+[Node 1] 2025/11/23 22:56:59.601074 Node 1: skipping RPC Accept to inactive node 5
+[Node 1] 2025/11/23 22:56:59.601076 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:59.601093 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:59.601115 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:59.612026 [Database] executing txn (B,I,2)
+[Node 1] 2025/11/23 22:56:59.612097 [Database] txn success: B -> I amount 2
+[Node 1] 2025/11/23 22:56:59.612120 Node 1: skipping RPC Commit to inactive node 5
+[Node 1] 2025/11/23 22:56:59.612131 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:59.612134 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:59.612153 Node 1: ProcessClientRequest seq=6 success=true msg=success
+[Node 1] 2025/11/23 22:56:59.612129 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:59.635896 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:59.635907 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:59.635915 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:56:59.635921 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:59.662559 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:56:59.662604 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:56:59.662617 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:56:59.662638 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:56:59.814896 Node 1: HandleClientRequest type=REQUEST client=J ts=1763956619812979000
+[Node 1] 2025/11/23 22:56:59.814985 Node 1: ProcessClientRequest client=J ts=1763956619812979000 no-op=false
+[Node 1] 2025/11/23 22:56:59.815058 Node 1: skipping RPC Accept to inactive node 5
+[Node 1] 2025/11/23 22:56:59.815063 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:56:59.815072 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:56:59.815090 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:56:59.826140 [Database] executing txn (J,C,4)
+[Node 1] 2025/11/23 22:56:59.826225 [Database] txn success: J -> C amount 4
+[Node 1] 2025/11/23 22:56:59.826255 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:56:59.826272 Node 1: skipping RPC Commit to inactive node 5
+[Node 1] 2025/11/23 22:56:59.826283 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:56:59.826292 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:56:59.826295 Node 1: ProcessClientRequest seq=7 success=true msg=success
+[Node 1] 2025/11/23 22:57:00.135943 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:00.135985 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:00.136006 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:00.136019 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:00.161718 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:00.161788 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:00.161801 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:00.161809 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:00.635916 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:00.635950 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:00.635966 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:00.635976 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:00.662705 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:00.662783 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:00.662795 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:00.662801 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:00.974712 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:57:00.974821 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:57:00.978441 Node 1: UpdateActiveStatus node=5 live=true
+[Node 1] 2025/11/23 22:57:00.978570 Node 1: setNodeLiveness node=5 live=true
+[Node 1] 2025/11/23 22:57:00.978650 Node 1: buildStateSnapshot generating from 7 entries
+[Node 1] 2025/11/23 22:57:00.978695 Node 1: snapshot ready entries=7 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:00.978719 Node 1: sending snapshot entries=7 to node 5
+[Node 1] 2025/11/23 22:57:00.978737 Node 1: RPC NewView->node 5
+[Node 1] 2025/11/23 22:57:00.979039 Node 1: UpdateActiveStatus node=3 live=true
+[Node 1] 2025/11/23 22:57:00.979078 Node 1: setNodeLiveness node=3 live=true
+[Node 1] 2025/11/23 22:57:00.979077 Node 1: UpdateActiveStatus node=4 live=false
+[Node 1] 2025/11/23 22:57:00.979171 Node 1: setNodeLiveness node=4 live=false
+[Node 1] 2025/11/23 22:57:00.979203 Node 1: UpdateActiveStatus node=2 live=false
+[Node 1] 2025/11/23 22:57:00.979221 Node 1: setNodeLiveness node=2 live=false
+[Node 1] 2025/11/23 22:57:00.979382 Node 1: RequestStateTransfer from node 5
+[Node 1] 2025/11/23 22:57:00.979405 Node 1: buildStateSnapshot generating from 7 entries
+[Node 1] 2025/11/23 22:57:00.979419 Node 1: snapshot ready entries=7 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:00.980806 Node 1: AcceptedFromNewView from node 5 seq=3
+[Node 1] 2025/11/23 22:57:00.980853 Node 1: AcceptedFromNewView from node 5 seq=1
+[Node 1] 2025/11/23 22:57:00.980890 Node 1: AcceptedFromNewView from node 5 seq=5
+[Node 1] 2025/11/23 22:57:00.981014 Node 1: AcceptedFromNewView from node 5 seq=4
+[Node 1] 2025/11/23 22:57:00.981029 Node 1: AcceptedFromNewView from node 5 seq=7
+[Node 1] 2025/11/23 22:57:00.981033 Node 1: AcceptedFromNewView from node 5 seq=2
+[Node 1] 2025/11/23 22:57:00.981039 Node 1: AcceptedFromNewView from node 5 seq=6
+[Node 1] 2025/11/23 22:57:01.135924 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:01.135940 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:01.135958 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:01.135969 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:01.162610 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:01.162641 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:01.162651 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:01.162662 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:01.274468 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956621272164000
+[Node 1] 2025/11/23 22:57:01.274581 Node 1: ProcessClientRequest client=B ts=1763956621272164000 no-op=false
+[Node 1] 2025/11/23 22:57:01.274681 Node 1: skipping RPC Accept to inactive node 4
+[Node 1] 2025/11/23 22:57:01.274688 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:01.274698 Node 1: skipping RPC Accept to inactive node 2
+[Node 1] 2025/11/23 22:57:01.274701 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:01.285440 [Database] executing txn (B,F,3)
+[Node 1] 2025/11/23 22:57:01.285554 [Database] txn success: B -> F amount 3
+[Node 1] 2025/11/23 22:57:01.285622 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:01.285618 Node 1: skipping RPC Commit to inactive node 2
+[Node 1] 2025/11/23 22:57:01.285629 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:01.285638 Node 1: skipping RPC Commit to inactive node 4
+[Node 1] 2025/11/23 22:57:01.285644 Node 1: ProcessClientRequest seq=8 success=true msg=success
+[Node 1] 2025/11/23 22:57:01.489480 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956621487518000
+[Node 1] 2025/11/23 22:57:01.489569 Node 1: ProcessClientRequest client=C ts=1763956621487518000 no-op=false
+[Node 1] 2025/11/23 22:57:01.489647 Node 1: skipping RPC Accept to inactive node 2
+[Node 1] 2025/11/23 22:57:01.489650 Node 1: skipping RPC Accept to inactive node 4
+[Node 1] 2025/11/23 22:57:01.489661 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:01.489682 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:01.500638 [Database] executing txn (C,A,2)
+[Node 1] 2025/11/23 22:57:01.500766 [Database] txn success: C -> A amount 2
+[Node 1] 2025/11/23 22:57:01.500801 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:01.500808 Node 1: skipping RPC Commit to inactive node 2
+[Node 1] 2025/11/23 22:57:01.500810 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:01.500821 Node 1: ProcessClientRequest seq=9 success=true msg=success
+[Node 1] 2025/11/23 22:57:01.500829 Node 1: skipping RPC Commit to inactive node 4
+[Node 1] 2025/11/23 22:57:01.635988 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:01.635983 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:01.636006 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:01.636016 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:01.662654 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:01.662693 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:01.662705 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:01.662714 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:02.135940 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:02.135950 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:02.135958 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:02.135962 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:02.162557 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:02.162563 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:02.162576 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:02.162583 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:02.635997 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:02.636021 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:02.636033 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:02.636043 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:02.662666 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:02.662707 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:02.662719 Node 1: skipping RPC HandleHeartbeat to inactive node 2
+[Node 1] 2025/11/23 22:57:02.662730 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:02.775646 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:57:02.775794 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:57:02.776802 Node 1: UpdateActiveStatus node=3 live=true
+[Node 1] 2025/11/23 22:57:02.777115 Node 1: setNodeLiveness node=3 live=true
+[Node 1] 2025/11/23 22:57:02.777130 Node 1: UpdateActiveStatus node=4 live=false
+[Node 1] 2025/11/23 22:57:02.777198 Node 1: setNodeLiveness node=4 live=false
+[Node 1] 2025/11/23 22:57:02.777343 Node 1: UpdateActiveStatus node=2 live=true
+[Node 1] 2025/11/23 22:57:02.777424 Node 1: setNodeLiveness node=2 live=true
+[Node 1] 2025/11/23 22:57:02.777381 Node 1: UpdateActiveStatus node=5 live=true
+[Node 1] 2025/11/23 22:57:02.777485 Node 1: buildStateSnapshot generating from 9 entries
+[Node 1] 2025/11/23 22:57:02.777525 Node 1: snapshot ready entries=9 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:02.777533 Node 1: sending snapshot entries=9 to node 2
+[Node 1] 2025/11/23 22:57:02.777539 Node 1: setNodeLiveness node=5 live=true
+[Node 1] 2025/11/23 22:57:02.777561 Node 1: RPC NewView->node 2
+[Node 1] 2025/11/23 22:57:02.777985 Node 1: RequestStateTransfer from node 2
+[Node 1] 2025/11/23 22:57:02.778008 Node 1: buildStateSnapshot generating from 9 entries
+[Node 1] 2025/11/23 22:57:02.778024 Node 1: snapshot ready entries=9 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:03.074262 Node 1: HandleClientRequest type=REQUEST client=B ts=1763956623073494000
+[Node 1] 2025/11/23 22:57:03.074284 Node 1: ProcessClientRequest client=B ts=1763956623073494000 no-op=false
+[Node 1] 2025/11/23 22:57:03.074300 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:03.074304 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:03.074323 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:57:03.074332 Node 1: skipping RPC Accept to inactive node 4
+[Node 1] 2025/11/23 22:57:03.085409 [Database] executing txn (B,F,3)
+[Node 1] 2025/11/23 22:57:03.085465 [Database] txn failed: sender B insufficient balance 1 (amt 3)
+[Node 1] 2025/11/23 22:57:03.085495 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:03.085502 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:57:03.085515 Node 1: skipping RPC Commit to inactive node 4
+[Node 1] 2025/11/23 22:57:03.085519 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:03.085520 Node 1: ProcessClientRequest seq=10 success=false msg=insufficient balance
+[Node 1] 2025/11/23 22:57:03.135919 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:03.135935 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:03.135945 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:03.135948 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:03.161793 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:03.161821 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:03.161818 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:03.161819 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:03.289128 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956623286819000
+[Node 1] 2025/11/23 22:57:03.289238 Node 1: ProcessClientRequest client=A ts=1763956623286819000 no-op=false
+[Node 1] 2025/11/23 22:57:03.289326 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:03.289336 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:03.289346 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:57:03.289355 Node 1: skipping RPC Accept to inactive node 4
+[Node 1] 2025/11/23 22:57:03.300036 [Database] executing txn (A,H,3)
+[Node 1] 2025/11/23 22:57:03.300113 [Database] txn success: A -> H amount 3
+[Node 1] 2025/11/23 22:57:03.300139 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:03.300148 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:57:03.300161 Node 1: skipping RPC Commit to inactive node 4
+[Node 1] 2025/11/23 22:57:03.300185 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:03.300199 Node 1: ProcessClientRequest seq=11 success=true msg=success
+[Node 1] 2025/11/23 22:57:03.635954 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:03.635976 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:03.635994 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:03.636014 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:03.662649 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:03.662710 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:03.662702 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:03.662722 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:04.135993 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:04.136009 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:04.136017 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:04.136033 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:04.162059 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:04.162132 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:04.162139 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:04.162149 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:04.635615 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:04.635605 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:04.635632 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:04.635645 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:04.662668 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:04.662731 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:04.662730 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:04.662746 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:04.837598 Node 1: UpdateActiveStatus node=5 live=false
+[Node 1] 2025/11/23 22:57:04.837651 Node 1: setNodeLiveness node=5 live=false
+[Node 1] 2025/11/23 22:57:04.837835 Node 1: UpdateActiveStatus node=4 live=false
+[Node 1] 2025/11/23 22:57:04.837878 Node 1: setNodeLiveness node=4 live=false
+[Node 1] 2025/11/23 22:57:04.837997 Node 1: UpdateActiveStatus node=2 live=true
+[Node 1] 2025/11/23 22:57:04.838026 Node 1: setNodeLiveness node=2 live=true
+[Node 1] 2025/11/23 22:57:04.838135 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:57:04.838159 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:57:04.838062 Node 1: UpdateActiveStatus node=3 live=false
+[Node 1] 2025/11/23 22:57:04.838206 Node 1: setNodeLiveness node=3 live=false
+[Node 1] 2025/11/23 22:57:05.135968 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:05.135985 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:05.135999 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:05.136011 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:05.138661 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956625136640000
+[Node 1] 2025/11/23 22:57:05.138777 Node 1: ProcessClientRequest client=C ts=1763956625136640000 no-op=false
+[Node 1] 2025/11/23 22:57:05.138831 Node 1: insufficient active nodes 2 (needed 3) so skipping transactions
+[Node 1] 2025/11/23 22:57:05.162701 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:05.162725 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:05.162734 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:05.162740 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:05.342997 Node 1: HandleClientRequest type=REQUEST client=D ts=1763956625341014000
+[Node 1] 2025/11/23 22:57:05.343099 Node 1: ProcessClientRequest client=D ts=1763956625341014000 no-op=false
+[Node 1] 2025/11/23 22:57:05.343140 Node 1: insufficient active nodes 2 (needed 3) so skipping transactions
+[Node 1] 2025/11/23 22:57:05.635973 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:05.636003 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:05.636022 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:05.636033 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:05.662707 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:05.662734 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:05.662745 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:05.662759 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:06.136006 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:06.136008 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:06.136030 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:06.136061 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:06.162708 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:06.162807 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:06.162819 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:06.162863 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:06.635993 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:06.636021 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:06.636037 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:06.636048 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:06.662716 Node 1: skipping RPC HandleHeartbeat to inactive node 5
+[Node 1] 2025/11/23 22:57:06.662758 Node 1: skipping RPC HandleHeartbeat to inactive node 3
+[Node 1] 2025/11/23 22:57:06.662769 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:06.662781 Node 1: skipping RPC HandleHeartbeat to inactive node 4
+[Node 1] 2025/11/23 22:57:07.048559 Node 1: UpdateActiveStatus node=5 live=true
+[Node 1] 2025/11/23 22:57:07.048681 Node 1: setNodeLiveness node=5 live=true
+[Node 1] 2025/11/23 22:57:07.048854 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.048925 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.048957 Node 1: sending snapshot entries=11 to node 5
+[Node 1] 2025/11/23 22:57:07.048980 Node 1: RPC NewView->node 5
+[Node 1] 2025/11/23 22:57:07.050812 Node 1: UpdateActiveStatus node=1 live=true
+[Node 1] 2025/11/23 22:57:07.050884 Node 1: setNodeLiveness node=1 live=true
+[Node 1] 2025/11/23 22:57:07.051061 Node 1: UpdateActiveStatus node=2 live=true
+[Node 1] 2025/11/23 22:57:07.051126 Node 1: setNodeLiveness node=2 live=true
+[Node 1] 2025/11/23 22:57:07.051282 Node 1: UpdateActiveStatus node=3 live=true
+[Node 1] 2025/11/23 22:57:07.051342 Node 1: setNodeLiveness node=3 live=true
+[Node 1] 2025/11/23 22:57:07.051450 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.052542 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.052577 Node 1: sending snapshot entries=11 to node 3
+[Node 1] 2025/11/23 22:57:07.052587 Node 1: RPC NewView->node 3
+[Node 1] 2025/11/23 22:57:07.052232 Node 1: UpdateActiveStatus node=4 live=true
+[Node 1] 2025/11/23 22:57:07.052830 Node 1: setNodeLiveness node=4 live=true
+[Node 1] 2025/11/23 22:57:07.052885 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.052899 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.052905 Node 1: sending snapshot entries=11 to node 4
+[Node 1] 2025/11/23 22:57:07.052911 Node 1: RPC NewView->node 4
+[Node 1] 2025/11/23 22:57:07.054412 Node 1: RequestStateTransfer from node 3
+[Node 1] 2025/11/23 22:57:07.054490 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.054603 Node 1: RequestStateTransfer from node 5
+[Node 1] 2025/11/23 22:57:07.054698 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.055131 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.054634 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.054437 Node 1: RequestStateTransfer from node 4
+[Node 1] 2025/11/23 22:57:07.055260 Node 1: buildStateSnapshot generating from 11 entries
+[Node 1] 2025/11/23 22:57:07.055281 Node 1: snapshot ready entries=11 ballot=(2,1)
+[Node 1] 2025/11/23 22:57:07.056513 Node 1: AcceptedFromNewView from node 4 seq=11
+[Node 1] 2025/11/23 22:57:07.056561 Node 1: AcceptedFromNewView from node 4 seq=6
+[Node 1] 2025/11/23 22:57:07.056527 Node 1: AcceptedFromNewView from node 4 seq=7
+[Node 1] 2025/11/23 22:57:07.056618 Node 1: AcceptedFromNewView from node 4 seq=9
+[Node 1] 2025/11/23 22:57:07.056638 Node 1: AcceptedFromNewView from node 4 seq=5
+[Node 1] 2025/11/23 22:57:07.056675 Node 1: AcceptedFromNewView from node 4 seq=4
+[Node 1] 2025/11/23 22:57:07.056709 Node 1: AcceptedFromNewView from node 4 seq=2
+[Node 1] 2025/11/23 22:57:07.056684 Node 1: AcceptedFromNewView from node 4 seq=8
+[Node 1] 2025/11/23 22:57:07.056893 Node 1: AcceptedFromNewView from node 4 seq=3
+[Node 1] 2025/11/23 22:57:07.056914 Node 1: AcceptedFromNewView from node 4 seq=1
+[Node 1] 2025/11/23 22:57:07.056902 Node 1: AcceptedFromNewView from node 4 seq=10
+[Node 1] 2025/11/23 22:57:07.136133 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:07.136134 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:07.136160 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:07.136177 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:07.162723 Node 1: RPC HandleHeartbeat->node 5
+[Node 1] 2025/11/23 22:57:07.162775 Node 1: RPC HandleHeartbeat->node 3
+[Node 1] 2025/11/23 22:57:07.162791 Node 1: RPC HandleHeartbeat->node 2
+[Node 1] 2025/11/23 22:57:07.162827 Node 1: RPC HandleHeartbeat->node 4
+[Node 1] 2025/11/23 22:57:07.347215 Node 1: HandleClientRequest type=REQUEST client=C ts=1763956627344923000
+[Node 1] 2025/11/23 22:57:07.347349 Node 1: ProcessClientRequest client=C ts=1763956627344923000 no-op=false
+[Node 1] 2025/11/23 22:57:07.347457 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:07.347465 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:07.347477 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:57:07.347484 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:57:07.358511 [Database] executing txn (C,B,1)
+[Node 1] 2025/11/23 22:57:07.358624 [Database] txn success: C -> B amount 1
+[Node 1] 2025/11/23 22:57:07.358680 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:07.358716 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:07.358763 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:57:07.358768 Node 1: ProcessClientRequest seq=12 success=true msg=success
+[Node 1] 2025/11/23 22:57:07.358711 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:57:07.361053 Node 1: HandleClientRequest type=REQUEST client=D ts=1763956627359953000
+[Node 1] 2025/11/23 22:57:07.361083 Node 1: ProcessClientRequest client=D ts=1763956627359953000 no-op=false
+[Node 1] 2025/11/23 22:57:07.361108 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:57:07.361122 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:57:07.361145 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:07.361135 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:07.372155 [Database] executing txn (D,F,2)
+[Node 1] 2025/11/23 22:57:07.372233 [Database] txn success: D -> F amount 2
+[Node 1] 2025/11/23 22:57:07.372251 Node 1: ProcessClientRequest seq=13 success=true msg=success
+[Node 1] 2025/11/23 22:57:07.372290 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:07.372286 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:07.372332 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:57:07.372354 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:57:07.373750 Node 1: HandleClientRequest type=REQUEST client=A ts=1763956627372846000
+[Node 1] 2025/11/23 22:57:07.373774 Node 1: ProcessClientRequest client=A ts=1763956627372846000 no-op=false
+[Node 1] 2025/11/23 22:57:07.373794 Node 1: RPC Accept->node 2
+[Node 1] 2025/11/23 22:57:07.373956 Node 1: RPC Accept->node 4
+[Node 1] 2025/11/23 22:57:07.373971 Node 1: RPC Accept->node 3
+[Node 1] 2025/11/23 22:57:07.373983 Node 1: RPC Accept->node 5
+[Node 1] 2025/11/23 22:57:07.384317 [Database] executing txn (A,B,4)
+[Node 1] 2025/11/23 22:57:07.384355 [Database] txn success: A -> B amount 4
+[Node 1] 2025/11/23 22:57:07.384368 Node 1: RPC Commit->node 2
+[Node 1] 2025/11/23 22:57:07.384376 Node 1: RPC Commit->node 3
+[Node 1] 2025/11/23 22:57:07.384369 Node 1: RPC Commit->node 4
+[Node 1] 2025/11/23 22:57:07.384372 Node 1: ProcessClientRequest seq=14 success=true msg=success
+[Node 1] 2025/11/23 22:57:07.384379 Node 1: RPC Commit->node 5
+[Node 1] 2025/11/23 22:57:07.587876 Node 1: GetLeader RPC invoked
+[Node 1] 2025/11/23 22:57:07.589592 Node 1: UpdateActiveStatus node=1 live=false
+[Node 1] 2025/11/23 22:57:07.589727 Node 1: setNodeLiveness node=1 live=false
+[Node 1] 2025/11/23 22:57:07.782279 Node 1: Leader timeout (6.192462s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:07.782338 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:07.900984 Node 1: GetLeader RPC invoked
+[Node 1] 2025/11/23 22:57:09.793156 Node 1: Leader timeout (8.203316s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:09.793369 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:11.803242 Node 1: Leader timeout (10.213382s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:11.803331 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:13.813099 Node 1: Leader timeout (12.223216s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:13.813253 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:15.823347 Node 1: Leader timeout (14.233442s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:15.823519 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:17.834398 Node 1: Leader timeout (16.244474s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:17.834612 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:19.844883 Node 1: Leader timeout (18.254936s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:19.845065 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:21.854348 Node 1: Leader timeout (20.264381s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:21.854435 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:23.864820 Node 1: Leader timeout (22.274828s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:23.865011 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:24.194306 Node 1: PrintDB RPC invoked
+[Node 1] 2025/11/23 22:57:24.194465 [Database] printing DB for node 1 (10 accounts)
+[Node 1] 2025/11/23 22:57:25.875366 Node 1: Leader timeout (24.285356s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:25.875530 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:27.884998 Node 1: Leader timeout (26.294967s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:27.885134 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:29.894982 Node 1: Leader timeout (28.304930s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:29.895162 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:31.903297 Node 1: Leader timeout (30.313224s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:31.903382 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:33.914101 Node 1: Leader timeout (32.324006s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:33.914341 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:35.925530 Node 1: Leader timeout (34.335416s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:35.925638 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:37.935445 Node 1: Leader timeout (36.345308s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:37.935635 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:39.946513 Node 1: Leader timeout (38.356354s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:39.946704 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:41.957518 Node 1: Leader timeout (40.367341s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:41.957624 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:43.967664 Node 1: Leader timeout (42.377463s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:43.967953 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:45.977761 Node 1: Leader timeout (44.387539s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:45.977913 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:47.986733 Node 1: Leader timeout (46.396490s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:47.986907 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:49.995041 Node 1: Leader timeout (48.404777s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:49.995264 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:52.004624 Node 1: Leader timeout (50.414338s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:52.004820 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:54.013745 Node 1: Leader timeout (52.423439s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:54.013901 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:56.023069 Node 1: Leader timeout (54.432741s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:56.023273 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:57:58.031485 Node 1: Leader timeout (56.441136s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:57:58.031673 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:00.041631 Node 1: Leader timeout (58.451262s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:00.041801 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:02.050385 Node 1: Leader timeout (60.459990s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:02.050574 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:04.060462 Node 1: Leader timeout (62.470050s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:04.060642 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:06.069667 Node 1: Leader timeout (64.479235s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:06.069907 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:08.080360 Node 1: Leader timeout (66.489907s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:08.080447 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:10.089481 Node 1: Leader timeout (68.499005s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:10.089638 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:12.100141 Node 1: Leader timeout (70.509645s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:12.100347 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:14.110037 Node 1: Leader timeout (72.519518s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:14.110206 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:16.119135 Node 1: Leader timeout (74.528595s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:16.119307 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:18.129287 Node 1: Leader timeout (76.538728s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:18.129376 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:20.139598 Node 1: Leader timeout (78.549017s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:20.139781 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:22.150544 Node 1: Leader timeout (80.559941s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:22.150711 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:24.160030 Node 1: Leader timeout (82.569406s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:24.160286 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:26.169324 Node 1: Leader timeout (84.578679s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:26.169475 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:28.177620 Node 1: Leader timeout (86.586954s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:28.177701 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:30.187455 Node 1: Leader timeout (88.596768s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:30.187663 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:32.196950 Node 1: Leader timeout (90.606242s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:32.197125 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:34.207069 Node 1: Leader timeout (92.616339s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:34.207259 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:36.216501 Node 1: Leader timeout (94.625751s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:36.216663 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:38.226852 Node 1: Leader timeout (96.636081s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:38.226923 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:40.235758 Node 1: Leader timeout (98.644965s), no leader msgs, starting election
+[Node 1] 2025/11/23 22:58:40.235953 Node 1: StartLeaderElection invoked (leader=false active=false)
+[Node 1] 2025/11/23 22:58:42.003212 Node 1 shutting down...
+[Node 1] 2025/11/23 22:58:42.003271 Node 1: stopping node
+[Node 1] 2025/11/23 22:58:42.003300 Node 1: accept error: accept tcp 127.0.0.1:8001: use of closed network connection
+[Node 1] 2025/11/23 22:58:42.003317 Node 1: RPC server shutting down

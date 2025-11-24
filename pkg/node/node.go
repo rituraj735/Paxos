@@ -692,18 +692,21 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 	for nodeID := range n.Peers {
 		if nodeID != n.ID {
-			go func(id int) {
+			go func(id int, expected datatypes.AcceptMsg) {
 				var reply datatypes.AcceptedMsg
-				err := n.callRPC(id, "Accept", acceptMsg, &reply)
-				if err == nil {
+				err := n.callRPC(id, "Accept", expected, &reply)
+				if err == nil && reply.NodeID == id && reply.SeqNum == seqNum &&
+					reply.Ballot.Number == expected.Ballot.Number && reply.Ballot.NodeID == expected.Ballot.NodeID {
 					n.mu.Lock()
 					if n.pendingAccepts[seqNum] == nil {
 						n.pendingAccepts[seqNum] = make(map[int]datatypes.AcceptedMsg)
 					}
 					n.pendingAccepts[seqNum][id] = reply
 					n.mu.Unlock()
+				} else if err == nil {
+					log.Printf("Node %d: ignoring mismatched Accept ack from %d for seq=%d (reply ballot=%s)", n.ID, id, seqNum, reply.Ballot.String())
 				}
-			}(nodeID)
+			}(nodeID, acceptMsg)
 		}
 	}
 
@@ -889,11 +892,7 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	n.lastLeaderMsg = time.Now()
 
 	// Accept commits from current/newer ballots; ignore only stale ballots
-	if args.Ballot.LessThan(n.HighestPromised) {
-		log.Printf("Node %d: ignoring stale commit seq=%d ballot=%s (promise=%s)", n.ID, args.SeqNum, args.Ballot.String(), n.HighestPromised.String())
-		*reply = false
-		return nil
-	}
+	// Learn commits regardless of local promise; a chosen value must be learned.
 
 	entry, exists := n.AcceptedLog[args.SeqNum]
 	if !exists {
@@ -906,8 +905,10 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 		}
 		n.AcceptedLog[args.SeqNum] = entry
 	} else {
-		// Do not downgrade Executed -> Committed
+		// Align the request/value to the committed one if not yet executed
 		if entry.Status != datatypes.StatusExecuted {
+			entry.Request = args.Request
+			entry.Ballot = args.Ballot
 			entry.Status = datatypes.StatusCommitted
 			n.AcceptedLog[args.SeqNum] = entry
 		}
@@ -916,6 +917,8 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 	for i := range n.RequestLog {
 		if n.RequestLog[i].SeqNum == args.SeqNum {
 			if n.RequestLog[i].Status != datatypes.StatusExecuted {
+				n.RequestLog[i].Ballot = args.Ballot
+				n.RequestLog[i].Request = args.Request
 				n.RequestLog[i].Status = datatypes.StatusCommitted
 			}
 			break
@@ -1236,33 +1239,7 @@ func (n *Node) StartLeaderElection() bool {
 		n.mu.RUnlock()
 
 		for _, entry := range acceptLog {
-			n.mu.Lock()
-			acceptCount := 0
-			if n.pendingAccepts[entry.SeqNum] != nil {
-				acceptCount = len(n.pendingAccepts[entry.SeqNum])
-			}
-			n.mu.Unlock()
-
-			if acceptCount >= config.MajoritySize {
-				commitMsg := datatypes.CommitMsg{
-					Ballot:  ballot,
-					SeqNum:  entry.SeqNum,
-					Request: entry.Request,
-				}
-
-				for nodeID := range n.Peers {
-					if nodeID != n.ID {
-						go func(id int) {
-							var reply bool
-							n.callRPC(id, "Commit", commitMsg, &reply)
-						}(nodeID)
-					}
-				}
-
-				n.mu.Lock()
-				n.executeRequest(entry.SeqNum, entry.Request)
-				n.mu.Unlock()
-			}
+			n.recoverEntryWithNewBallot(entry, ballot)
 		}
 
 		log.Printf("Node %d: leader election success with ballot %s", n.ID, ballot)
@@ -1271,6 +1248,79 @@ func (n *Node) StartLeaderElection() bool {
 
 	log.Printf("Node %d: leader election failed (promises=%d need=%d)", n.ID, promiseCount, requiredMajority)
 	return false
+}
+
+// recoverEntryWithNewBallot ensures an entry is accepted by a majority under the
+// current leader ballot, then commits and applies it locally. It validates
+// Accept acknowledgments to avoid counting mismatched replies.
+func (n *Node) recoverEntryWithNewBallot(entry datatypes.AcceptLogEntry, ballot datatypes.BallotNumber) {
+	// Check current acceptance count for this sequence
+	n.mu.Lock()
+	acceptCount := 0
+	if n.pendingAccepts[entry.SeqNum] != nil {
+		acceptCount = len(n.pendingAccepts[entry.SeqNum])
+	}
+	n.mu.Unlock()
+
+	if acceptCount < config.MajoritySize {
+		// Re-propose under new ballot
+		acceptMsg := datatypes.AcceptMsg{
+			Type:    "ACCEPT",
+			Ballot:  ballot,
+			SeqNum:  entry.SeqNum,
+			Request: entry.Request,
+		}
+
+		var wg sync.WaitGroup
+		for peerID := range n.Peers {
+			if peerID == n.ID {
+				continue
+			}
+			wg.Add(1)
+			go func(id int) {
+				defer wg.Done()
+				var reply datatypes.AcceptedMsg
+				if err := n.callRPC(id, "Accept", acceptMsg, &reply); err == nil &&
+					reply.NodeID == id && reply.SeqNum == entry.SeqNum &&
+					reply.Ballot.Number == acceptMsg.Ballot.Number && reply.Ballot.NodeID == acceptMsg.Ballot.NodeID {
+					n.mu.Lock()
+					if n.pendingAccepts[entry.SeqNum] == nil {
+						n.pendingAccepts[entry.SeqNum] = make(map[int]datatypes.AcceptedMsg)
+					}
+					n.pendingAccepts[entry.SeqNum][id] = reply
+					n.mu.Unlock()
+				}
+			}(peerID)
+		}
+		wg.Wait()
+	}
+
+	// If we now have a majority, broadcast commit and apply locally
+	n.mu.Lock()
+	acceptCount = 0
+	if n.pendingAccepts[entry.SeqNum] != nil {
+		acceptCount = len(n.pendingAccepts[entry.SeqNum])
+	}
+	n.mu.Unlock()
+
+	if acceptCount >= config.MajoritySize {
+		commitMsg := datatypes.CommitMsg{
+			Ballot:  ballot,
+			SeqNum:  entry.SeqNum,
+			Request: entry.Request,
+		}
+		for peerID := range n.Peers {
+			if peerID == n.ID {
+				continue
+			}
+			go func(id int) {
+				var dummy bool
+				n.callRPC(id, "Commit", commitMsg, &dummy)
+			}(peerID)
+		}
+		var dummy bool
+		n.HandleCommit(commitMsg, &dummy)
+	}
 }
 
 // createNewViewFromPromises merges promise logs into a consolidated accept log.
