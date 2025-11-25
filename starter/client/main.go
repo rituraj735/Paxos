@@ -282,32 +282,32 @@ func triggerLeaderFailure() (int, error) {
 
 // findCurrentLeader queries nodes to determine the prevailing leader.
 func findCurrentLeader() (int, error) {
-    log.Printf("ClientDriver: findCurrentLeader scanning nodes")
+	log.Printf("ClientDriver: findCurrentLeader scanning nodes")
 
-    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-        address, ok := config.NodeAddresses[nodeID]
-        if !ok {
-            continue
-        }
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		address, ok := config.NodeAddresses[nodeID]
+		if !ok {
+			continue
+		}
 
-        client, err := rpc.Dial("tcp", address)
-        if err != nil {
-            continue
-        }
+		client, err := rpc.Dial("tcp", address)
+		if err != nil {
+			continue
+		}
 
-        var info datatypes.LeaderInfo
-        err = client.Call("NodeService.GetLeader", true, &info)
-        client.Close()
-        if err != nil {
-            continue
-        }
+		var info datatypes.LeaderInfo
+		err = client.Call("NodeService.GetLeader", true, &info)
+		client.Close()
+		if err != nil {
+			continue
+		}
 
-        if info.IsLeader && info.LeaderID != 0 {
-            return info.LeaderID, nil
-        }
-    }
+		if info.IsLeader && info.LeaderID != 0 {
+			return info.LeaderID, nil
+		}
+	}
 
-    return 0, fmt.Errorf("no leader information available from active nodes")
+	return 0, fmt.Errorf("no leader information available from active nodes")
 }
 
 // disableLeaderAcrossCluster asks every node to mark the leader inactive.
@@ -370,20 +370,20 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 
 // waitForStableLeader blocks until a node reports IsLeader==true or timeout.
 func waitForStableLeader(timeout time.Duration) (int, error) {
-    deadline := time.Now().Add(timeout)
-    var lastErr error
-    for time.Now().Before(deadline) {
-        id, err := findCurrentLeader()
-        if err == nil && id != 0 {
-            return id, nil
-        }
-        lastErr = err
-        time.Sleep(300 * time.Millisecond)
-    }
-    if lastErr == nil {
-        lastErr = fmt.Errorf("no leader observed before timeout")
-    }
-    return 0, lastErr
+	deadline := time.Now().Add(timeout)
+	var lastErr error
+	for time.Now().Before(deadline) {
+		id, err := findCurrentLeader()
+		if err == nil && id != 0 {
+			return id, nil
+		}
+		lastErr = err
+		time.Sleep(300 * time.Millisecond)
+	}
+	if lastErr == nil {
+		lastErr = fmt.Errorf("no leader observed before timeout")
+	}
+	return 0, lastErr
 }
 
 // processNextTestSet enforces liveness pattern then executes the set's txns.
@@ -425,18 +425,18 @@ func processNextTestSet(reader *bufio.Reader) {
 		}
 	}
 
-    time.Sleep(300 * time.Millisecond)
+	time.Sleep(300 * time.Millisecond)
 
-    // Wait briefly for a real leader before flushing and sending txns.
-    // This prevents premature "no leader available" deferrals right after liveness changes.
-    waitBudget := time.Duration(config.LeaderTimeout)*time.Millisecond + 500*time.Millisecond
-    if leaderID, err := waitForStableLeader(waitBudget); err == nil && leaderID != 0 {
-        for _, c := range clients {
-            c.UpdateLeader(leaderID)
-        }
-    }
+	// Wait briefly for a real leader before flushing and sending txns.
+	// This prevents premature "no leader available" deferrals right after liveness changes.
+	waitBudget := time.Duration(config.LeaderTimeout)*time.Millisecond + 500*time.Millisecond
+	if leaderID, err := waitForStableLeader(waitBudget); err == nil && leaderID != 0 {
+		for _, c := range clients {
+			c.UpdateLeader(leaderID)
+		}
+	}
 
-    flushBacklog()
+	flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
@@ -452,7 +452,8 @@ func processNextTestSet(reader *bufio.Reader) {
 			} else {
 				fmt.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
 			}
-			time.Sleep(8 * time.Second)
+			// experimenting with sleep time after LF
+			time.Sleep(2 * time.Second)
 			continue
 		}
 
@@ -463,16 +464,16 @@ func processNextTestSet(reader *bufio.Reader) {
 			continue
 		}
 
-        reply, err := c.SendTransaction(tx)
-        if err != nil {
+		reply, err := c.SendTransaction(tx)
+		if err != nil {
 
-            // Defer if no leader is currently available or quorum is insufficient
-            if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
-                strings.Contains(strings.ToLower(err.Error()), "no leader available") {
-                deferTxn(tx)
-            }
-            failCount++
-        } else if reply.Success {
+			// Defer if no leader is currently available or quorum is insufficient
+			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
+				strings.Contains(strings.ToLower(err.Error()), "no leader available") {
+				deferTxn(tx)
+			}
+			failCount++
+		} else if reply.Success {
 			log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
 
 			successCount++
