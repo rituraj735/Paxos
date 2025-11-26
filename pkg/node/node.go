@@ -17,14 +17,18 @@ import (
     "sort"
     "strings"
     "sync"
+    "strconv"
     "time"
 )
 
 type Node struct {
-	ID       int
-	Address  string
-	Peers    map[int]string
-	IsLeader bool
+    ID       int
+    Address  string
+    Peers    map[int]string
+    IsLeader bool
+
+    // Phase 1: logical cluster metadata
+    ClusterID int
 
 	lastProcessedView datatypes.BallotNumber
 
@@ -90,15 +94,16 @@ func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
 func NewNode(id int, address string, peers map[int]string) *Node {
     log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
     node := &Node{
-		ID:              id,
-		Address:         address,
-		Peers:           peers,
-		IsLeader:        false,
-		CurrentBallot:   datatypes.BallotNumber{Number: 0, NodeID: id},
-		HighestPromised: datatypes.BallotNumber{Number: 0, NodeID: 0},
-		NextSeqNum:      1,
-		AcceptedLog:     make(map[int]datatypes.LogEntry),
-		RequestLog:      make([]datatypes.LogEntry, 0),
+        ID:              id,
+        Address:         address,
+        Peers:           peers,
+        IsLeader:        false,
+        ClusterID:       0,
+        CurrentBallot:   datatypes.BallotNumber{Number: 0, NodeID: id},
+        HighestPromised: datatypes.BallotNumber{Number: 0, NodeID: 0},
+        NextSeqNum:      1,
+        AcceptedLog:     make(map[int]datatypes.LogEntry),
+        RequestLog:      make([]datatypes.LogEntry, 0),
 		NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
 		LastReply:       make(map[string]datatypes.ReplyMsg),
         Database:        nil,
@@ -113,6 +118,9 @@ func NewNode(id int, address string, peers map[int]string) *Node {
     dataDir := "data"
     _ = os.MkdirAll(dataDir, 0o755)
     dbPath := filepath.Join(dataDir, fmt.Sprintf("node-%d.db", id))
+    if config.WipeDataOnBoot {
+        _ = os.Remove(dbPath)
+    }
     if boltDB, err := database.NewBoltDatabase(dbPath); err == nil {
         node.Database = boltDB
         log.Printf("Node %d: BoltDB initialized at %s", id, dbPath)
@@ -121,19 +129,32 @@ func NewNode(id int, address string, peers map[int]string) *Node {
         node.Database = database.NewDatabase()
     }
 	go node.monitorLeaderTimeout()
-    // Initialize all clients with initial balance if missing
-    for _, clientID := range config.ClientIDs {
-        node.Database.InitializeClient(clientID, config.InitialBalance)
+    // Phase 1: set logical ClusterID via config.ClusterMembers
+    for cid, members := range config.ClusterMembers {
+        for _, mid := range members {
+            if mid == id {
+                node.ClusterID = cid
+                break
+            }
+        }
+        if node.ClusterID != 0 {
+            break
+        }
     }
 
-	// Initially all nodes are active
-	for nodeID := range peers {
-		node.ActiveNodes[nodeID] = true
-	}
-	node.ActiveNodes[id] = true
+    // Seed numeric accounts 1..9000 with InitialBalance if missing
+    for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
+        node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+    }
+
+    // Initially all nodes are active
+    for nodeID := range peers {
+        node.ActiveNodes[nodeID] = true
+    }
+    node.ActiveNodes[id] = true
 
 	log.Printf("Node %d: initialization complete (maj=%d)", id, node.MajoritySize)
-	return node
+    return node
 }
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.
