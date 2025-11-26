@@ -5,17 +5,19 @@
 package node
 
 import (
-	"fmt"
-	"log"
-	"multipaxos/rituraj735/config"
-	"multipaxos/rituraj735/datatypes"
-	"multipaxos/rituraj735/pkg/database"
-	"net"
-	"net/rpc"
-	"sort"
-	"strings"
-	"sync"
-	"time"
+    "fmt"
+    "log"
+    "multipaxos/rituraj735/config"
+    "multipaxos/rituraj735/datatypes"
+    "multipaxos/rituraj735/pkg/database"
+    "os"
+    "path/filepath"
+    "net"
+    "net/rpc"
+    "sort"
+    "strings"
+    "sync"
+    "time"
 )
 
 type Node struct {
@@ -86,8 +88,8 @@ func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
 
 // NewNode wires up a node with default state, DB, and leader monitor.
 func NewNode(id int, address string, peers map[int]string) *Node {
-	log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
-	node := &Node{
+    log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
+    node := &Node{
 		ID:              id,
 		Address:         address,
 		Peers:           peers,
@@ -99,19 +101,30 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		RequestLog:      make([]datatypes.LogEntry, 0),
 		NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
 		LastReply:       make(map[string]datatypes.ReplyMsg),
-		Database:        database.NewDatabase(),
-		pendingAccepts:  make(map[int]map[int]datatypes.AcceptedMsg),
-		ActiveNodes:     make(map[int]bool),
-		MajoritySize:    config.MajoritySize,
-		shutdown:        make(chan bool),
-		lastLeaderMsg:   time.Now(),
-		ackFromNewView:  make(map[int]bool),
-	}
+        Database:        nil,
+        pendingAccepts:  make(map[int]map[int]datatypes.AcceptedMsg),
+        ActiveNodes:     make(map[int]bool),
+        MajoritySize:    config.MajoritySize,
+        shutdown:        make(chan bool),
+        lastLeaderMsg:   time.Now(),
+        ackFromNewView:  make(map[int]bool),
+    }
+    // Initialize persistent database (BoltDB); fall back to memory if open fails
+    dataDir := "data"
+    _ = os.MkdirAll(dataDir, 0o755)
+    dbPath := filepath.Join(dataDir, fmt.Sprintf("node-%d.db", id))
+    if boltDB, err := database.NewBoltDatabase(dbPath); err == nil {
+        node.Database = boltDB
+        log.Printf("Node %d: BoltDB initialized at %s", id, dbPath)
+    } else {
+        log.Printf("Node %d: BoltDB unavailable (%v); using in-memory DB", id, err)
+        node.Database = database.NewDatabase()
+    }
 	go node.monitorLeaderTimeout()
-	// Initialize all clients with initial balance of 10
-	for _, clientID := range config.ClientIDs {
-		node.Database.InitializeClient(clientID, config.InitialBalance)
-	}
+    // Initialize all clients with initial balance if missing
+    for _, clientID := range config.ClientIDs {
+        node.Database.InitializeClient(clientID, config.InitialBalance)
+    }
 
 	// Initially all nodes are active
 	for nodeID := range peers {
@@ -209,11 +222,14 @@ func (n *Node) StartRPCServer() error {
 
 // Stop shuts down network listeners and background goroutines.
 func (n *Node) Stop() {
-	log.Printf("Node %d: stopping node", n.ID)
-	close(n.shutdown)
-	if n.listener != nil {
-		n.listener.Close()
-	}
+    log.Printf("Node %d: stopping node", n.ID)
+    close(n.shutdown)
+    if n.listener != nil {
+        n.listener.Close()
+    }
+    if n.Database != nil {
+        _ = n.Database.Close()
+    }
 }
 
 // callRPC performs a best-effort RPC to a peer respecting active-node status.
