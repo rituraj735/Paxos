@@ -317,32 +317,24 @@ func (db *Database) LoadWAL() ([]datatypes.WALRecord, error) {
     if db.useBolt {
         err := db.bolt.View(func(tx *bbolt.Tx) error {
             c := tx.Bucket(db.bucketWAL).Cursor()
-            for k, v := c.First(); k != nil; k, v = c.Next() {
+            for _, v := c.First(); v != nil; _, v = c.Next() {
                 var rec datatypes.WALRecord
                 if err := json.Unmarshal(v, &rec); err != nil {
                     return err
                 }
-                // Derive TxnID/Phase from key to be safe
-                parts := strings.SplitN(string(k), "-", 2)
-                if len(parts) == 2 {
-                    rec.TxnID = parts[0]
-                    rec.Phase = datatypes.WALPhase(parts[1])
-                }
+                // Source of truth for TxnID/Phase is the JSON payload.
+                // Do not re-parse the key because TxnID can contain dashes.
                 out = append(out, rec)
             }
             return nil
         })
         return out, err
     }
-    for k, v := range db.walMem {
+    // Memory path (fallback)
+    for _, v := range db.walMem {
         var rec datatypes.WALRecord
         if err := json.Unmarshal(v, &rec); err != nil {
             return nil, err
-        }
-        parts := strings.SplitN(k, "-", 2)
-        if len(parts) == 2 {
-            rec.TxnID = parts[0]
-            rec.Phase = datatypes.WALPhase(parts[1])
         }
         out = append(out, rec)
     }
