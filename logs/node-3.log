@@ -4080,3 +4080,19 @@
 [Node 3] 2025/11/25 23:55:19.286203 Node 3: ProcessClientRequest seq=79 success=true msg=success
 [Node 3] 2025/11/25 23:56:37.602568 Node 3: PrintDB RPC invoked
 [Node 3] 2025/11/25 23:56:37.602771 [Database] printing DB (bolt) for node 3 (10 accounts)
+[Node 3] 2025/11/26 14:34:56.471597 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:56.971259 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:57.472599 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:57.970673 Node 3: RPC dial HandleHeartbeat to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
+[Node 3] 2025/11/26 14:34:57.970700 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:58.472979 Node 3: RPC dial HandleHeartbeat to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
+[Node 3] 2025/11/26 14:34:58.473157 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:58.970646 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:58.970694 Node 3: RPC dial HandleHeartbeat to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
+[Node 3] 2025/11/26 14:34:59.472119 Node 3: RPC dial HandleHeartbeat to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
+[Node 3] 2025/11/26 14:34:59.472137 Node 3: RPC dial HandleHeartbeat to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 3] 2025/11/26 14:34:59.762439 Node 3 shutting down...
+[Node 3] 2025/11/26 14:34:59.762660 Node 3: stopping node
+[Node 3] 2025/11/26 14:34:59.762798 Node 3: heartbeat loop exiting
+[Node 3] 2025/11/26 14:34:59.762881 Node 3: accept error: accept tcp 127.0.0.1:8003: use of closed network connection
+[Node 3] 2025/11/26 14:34:59.762969 Node 3: RPC server shutting down

@@ -5,7 +5,7 @@
 package datatypes
 
 import (
-	"fmt"
+    "fmt"
 )
 
 type ClientRequest struct {
@@ -176,6 +176,41 @@ type StateTransferArgs struct {
 }
 
 type StateTransferReply struct {
-	Snapshot NewViewMsg
-	Success  bool
+    Snapshot NewViewMsg
+    Success  bool
+}
+
+// =======================================
+// WAL types for 2PC/plumbing (Phase 2)
+// Filepath: datatypes/datatypes.go
+// Description: Shared write-ahead log (WAL) types used by participants and
+// the coordinator to reason about prepare/commit/abort phases and recovery.
+// =======================================
+
+// WALPhase encodes the phase of a transaction for WAL persistence.
+// P = Prepare, C = Commit, A = Abort
+type WALPhase string
+
+const (
+    WALPrepare WALPhase = "P"
+    WALCommit  WALPhase = "C"
+    WALAbort   WALPhase = "A"
+)
+
+// WALItem captures the before/after values for a single account touched by a txn.
+// ID is the numeric account identifier.
+type WALItem struct {
+    ID         int `json:"id"`
+    OldBalance int `json:"oldBalance"`
+    NewBalance int `json:"newBalance"`
+}
+
+// WALRecord is the durable record for a transaction phase on a node.
+// TxnID is globally unique; Phase is one of P/C/A; Items describe the changes.
+// Timestamp is for ordering/debug; recovery logic does not depend on it.
+type WALRecord struct {
+    TxnID     string    `json:"txnId"`
+    Phase     WALPhase  `json:"phase"`
+    Items     []WALItem `json:"items"`
+    Timestamp int64     `json:"ts"`
 }

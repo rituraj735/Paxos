@@ -1715,3 +1715,19 @@
 [Node 5] 2025/11/25 23:55:19.299314 Node 5: executeRequestsInOrder stopping at gap seq=80
 [Node 5] 2025/11/25 23:56:51.831425 Node 5: PrintDB RPC invoked
 [Node 5] 2025/11/25 23:56:51.831682 [Database] printing DB (bolt) for node 5 (10 accounts)
+[Node 5] 2025/11/26 14:35:02.576508 Node 5: Leader timeout (3.104185s), no leader msgs, starting election
+[Node 5] 2025/11/26 14:35:02.576654 Node 5: StartLeaderElection invoked (leader=false active=true)
+[Node 5] 2025/11/26 14:35:02.576663 Node 5: Starting leader election with ballot (65,5)
+[Node 5] 2025/11/26 14:35:02.576743 Node 5: RPC Prepare->node 3
+[Node 5] 2025/11/26 14:35:02.576753 Node 5: RPC Prepare->node 4
+[Node 5] 2025/11/26 14:35:02.576744 Node 5: RPC Prepare->node 1
+[Node 5] 2025/11/26 14:35:02.576748 Node 5: RPC Prepare->node 2
+[Node 5] 2025/11/26 14:35:02.577820 Node 5: RPC dial Prepare to node 3 failed: dial tcp 127.0.0.1:8003: connect: connection refused
+[Node 5] 2025/11/26 14:35:02.577757 Node 5: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/26 14:35:02.577809 Node 5: RPC dial Prepare to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
+[Node 5] 2025/11/26 14:35:02.577833 Node 5: RPC dial Prepare to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
+[Node 5] 2025/11/26 14:35:02.577856 Node 5: leader election failed (promises=1 need=3)
+[Node 5] 2025/11/26 14:35:02.980638 Node 5 shutting down...
+[Node 5] 2025/11/26 14:35:02.980782 Node 5: stopping node
+[Node 5] 2025/11/26 14:35:02.981029 Node 5: accept error: accept tcp 127.0.0.1:8005: use of closed network connection
+[Node 5] 2025/11/26 14:35:02.981146 Node 5: RPC server shutting down

@@ -61,11 +61,21 @@ type Node struct {
 	ActiveNodes  map[int]bool
 	MajoritySize int
 
-	shutdown chan bool
+    shutdown chan bool
+
+    // Phase 2: local lock table for account-level locking
+    Locks map[int]LockInfo
 }
 
 type NodeService struct {
-	node *Node
+    node *Node
+}
+
+// LockInfo stores ownership information for a locked account ID.
+// Filepath: pkg/node/node.go
+// Description: Phase 2 lock table holder tying an account to a TxnID.
+type LockInfo struct {
+    TxnID string
 }
 
 // statusRank assigns ordering weights to request statuses.
@@ -104,8 +114,8 @@ func NewNode(id int, address string, peers map[int]string) *Node {
         NextSeqNum:      1,
         AcceptedLog:     make(map[int]datatypes.LogEntry),
         RequestLog:      make([]datatypes.LogEntry, 0),
-		NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
-		LastReply:       make(map[string]datatypes.ReplyMsg),
+        NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
+        LastReply:       make(map[string]datatypes.ReplyMsg),
         Database:        nil,
         pendingAccepts:  make(map[int]map[int]datatypes.AcceptedMsg),
         ActiveNodes:     make(map[int]bool),
@@ -113,6 +123,7 @@ func NewNode(id int, address string, peers map[int]string) *Node {
         shutdown:        make(chan bool),
         lastLeaderMsg:   time.Now(),
         ackFromNewView:  make(map[int]bool),
+        Locks:           make(map[int]LockInfo),
     }
     // Initialize persistent database (BoltDB); fall back to memory if open fails
     dataDir := "data"
@@ -155,6 +166,44 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 
 	log.Printf("Node %d: initialization complete (maj=%d)", id, node.MajoritySize)
     return node
+}
+
+// TryLock attempts to acquire locks on the given account IDs for txnID.
+// Returns true only if all locks are free (or already owned by txnID) and are acquired.
+// Locks are taken in ascending order to prevent circular wait deadlocks.
+func (n *Node) TryLock(txnID string, ids ...int) bool {
+    sort.Ints(ids)
+    n.mu.Lock()
+    defer n.mu.Unlock()
+    // Detect conflicts
+    for _, id := range ids {
+        if info, ok := n.Locks[id]; ok && info.TxnID != txnID {
+            log.Printf("Node %d [LOCK]: tryLock DENIED tx=%s id=%d heldBy=%s", n.ID, txnID, id, info.TxnID)
+            return false
+        }
+    }
+    // Acquire
+    for _, id := range ids {
+        if curr, ok := n.Locks[id]; !ok || curr.TxnID != txnID {
+            n.Locks[id] = LockInfo{TxnID: txnID}
+            log.Printf("Node %d [LOCK]: acquired tx=%s id=%d", n.ID, txnID, id)
+        }
+    }
+    return true
+}
+
+// Unlock releases locks for the provided account IDs if held by txnID.
+// Unlock is safe to call redundantly; it only releases locks owned by txnID.
+func (n *Node) Unlock(txnID string, ids ...int) {
+    sort.Ints(ids)
+    n.mu.Lock()
+    defer n.mu.Unlock()
+    for _, id := range ids {
+        if info, ok := n.Locks[id]; ok && info.TxnID == txnID {
+            delete(n.Locks, id)
+            log.Printf("Node %d [LOCK]: released tx=%s id=%d", n.ID, txnID, id)
+        }
+    }
 }
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.

@@ -2708,3 +2708,7 @@
 [Node 2] 2025/11/25 23:55:19.303162 Node 2: executeRequestsInOrder stopping at gap seq=80
 [Node 2] 2025/11/25 23:56:29.759284 Node 2: PrintDB RPC invoked
 [Node 2] 2025/11/25 23:56:29.759533 [Database] printing DB (bolt) for node 2 (10 accounts)
+[Node 2] 2025/11/26 14:34:57.940775 Node 2 shutting down...
+[Node 2] 2025/11/26 14:34:57.941017 Node 2: stopping node
+[Node 2] 2025/11/26 14:34:57.941154 Node 2: accept error: accept tcp 127.0.0.1:8002: use of closed network connection
+[Node 2] 2025/11/26 14:34:57.941193 Node 2: RPC server shutting down

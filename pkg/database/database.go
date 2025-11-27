@@ -9,11 +9,13 @@ import (
     "log"
     "multipaxos/rituraj735/datatypes"
     "path/filepath"
+    "strconv"
     "sort"
     "strings"
     "sync"
     "time"
 
+    "encoding/json"
     bbolt "go.etcd.io/bbolt"
 )
 
@@ -23,7 +25,10 @@ type Database struct {
     bolt           *bbolt.DB
     bucketBalances []byte
     bucketMeta     []byte
+    bucketWAL      []byte
     useBolt        bool
+    // in-memory WAL when Bolt is not used (tests/fallback)
+    walMem map[string][]byte
 }
 
 // NewDatabase creates a new empty balance store.
@@ -34,6 +39,8 @@ func NewDatabase() *Database {
         bucketBalances: []byte("balances"),
         bucketMeta:     []byte("meta"),
         useBolt:        false,
+        bucketWAL:      []byte("wal"),
+        walMem:         make(map[string][]byte),
     }
 }
 
@@ -49,6 +56,7 @@ func NewBoltDatabase(path string) (*Database, error) {
         bolt:           db,
         bucketBalances: []byte("balances"),
         bucketMeta:     []byte("meta"),
+        bucketWAL:      []byte("wal"),
         useBolt:        true,
     }
 
@@ -58,6 +66,9 @@ func NewBoltDatabase(path string) (*Database, error) {
             return e
         }
         if _, e := tx.CreateBucketIfNotExists(d.bucketMeta); e != nil {
+            return e
+        }
+        if _, e := tx.CreateBucketIfNotExists(d.bucketWAL); e != nil {
             return e
         }
         return nil
@@ -273,4 +284,173 @@ func (db *Database) GetAllBalances() map[string]int {
         balances[client] = balance
     }
     return balances
+}
+
+// ===================== WAL API (Phase 2) =====================
+
+// AppendWAL appends/overwrites a WALRecord at key "<TxnID>-<Phase>".
+func (db *Database) AppendWAL(rec datatypes.WALRecord) error {
+    key := []byte(fmt.Sprintf("%s-%s", rec.TxnID, string(rec.Phase)))
+    val, err := json.Marshal(rec)
+    if err != nil {
+        return err
+    }
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    if db.useBolt {
+        return db.bolt.Update(func(tx *bbolt.Tx) error {
+            b := tx.Bucket(db.bucketWAL)
+            log.Printf("[WAL] append key=%s items=%d phase=%s", string(key), len(rec.Items), rec.Phase)
+            return b.Put(key, val)
+        })
+    }
+    log.Printf("[WAL] append (mem) key=%s items=%d phase=%s", string(key), len(rec.Items), rec.Phase)
+    db.walMem[string(key)] = val
+    return nil
+}
+
+// LoadWAL loads all WAL records from storage.
+func (db *Database) LoadWAL() ([]datatypes.WALRecord, error) {
+    out := make([]datatypes.WALRecord, 0)
+    db.mu.RLock()
+    defer db.mu.RUnlock()
+    if db.useBolt {
+        err := db.bolt.View(func(tx *bbolt.Tx) error {
+            c := tx.Bucket(db.bucketWAL).Cursor()
+            for k, v := c.First(); k != nil; k, v = c.Next() {
+                var rec datatypes.WALRecord
+                if err := json.Unmarshal(v, &rec); err != nil {
+                    return err
+                }
+                // Derive TxnID/Phase from key to be safe
+                parts := strings.SplitN(string(k), "-", 2)
+                if len(parts) == 2 {
+                    rec.TxnID = parts[0]
+                    rec.Phase = datatypes.WALPhase(parts[1])
+                }
+                out = append(out, rec)
+            }
+            return nil
+        })
+        return out, err
+    }
+    for k, v := range db.walMem {
+        var rec datatypes.WALRecord
+        if err := json.Unmarshal(v, &rec); err != nil {
+            return nil, err
+        }
+        parts := strings.SplitN(k, "-", 2)
+        if len(parts) == 2 {
+            rec.TxnID = parts[0]
+            rec.Phase = datatypes.WALPhase(parts[1])
+        }
+        out = append(out, rec)
+    }
+    return out, nil
+}
+
+// ApplyWALCommit ensures the DB matches the COMMIT record for txnID.
+func (db *Database) ApplyWALCommit(txnID string) error {
+    key := []byte(fmt.Sprintf("%s-%s", txnID, string(datatypes.WALCommit)))
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    if db.useBolt {
+        return db.bolt.Update(func(tx *bbolt.Tx) error {
+            wb := tx.Bucket(db.bucketWAL)
+            recBytes := wb.Get(key)
+            if recBytes == nil {
+                return nil
+            }
+            var rec datatypes.WALRecord
+            if err := json.Unmarshal(recBytes, &rec); err != nil {
+                return err
+            }
+            bb := tx.Bucket(db.bucketBalances)
+            for _, it := range rec.Items {
+                if err := bb.Put([]byte(strconv.Itoa(it.ID)), encodeInt(it.NewBalance)); err != nil {
+                    return err
+                }
+            }
+            log.Printf("[WAL] apply commit tx=%s items=%d", txnID, len(rec.Items))
+            return nil
+        })
+    }
+    // mem path
+    if recBytes, ok := db.walMem[fmt.Sprintf("%s-%s", txnID, string(datatypes.WALCommit))]; ok {
+        var rec datatypes.WALRecord
+        if err := json.Unmarshal(recBytes, &rec); err != nil {
+            return err
+        }
+        for _, it := range rec.Items {
+            db.Balances[strconv.Itoa(it.ID)] = it.NewBalance
+        }
+        log.Printf("[WAL] apply commit (mem) tx=%s items=%d", txnID, len(rec.Items))
+    }
+    return nil
+}
+
+// UndoWAL restores OldBalance for a txn that only reached PREPARE.
+func (db *Database) UndoWAL(txnID string) error {
+    key := []byte(fmt.Sprintf("%s-%s", txnID, string(datatypes.WALPrepare)))
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    if db.useBolt {
+        return db.bolt.Update(func(tx *bbolt.Tx) error {
+            wb := tx.Bucket(db.bucketWAL)
+            recBytes := wb.Get(key)
+            if recBytes == nil {
+                return nil
+            }
+            var rec datatypes.WALRecord
+            if err := json.Unmarshal(recBytes, &rec); err != nil {
+                return err
+            }
+            bb := tx.Bucket(db.bucketBalances)
+            for _, it := range rec.Items {
+                if err := bb.Put([]byte(strconv.Itoa(it.ID)), encodeInt(it.OldBalance)); err != nil {
+                    return err
+                }
+            }
+            log.Printf("[WAL] undo prepare tx=%s items=%d", txnID, len(rec.Items))
+            return nil
+        })
+    }
+    if recBytes, ok := db.walMem[fmt.Sprintf("%s-%s", txnID, string(datatypes.WALPrepare))]; ok {
+        var rec datatypes.WALRecord
+        if err := json.Unmarshal(recBytes, &rec); err != nil {
+            return err
+        }
+        for _, it := range rec.Items {
+            db.Balances[strconv.Itoa(it.ID)] = it.OldBalance
+        }
+        log.Printf("[WAL] undo prepare (mem) tx=%s items=%d", txnID, len(rec.Items))
+    }
+    return nil
+}
+
+// ClearWAL removes all WAL entries for txnID (any phase).
+func (db *Database) ClearWAL(txnID string) error {
+    prefix := []byte(fmt.Sprintf("%s-", txnID))
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    if db.useBolt {
+        return db.bolt.Update(func(tx *bbolt.Tx) error {
+            b := tx.Bucket(db.bucketWAL)
+            c := b.Cursor()
+            for k, _ := c.Seek(prefix); k != nil && strings.HasPrefix(string(k), string(prefix)); k, _ = c.Next() {
+                if err := b.Delete(k); err != nil {
+                    return err
+                }
+            }
+            log.Printf("[WAL] clear tx=%s", txnID)
+            return nil
+        })
+    }
+    for k := range db.walMem {
+        if strings.HasPrefix(k, fmt.Sprintf("%s-", txnID)) {
+            delete(db.walMem, k)
+        }
+    }
+    log.Printf("[WAL] clear (mem) tx=%s", txnID)
+    return nil
 }
