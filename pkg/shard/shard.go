@@ -2,19 +2,21 @@
 // File: pkg/shard/shard.go
 // Description: Shard management utilities for determining cluster ownership of data items.
 // =======================================
+// =======================================
+// File: pkg/shard/shard.go
+// Description: Sharding helpers to map account IDs to clusters.
+// =======================================
 package shard
 
-// ClusterOfItem returns which cluster owns a given account ID.
-// Phase 1: simple static ranges.
+import "multipaxos/rituraj735/config"
+
+// ClusterOfItem returns which cluster an account ID belongs to, using
+// config.ClusterRanges as the single source of truth.
 func ClusterOfItem(id int) int {
-	switch {
-	case id >= 1 && id <= 3000:
-		return 1
-	case id >= 3001 && id <= 6000:
-		return 2
-	case id >= 6001 && id <= 9000:
-		return 3
-	default:
-		return 0 // invalid
-	}
+    for cid, rng := range config.ClusterRanges {
+        if id >= rng.Min && id <= rng.Max {
+            return cid
+        }
+    }
+    return 0 // unknown / out of range
 }

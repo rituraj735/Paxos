@@ -50,3 +50,14 @@ var ClusterMembers = map[int][]int{
     2: {4, 5, 6},
     3: {7, 8, 9},
 }
+
+// Range defines a half-closed numeric range [Min, Max].
+type Range struct{ Min, Max int }
+
+// ClusterRanges defines which account ID ranges belong to which cluster.
+// Single source of truth for sharding in Phase 3+.
+var ClusterRanges = map[int]Range{
+    1: {Min: 1, Max: 3000},
+    2: {Min: 3001, Max: 6000},
+    3: {Min: 6001, Max: 9000},
+}
