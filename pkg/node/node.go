@@ -64,8 +64,11 @@ type Node struct {
 
 	shutdown chan bool
 
-	// Phase 2: local lock table for account-level locking
-	Locks map[int]LockInfo
+    // Phase 2: local lock table for account-level locking
+    Locks map[int]LockInfo
+
+    // Phase 4: per-node 2PC transaction state (plumbing only)
+    TxnStates map[string]*TxnState
 }
 
 type NodeService struct {
@@ -76,9 +79,59 @@ type NodeService struct {
 // Filepath: pkg/node/node.go
 // Description: Phase 2 lock table holder tying an account to a TxnID.
 type LockInfo struct {
-	TxnID     string
-	Ballot    datatypes.BallotNumber
-	CreatedAt time.Time
+    TxnID     string
+    Ballot    datatypes.BallotNumber
+    CreatedAt time.Time
+}
+
+// TxnPhase represents this node's local 2PC status for a given TxnID.
+type TxnPhase string
+
+const (
+    TxnPhaseNone      TxnPhase = ""
+    TxnPhasePrepared  TxnPhase = "PREPARED"
+    TxnPhaseCommitted TxnPhase = "COMMITTED"
+    TxnPhaseAborted   TxnPhase = "ABORTED"
+)
+
+// TxnState tracks per-transaction local 2PC metadata on a node (Phase 4 plumbing).
+type TxnState struct {
+    TxnID       string
+    Phase       TxnPhase
+    SeqPrepare  int
+    SeqDecision int
+    Decision    datatypes.TwoPCDecision
+    Shards      []int
+}
+
+// getOrCreateTxnStateLocked returns TxnState for txnID creating one if missing.
+// Caller must hold n.mu.
+func (n *Node) getOrCreateTxnStateLocked(txnID string) *TxnState {
+    ts, ok := n.TxnStates[txnID]
+    if !ok {
+        ts = &TxnState{TxnID: txnID, Phase: TxnPhaseNone}
+        n.TxnStates[txnID] = ts
+    }
+    return ts
+}
+
+// setTxnPhaseLocked sets a local 2PC phase for txnID. Caller must hold n.mu.
+func (n *Node) setTxnPhaseLocked(txnID string, phase TxnPhase) {
+    ts := n.getOrCreateTxnStateLocked(txnID)
+    ts.Phase = phase
+}
+
+// recordPrepareSeqLocked records the PREPARE sequence number for txnID.
+func (n *Node) recordPrepareSeqLocked(txnID string, seq int) {
+    ts := n.getOrCreateTxnStateLocked(txnID)
+    ts.SeqPrepare = seq
+}
+
+// recordDecisionSeqLocked records the decision sequence and final decision for txnID.
+func (n *Node) recordDecisionSeqLocked(txnID string, seq int, decision datatypes.TwoPCDecision) {
+    ts := n.getOrCreateTxnStateLocked(txnID)
+    ts.SeqDecision = seq
+    ts.Decision = decision
 }
 
 // tryLockLocked attempts to acquire locks on ids for txnID.
@@ -155,7 +208,7 @@ func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
 // NewNode wires up a node with default state, DB, and leader monitor.
 func NewNode(id int, address string, peers map[int]string) *Node {
 	log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
-	node := &Node{
+    node := &Node{
 		ID:              id,
 		Address:         address,
 		Peers:           peers,
@@ -175,8 +228,9 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		shutdown:        make(chan bool),
 		lastLeaderMsg:   time.Now(),
 		ackFromNewView:  make(map[int]bool),
-		Locks:           make(map[int]LockInfo),
-	}
+        Locks:           make(map[int]LockInfo),
+        TxnStates:       make(map[string]*TxnState),
+    }
 	// Initialize persistent database (BoltDB); fall back to memory if open fails
 	dataDir := "data"
 	_ = os.MkdirAll(dataDir, 0o755)
@@ -1236,13 +1290,20 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 
 // executeRequest applies a request or marks a no-op executed.
 func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool, string) {
-	if request.IsNoOp {
-		if entry, exists := n.AcceptedLog[seqNum]; exists {
-			entry.Status = datatypes.StatusExecuted
-			n.AcceptedLog[seqNum] = entry
-		}
-		return true, "no-op executed"
-	}
+    if request.IsNoOp {
+        if entry, exists := n.AcceptedLog[seqNum]; exists {
+            entry.Status = datatypes.StatusExecuted
+            n.AcceptedLog[seqNum] = entry
+        }
+        return true, "no-op executed"
+    }
+
+    // Phase 4: 2PC stub — recognize 2PC messages but do not change behavior yet.
+    if request.IsCross && request.TwoPCPhase != datatypes.TwoPCPhaseNone {
+        log.Printf("Node %d [2PC]: stub execute seq=%d txn=%s phase=%s", n.ID, seqNum, request.TxnID, request.TwoPCPhase)
+        // Phase 5+: PREPARE/COMMIT/ABORT behavior will be implemented here.
+        return true, "2pc-stub"
+    }
 
 	// Try applying the transaction
 	success, message := n.Database.ExecuteTransaction(request.Transaction)
@@ -1278,16 +1339,16 @@ func (n *Node) executeRequestsInOrder() {
 			break
 		}
 
-		if entry.Status == datatypes.StatusExecuted {
-			continue
-		}
+    if entry.Status == datatypes.StatusExecuted {
+        continue
+    }
 
 		if entry.Status == datatypes.StatusCommitted {
 			//log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)",n.ID, seqNum,entry.Request.Transaction.Sender,entry.Request.Transaction.Receiver,entry.Request.Transaction.Amount)
 
-			n.executeRequest(seqNum, entry.Request)
-		}
-	}
+        n.executeRequest(seqNum, entry.Request)
+    }
+}
 }
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
@@ -1594,16 +1655,19 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 		}
 
 		if seq <= maxCommitted {
-			noOpRequest := datatypes.ClientRequest{
-				ClientID:  fmt.Sprintf("no-op-%d", seq),
-				Timestamp: time.Now().UnixNano(),
-				IsNoOp:    true,
-				Transaction: datatypes.Txn{
-					Sender:   "no-op",
-					Receiver: "no-op",
-					Amount:   0,
-				},
-			}
+            noOpRequest := datatypes.ClientRequest{
+                ClientID:  fmt.Sprintf("no-op-%d", seq),
+                Timestamp: time.Now().UnixNano(),
+                IsNoOp:    true,
+                Transaction: datatypes.Txn{
+                    Sender:   "no-op",
+                    Receiver: "no-op",
+                    Amount:   0,
+                },
+                TxnID:      "",
+                TwoPCPhase: datatypes.TwoPCPhaseNone,
+                IsCross:    false,
+            }
 			noOp := datatypes.AcceptLogEntry{
 				AcceptNum: n.CurrentBallot,
 				SeqNum:    seq,

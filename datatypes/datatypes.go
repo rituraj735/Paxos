@@ -8,12 +8,20 @@ import (
     "fmt"
 )
 
+// ClientRequest is the value replicated via Paxos. For 2PC, it can represent
+// PREPARE/COMMIT/ABORT messages when TwoPCPhase is set and TxnID identifies the
+// logical transaction across shards.
 type ClientRequest struct {
-	MessageType string
-	Transaction Txn
-	Timestamp   int64
-	ClientID    string
-	IsNoOp      bool
+    MessageType string
+    Transaction Txn
+    Timestamp   int64
+    ClientID    string
+    IsNoOp      bool
+
+    // Phase 4: 2PC fields (default zero-values for legacy/intra-shard)
+    TxnID      string
+    TwoPCPhase TwoPCPhase
+    IsCross    bool
 }
 
 type ReplyMsg struct {
@@ -138,10 +146,10 @@ func (t Txn) String() string {
 
 // String summarizes the request, showing "no-op" or the txn payload.
 func (cr ClientRequest) String() string {
-	if cr.IsNoOp {
-		return "no-op"
-	}
-	return cr.Transaction.String()
+    if cr.IsNoOp {
+        return "no-op"
+    }
+    return cr.Transaction.String()
 }
 
 type PromiseMsg struct {
@@ -223,4 +231,67 @@ type WALRecord struct {
     Phase     WALPhase  `json:"phase"`
     Items     []WALItem `json:"items"`
     Timestamp int64     `json:"ts"`
+}
+
+// =======================================
+// Phase 4: 2PC types and RPC payloads
+// =======================================
+
+// TwoPCPhase denotes the phase of a 2PC message carried as a ClientRequest.
+type TwoPCPhase string
+
+const (
+    TwoPCPhaseNone    TwoPCPhase = ""
+    TwoPCPhasePrepare TwoPCPhase = "PREPARE"
+    TwoPCPhaseCommit  TwoPCPhase = "COMMIT"
+    TwoPCPhaseAbort   TwoPCPhase = "ABORT"
+)
+
+// TwoPCDecision carries the final decision for a 2PC txn.
+type TwoPCDecision string
+
+const (
+    TwoPCDecisionNone   TwoPCDecision = ""
+    TwoPCDecisionCommit TwoPCDecision = "COMMIT"
+    TwoPCDecisionAbort  TwoPCDecision = "ABORT"
+)
+
+// CrossShardTxn is a coordinator view of a global transfer spanning shards.
+type CrossShardTxn struct {
+    TxnID    string
+    Sender   string
+    Receiver string
+    Amount   int
+    Shards   []int
+}
+
+// TwoPCPrepareArgs asks a shard leader to prepare txn TxnID.
+type TwoPCPrepareArgs struct {
+    TxnID        string
+    Txn          Txn
+    ShardID      int
+    CoordinatorID int
+}
+
+// TwoPCPrepareReply returns the shard's vote for prepare.
+type TwoPCPrepareReply struct {
+    TxnID   string
+    ShardID int
+    Vote    bool
+    Reason  string
+}
+
+// TwoPCDecisionArgs delivers the final decision to a shard leader.
+type TwoPCDecisionArgs struct {
+    TxnID    string
+    Decision TwoPCDecision
+    ShardID  int
+}
+
+// TwoPCDecisionReply acknowledges a decision application.
+type TwoPCDecisionReply struct {
+    TxnID   string
+    ShardID int
+    Success bool
+    Reason  string
 }
