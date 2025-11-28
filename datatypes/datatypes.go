@@ -162,7 +162,17 @@ type PrintDBArgs struct {
 }
 
 type PrintDBReply struct {
-	DBContents string
+    DBContents string
+}
+
+// GetBalanceArgs carries the account ID to query over RPC.
+type GetBalanceArgs struct {
+    AccountID string
+}
+
+// GetBalanceReply returns the current balance for an account.
+type GetBalanceReply struct {
+    Balance int
 }
 
 type HeartbeatMsg struct {

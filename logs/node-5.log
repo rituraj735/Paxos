@@ -1,1733 +1,538 @@
-[Node 5] 2025/11/25 23:31:31.125204 Node 5: initializing at localhost:8005 with 5 peers
-[Node 5] 2025/11/25 23:31:31.125321 [Database] opening BoltDB at data/node-5.db
-[Node 5] 2025/11/25 23:31:31.138904 Node 5: BoltDB initialized at data/node-5.db
-[Node 5] 2025/11/25 23:31:31.138945 [Database] client A initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.138944 Node 5: leader timeout monitor running
-[Node 5] 2025/11/25 23:31:31.146846 [Database] client B initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.153802 [Database] client C initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.160813 [Database] client D initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.167859 [Database] client E initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.174873 [Database] client F initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.181847 [Database] client G initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.188889 [Database] client H initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.195914 [Database] client I initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.202846 [Database] client J initialized with balance 10 (bolt)
-[Node 5] 2025/11/25 23:31:31.209829 Node 5: initialization complete (maj=3)
-[Node 5] 2025/11/25 23:31:31.209905 Node 5: starting RPC server at localhost:8005
-[Node 5] 2025/11/25 23:37:33.801546 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:37:33.801618 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:37:33.801709 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:37:33.801750 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:37:33.801856 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:37:33.801879 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:37:33.801892 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:37:33.801927 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:37:33.801924 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:37:33.801975 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:37:34.110374 Node 5: Accept RPC seq=1 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.110461 Node 5 ACCEPT seq=1 ballot=(3,2) txn=(A→J,3)
-[Node 5] 2025/11/25 23:37:34.110508 Node 5: Accepted seq 1
-[Node 5] 2025/11/25 23:37:34.131804 Node 5: Commit RPC seq=1 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.131883 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:37:34.131928 [Database] executing txn (bolt) (A,J,3)
-[Node 5] 2025/11/25 23:37:34.147380 [Database] txn success (bolt): A -> J amount 3
-[Node 5] 2025/11/25 23:37:34.147573 Node 5: executeRequestsInOrder stopping at gap seq=2
-[Node 5] 2025/11/25 23:37:34.336279 Node 5: Accept RPC seq=2 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.336356 Node 5 ACCEPT seq=2 ballot=(3,2) txn=(C→D,1)
-[Node 5] 2025/11/25 23:37:34.336400 Node 5: Accepted seq 2
-[Node 5] 2025/11/25 23:37:34.356470 Node 5: Commit RPC seq=2 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.356531 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:37:34.356546 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:37:34.367458 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:37:34.367739 Node 5: executeRequestsInOrder stopping at gap seq=3
-[Node 5] 2025/11/25 23:37:34.562258 Node 5: Accept RPC seq=3 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.562339 Node 5 ACCEPT seq=3 ballot=(3,2) txn=(B→E,4)
-[Node 5] 2025/11/25 23:37:34.562375 Node 5: Accepted seq 3
-[Node 5] 2025/11/25 23:37:34.579696 Node 5: Commit RPC seq=3 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.579808 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:37:34.579862 [Database] executing txn (bolt) (B,E,4)
-[Node 5] 2025/11/25 23:37:34.596434 [Database] txn success (bolt): B -> E amount 4
-[Node 5] 2025/11/25 23:37:34.596467 Node 5: executeRequestsInOrder stopping at gap seq=4
-[Node 5] 2025/11/25 23:37:34.784165 Node 5: Accept RPC seq=4 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.784315 Node 5 ACCEPT seq=4 ballot=(3,2) txn=(F→G,2)
-[Node 5] 2025/11/25 23:37:34.784422 Node 5: Accepted seq 4
-[Node 5] 2025/11/25 23:37:34.804179 Node 5: Commit RPC seq=4 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:34.804239 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:37:34.804259 [Database] executing txn (bolt) (F,G,2)
-[Node 5] 2025/11/25 23:37:34.817710 [Database] txn success (bolt): F -> G amount 2
-[Node 5] 2025/11/25 23:37:34.817843 Node 5: executeRequestsInOrder stopping at gap seq=5
-[Node 5] 2025/11/25 23:37:35.007288 Node 5: Accept RPC seq=5 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:35.007335 Node 5 ACCEPT seq=5 ballot=(3,2) txn=(H→I,2)
-[Node 5] 2025/11/25 23:37:35.007348 Node 5: Accepted seq 5
-[Node 5] 2025/11/25 23:37:35.026517 Node 5: Commit RPC seq=5 ballot=(3,2)
-[Node 5] 2025/11/25 23:37:35.026581 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:37:35.026615 [Database] executing txn (bolt) (H,I,2)
-[Node 5] 2025/11/25 23:37:35.037553 [Database] txn success (bolt): H -> I amount 2
-[Node 5] 2025/11/25 23:37:35.037775 Node 5: executeRequestsInOrder stopping at gap seq=6
-[Node 5] 2025/11/25 23:45:07.029554 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:45:07.029793 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/25 23:45:14.138520 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:45:14.138961 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:45:14.139094 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:45:14.139115 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:45:14.139646 Node 5: UpdateActiveStatus node=5 live=false
-[Node 5] 2025/11/25 23:45:14.139668 Node 5: setNodeLiveness node=5 live=false
-[Node 5] 2025/11/25 23:45:14.139673 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:45:14.139692 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:45:14.139758 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:45:14.139773 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:45:16.908445 Node 5: Leader timeout (3.194265s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:16.908663 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:18.917999 Node 5: Leader timeout (5.203824s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:18.918202 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:20.928436 Node 5: Leader timeout (7.214263s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:20.928637 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:22.938489 Node 5: Leader timeout (9.224319s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:22.938675 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:24.948941 Node 5: Leader timeout (11.234774s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:24.949132 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:26.959701 Node 5: Leader timeout (13.245534s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:26.959897 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:28.969447 Node 5: Leader timeout (15.255281s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:28.969714 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:30.980676 Node 5: Leader timeout (17.266512s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:30.980870 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:32.990029 Node 5: Leader timeout (19.275868s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:32.990231 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:35.000700 Node 5: Leader timeout (21.286540s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:35.000881 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:37.010492 Node 5: Leader timeout (23.296334s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:37.010666 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:39.020658 Node 5: Leader timeout (25.306503s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:39.020834 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:41.031257 Node 5: Leader timeout (27.317102s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:41.031403 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:43.040099 Node 5: Leader timeout (29.325947s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:43.040264 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:45.050184 Node 5: Leader timeout (31.336034s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:45.050479 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:47.060482 Node 5: Leader timeout (33.346333s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:47.060668 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:49.071026 Node 5: Leader timeout (35.356880s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:49.071186 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:51.080224 Node 5: Leader timeout (37.366079s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:51.080393 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:53.089588 Node 5: Leader timeout (39.375446s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:53.089667 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:55.098957 Node 5: Leader timeout (41.384811s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:55.099209 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:57.109555 Node 5: Leader timeout (43.395415s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:57.109735 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:45:58.356093 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:45:58.356237 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/25 23:45:59.119195 Node 5: Leader timeout (45.405059s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:45:59.119366 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:01.129628 Node 5: Leader timeout (47.415493s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:01.129853 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:03.140578 Node 5: Leader timeout (49.426443s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:03.140697 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:05.151286 Node 5: Leader timeout (51.437154s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:05.151491 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:07.163598 Node 5: Leader timeout (53.449467s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:07.163809 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:09.173809 Node 5: Leader timeout (55.459680s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:09.174000 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:11.183363 Node 5: Leader timeout (57.469237s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:11.183580 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:13.193987 Node 5: Leader timeout (59.479863s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:13.194086 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:15.204725 Node 5: Leader timeout (61.490605s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:15.204753 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:17.213487 Node 5: Leader timeout (63.499366s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:17.213704 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:19.224632 Node 5: Leader timeout (65.510513s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:19.224850 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:21.235513 Node 5: Leader timeout (67.521396s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:21.235580 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:23.244391 Node 5: Leader timeout (69.530276s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:23.244451 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:25.254932 Node 5: Leader timeout (71.540818s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:25.255013 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:27.265673 Node 5: Leader timeout (73.551562s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:27.265836 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:29.274682 Node 5: Leader timeout (75.560573s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:29.274845 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:31.284608 Node 5: Leader timeout (77.570499s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:31.284788 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:33.293845 Node 5: Leader timeout (79.579739s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:33.294014 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:35.303504 Node 5: Leader timeout (81.589398s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:35.303601 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:37.314109 Node 5: Leader timeout (83.600005s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:37.314293 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:39.323189 Node 5: Leader timeout (85.609088s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:39.323393 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:41.332884 Node 5: Leader timeout (87.618785s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:41.333084 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:43.342858 Node 5: Leader timeout (89.628760s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:43.343038 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:45.353744 Node 5: Leader timeout (91.639649s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:46:45.353843 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:46:46.355950 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:46:46.356061 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:46:46.356148 Node 5: initiating state sync attempts
-[Node 5] 2025/11/25 23:46:46.356173 Node 5: RPC RequestStateTransfer->node 2
-[Node 5] 2025/11/25 23:46:46.358172 Node 5: state transfer request attempt 1 failed: <nil> success=false
-[Node 5] 2025/11/25 23:46:46.358635 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:46:46.358686 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:46:46.358793 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:46:46.358821 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:46:46.358930 Node 5: UpdateActiveStatus node=2 live=false
-[Node 5] 2025/11/25 23:46:46.358945 Node 5: setNodeLiveness node=2 live=false
-[Node 5] 2025/11/25 23:46:46.358977 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/25 23:46:46.358991 Node 5: Starting leader election with ballot (4,5)
-[Node 5] 2025/11/25 23:46:46.359034 Node 5: RPC Prepare->node 3
-[Node 5] 2025/11/25 23:46:46.359086 Node 5: UpdateActiveStatus node=4 live=false
-[Node 5] 2025/11/25 23:46:46.359114 Node 5: skipping RPC Prepare to inactive node 2
-[Node 5] 2025/11/25 23:46:46.359116 Node 5: setNodeLiveness node=4 live=false
-[Node 5] 2025/11/25 23:46:46.359108 Node 5: RPC Prepare->node 4
-[Node 5] 2025/11/25 23:46:46.359101 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/25 23:46:46.360771 Node 5: Prepare RPC from ballot (5,1)
-[Node 5] 2025/11/25 23:46:46.360822 Node 5: Promised ballot (5,1)
-[Node 5] 2025/11/25 23:46:46.361009 Node 5: creating new view from 4 promises
-[Node 5] 2025/11/25 23:46:46.361035 Node 5: applyCommittedEntries up to seq=7
-[Node 5] 2025/11/25 23:46:46.361044 [Database] executing txn (bolt) (B,I,2)
-[Node 5] 2025/11/25 23:46:46.361055 Node 5: heartbeat loop started
-[Node 5] 2025/11/25 23:46:46.362200 Node 5: NewView RPC ballot=(5,1) entries=7
-[Node 5] 2025/11/25 23:46:46.369420 [Database] txn success (bolt): B -> I amount 2
-[Node 5] 2025/11/25 23:46:46.369439 [Database] executing txn (bolt) (J,C,4)
-[Node 5] 2025/11/25 23:46:46.378550 [Database] txn success (bolt): J -> C amount 4
-[Node 5] 2025/11/25 23:46:46.378577 Node 5: new view constructed with 7 entries (maxSeq=7)
-[Node 5] 2025/11/25 23:46:46.378590 Node 5: broadcasting NewView ballot=(4,5) entries=7
-[Node 5] 2025/11/25 23:46:46.378602 Node 5: applyCommittedEntries up to seq=7
-[Node 5] 2025/11/25 23:46:46.378635 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378661 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378666 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:46.378665 Node 5: RPC NewView->node 3
-[Node 5] 2025/11/25 23:46:46.378671 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378676 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378680 Node 5: executeRequestsInOrder stopping at gap seq=8
-[Node 5] 2025/11/25 23:46:46.378683 Node 5: RPC NewView->node 1
-[Node 5] 2025/11/25 23:46:46.378686 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378686 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.378689 Node 5: RPC AcceptedFromNewView->node 1
-[Node 5] 2025/11/25 23:46:46.380339 Node 5: AcceptedFromNewView from node 1 seq=3
-[Node 5] 2025/11/25 23:46:46.380354 Node 5: AcceptedFromNewView from node 1 seq=5
-[Node 5] 2025/11/25 23:46:46.380341 Node 5: AcceptedFromNewView from node 1 seq=2
-[Node 5] 2025/11/25 23:46:46.380394 Node 5: AcceptedFromNewView from node 1 seq=4
-[Node 5] 2025/11/25 23:46:46.380361 Node 5: AcceptedFromNewView from node 1 seq=7
-[Node 5] 2025/11/25 23:46:46.380345 Node 5: AcceptedFromNewView from node 1 seq=1
-[Node 5] 2025/11/25 23:46:46.380348 Node 5: AcceptedFromNewView from node 1 seq=6
-[Node 5] 2025/11/25 23:46:46.659261 Node 5: RPC RequestStateTransfer->node 1
-[Node 5] 2025/11/25 23:46:46.662605 Node 5: state transfer request attempt 2 failed: <nil> success=false
-[Node 5] 2025/11/25 23:46:46.664655 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:46.962875 Node 5: RPC RequestStateTransfer->node 1
-[Node 5] 2025/11/25 23:46:46.965512 Node 5: state transfer request attempt 3 failed: <nil> success=false
-[Node 5] 2025/11/25 23:46:46.973251 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:47.266558 Node 5: RPC RequestStateTransfer->node 1
-[Node 5] 2025/11/25 23:46:47.269479 Node 5: state transfer request attempt 4 failed: <nil> success=false
-[Node 5] 2025/11/25 23:46:47.280933 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:47.569802 Node 5: RPC RequestStateTransfer->node 1
-[Node 5] 2025/11/25 23:46:47.571220 Node 5: state transfer request attempt 5 failed: <nil> success=false
-[Node 5] 2025/11/25 23:46:47.589167 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:47.872299 Node 5: failed to synchronize state after retries
-[Node 5] 2025/11/25 23:46:47.900481 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:48.204698 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:48.515743 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:48.821110 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:49.131438 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:46:49.385593 Node 5: Accept RPC seq=1 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.385757 Node 5 ACCEPT seq=1 ballot=(5,1) txn=(A→J,3)
-[Node 5] 2025/11/25 23:46:49.385808 Node 5: Accepted seq 1
-[Node 5] 2025/11/25 23:46:49.388320 Node 5: Accept RPC seq=2 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.388438 Node 5 ACCEPT seq=2 ballot=(5,1) txn=(C→D,1)
-[Node 5] 2025/11/25 23:46:49.388475 Node 5: Accepted seq 2
-[Node 5] 2025/11/25 23:46:49.391449 Node 5: Accept RPC seq=3 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.391762 Node 5 ACCEPT seq=3 ballot=(5,1) txn=(B→E,4)
-[Node 5] 2025/11/25 23:46:49.391816 Node 5: Accepted seq 3
-[Node 5] 2025/11/25 23:46:49.393914 Node 5: Accept RPC seq=4 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.393962 Node 5 ACCEPT seq=4 ballot=(5,1) txn=(F→G,2)
-[Node 5] 2025/11/25 23:46:49.393974 Node 5: Accepted seq 4
-[Node 5] 2025/11/25 23:46:49.395180 Node 5: Accept RPC seq=5 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.395254 Node 5 ACCEPT seq=5 ballot=(5,1) txn=(H→I,2)
-[Node 5] 2025/11/25 23:46:49.395272 Node 5: Accepted seq 5
-[Node 5] 2025/11/25 23:46:49.396161 Node 5: Accept RPC seq=6 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.396189 Node 5 ACCEPT seq=6 ballot=(5,1) txn=(B→I,2)
-[Node 5] 2025/11/25 23:46:49.396204 Node 5: Accepted seq 6
-[Node 5] 2025/11/25 23:46:49.397115 Node 5: Accept RPC seq=7 ballot=(5,1)
-[Node 5] 2025/11/25 23:46:49.397145 Node 5 ACCEPT seq=7 ballot=(5,1) txn=(J→C,4)
-[Node 5] 2025/11/25 23:46:49.397154 Node 5: Accepted seq 7
-[Node 5] 2025/11/25 23:46:49.406602 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.406640 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.407947 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.407950 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.408963 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.408982 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.410043 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.410058 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.411067 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.411074 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.412304 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.412326 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.413456 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:46:49.413461 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:46:49.414418 Node 5: leader election success with ballot (4,5)
-[Node 5] 2025/11/25 23:46:49.420427 Node 5: Prepare RPC from ballot (6,3)
-[Node 5] 2025/11/25 23:46:49.420509 Node 5: Promised ballot (6,3)
-[Node 5] 2025/11/25 23:46:49.421456 Node 5: NewView RPC ballot=(6,3) entries=7
-[Node 5] 2025/11/25 23:46:49.421481 Node 5: applyCommittedEntries up to seq=7
-[Node 5] 2025/11/25 23:46:49.421511 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:49.421524 Node 5: executeRequestsInOrder stopping at gap seq=8
-[Node 5] 2025/11/25 23:46:49.421529 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421525 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421535 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421535 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421518 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421539 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.421540 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:46:49.436051 Node 5: Accept RPC seq=8 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:49.436073 Node 5 ACCEPT seq=8 ballot=(6,3) txn=(B→F,3)
-[Node 5] 2025/11/25 23:46:49.436088 Node 5: Accepted seq 8
-[Node 5] 2025/11/25 23:46:49.456311 Node 5: Commit RPC seq=8 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:49.456358 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:49.456374 [Database] executing txn (bolt) (B,F,3)
-[Node 5] 2025/11/25 23:46:49.468941 [Database] txn success (bolt): B -> F amount 3
-[Node 5] 2025/11/25 23:46:49.469037 Node 5: executeRequestsInOrder stopping at gap seq=9
-[Node 5] 2025/11/25 23:46:49.660830 Node 5: Accept RPC seq=9 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:49.660921 Node 5 ACCEPT seq=9 ballot=(6,3) txn=(C→A,2)
-[Node 5] 2025/11/25 23:46:49.660951 Node 5: Accepted seq 9
-[Node 5] 2025/11/25 23:46:49.680144 Node 5: Commit RPC seq=9 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:49.680285 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:49.680315 [Database] executing txn (bolt) (C,A,2)
-[Node 5] 2025/11/25 23:46:49.691855 [Database] txn success (bolt): C -> A amount 2
-[Node 5] 2025/11/25 23:46:49.692021 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448404 Node 5: Commit RPC seq=1 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448435 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448443 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448435 Node 5: Commit RPC seq=6 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448457 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448463 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448466 Node 5: Commit RPC seq=2 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448508 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448510 Node 5: Commit RPC seq=5 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448538 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448547 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448518 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448482 Node 5: Commit RPC seq=4 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448573 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448581 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448520 Node 5: Commit RPC seq=7 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448587 Node 5: Commit RPC seq=3 ballot=(6,3)
-[Node 5] 2025/11/25 23:46:52.448607 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448614 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:46:52.448591 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:46:52.448622 Node 5: executeRequestsInOrder stopping at gap seq=10
-[Node 5] 2025/11/25 23:47:23.857832 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:47:23.858061 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/25 23:48:28.520000 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:48:28.520078 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:48:28.520387 Node 5: UpdateActiveStatus node=4 live=false
-[Node 5] 2025/11/25 23:48:28.520404 Node 5: setNodeLiveness node=4 live=false
-[Node 5] 2025/11/25 23:48:28.520489 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:48:28.520501 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:48:28.520572 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:48:28.520585 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:48:28.520655 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:48:28.520668 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:48:28.831409 Node 5: Accept RPC seq=10 ballot=(6,3)
-[Node 5] 2025/11/25 23:48:28.831461 Node 5 ACCEPT seq=10 ballot=(6,3) txn=(B→F,3)
-[Node 5] 2025/11/25 23:48:28.831475 Node 5: Accepted seq 10
-[Node 5] 2025/11/25 23:48:28.850528 Node 5: Commit RPC seq=10 ballot=(6,3)
-[Node 5] 2025/11/25 23:48:28.850597 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:28.850653 [Database] executing txn (bolt) (B,F,3)
-[Node 5] 2025/11/25 23:48:28.860447 [Database] txn failed (bolt): (B,F,3) — insufficient balance
-[Node 5] 2025/11/25 23:48:28.860646 Node 5: executeRequestsInOrder stopping at gap seq=11
-[Node 5] 2025/11/25 23:48:29.056380 Node 5: Accept RPC seq=11 ballot=(6,3)
-[Node 5] 2025/11/25 23:48:29.056456 Node 5 ACCEPT seq=11 ballot=(6,3) txn=(A→H,3)
-[Node 5] 2025/11/25 23:48:29.056487 Node 5: Accepted seq 11
-[Node 5] 2025/11/25 23:48:29.075453 Node 5: Commit RPC seq=11 ballot=(6,3)
-[Node 5] 2025/11/25 23:48:29.075521 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:29.075538 [Database] executing txn (bolt) (A,H,3)
-[Node 5] 2025/11/25 23:48:29.088195 [Database] txn success (bolt): A -> H amount 3
-[Node 5] 2025/11/25 23:48:29.088483 Node 5: executeRequestsInOrder stopping at gap seq=12
-[Node 5] 2025/11/25 23:48:34.666972 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:48:34.666988 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:48:34.667025 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:48:34.667033 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:48:34.667066 Node 5: UpdateActiveStatus node=3 live=false
-[Node 5] 2025/11/25 23:48:34.667075 Node 5: setNodeLiveness node=3 live=false
-[Node 5] 2025/11/25 23:48:34.667093 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/25 23:48:34.667101 Node 5: Starting leader election with ballot (7,5)
-[Node 5] 2025/11/25 23:48:34.667126 Node 5: skipping RPC Prepare to inactive node 3
-[Node 5] 2025/11/25 23:48:34.667136 Node 5: skipping RPC Prepare to inactive node 4
-[Node 5] 2025/11/25 23:48:34.667144 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/25 23:48:34.667176 Node 5: UpdateActiveStatus node=4 live=false
-[Node 5] 2025/11/25 23:48:34.667187 Node 5: setNodeLiveness node=4 live=false
-[Node 5] 2025/11/25 23:48:34.667217 Node 5: RPC Prepare->node 2
-[Node 5] 2025/11/25 23:48:34.667144 Node 5: UpdateActiveStatus node=5 live=false
-[Node 5] 2025/11/25 23:48:34.667243 Node 5: setNodeLiveness node=5 live=false
-[Node 5] 2025/11/25 23:48:34.688129 Node 5: Leader timeout (6.020880s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:34.688252 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:34.976838 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:35.286242 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:35.596023 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:35.906022 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:36.216903 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:36.527273 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:36.698113 Node 5: Leader timeout (8.030864s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:36.698303 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:36.837995 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:37.150935 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:37.455162 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:37.763490 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:38.074243 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:38.384651 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:38.698040 Node 5: HandleClientRequest type=REQUEST client=C ts=1764132518686335000
-[Node 5] 2025/11/25 23:48:38.698073 Node 5: ProcessClientRequest client=C ts=1764132518686335000 no-op=false
-[Node 5] 2025/11/25 23:48:38.705544 Node 5: Leader timeout (10.038298s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:38.705613 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:38.910185 Node 5: HandleClientRequest type=REQUEST client=D ts=1764132518899681000
-[Node 5] 2025/11/25 23:48:38.910229 Node 5: ProcessClientRequest client=D ts=1764132518899681000 no-op=false
-[Node 5] 2025/11/25 23:48:40.516413 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:48:40.516589 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:48:40.516680 Node 5: initiating state sync attempts
-[Node 5] 2025/11/25 23:48:40.516700 Node 5: state sync attempt 1 waiting for active leader
-[Node 5] 2025/11/25 23:48:40.516795 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:48:40.516812 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:48:40.516843 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:48:40.516860 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:48:40.517470 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:48:40.517511 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:48:40.519247 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:48:40.519289 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:48:40.576698 Node 5: Prepare RPC from ballot (5,4)
-[Node 5] 2025/11/25 23:48:40.577144 Node 5: Prepare RPC from ballot (7,3)
-[Node 5] 2025/11/25 23:48:40.577222 Node 5: Promised ballot (7,3)
-[Node 5] 2025/11/25 23:48:40.580320 Node 5: NewView RPC ballot=(7,3) entries=11
-[Node 5] 2025/11/25 23:48:40.580367 Node 5: applyCommittedEntries up to seq=11
-[Node 5] 2025/11/25 23:48:40.580459 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:40.580511 Node 5: executeRequestsInOrder stopping at gap seq=12
-[Node 5] 2025/11/25 23:48:40.580547 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.580648 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.580733 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.580776 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.580810 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.580841 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.581094 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.581145 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.581161 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.581161 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.581168 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:48:40.816746 Node 5: RPC RequestStateTransfer->node 3
-[Node 5] 2025/11/25 23:48:40.817625 Node 5: state sync completed
-[Node 5] 2025/11/25 23:48:40.818912 Node 5: Accept RPC seq=12 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.818937 Node 5 ACCEPT seq=12 ballot=(7,3) txn=(C→B,1)
-[Node 5] 2025/11/25 23:48:40.818942 Node 5: Accepted seq 12
-[Node 5] 2025/11/25 23:48:40.837195 Node 5: Commit RPC seq=12 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.837299 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:40.837313 [Database] executing txn (bolt) (C,B,1)
-[Node 5] 2025/11/25 23:48:40.849954 Node 5: Accept RPC seq=13 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.851667 Node 5 ACCEPT seq=13 ballot=(7,3) txn=(D→F,2)
-[Node 5] 2025/11/25 23:48:40.851678 Node 5: Accepted seq 13
-[Node 5] 2025/11/25 23:48:40.851672 [Database] txn success (bolt): C -> B amount 1
-[Node 5] 2025/11/25 23:48:40.851722 Node 5: executeRequestsInOrder stopping at gap seq=14
-[Node 5] 2025/11/25 23:48:40.866291 Node 5: Commit RPC seq=13 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.866347 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:40.866360 [Database] executing txn (bolt) (D,F,2)
-[Node 5] 2025/11/25 23:48:40.866810 Node 5: Accept RPC seq=14 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.869635 Node 5 ACCEPT seq=14 ballot=(7,3) txn=(A→B,4)
-[Node 5] 2025/11/25 23:48:40.872692 Node 5: Accepted seq 14
-[Node 5] 2025/11/25 23:48:40.879428 [Database] txn success (bolt): D -> F amount 2
-[Node 5] 2025/11/25 23:48:40.879441 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:40.887151 Node 5: Commit RPC seq=14 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:40.887180 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:40.887189 [Database] executing txn (bolt) (A,B,4)
-[Node 5] 2025/11/25 23:48:40.898546 [Database] txn success (bolt): A -> B amount 4
-[Node 5] 2025/11/25 23:48:40.898764 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.102441 Node 5: UpdateActiveStatus node=3 live=false
-[Node 5] 2025/11/25 23:48:41.102482 Node 5: setNodeLiveness node=3 live=false
-[Node 5] 2025/11/25 23:48:41.102498 Node 5: Prepare RPC from ballot (8,4)
-[Node 5] 2025/11/25 23:48:41.102536 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/25 23:48:41.102568 Node 5: Starting leader election with ballot (8,5)
-[Node 5] 2025/11/25 23:48:41.102613 Node 5: Promised ballot (8,4)
-[Node 5] 2025/11/25 23:48:41.102661 Node 5: RPC Prepare->node 4
-[Node 5] 2025/11/25 23:48:41.102666 Node 5: skipping RPC Prepare to inactive node 3
-[Node 5] 2025/11/25 23:48:41.102671 Node 5: RPC Prepare->node 2
-[Node 5] 2025/11/25 23:48:41.102675 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/25 23:48:41.103789 Node 5: leader election failed (promises=2 need=3)
-[Node 5] 2025/11/25 23:48:41.116322 Node 5: Leader timeout (6.013827s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:41.116409 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/25 23:48:41.116418 Node 5: Starting leader election with ballot (9,5)
-[Node 5] 2025/11/25 23:48:41.116470 Node 5: RPC Prepare->node 4
-[Node 5] 2025/11/25 23:48:41.116476 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/25 23:48:41.116482 Node 5: skipping RPC Prepare to inactive node 3
-[Node 5] 2025/11/25 23:48:41.116487 Node 5: RPC Prepare->node 2
-[Node 5] 2025/11/25 23:48:41.117959 Node 5: leader election failed (promises=2 need=3)
-[Node 5] 2025/11/25 23:48:41.183130 Node 5: Prepare RPC from ballot (10,4)
-[Node 5] 2025/11/25 23:48:41.183234 Node 5: Promised ballot (10,4)
-[Node 5] 2025/11/25 23:48:41.186803 Node 5: NewView RPC ballot=(10,4) entries=14
-[Node 5] 2025/11/25 23:48:41.186948 Node 5: applyCommittedEntries up to seq=14
-[Node 5] 2025/11/25 23:48:41.187093 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.187140 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.187169 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187231 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187290 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187328 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187364 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187406 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187439 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187822 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187990 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.187996 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.188001 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.188080 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.188092 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.188157 Node 5: RPC AcceptedFromNewView->node 4
-[Node 5] 2025/11/25 23:48:41.288618 Node 5: Commit RPC seq=2 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.288761 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.288816 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.289006 Node 5: Commit RPC seq=11 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.289099 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.289145 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.289322 Node 5: Commit RPC seq=6 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.289398 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.289557 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.291565 Node 5: Commit RPC seq=4 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.291699 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.291749 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.291834 Node 5: Commit RPC seq=9 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.292092 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.292156 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.292189 Node 5: Commit RPC seq=3 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.292313 Node 5: Commit RPC seq=14 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.292427 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.292634 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.292422 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.292743 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.296566 Node 5: Commit RPC seq=5 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.296640 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.296657 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.296744 Node 5: Commit RPC seq=8 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.296824 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.296854 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.297150 Node 5: Commit RPC seq=7 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.297278 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.297345 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.297440 Node 5: Commit RPC seq=12 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.297530 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.297542 Node 5: Commit RPC seq=1 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.298119 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.298148 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.297549 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.297462 Node 5: Commit RPC seq=13 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.298201 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.298213 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:41.298259 Node 5: Commit RPC seq=10 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:41.298304 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:41.298361 Node 5: executeRequestsInOrder stopping at gap seq=15
-[Node 5] 2025/11/25 23:48:43.419304 Node 5: Accept RPC seq=15 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:43.419393 Node 5 ACCEPT seq=15 ballot=(10,4) txn=(I→D,2)
-[Node 5] 2025/11/25 23:48:43.419430 Node 5: Accepted seq 15
-[Node 5] 2025/11/25 23:48:43.440115 Node 5: Commit RPC seq=15 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:43.440183 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:43.440215 [Database] executing txn (bolt) (I,D,2)
-[Node 5] 2025/11/25 23:48:43.451822 [Database] txn success (bolt): I -> D amount 2
-[Node 5] 2025/11/25 23:48:43.452122 Node 5: executeRequestsInOrder stopping at gap seq=16
-[Node 5] 2025/11/25 23:48:43.617791 Node 5: Commit RPC seq=3 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.617840 Node 5: ignoring stale commit seq=3 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618012 Node 5: Commit RPC seq=6 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618041 Node 5: ignoring stale commit seq=6 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618162 Node 5: Commit RPC seq=10 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618189 Node 5: ignoring stale commit seq=10 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618332 Node 5: Commit RPC seq=9 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618387 Node 5: ignoring stale commit seq=9 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618526 Node 5: Commit RPC seq=4 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618554 Node 5: ignoring stale commit seq=4 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618662 Node 5: Commit RPC seq=11 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618677 Node 5: ignoring stale commit seq=11 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.618805 Node 5: Commit RPC seq=8 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.618830 Node 5: ignoring stale commit seq=8 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.622466 Node 5: Commit RPC seq=2 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.622533 Node 5: ignoring stale commit seq=2 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.622473 Node 5: Commit RPC seq=5 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.622583 Node 5: ignoring stale commit seq=5 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.622502 Node 5: Commit RPC seq=7 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.622615 Node 5: ignoring stale commit seq=7 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.623127 Node 5: Commit RPC seq=1 ballot=(7,3)
-[Node 5] 2025/11/25 23:48:43.623150 Node 5: ignoring stale commit seq=1 ballot=(7,3) (promise=(10,4))
-[Node 5] 2025/11/25 23:48:43.642295 Node 5: Accept RPC seq=16 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:43.642378 Node 5 ACCEPT seq=16 ballot=(10,4) txn=(E→J,2)
-[Node 5] 2025/11/25 23:48:43.642391 Node 5: Accepted seq 16
-[Node 5] 2025/11/25 23:48:43.661932 Node 5: Commit RPC seq=16 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:43.661972 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:43.661985 [Database] executing txn (bolt) (E,J,2)
-[Node 5] 2025/11/25 23:48:43.676981 [Database] txn success (bolt): E -> J amount 2
-[Node 5] 2025/11/25 23:48:43.677059 Node 5: executeRequestsInOrder stopping at gap seq=17
-[Node 5] 2025/11/25 23:48:46.741474 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:48:46.741539 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:48:46.741822 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:48:46.741854 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:48:46.741934 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:48:46.741951 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:48:46.742013 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:48:46.742031 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:48:46.742062 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:48:46.742086 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:48:47.054600 Node 5: Accept RPC seq=17 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.054643 Node 5 ACCEPT seq=17 ballot=(10,4) txn=(F→A,2)
-[Node 5] 2025/11/25 23:48:47.054655 Node 5: Accepted seq 17
-[Node 5] 2025/11/25 23:48:47.073661 Node 5: Commit RPC seq=17 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.073719 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:47.073735 [Database] executing txn (bolt) (F,A,2)
-[Node 5] 2025/11/25 23:48:47.084767 [Database] txn success (bolt): F -> A amount 2
-[Node 5] 2025/11/25 23:48:47.084977 Node 5: executeRequestsInOrder stopping at gap seq=18
-[Node 5] 2025/11/25 23:48:47.278369 Node 5: Accept RPC seq=18 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.278427 Node 5 ACCEPT seq=18 ballot=(10,4) txn=(G→H,1)
-[Node 5] 2025/11/25 23:48:47.278447 Node 5: Accepted seq 18
-[Node 5] 2025/11/25 23:48:47.296625 Node 5: Commit RPC seq=18 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.296752 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:47.296779 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:48:47.314149 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:48:47.314194 Node 5: executeRequestsInOrder stopping at gap seq=19
-[Node 5] 2025/11/25 23:48:47.498203 Node 5: Accept RPC seq=19 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.498215 Node 5 ACCEPT seq=19 ballot=(10,4) txn=(J→A,2)
-[Node 5] 2025/11/25 23:48:47.498218 Node 5: Accepted seq 19
-[Node 5] 2025/11/25 23:48:47.517036 Node 5: Commit RPC seq=19 ballot=(10,4)
-[Node 5] 2025/11/25 23:48:47.517064 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:48:47.517074 [Database] executing txn (bolt) (J,A,2)
-[Node 5] 2025/11/25 23:48:47.534648 [Database] txn success (bolt): J -> A amount 2
-[Node 5] 2025/11/25 23:48:47.534737 Node 5: executeRequestsInOrder stopping at gap seq=20
-[Node 5] 2025/11/25 23:48:49.680336 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:48:49.680380 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:48:49.680513 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:48:49.680529 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:48:49.680579 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:48:49.680590 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:48:49.680566 Node 5: UpdateActiveStatus node=5 live=false
-[Node 5] 2025/11/25 23:48:49.680615 Node 5: setNodeLiveness node=5 live=false
-[Node 5] 2025/11/25 23:48:49.680577 Node 5: UpdateActiveStatus node=4 live=false
-[Node 5] 2025/11/25 23:48:49.680655 Node 5: setNodeLiveness node=4 live=false
-[Node 5] 2025/11/25 23:48:49.680686 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:49.681504 Node 5: Prepare RPC from ballot (11,3)
-[Node 5] 2025/11/25 23:48:49.681524 Node 5: Promised ballot (11,3)
-[Node 5] 2025/11/25 23:48:49.761392 Node 5: Leader timeout (6.080724s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:49.761452 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:50.886343 Node 5: UpdateActiveStatus node=3 live=false
-[Node 5] 2025/11/25 23:48:50.886384 Node 5: setNodeLiveness node=3 live=false
-[Node 5] 2025/11/25 23:48:51.197585 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:51.509477 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:51.771197 Node 5: Leader timeout (8.090531s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:51.771402 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:51.820562 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:52.134644 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:52.444264 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:52.748541 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:53.057524 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:53.368362 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:53.680446 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:53.781853 Node 5: Leader timeout (10.101189s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:53.781981 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:53.994119 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:54.303731 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:54.607761 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:54.919308 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:55.231060 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:55.542677 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:55.791674 Node 5: Leader timeout (12.111012s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:55.791737 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:55.848640 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:56.156875 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:56.466084 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:56.775985 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:57.087465 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:57.397895 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:57.708478 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:57.801067 Node 5: Leader timeout (14.120406s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:57.801198 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:48:58.020593 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:58.331574 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:58.640981 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:58.952214 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:48:59.811187 Node 5: Leader timeout (16.130528s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:48:59.811370 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:00.962483 Node 5: HandleClientRequest type=REQUEST client=F ts=1764132540954015000
-[Node 5] 2025/11/25 23:49:00.962521 Node 5: ProcessClientRequest client=F ts=1764132540954015000 no-op=false
-[Node 5] 2025/11/25 23:49:01.172786 Node 5: HandleClientRequest type=REQUEST client=J ts=1764132541165317000
-[Node 5] 2025/11/25 23:49:01.172895 Node 5: ProcessClientRequest client=J ts=1764132541165317000 no-op=false
-[Node 5] 2025/11/25 23:49:01.821036 Node 5: Leader timeout (18.140379s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:01.821203 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:03.831335 Node 5: Leader timeout (20.150679s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:03.831484 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:05.841681 Node 5: Leader timeout (22.161028s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:05.841746 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:07.852333 Node 5: Leader timeout (24.171679s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:07.852508 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:09.863261 Node 5: Leader timeout (26.182611s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:09.863424 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:11.872981 Node 5: Leader timeout (28.192332s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:11.873135 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:13.883210 Node 5: Leader timeout (30.202563s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:13.883368 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:15.893501 Node 5: Leader timeout (32.212857s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:15.893584 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:17.903881 Node 5: Leader timeout (34.223239s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:17.904060 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:19.914153 Node 5: Leader timeout (36.233512s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:19.914313 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:21.924999 Node 5: Leader timeout (38.244360s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:21.925166 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:23.934652 Node 5: Leader timeout (40.254014s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:23.934826 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:25.945510 Node 5: Leader timeout (42.264873s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:25.945676 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:27.956847 Node 5: Leader timeout (44.276213s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:27.957067 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:29.966820 Node 5: Leader timeout (46.286188s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:29.966987 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:31.977529 Node 5: Leader timeout (48.296900s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:31.977713 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:33.988334 Node 5: Leader timeout (50.307706s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:33.988520 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:35.998681 Node 5: Leader timeout (52.318055s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:35.998848 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:38.009030 Node 5: Leader timeout (54.328406s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:38.009169 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:40.019738 Node 5: Leader timeout (56.339116s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:40.019885 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:42.029028 Node 5: Leader timeout (58.348406s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:42.029173 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:44.039823 Node 5: Leader timeout (60.359205s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:44.039969 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:46.050710 Node 5: Leader timeout (62.370093s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:46.050958 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:48.061085 Node 5: Leader timeout (64.380468s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:48.061293 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:50.071306 Node 5: Leader timeout (66.390693s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:50.071467 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:52.080687 Node 5: Leader timeout (68.400076s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:52.080867 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:54.090319 Node 5: Leader timeout (70.409710s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:54.090469 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:56.100423 Node 5: Leader timeout (72.419814s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:56.100568 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:49:58.108483 Node 5: Leader timeout (74.427876s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:49:58.108706 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:00.118290 Node 5: Leader timeout (76.437686s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:00.118452 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:02.128611 Node 5: Leader timeout (78.448008s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:02.128919 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:04.137812 Node 5: Leader timeout (80.457211s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:04.137995 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:06.148329 Node 5: Leader timeout (82.467730s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:06.148499 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:08.159140 Node 5: Leader timeout (84.478543s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:08.159328 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:10.169364 Node 5: Leader timeout (86.488768s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:10.169531 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:12.179407 Node 5: Leader timeout (88.498815s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:12.179597 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:14.004361 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:50:14.004576 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/25 23:50:14.190026 Node 5: Leader timeout (90.509434s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:14.190232 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:16.200024 Node 5: Leader timeout (92.519435s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:16.200197 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:18.209899 Node 5: Leader timeout (94.529311s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:18.210054 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:20.219125 Node 5: Leader timeout (96.538540s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:20.219277 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:22.227806 Node 5: Leader timeout (98.547222s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:22.227999 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:24.238679 Node 5: Leader timeout (100.558096s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:24.238931 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:25.435201 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:50:25.435309 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:50:25.435205 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:50:25.435404 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:50:25.435337 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:50:25.435475 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:50:25.435402 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:50:25.435557 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:50:25.435641 Node 5: initiating state sync attempts
-[Node 5] 2025/11/25 23:50:25.435676 Node 5: state sync attempt 1 waiting for active leader
-[Node 5] 2025/11/25 23:50:25.435275 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:50:25.435752 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:50:25.445334 Node 5: Leader timeout (6.009715s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:25.445429 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/25 23:50:25.445440 Node 5: Starting leader election with ballot (12,5)
-[Node 5] 2025/11/25 23:50:25.445518 Node 5: RPC Prepare->node 3
-[Node 5] 2025/11/25 23:50:25.445526 Node 5: RPC Prepare->node 4
-[Node 5] 2025/11/25 23:50:25.445538 Node 5: RPC Prepare->node 2
-[Node 5] 2025/11/25 23:50:25.445543 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/25 23:50:25.447755 Node 5: creating new view from 3 promises
-[Node 5] 2025/11/25 23:50:25.447849 Node 5: applyCommittedEntries up to seq=23
-[Node 5] 2025/11/25 23:50:25.447879 [Database] executing txn (bolt) (E,A,3)
-[Node 5] 2025/11/25 23:50:25.447790 Node 5: heartbeat loop started
-[Node 5] 2025/11/25 23:50:25.457498 [Database] txn success (bolt): E -> A amount 3
-[Node 5] 2025/11/25 23:50:25.457523 [Database] executing txn (bolt) (I,B,2)
-[Node 5] 2025/11/25 23:50:25.465532 [Database] txn success (bolt): I -> B amount 2
-[Node 5] 2025/11/25 23:50:25.465554 [Database] executing txn (bolt) (C,D,2)
-[Node 5] 2025/11/25 23:50:25.472510 [Database] txn success (bolt): C -> D amount 2
-[Node 5] 2025/11/25 23:50:25.472532 [Database] executing txn (bolt) (G,H,2)
-[Node 5] 2025/11/25 23:50:25.480525 [Database] txn success (bolt): G -> H amount 2
-[Node 5] 2025/11/25 23:50:25.480560 Node 5: new view constructed with 23 entries (maxSeq=23)
-[Node 5] 2025/11/25 23:50:25.480571 Node 5: broadcasting NewView ballot=(12,5) entries=23
-[Node 5] 2025/11/25 23:50:25.480595 Node 5: RPC NewView->node 4
-[Node 5] 2025/11/25 23:50:25.480601 Node 5: RPC NewView->node 2
-[Node 5] 2025/11/25 23:50:25.480625 Node 5: RPC NewView->node 1
-[Node 5] 2025/11/25 23:50:25.480638 Node 5: RPC NewView->node 3
-[Node 5] 2025/11/25 23:50:25.483192 Node 5: AcceptedFromNewView from node 3 seq=13
-[Node 5] 2025/11/25 23:50:25.483260 Node 5: AcceptedFromNewView from node 3 seq=22
-[Node 5] 2025/11/25 23:50:25.483329 Node 5: AcceptedFromNewView from node 3 seq=18
-[Node 5] 2025/11/25 23:50:25.483387 Node 5: AcceptedFromNewView from node 3 seq=11
-[Node 5] 2025/11/25 23:50:25.483442 Node 5: AcceptedFromNewView from node 3 seq=23
-[Node 5] 2025/11/25 23:50:25.483499 Node 5: AcceptedFromNewView from node 3 seq=9
-[Node 5] 2025/11/25 23:50:25.483517 Node 5: AcceptedFromNewView from node 3 seq=15
-[Node 5] 2025/11/25 23:50:25.483523 Node 5: AcceptedFromNewView from node 3 seq=17
-[Node 5] 2025/11/25 23:50:25.483552 Node 5: AcceptedFromNewView from node 3 seq=10
-[Node 5] 2025/11/25 23:50:25.483550 Node 5: AcceptedFromNewView from node 3 seq=7
-[Node 5] 2025/11/25 23:50:25.483584 Node 5: AcceptedFromNewView from node 3 seq=21
-[Node 5] 2025/11/25 23:50:25.483594 Node 5: AcceptedFromNewView from node 3 seq=19
-[Node 5] 2025/11/25 23:50:25.483613 Node 5: AcceptedFromNewView from node 3 seq=2
-[Node 5] 2025/11/25 23:50:25.483618 Node 5: AcceptedFromNewView from node 3 seq=1
-[Node 5] 2025/11/25 23:50:25.483634 Node 5: AcceptedFromNewView from node 3 seq=8
-[Node 5] 2025/11/25 23:50:25.483643 Node 5: AcceptedFromNewView from node 3 seq=12
-[Node 5] 2025/11/25 23:50:25.483658 Node 5: AcceptedFromNewView from node 3 seq=20
-[Node 5] 2025/11/25 23:50:25.483668 Node 5: AcceptedFromNewView from node 3 seq=14
-[Node 5] 2025/11/25 23:50:25.483666 Node 5: AcceptedFromNewView from node 3 seq=4
-[Node 5] 2025/11/25 23:50:25.483691 Node 5: AcceptedFromNewView from node 3 seq=3
-[Node 5] 2025/11/25 23:50:25.483763 Node 5: AcceptedFromNewView from node 3 seq=6
-[Node 5] 2025/11/25 23:50:25.483768 Node 5: AcceptedFromNewView from node 3 seq=5
-[Node 5] 2025/11/25 23:50:25.483839 Node 5: AcceptedFromNewView from node 3 seq=16
-[Node 5] 2025/11/25 23:50:25.509620 Node 5: AcceptedFromNewView from node 4 seq=21
-[Node 5] 2025/11/25 23:50:25.509712 Node 5: AcceptedFromNewView from node 4 seq=6
-[Node 5] 2025/11/25 23:50:25.509793 Node 5: AcceptedFromNewView from node 4 seq=18
-[Node 5] 2025/11/25 23:50:25.509866 Node 5: AcceptedFromNewView from node 4 seq=23
-[Node 5] 2025/11/25 23:50:25.509879 Node 5: AcceptedFromNewView from node 4 seq=3
-[Node 5] 2025/11/25 23:50:25.509917 Node 5: AcceptedFromNewView from node 4 seq=10
-[Node 5] 2025/11/25 23:50:25.509930 Node 5: AcceptedFromNewView from node 4 seq=22
-[Node 5] 2025/11/25 23:50:25.509903 Node 5: AcceptedFromNewView from node 4 seq=1
-[Node 5] 2025/11/25 23:50:25.509939 Node 5: AcceptedFromNewView from node 4 seq=16
-[Node 5] 2025/11/25 23:50:25.510002 Node 5: AcceptedFromNewView from node 4 seq=13
-[Node 5] 2025/11/25 23:50:25.510019 Node 5: AcceptedFromNewView from node 4 seq=14
-[Node 5] 2025/11/25 23:50:25.510004 Node 5: AcceptedFromNewView from node 4 seq=11
-[Node 5] 2025/11/25 23:50:25.510354 Node 5: AcceptedFromNewView from node 4 seq=5
-[Node 5] 2025/11/25 23:50:25.509960 Node 5: AcceptedFromNewView from node 4 seq=7
-[Node 5] 2025/11/25 23:50:25.510021 Node 5: AcceptedFromNewView from node 4 seq=17
-[Node 5] 2025/11/25 23:50:25.510020 Node 5: AcceptedFromNewView from node 4 seq=19
-[Node 5] 2025/11/25 23:50:25.510369 Node 5: AcceptedFromNewView from node 4 seq=15
-[Node 5] 2025/11/25 23:50:25.509874 Node 5: AcceptedFromNewView from node 4 seq=8
-[Node 5] 2025/11/25 23:50:25.510536 Node 5: AcceptedFromNewView from node 4 seq=2
-[Node 5] 2025/11/25 23:50:25.510613 Node 5: AcceptedFromNewView from node 4 seq=20
-[Node 5] 2025/11/25 23:50:25.510618 Node 5: AcceptedFromNewView from node 4 seq=9
-[Node 5] 2025/11/25 23:50:25.510617 Node 5: AcceptedFromNewView from node 4 seq=12
-[Node 5] 2025/11/25 23:50:25.509942 Node 5: AcceptedFromNewView from node 4 seq=4
-[Node 5] 2025/11/25 23:50:25.736235 Node 5: aborting state sync because self is leader
-[Node 5] 2025/11/25 23:50:25.736724 Node 5: RequestStateTransfer from node 3
-[Node 5] 2025/11/25 23:50:25.736806 Node 5: buildStateSnapshot generating from 23 entries
-[Node 5] 2025/11/25 23:50:25.736853 Node 5: snapshot ready entries=23 ballot=(12,5)
-[Node 5] 2025/11/25 23:50:25.738488 Node 5: RequestStateTransfer from node 4
-[Node 5] 2025/11/25 23:50:25.738583 Node 5: buildStateSnapshot generating from 23 entries
-[Node 5] 2025/11/25 23:50:25.738640 Node 5: snapshot ready entries=23 ballot=(12,5)
-[Node 5] 2025/11/25 23:50:25.742740 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:25.743749 Node 5: HandleClientRequest type=REQUEST client=F ts=1764132625743035000
-[Node 5] 2025/11/25 23:50:25.743774 Node 5: ProcessClientRequest client=F ts=1764132625743035000 no-op=false
-[Node 5] 2025/11/25 23:50:25.743803 Node 5: RPC Accept->node 4
-[Node 5] 2025/11/25 23:50:25.743812 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:50:25.743804 Node 5: RPC Accept->node 2
-[Node 5] 2025/11/25 23:50:25.743809 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:50:25.754875 [Database] executing txn (bolt) (F,A,2)
-[Node 5] 2025/11/25 23:50:25.764233 [Database] txn success (bolt): F -> A amount 2
-[Node 5] 2025/11/25 23:50:25.764266 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:25.764273 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:25.764281 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:25.764283 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:25.764287 Node 5: ProcessClientRequest seq=24 success=true msg=success
-[Node 5] 2025/11/25 23:50:25.765254 Node 5: HandleClientRequest type=REQUEST client=J ts=1764132625764527000
-[Node 5] 2025/11/25 23:50:25.765271 Node 5: ProcessClientRequest client=J ts=1764132625764527000 no-op=false
-[Node 5] 2025/11/25 23:50:25.765290 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:50:25.765326 Node 5: RPC Accept->node 2
-[Node 5] 2025/11/25 23:50:25.765346 Node 5: RPC Accept->node 4
-[Node 5] 2025/11/25 23:50:25.765347 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:50:25.785965 [Database] executing txn (bolt) (J,B,1)
-[Node 5] 2025/11/25 23:50:25.794155 [Database] txn success (bolt): J -> B amount 1
-[Node 5] 2025/11/25 23:50:25.794179 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:25.794184 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:25.794197 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:25.794203 Node 5: ProcessClientRequest seq=25 success=true msg=success
-[Node 5] 2025/11/25 23:50:25.794183 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:25.795061 Node 5: HandleClientRequest type=REQUEST client=C ts=1764132625794386000
-[Node 5] 2025/11/25 23:50:25.795150 Node 5: ProcessClientRequest client=C ts=1764132625794386000 no-op=false
-[Node 5] 2025/11/25 23:50:25.795164 Node 5: RPC Accept->node 4
-[Node 5] 2025/11/25 23:50:25.795184 Node 5: RPC Accept->node 2
-[Node 5] 2025/11/25 23:50:25.795227 Node 5: RPC Accept->node 3
-[Node 5] 2025/11/25 23:50:25.795235 Node 5: RPC Accept->node 1
-[Node 5] 2025/11/25 23:50:25.805231 [Database] executing txn (bolt) (C,H,3)
-[Node 5] 2025/11/25 23:50:25.815337 [Database] txn success (bolt): C -> H amount 3
-[Node 5] 2025/11/25 23:50:25.815375 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:25.815380 Node 5: ProcessClientRequest seq=26 success=true msg=success
-[Node 5] 2025/11/25 23:50:25.815376 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:25.815378 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:25.815378 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:26.021750 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:26.028535 Node 5: UpdateActiveStatus node=5 live=false
-[Node 5] 2025/11/25 23:50:26.028570 Node 5: setNodeLiveness node=5 live=false
-[Node 5] 2025/11/25 23:50:26.340440 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:26.649190 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:26.959894 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:27.270941 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:27.575395 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:27.885449 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:28.196446 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:28.506876 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:28.509917 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.509952 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.509975 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510002 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510012 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510039 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510050 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510115 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510136 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510152 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.509958 Node 5: leader election success with ballot (12,5)
-[Node 5] 2025/11/25 23:50:28.510175 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510117 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510208 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510177 Node 5: Became leader after election, successful
-[Node 5] 2025/11/25 23:50:28.510033 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510013 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510002 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.509983 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.509986 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.509990 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.509989 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.509993 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.509996 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.509999 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510006 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510010 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510018 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510017 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510021 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510024 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510028 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510031 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510033 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510037 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510056 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510056 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510053 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510059 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510058 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510060 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510060 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510063 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510064 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510064 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510066 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510067 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510067 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510069 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510071 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510074 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510075 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510076 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510078 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510079 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510070 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510082 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510083 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510081 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510084 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510087 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510089 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510090 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510091 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510091 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510090 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510094 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510094 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510095 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510098 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510100 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510099 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510094 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510102 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510104 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510105 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510107 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510111 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510102 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510121 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510125 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510128 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510132 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510143 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510145 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510146 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510105 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510144 Node 5: RPC Commit->node 1
-[Node 5] 2025/11/25 23:50:28.510149 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510154 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510159 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510160 Node 5: RPC Commit->node 3
-[Node 5] 2025/11/25 23:50:28.510132 Node 5: RPC Commit->node 2
-[Node 5] 2025/11/25 23:50:28.510148 Node 5: RPC Commit->node 4
-[Node 5] 2025/11/25 23:50:28.510283 Node 5: heartbeat loop started
-[Node 5] 2025/11/25 23:50:28.710584 Node 5: Leader timeout (8.682006s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:28.710838 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:28.816961 Node 5: GetLeader RPC invoked
-[Node 5] 2025/11/25 23:50:30.719995 Node 5: Leader timeout (10.691418s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:30.720197 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:31.582437 Node 5: UpdateActiveStatus node=2 live=false
-[Node 5] 2025/11/25 23:50:31.582469 Node 5: setNodeLiveness node=2 live=false
-[Node 5] 2025/11/25 23:50:32.730982 Node 5: Leader timeout (12.702408s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:32.731194 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:34.741735 Node 5: Leader timeout (14.713162s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:34.741817 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:36.750512 Node 5: Leader timeout (16.721943s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:36.750694 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:38.760016 Node 5: Leader timeout (18.731449s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:38.760203 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:40.768939 Node 5: Leader timeout (20.740374s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:40.769020 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:42.779501 Node 5: Leader timeout (22.750936s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:42.779615 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:44.789384 Node 5: Leader timeout (24.760822s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:44.789490 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:46.799241 Node 5: Leader timeout (26.770680s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:46.799449 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:48.809335 Node 5: Leader timeout (28.780775s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:48.809516 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:50.819503 Node 5: Leader timeout (30.790947s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:50.819555 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:52.828957 Node 5: Leader timeout (32.800402s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:52.829144 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:54.838294 Node 5: Leader timeout (34.809741s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:54.838375 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:56.848757 Node 5: Leader timeout (36.820204s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:56.848944 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:50:58.859353 Node 5: Leader timeout (38.830802s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:50:58.859537 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:00.869042 Node 5: Leader timeout (40.840493s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:00.869141 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:02.879052 Node 5: Leader timeout (42.850506s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:02.879273 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:04.887804 Node 5: Leader timeout (44.859259s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:04.887984 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:06.897882 Node 5: Leader timeout (46.869338s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:06.898078 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:08.907686 Node 5: Leader timeout (48.879145s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:08.907876 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:10.917804 Node 5: Leader timeout (50.889264s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:10.917905 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:12.927683 Node 5: Leader timeout (52.899145s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:12.927867 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:14.938538 Node 5: Leader timeout (54.910003s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:14.938716 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:16.948918 Node 5: Leader timeout (56.920384s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:16.949109 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:18.958488 Node 5: Leader timeout (58.929957s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:18.958668 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:20.969562 Node 5: Leader timeout (60.941032s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:20.969659 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:22.979677 Node 5: Leader timeout (62.951148s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:22.979866 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:24.990422 Node 5: Leader timeout (64.961894s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:24.990624 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:27.000757 Node 5: Leader timeout (66.972232s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:27.000956 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:29.011031 Node 5: Leader timeout (68.982509s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:29.011313 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:31.020512 Node 5: Leader timeout (70.991991s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:31.020689 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:33.031026 Node 5: Leader timeout (73.002506s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:33.031241 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:35.041111 Node 5: Leader timeout (75.012593s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:35.041299 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:37.050755 Node 5: Leader timeout (77.022239s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:37.051037 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:39.062193 Node 5: Leader timeout (79.033679s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:39.062385 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:41.073034 Node 5: Leader timeout (81.044522s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:41.073241 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:43.083356 Node 5: Leader timeout (83.054846s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:43.083567 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:45.092145 Node 5: Leader timeout (85.063637s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:45.092324 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:47.103149 Node 5: Leader timeout (87.074643s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:47.103307 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:49.112055 Node 5: Leader timeout (89.083551s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:49.112312 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:51.122426 Node 5: Leader timeout (91.093923s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:51.122590 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:53.133239 Node 5: Leader timeout (93.104739s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:53.133408 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:55.144140 Node 5: Leader timeout (95.115642s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:55.144312 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:57.152933 Node 5: Leader timeout (97.124435s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:57.153114 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:51:59.163731 Node 5: Leader timeout (99.135236s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:51:59.163910 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:01.172877 Node 5: Leader timeout (101.144384s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:01.173059 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:03.183311 Node 5: Leader timeout (103.154818s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:03.183530 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:05.192809 Node 5: Leader timeout (105.164319s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:05.192975 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:07.203107 Node 5: Leader timeout (107.174619s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:07.203283 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:09.213508 Node 5: Leader timeout (109.185023s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:09.213691 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:11.223911 Node 5: Leader timeout (111.195426s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:11.224123 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:13.234250 Node 5: Leader timeout (113.205768s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:13.234430 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:15.245120 Node 5: Leader timeout (115.216638s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:15.245296 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:17.255088 Node 5: Leader timeout (117.226610s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:17.255264 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:19.265983 Node 5: Leader timeout (119.237507s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:19.266229 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:21.275913 Node 5: Leader timeout (121.247438s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:21.276130 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:23.284600 Node 5: Leader timeout (123.256125s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:23.284814 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:25.293119 Node 5: Leader timeout (125.264649s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:25.293301 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:27.303980 Node 5: Leader timeout (127.275510s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:27.304166 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:29.313628 Node 5: Leader timeout (129.285155s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:29.313841 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:31.324439 Node 5: Leader timeout (131.295973s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:31.324619 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:33.334951 Node 5: Leader timeout (133.306487s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:33.335355 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:35.345238 Node 5: Leader timeout (135.316776s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:35.345431 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:37.356064 Node 5: Leader timeout (137.327602s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:37.356260 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:39.366387 Node 5: Leader timeout (139.337927s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:39.366561 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:41.376651 Node 5: Leader timeout (141.348195s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:41.376980 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:43.387158 Node 5: Leader timeout (143.358701s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:43.387373 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:45.397512 Node 5: Leader timeout (145.369058s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:45.397697 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:47.407647 Node 5: Leader timeout (147.379196s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:47.407844 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:49.418531 Node 5: Leader timeout (149.390080s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:49.418717 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:51.427500 Node 5: Leader timeout (151.399051s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:51.427686 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:53.437893 Node 5: Leader timeout (153.409446s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:53.438085 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:55.447597 Node 5: Leader timeout (155.419152s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:55.447999 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:57.458777 Node 5: Leader timeout (157.430335s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:57.458949 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:52:59.469702 Node 5: Leader timeout (159.441262s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:52:59.469903 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:01.479990 Node 5: Leader timeout (161.451552s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:01.480192 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:03.488412 Node 5: Leader timeout (163.459975s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:03.488611 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:05.499322 Node 5: Leader timeout (165.470887s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:05.499519 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:07.509668 Node 5: Leader timeout (167.481234s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:07.509860 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:09.520600 Node 5: Leader timeout (169.492170s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:09.520783 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:11.530023 Node 5: Leader timeout (171.501594s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:11.530228 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:13.540114 Node 5: Leader timeout (173.511686s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:13.540338 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:15.549530 Node 5: Leader timeout (175.521104s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:15.549829 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:17.560684 Node 5: Leader timeout (177.532259s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:17.560883 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:19.570787 Node 5: Leader timeout (179.542366s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:19.570999 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:21.581561 Node 5: Leader timeout (181.553140s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:21.581751 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:23.590541 Node 5: Leader timeout (183.562124s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:23.590690 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:25.601381 Node 5: Leader timeout (185.572965s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:25.601534 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:27.611820 Node 5: Leader timeout (187.583407s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:27.611854 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:29.621935 Node 5: Leader timeout (189.593521s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:29.622107 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:31.631503 Node 5: Leader timeout (191.603091s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:31.631735 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:33.641885 Node 5: Leader timeout (193.613475s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:33.642087 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:35.652867 Node 5: Leader timeout (195.624460s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:35.653052 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:37.663228 Node 5: Leader timeout (197.634823s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:37.663324 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:39.673679 Node 5: Leader timeout (199.645275s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:39.673855 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:41.602347 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:53:41.602553 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/25 23:53:41.682327 Node 5: Leader timeout (201.653924s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:41.682544 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:43.692001 Node 5: Leader timeout (203.663601s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:43.692220 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:45.701522 Node 5: Leader timeout (205.673123s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:45.701712 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:47.711551 Node 5: Leader timeout (207.683155s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:47.711648 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:49.721363 Node 5: Leader timeout (209.692967s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:49.721572 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:51.732278 Node 5: Leader timeout (211.703885s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:51.732441 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:53.742647 Node 5: Leader timeout (213.714256s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:53.742770 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:55.752819 Node 5: Leader timeout (215.724430s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:55.753005 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:57.762373 Node 5: Leader timeout (217.733985s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:57.762475 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:53:59.771470 Node 5: Leader timeout (219.743084s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:53:59.771550 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:01.782043 Node 5: Leader timeout (221.753658s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:01.782215 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:03.791702 Node 5: Leader timeout (223.763321s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:03.791900 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:05.801770 Node 5: Leader timeout (225.773389s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:05.801951 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:07.812039 Node 5: Leader timeout (227.783660s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:07.812206 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:09.822967 Node 5: Leader timeout (229.794590s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:09.823061 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:11.835290 Node 5: Leader timeout (231.806915s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:11.835489 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:13.846266 Node 5: Leader timeout (233.817893s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:13.846479 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:15.856155 Node 5: Leader timeout (235.827784s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:15.856353 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:17.866440 Node 5: Leader timeout (237.838070s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:17.866636 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:19.876527 Node 5: Leader timeout (239.848159s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:19.876639 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:21.886270 Node 5: Leader timeout (241.857905s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:21.886453 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:23.895824 Node 5: Leader timeout (243.867459s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:23.896019 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:25.906679 Node 5: Leader timeout (245.878318s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:25.906881 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:27.917220 Node 5: Leader timeout (247.888860s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:27.917400 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:29.928760 Node 5: Leader timeout (249.900398s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:29.928864 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:31.938835 Node 5: Leader timeout (251.910474s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:31.939016 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:33.949489 Node 5: Leader timeout (253.921135s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:33.949663 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:35.958836 Node 5: Leader timeout (255.930484s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:35.959025 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:37.967130 Node 5: Leader timeout (257.938779s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:37.967311 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:39.977110 Node 5: Leader timeout (259.948760s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:39.977270 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:41.985541 Node 5: Leader timeout (261.957194s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:41.985730 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:43.994592 Node 5: Leader timeout (263.966248s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:43.994790 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:46.004774 Node 5: Leader timeout (265.976429s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:46.005339 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:48.015410 Node 5: Leader timeout (267.987068s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:48.015627 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:50.024432 Node 5: Leader timeout (269.996093s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:50.024614 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:52.034256 Node 5: Leader timeout (272.005917s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:52.034446 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:54.045028 Node 5: Leader timeout (274.016692s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:54.045211 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:56.054596 Node 5: Leader timeout (276.026263s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:56.054644 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:54:58.064881 Node 5: Leader timeout (278.036549s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:54:58.064999 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:55:00.075383 Node 5: Leader timeout (280.047052s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:55:00.075623 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:55:02.085643 Node 5: Leader timeout (282.057315s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:55:02.085816 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:55:04.095598 Node 5: Leader timeout (284.067271s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:55:04.095824 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:55:06.105012 Node 5: Leader timeout (286.076689s), no leader msgs, starting election
-[Node 5] 2025/11/25 23:55:06.105038 Node 5: StartLeaderElection invoked (leader=false active=false)
-[Node 5] 2025/11/25 23:55:08.003843 Node 5: UpdateActiveStatus node=4 live=true
-[Node 5] 2025/11/25 23:55:08.003961 Node 5: setNodeLiveness node=4 live=true
-[Node 5] 2025/11/25 23:55:08.004341 Node 5: UpdateActiveStatus node=1 live=true
-[Node 5] 2025/11/25 23:55:08.004395 Node 5: setNodeLiveness node=1 live=true
-[Node 5] 2025/11/25 23:55:08.005488 Node 5: UpdateActiveStatus node=2 live=true
-[Node 5] 2025/11/25 23:55:08.005536 Node 5: setNodeLiveness node=2 live=true
-[Node 5] 2025/11/25 23:55:08.005656 Node 5: UpdateActiveStatus node=5 live=true
-[Node 5] 2025/11/25 23:55:08.005684 Node 5: setNodeLiveness node=5 live=true
-[Node 5] 2025/11/25 23:55:08.005723 Node 5: initiating state sync attempts
-[Node 5] 2025/11/25 23:55:08.005753 Node 5: state sync attempt 1 waiting for active leader
-[Node 5] 2025/11/25 23:55:08.005883 Node 5: UpdateActiveStatus node=3 live=true
-[Node 5] 2025/11/25 23:55:08.005945 Node 5: setNodeLiveness node=3 live=true
-[Node 5] 2025/11/25 23:55:08.009298 Node 5: NewView RPC ballot=(64,3) entries=29
-[Node 5] 2025/11/25 23:55:08.009358 Node 5: applyCommittedEntries up to seq=29
-[Node 5] 2025/11/25 23:55:08.009375 [Database] executing txn (bolt) (E,D,1)
-[Node 5] 2025/11/25 23:55:08.009557 Node 5: Prepare RPC from ballot (63,2)
-[Node 5] 2025/11/25 23:55:08.018278 [Database] txn success (bolt): E -> D amount 1
-[Node 5] 2025/11/25 23:55:08.018332 [Database] executing txn (bolt) (G,I,2)
-[Node 5] 2025/11/25 23:55:08.027282 [Database] txn success (bolt): G -> I amount 2
-[Node 5] 2025/11/25 23:55:08.027312 [Database] executing txn (bolt) (A,J,1)
-[Node 5] 2025/11/25 23:55:08.033322 [Database] txn success (bolt): A -> J amount 1
-[Node 5] 2025/11/25 23:55:08.033385 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033407 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033426 Node 5: Ignoring prepare from Node 2 (fresh leader 3, ballot (64,3))
-[Node 5] 2025/11/25 23:55:08.033395 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033409 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033490 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033507 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033514 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033481 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033454 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033454 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033417 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033453 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033459 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033460 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033461 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033463 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033464 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033465 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033468 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033470 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033471 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033473 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033474 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033476 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:08.033841 Node 5: executeRequestsInOrder stopping at gap seq=30
-[Node 5] 2025/11/25 23:55:08.033485 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033477 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033486 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033489 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033487 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.033423 Node 5: RPC AcceptedFromNewView->node 3
-[Node 5] 2025/11/25 23:55:08.306203 Node 5: RPC RequestStateTransfer->node 3
-[Node 5] 2025/11/25 23:55:08.308813 Node 5: state sync completed
-[Node 5] 2025/11/25 23:55:08.311121 Node 5: Accept RPC seq=30 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.311171 Node 5 ACCEPT seq=30 ballot=(64,3) txn=(A→B,1)
-[Node 5] 2025/11/25 23:55:08.311183 Node 5: Accepted seq 30
-[Node 5] 2025/11/25 23:55:08.330876 Node 5: Commit RPC seq=30 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.331128 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:08.331208 [Database] executing txn (bolt) (A,B,1)
-[Node 5] 2025/11/25 23:55:08.346865 [Database] txn success (bolt): A -> B amount 1
-[Node 5] 2025/11/25 23:55:08.346914 Node 5: executeRequestsInOrder stopping at gap seq=31
-[Node 5] 2025/11/25 23:55:08.535762 Node 5: Accept RPC seq=31 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.535870 Node 5 ACCEPT seq=31 ballot=(64,3) txn=(D→E,1)
-[Node 5] 2025/11/25 23:55:08.535896 Node 5: Accepted seq 31
-[Node 5] 2025/11/25 23:55:08.555515 Node 5: Commit RPC seq=31 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.560049 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:08.562915 [Database] executing txn (bolt) (D,E,1)
-[Node 5] 2025/11/25 23:55:08.576531 [Database] txn success (bolt): D -> E amount 1
-[Node 5] 2025/11/25 23:55:08.576566 Node 5: executeRequestsInOrder stopping at gap seq=32
-[Node 5] 2025/11/25 23:55:08.759065 Node 5: Accept RPC seq=32 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.759140 Node 5 ACCEPT seq=32 ballot=(64,3) txn=(I→J,1)
-[Node 5] 2025/11/25 23:55:08.759166 Node 5: Accepted seq 32
-[Node 5] 2025/11/25 23:55:08.778607 Node 5: Commit RPC seq=32 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.778734 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:08.778763 [Database] executing txn (bolt) (I,J,1)
-[Node 5] 2025/11/25 23:55:08.793271 [Database] txn success (bolt): I -> J amount 1
-[Node 5] 2025/11/25 23:55:08.793302 Node 5: executeRequestsInOrder stopping at gap seq=33
-[Node 5] 2025/11/25 23:55:08.983223 Node 5: Accept RPC seq=33 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:08.983299 Node 5 ACCEPT seq=33 ballot=(64,3) txn=(J→A,1)
-[Node 5] 2025/11/25 23:55:08.983334 Node 5: Accepted seq 33
-[Node 5] 2025/11/25 23:55:09.001640 Node 5: Commit RPC seq=33 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.001802 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:09.002008 [Database] executing txn (bolt) (J,A,1)
-[Node 5] 2025/11/25 23:55:09.023243 [Database] txn success (bolt): J -> A amount 1
-[Node 5] 2025/11/25 23:55:09.023279 Node 5: executeRequestsInOrder stopping at gap seq=34
-[Node 5] 2025/11/25 23:55:09.204897 Node 5: Accept RPC seq=34 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.204942 Node 5 ACCEPT seq=34 ballot=(64,3) txn=(B→C,1)
-[Node 5] 2025/11/25 23:55:09.204957 Node 5: Accepted seq 34
-[Node 5] 2025/11/25 23:55:09.222658 Node 5: Commit RPC seq=34 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.222708 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:09.222726 [Database] executing txn (bolt) (B,C,1)
-[Node 5] 2025/11/25 23:55:09.240938 [Database] txn success (bolt): B -> C amount 1
-[Node 5] 2025/11/25 23:55:09.241118 Node 5: executeRequestsInOrder stopping at gap seq=35
-[Node 5] 2025/11/25 23:55:09.428409 Node 5: Accept RPC seq=35 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.428464 Node 5 ACCEPT seq=35 ballot=(64,3) txn=(F→G,1)
-[Node 5] 2025/11/25 23:55:09.428493 Node 5: Accepted seq 35
-[Node 5] 2025/11/25 23:55:09.447501 Node 5: Commit RPC seq=35 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.447543 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:09.447557 [Database] executing txn (bolt) (F,G,1)
-[Node 5] 2025/11/25 23:55:09.460815 [Database] txn success (bolt): F -> G amount 1
-[Node 5] 2025/11/25 23:55:09.460854 Node 5: executeRequestsInOrder stopping at gap seq=36
-[Node 5] 2025/11/25 23:55:09.651655 Node 5: Accept RPC seq=36 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.651730 Node 5 ACCEPT seq=36 ballot=(64,3) txn=(H→I,1)
-[Node 5] 2025/11/25 23:55:09.651757 Node 5: Accepted seq 36
-[Node 5] 2025/11/25 23:55:09.672405 Node 5: Commit RPC seq=36 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.672473 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:09.672497 [Database] executing txn (bolt) (H,I,1)
-[Node 5] 2025/11/25 23:55:09.691049 [Database] txn success (bolt): H -> I amount 1
-[Node 5] 2025/11/25 23:55:09.691227 Node 5: executeRequestsInOrder stopping at gap seq=37
-[Node 5] 2025/11/25 23:55:09.874414 Node 5: Accept RPC seq=37 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.874428 Node 5 ACCEPT seq=37 ballot=(64,3) txn=(E→F,1)
-[Node 5] 2025/11/25 23:55:09.874433 Node 5: Accepted seq 37
-[Node 5] 2025/11/25 23:55:09.893665 Node 5: Commit RPC seq=37 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:09.893705 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:09.893806 [Database] executing txn (bolt) (E,F,1)
-[Node 5] 2025/11/25 23:55:09.908035 [Database] txn success (bolt): E -> F amount 1
-[Node 5] 2025/11/25 23:55:09.908189 Node 5: executeRequestsInOrder stopping at gap seq=38
-[Node 5] 2025/11/25 23:55:10.098278 Node 5: Accept RPC seq=38 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.098416 Node 5 ACCEPT seq=38 ballot=(64,3) txn=(G→H,1)
-[Node 5] 2025/11/25 23:55:10.098462 Node 5: Accepted seq 38
-[Node 5] 2025/11/25 23:55:10.118125 Node 5: Commit RPC seq=38 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.118296 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:10.118346 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:55:10.137109 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:55:10.137204 Node 5: executeRequestsInOrder stopping at gap seq=39
-[Node 5] 2025/11/25 23:55:10.323183 Node 5: Accept RPC seq=39 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.323249 Node 5 ACCEPT seq=39 ballot=(64,3) txn=(C→D,1)
-[Node 5] 2025/11/25 23:55:10.323277 Node 5: Accepted seq 39
-[Node 5] 2025/11/25 23:55:10.342338 Node 5: Commit RPC seq=39 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.342419 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:10.342446 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:55:10.354937 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:55:10.355234 Node 5: executeRequestsInOrder stopping at gap seq=40
-[Node 5] 2025/11/25 23:55:10.545736 Node 5: Accept RPC seq=40 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.545844 Node 5 ACCEPT seq=40 ballot=(64,3) txn=(A→B,1)
-[Node 5] 2025/11/25 23:55:10.545869 Node 5: Accepted seq 40
-[Node 5] 2025/11/25 23:55:10.566375 Node 5: Commit RPC seq=40 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.566484 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:10.566515 [Database] executing txn (bolt) (A,B,1)
-[Node 5] 2025/11/25 23:55:10.576858 [Database] txn success (bolt): A -> B amount 1
-[Node 5] 2025/11/25 23:55:10.577366 Node 5: executeRequestsInOrder stopping at gap seq=41
-[Node 5] 2025/11/25 23:55:10.771261 Node 5: Accept RPC seq=41 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.771342 Node 5 ACCEPT seq=41 ballot=(64,3) txn=(D→E,1)
-[Node 5] 2025/11/25 23:55:10.771379 Node 5: Accepted seq 41
-[Node 5] 2025/11/25 23:55:10.791328 Node 5: Commit RPC seq=41 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.791493 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:10.791517 [Database] executing txn (bolt) (D,E,1)
-[Node 5] 2025/11/25 23:55:10.804836 [Database] txn success (bolt): D -> E amount 1
-[Node 5] 2025/11/25 23:55:10.805043 Node 5: executeRequestsInOrder stopping at gap seq=42
-[Node 5] 2025/11/25 23:55:10.995856 Node 5: Accept RPC seq=42 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:10.995920 Node 5 ACCEPT seq=42 ballot=(64,3) txn=(I→J,1)
-[Node 5] 2025/11/25 23:55:10.995938 Node 5: Accepted seq 42
-[Node 5] 2025/11/25 23:55:11.015904 Node 5: Commit RPC seq=42 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.016079 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:11.016210 [Database] executing txn (bolt) (I,J,1)
-[Node 5] 2025/11/25 23:55:11.032710 [Database] txn success (bolt): I -> J amount 1
-[Node 5] 2025/11/25 23:55:11.032789 Node 5: executeRequestsInOrder stopping at gap seq=43
-[Node 5] 2025/11/25 23:55:11.218989 Node 5: Accept RPC seq=43 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.219056 Node 5 ACCEPT seq=43 ballot=(64,3) txn=(J→A,1)
-[Node 5] 2025/11/25 23:55:11.219071 Node 5: Accepted seq 43
-[Node 5] 2025/11/25 23:55:11.239068 Node 5: Commit RPC seq=43 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.239135 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:11.239158 [Database] executing txn (bolt) (J,A,1)
-[Node 5] 2025/11/25 23:55:11.251413 [Database] txn success (bolt): J -> A amount 1
-[Node 5] 2025/11/25 23:55:11.251660 Node 5: executeRequestsInOrder stopping at gap seq=44
-[Node 5] 2025/11/25 23:55:11.442496 Node 5: Accept RPC seq=44 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.442541 Node 5 ACCEPT seq=44 ballot=(64,3) txn=(B→C,1)
-[Node 5] 2025/11/25 23:55:11.442561 Node 5: Accepted seq 44
-[Node 5] 2025/11/25 23:55:11.463224 Node 5: Commit RPC seq=44 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.466857 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:11.470978 [Database] executing txn (bolt) (B,C,1)
-[Node 5] 2025/11/25 23:55:11.492774 [Database] txn success (bolt): B -> C amount 1
-[Node 5] 2025/11/25 23:55:11.492830 Node 5: executeRequestsInOrder stopping at gap seq=45
-[Node 5] 2025/11/25 23:55:11.665767 Node 5: Accept RPC seq=45 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.665895 Node 5 ACCEPT seq=45 ballot=(64,3) txn=(F→G,1)
-[Node 5] 2025/11/25 23:55:11.665932 Node 5: Accepted seq 45
-[Node 5] 2025/11/25 23:55:11.685611 Node 5: Commit RPC seq=45 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.685715 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:11.685738 [Database] executing txn (bolt) (F,G,1)
-[Node 5] 2025/11/25 23:55:11.712350 [Database] txn success (bolt): F -> G amount 1
-[Node 5] 2025/11/25 23:55:11.712430 Node 5: executeRequestsInOrder stopping at gap seq=46
-[Node 5] 2025/11/25 23:55:11.890724 Node 5: Accept RPC seq=46 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.890863 Node 5 ACCEPT seq=46 ballot=(64,3) txn=(H→I,1)
-[Node 5] 2025/11/25 23:55:11.890914 Node 5: Accepted seq 46
-[Node 5] 2025/11/25 23:55:11.910719 Node 5: Commit RPC seq=46 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:11.910785 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:11.910870 [Database] executing txn (bolt) (H,I,1)
-[Node 5] 2025/11/25 23:55:11.929570 [Database] txn success (bolt): H -> I amount 1
-[Node 5] 2025/11/25 23:55:11.929748 Node 5: executeRequestsInOrder stopping at gap seq=47
-[Node 5] 2025/11/25 23:55:12.115253 Node 5: Accept RPC seq=47 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.115317 Node 5 ACCEPT seq=47 ballot=(64,3) txn=(E→F,1)
-[Node 5] 2025/11/25 23:55:12.115344 Node 5: Accepted seq 47
-[Node 5] 2025/11/25 23:55:12.133845 Node 5: Commit RPC seq=47 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.134021 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:12.134087 [Database] executing txn (bolt) (E,F,1)
-[Node 5] 2025/11/25 23:55:12.148816 [Database] txn success (bolt): E -> F amount 1
-[Node 5] 2025/11/25 23:55:12.148896 Node 5: executeRequestsInOrder stopping at gap seq=48
-[Node 5] 2025/11/25 23:55:12.337595 Node 5: Accept RPC seq=48 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.337674 Node 5 ACCEPT seq=48 ballot=(64,3) txn=(G→H,1)
-[Node 5] 2025/11/25 23:55:12.337709 Node 5: Accepted seq 48
-[Node 5] 2025/11/25 23:55:12.357141 Node 5: Commit RPC seq=48 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.357186 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:12.357201 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:55:12.375859 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:55:12.375897 Node 5: executeRequestsInOrder stopping at gap seq=49
-[Node 5] 2025/11/25 23:55:12.565416 Node 5: Accept RPC seq=49 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.565532 Node 5 ACCEPT seq=49 ballot=(64,3) txn=(C→D,1)
-[Node 5] 2025/11/25 23:55:12.565579 Node 5: Accepted seq 49
-[Node 5] 2025/11/25 23:55:12.582464 Node 5: Commit RPC seq=49 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.582529 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:12.582552 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:55:12.597254 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:55:12.597398 Node 5: executeRequestsInOrder stopping at gap seq=50
-[Node 5] 2025/11/25 23:55:12.784757 Node 5: Accept RPC seq=50 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.784780 Node 5 ACCEPT seq=50 ballot=(64,3) txn=(A→B,1)
-[Node 5] 2025/11/25 23:55:12.784787 Node 5: Accepted seq 50
-[Node 5] 2025/11/25 23:55:12.802725 Node 5: Commit RPC seq=50 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:12.802793 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:12.802816 [Database] executing txn (bolt) (A,B,1)
-[Node 5] 2025/11/25 23:55:12.820797 [Database] txn success (bolt): A -> B amount 1
-[Node 5] 2025/11/25 23:55:12.820826 Node 5: executeRequestsInOrder stopping at gap seq=51
-[Node 5] 2025/11/25 23:55:13.007361 Node 5: Accept RPC seq=51 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.007408 Node 5 ACCEPT seq=51 ballot=(64,3) txn=(D→E,1)
-[Node 5] 2025/11/25 23:55:13.007427 Node 5: Accepted seq 51
-[Node 5] 2025/11/25 23:55:13.026504 Node 5: Commit RPC seq=51 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.026565 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:13.026585 [Database] executing txn (bolt) (D,E,1)
-[Node 5] 2025/11/25 23:55:13.040322 [Database] txn success (bolt): D -> E amount 1
-[Node 5] 2025/11/25 23:55:13.040536 Node 5: executeRequestsInOrder stopping at gap seq=52
-[Node 5] 2025/11/25 23:55:13.231300 Node 5: Accept RPC seq=52 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.231392 Node 5 ACCEPT seq=52 ballot=(64,3) txn=(I→J,1)
-[Node 5] 2025/11/25 23:55:13.231437 Node 5: Accepted seq 52
-[Node 5] 2025/11/25 23:55:13.251154 Node 5: Commit RPC seq=52 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.251323 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:13.251400 [Database] executing txn (bolt) (I,J,1)
-[Node 5] 2025/11/25 23:55:13.266004 [Database] txn success (bolt): I -> J amount 1
-[Node 5] 2025/11/25 23:55:13.266029 Node 5: executeRequestsInOrder stopping at gap seq=53
-[Node 5] 2025/11/25 23:55:13.453151 Node 5: Accept RPC seq=53 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.453173 Node 5 ACCEPT seq=53 ballot=(64,3) txn=(J→A,1)
-[Node 5] 2025/11/25 23:55:13.453180 Node 5: Accepted seq 53
-[Node 5] 2025/11/25 23:55:13.472610 Node 5: Commit RPC seq=53 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.472650 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:13.472664 [Database] executing txn (bolt) (J,A,1)
-[Node 5] 2025/11/25 23:55:13.485883 [Database] txn success (bolt): J -> A amount 1
-[Node 5] 2025/11/25 23:55:13.486115 Node 5: executeRequestsInOrder stopping at gap seq=54
-[Node 5] 2025/11/25 23:55:13.676550 Node 5: Accept RPC seq=54 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.676634 Node 5 ACCEPT seq=54 ballot=(64,3) txn=(B→C,1)
-[Node 5] 2025/11/25 23:55:13.676659 Node 5: Accepted seq 54
-[Node 5] 2025/11/25 23:55:13.695462 Node 5: Commit RPC seq=54 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.695543 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:13.695592 [Database] executing txn (bolt) (B,C,1)
-[Node 5] 2025/11/25 23:55:13.712192 [Database] txn success (bolt): B -> C amount 1
-[Node 5] 2025/11/25 23:55:13.712321 Node 5: executeRequestsInOrder stopping at gap seq=55
-[Node 5] 2025/11/25 23:55:13.900143 Node 5: Accept RPC seq=55 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.900206 Node 5 ACCEPT seq=55 ballot=(64,3) txn=(F→G,1)
-[Node 5] 2025/11/25 23:55:13.900233 Node 5: Accepted seq 55
-[Node 5] 2025/11/25 23:55:13.919162 Node 5: Commit RPC seq=55 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:13.919264 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:13.919296 [Database] executing txn (bolt) (F,G,1)
-[Node 5] 2025/11/25 23:55:13.934020 [Database] txn success (bolt): F -> G amount 1
-[Node 5] 2025/11/25 23:55:13.934112 Node 5: executeRequestsInOrder stopping at gap seq=56
-[Node 5] 2025/11/25 23:55:14.121108 Node 5: Accept RPC seq=56 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.121134 Node 5 ACCEPT seq=56 ballot=(64,3) txn=(H→I,1)
-[Node 5] 2025/11/25 23:55:14.121144 Node 5: Accepted seq 56
-[Node 5] 2025/11/25 23:55:14.140658 Node 5: Commit RPC seq=56 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.140694 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:14.140705 [Database] executing txn (bolt) (H,I,1)
-[Node 5] 2025/11/25 23:55:14.152843 [Database] txn success (bolt): H -> I amount 1
-[Node 5] 2025/11/25 23:55:14.153063 Node 5: executeRequestsInOrder stopping at gap seq=57
-[Node 5] 2025/11/25 23:55:14.345589 Node 5: Accept RPC seq=57 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.345704 Node 5 ACCEPT seq=57 ballot=(64,3) txn=(E→F,1)
-[Node 5] 2025/11/25 23:55:14.345750 Node 5: Accepted seq 57
-[Node 5] 2025/11/25 23:55:14.364216 Node 5: Commit RPC seq=57 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.364286 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:14.364364 [Database] executing txn (bolt) (E,F,1)
-[Node 5] 2025/11/25 23:55:14.381097 [Database] txn success (bolt): E -> F amount 1
-[Node 5] 2025/11/25 23:55:14.381183 Node 5: executeRequestsInOrder stopping at gap seq=58
-[Node 5] 2025/11/25 23:55:14.568863 Node 5: Accept RPC seq=58 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.568967 Node 5 ACCEPT seq=58 ballot=(64,3) txn=(G→H,1)
-[Node 5] 2025/11/25 23:55:14.568978 Node 5: Accepted seq 58
-[Node 5] 2025/11/25 23:55:14.589507 Node 5: Commit RPC seq=58 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.589602 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:14.589638 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:55:14.601946 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:55:14.602092 Node 5: executeRequestsInOrder stopping at gap seq=59
-[Node 5] 2025/11/25 23:55:14.793620 Node 5: Accept RPC seq=59 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.793719 Node 5 ACCEPT seq=59 ballot=(64,3) txn=(C→D,1)
-[Node 5] 2025/11/25 23:55:14.793743 Node 5: Accepted seq 59
-[Node 5] 2025/11/25 23:55:14.812913 Node 5: Commit RPC seq=59 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:14.813085 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:14.813191 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:55:14.828489 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:55:14.828659 Node 5: executeRequestsInOrder stopping at gap seq=60
-[Node 5] 2025/11/25 23:55:15.016653 Node 5: Accept RPC seq=60 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.016739 Node 5 ACCEPT seq=60 ballot=(64,3) txn=(A→B,1)
-[Node 5] 2025/11/25 23:55:15.016762 Node 5: Accepted seq 60
-[Node 5] 2025/11/25 23:55:15.037286 Node 5: Commit RPC seq=60 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.037431 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:15.037484 [Database] executing txn (bolt) (A,B,1)
-[Node 5] 2025/11/25 23:55:15.055790 [Database] txn success (bolt): A -> B amount 1
-[Node 5] 2025/11/25 23:55:15.056030 Node 5: executeRequestsInOrder stopping at gap seq=61
-[Node 5] 2025/11/25 23:55:15.242989 Node 5: Accept RPC seq=61 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.243078 Node 5 ACCEPT seq=61 ballot=(64,3) txn=(D→E,1)
-[Node 5] 2025/11/25 23:55:15.243119 Node 5: Accepted seq 61
-[Node 5] 2025/11/25 23:55:15.261020 Node 5: Commit RPC seq=61 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.261160 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:15.261208 [Database] executing txn (bolt) (D,E,1)
-[Node 5] 2025/11/25 23:55:15.272746 [Database] txn success (bolt): D -> E amount 1
-[Node 5] 2025/11/25 23:55:15.273006 Node 5: executeRequestsInOrder stopping at gap seq=62
-[Node 5] 2025/11/25 23:55:15.465947 Node 5: Accept RPC seq=62 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.466046 Node 5 ACCEPT seq=62 ballot=(64,3) txn=(I→J,1)
-[Node 5] 2025/11/25 23:55:15.466067 Node 5: Accepted seq 62
-[Node 5] 2025/11/25 23:55:15.486035 Node 5: Commit RPC seq=62 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.486115 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:15.486139 [Database] executing txn (bolt) (I,J,1)
-[Node 5] 2025/11/25 23:55:15.503589 [Database] txn success (bolt): I -> J amount 1
-[Node 5] 2025/11/25 23:55:15.503636 Node 5: executeRequestsInOrder stopping at gap seq=63
-[Node 5] 2025/11/25 23:55:15.690266 Node 5: Accept RPC seq=63 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.690384 Node 5 ACCEPT seq=63 ballot=(64,3) txn=(J→A,1)
-[Node 5] 2025/11/25 23:55:15.690425 Node 5: Accepted seq 63
-[Node 5] 2025/11/25 23:55:15.710125 Node 5: Commit RPC seq=63 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.710213 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:15.710269 [Database] executing txn (bolt) (J,A,1)
-[Node 5] 2025/11/25 23:55:15.721770 [Database] txn success (bolt): J -> A amount 1
-[Node 5] 2025/11/25 23:55:15.721950 Node 5: executeRequestsInOrder stopping at gap seq=64
-[Node 5] 2025/11/25 23:55:15.915323 Node 5: Accept RPC seq=64 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.915413 Node 5 ACCEPT seq=64 ballot=(64,3) txn=(B→C,1)
-[Node 5] 2025/11/25 23:55:15.915446 Node 5: Accepted seq 64
-[Node 5] 2025/11/25 23:55:15.933956 Node 5: Commit RPC seq=64 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:15.934072 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:15.938832 [Database] executing txn (bolt) (B,C,1)
-[Node 5] 2025/11/25 23:55:15.959515 [Database] txn success (bolt): B -> C amount 1
-[Node 5] 2025/11/25 23:55:15.959542 Node 5: executeRequestsInOrder stopping at gap seq=65
-[Node 5] 2025/11/25 23:55:16.135629 Node 5: Accept RPC seq=65 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.135655 Node 5 ACCEPT seq=65 ballot=(64,3) txn=(F→G,1)
-[Node 5] 2025/11/25 23:55:16.135678 Node 5: Accepted seq 65
-[Node 5] 2025/11/25 23:55:16.155221 Node 5: Commit RPC seq=65 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.155285 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:16.155307 [Database] executing txn (bolt) (F,G,1)
-[Node 5] 2025/11/25 23:55:16.170437 [Database] txn success (bolt): F -> G amount 1
-[Node 5] 2025/11/25 23:55:16.170600 Node 5: executeRequestsInOrder stopping at gap seq=66
-[Node 5] 2025/11/25 23:55:16.360988 Node 5: Accept RPC seq=66 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.361070 Node 5 ACCEPT seq=66 ballot=(64,3) txn=(H→I,1)
-[Node 5] 2025/11/25 23:55:16.361126 Node 5: Accepted seq 66
-[Node 5] 2025/11/25 23:55:16.378577 Node 5: Commit RPC seq=66 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.378664 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:16.378691 [Database] executing txn (bolt) (H,I,1)
-[Node 5] 2025/11/25 23:55:16.394323 [Database] txn success (bolt): H -> I amount 1
-[Node 5] 2025/11/25 23:55:16.394547 Node 5: executeRequestsInOrder stopping at gap seq=67
-[Node 5] 2025/11/25 23:55:16.583583 Node 5: Accept RPC seq=67 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.583703 Node 5 ACCEPT seq=67 ballot=(64,3) txn=(E→F,1)
-[Node 5] 2025/11/25 23:55:16.583733 Node 5: Accepted seq 67
-[Node 5] 2025/11/25 23:55:16.602717 Node 5: Commit RPC seq=67 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.602815 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:16.602841 [Database] executing txn (bolt) (E,F,1)
-[Node 5] 2025/11/25 23:55:16.614664 [Database] txn success (bolt): E -> F amount 1
-[Node 5] 2025/11/25 23:55:16.614892 Node 5: executeRequestsInOrder stopping at gap seq=68
-[Node 5] 2025/11/25 23:55:16.807145 Node 5: Accept RPC seq=68 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.807244 Node 5 ACCEPT seq=68 ballot=(64,3) txn=(G→H,1)
-[Node 5] 2025/11/25 23:55:16.807276 Node 5: Accepted seq 68
-[Node 5] 2025/11/25 23:55:16.827293 Node 5: Commit RPC seq=68 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:16.827370 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:16.827614 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:55:16.845179 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:55:16.845279 Node 5: executeRequestsInOrder stopping at gap seq=69
-[Node 5] 2025/11/25 23:55:17.031115 Node 5: Accept RPC seq=69 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.031212 Node 5 ACCEPT seq=69 ballot=(64,3) txn=(C→D,1)
-[Node 5] 2025/11/25 23:55:17.031241 Node 5: Accepted seq 69
-[Node 5] 2025/11/25 23:55:17.050549 Node 5: Commit RPC seq=69 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.050625 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:17.050651 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:55:17.067294 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:55:17.067444 Node 5: executeRequestsInOrder stopping at gap seq=70
-[Node 5] 2025/11/25 23:55:17.255666 Node 5: Accept RPC seq=70 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.255837 Node 5 ACCEPT seq=70 ballot=(64,3) txn=(A→B,1)
-[Node 5] 2025/11/25 23:55:17.255869 Node 5: Accepted seq 70
-[Node 5] 2025/11/25 23:55:17.275797 Node 5: Commit RPC seq=70 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.275930 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:17.275955 [Database] executing txn (bolt) (A,B,1)
-[Node 5] 2025/11/25 23:55:17.294328 [Database] txn success (bolt): A -> B amount 1
-[Node 5] 2025/11/25 23:55:17.294500 Node 5: executeRequestsInOrder stopping at gap seq=71
-[Node 5] 2025/11/25 23:55:17.481755 Node 5: Accept RPC seq=71 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.481848 Node 5 ACCEPT seq=71 ballot=(64,3) txn=(D→E,1)
-[Node 5] 2025/11/25 23:55:17.481893 Node 5: Accepted seq 71
-[Node 5] 2025/11/25 23:55:17.500487 Node 5: Commit RPC seq=71 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.500559 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:17.500623 [Database] executing txn (bolt) (D,E,1)
-[Node 5] 2025/11/25 23:55:17.514354 [Database] txn success (bolt): D -> E amount 1
-[Node 5] 2025/11/25 23:55:17.514611 Node 5: executeRequestsInOrder stopping at gap seq=72
-[Node 5] 2025/11/25 23:55:17.703038 Node 5: Accept RPC seq=72 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.703064 Node 5 ACCEPT seq=72 ballot=(64,3) txn=(I→J,1)
-[Node 5] 2025/11/25 23:55:17.703075 Node 5: Accepted seq 72
-[Node 5] 2025/11/25 23:55:17.722013 Node 5: Commit RPC seq=72 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.722064 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:17.722078 [Database] executing txn (bolt) (I,J,1)
-[Node 5] 2025/11/25 23:55:17.737296 [Database] txn success (bolt): I -> J amount 1
-[Node 5] 2025/11/25 23:55:17.737319 Node 5: executeRequestsInOrder stopping at gap seq=73
-[Node 5] 2025/11/25 23:55:17.926214 Node 5: Accept RPC seq=73 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.926308 Node 5 ACCEPT seq=73 ballot=(64,3) txn=(J→A,1)
-[Node 5] 2025/11/25 23:55:17.926333 Node 5: Accepted seq 73
-[Node 5] 2025/11/25 23:55:17.946944 Node 5: Commit RPC seq=73 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:17.947076 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:17.947099 [Database] executing txn (bolt) (J,A,1)
-[Node 5] 2025/11/25 23:55:17.962580 [Database] txn success (bolt): J -> A amount 1
-[Node 5] 2025/11/25 23:55:17.962700 Node 5: executeRequestsInOrder stopping at gap seq=74
-[Node 5] 2025/11/25 23:55:18.152057 Node 5: Accept RPC seq=74 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.152413 Node 5 ACCEPT seq=74 ballot=(64,3) txn=(B→C,1)
-[Node 5] 2025/11/25 23:55:18.152526 Node 5: Accepted seq 74
-[Node 5] 2025/11/25 23:55:18.171378 Node 5: Commit RPC seq=74 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.171478 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:18.171513 [Database] executing txn (bolt) (B,C,1)
-[Node 5] 2025/11/25 23:55:18.184201 [Database] txn success (bolt): B -> C amount 1
-[Node 5] 2025/11/25 23:55:18.184435 Node 5: executeRequestsInOrder stopping at gap seq=75
-[Node 5] 2025/11/25 23:55:18.373176 Node 5: Accept RPC seq=75 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.373210 Node 5 ACCEPT seq=75 ballot=(64,3) txn=(F→G,1)
-[Node 5] 2025/11/25 23:55:18.373223 Node 5: Accepted seq 75
-[Node 5] 2025/11/25 23:55:18.393796 Node 5: Commit RPC seq=75 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.394003 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:18.398089 [Database] executing txn (bolt) (F,G,1)
-[Node 5] 2025/11/25 23:55:18.415853 [Database] txn success (bolt): F -> G amount 1
-[Node 5] 2025/11/25 23:55:18.415913 Node 5: executeRequestsInOrder stopping at gap seq=76
-[Node 5] 2025/11/25 23:55:18.597370 Node 5: Accept RPC seq=76 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.597453 Node 5 ACCEPT seq=76 ballot=(64,3) txn=(H→I,1)
-[Node 5] 2025/11/25 23:55:18.597477 Node 5: Accepted seq 76
-[Node 5] 2025/11/25 23:55:18.617123 Node 5: Commit RPC seq=76 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.617182 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:18.617204 [Database] executing txn (bolt) (H,I,1)
-[Node 5] 2025/11/25 23:55:18.632681 [Database] txn success (bolt): H -> I amount 1
-[Node 5] 2025/11/25 23:55:18.632836 Node 5: executeRequestsInOrder stopping at gap seq=77
-[Node 5] 2025/11/25 23:55:18.822671 Node 5: Accept RPC seq=77 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.822765 Node 5 ACCEPT seq=77 ballot=(64,3) txn=(E→F,1)
-[Node 5] 2025/11/25 23:55:18.822808 Node 5: Accepted seq 77
-[Node 5] 2025/11/25 23:55:18.841968 Node 5: Commit RPC seq=77 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:18.842036 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:18.842062 [Database] executing txn (bolt) (E,F,1)
-[Node 5] 2025/11/25 23:55:18.852805 [Database] txn success (bolt): E -> F amount 1
-[Node 5] 2025/11/25 23:55:18.853028 Node 5: executeRequestsInOrder stopping at gap seq=78
-[Node 5] 2025/11/25 23:55:19.043949 Node 5: Accept RPC seq=78 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:19.044028 Node 5 ACCEPT seq=78 ballot=(64,3) txn=(G→H,1)
-[Node 5] 2025/11/25 23:55:19.044035 Node 5: Accepted seq 78
-[Node 5] 2025/11/25 23:55:19.062923 Node 5: Commit RPC seq=78 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:19.062949 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:19.062957 [Database] executing txn (bolt) (G,H,1)
-[Node 5] 2025/11/25 23:55:19.076462 [Database] txn success (bolt): G -> H amount 1
-[Node 5] 2025/11/25 23:55:19.076652 Node 5: executeRequestsInOrder stopping at gap seq=79
-[Node 5] 2025/11/25 23:55:19.267796 Node 5: Accept RPC seq=79 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:19.267859 Node 5 ACCEPT seq=79 ballot=(64,3) txn=(C→D,1)
-[Node 5] 2025/11/25 23:55:19.267880 Node 5: Accepted seq 79
-[Node 5] 2025/11/25 23:55:19.287591 Node 5: Commit RPC seq=79 ballot=(64,3)
-[Node 5] 2025/11/25 23:55:19.287699 Node 5: executeRequestsInOrder triggered
-[Node 5] 2025/11/25 23:55:19.287739 [Database] executing txn (bolt) (C,D,1)
-[Node 5] 2025/11/25 23:55:19.299051 [Database] txn success (bolt): C -> D amount 1
-[Node 5] 2025/11/25 23:55:19.299314 Node 5: executeRequestsInOrder stopping at gap seq=80
-[Node 5] 2025/11/25 23:56:51.831425 Node 5: PrintDB RPC invoked
-[Node 5] 2025/11/25 23:56:51.831682 [Database] printing DB (bolt) for node 5 (10 accounts)
-[Node 5] 2025/11/26 14:35:02.576508 Node 5: Leader timeout (3.104185s), no leader msgs, starting election
-[Node 5] 2025/11/26 14:35:02.576654 Node 5: StartLeaderElection invoked (leader=false active=true)
-[Node 5] 2025/11/26 14:35:02.576663 Node 5: Starting leader election with ballot (65,5)
-[Node 5] 2025/11/26 14:35:02.576743 Node 5: RPC Prepare->node 3
-[Node 5] 2025/11/26 14:35:02.576753 Node 5: RPC Prepare->node 4
-[Node 5] 2025/11/26 14:35:02.576744 Node 5: RPC Prepare->node 1
-[Node 5] 2025/11/26 14:35:02.576748 Node 5: RPC Prepare->node 2
-[Node 5] 2025/11/26 14:35:02.577820 Node 5: RPC dial Prepare to node 3 failed: dial tcp 127.0.0.1:8003: connect: connection refused
-[Node 5] 2025/11/26 14:35:02.577757 Node 5: RPC dial Prepare to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
-[Node 5] 2025/11/26 14:35:02.577809 Node 5: RPC dial Prepare to node 2 failed: dial tcp 127.0.0.1:8002: connect: connection refused
-[Node 5] 2025/11/26 14:35:02.577833 Node 5: RPC dial Prepare to node 1 failed: dial tcp 127.0.0.1:8001: connect: connection refused
-[Node 5] 2025/11/26 14:35:02.577856 Node 5: leader election failed (promises=1 need=3)
-[Node 5] 2025/11/26 14:35:02.980638 Node 5 shutting down...
-[Node 5] 2025/11/26 14:35:02.980782 Node 5: stopping node
-[Node 5] 2025/11/26 14:35:02.981029 Node 5: accept error: accept tcp 127.0.0.1:8005: use of closed network connection
-[Node 5] 2025/11/26 14:35:02.981146 Node 5: RPC server shutting down
+[Node 5] 2025/11/28 13:32:15.444623 Node 5: initializing at localhost:8005 with 9 peers
+[Node 5] 2025/11/28 13:32:15.452030 [Database] opening BoltDB at data/node-5.db
+[Node 5] 2025/11/28 13:32:15.519553 Node 5: BoltDB initialized at data/node-5.db
+[Node 5] 2025/11/28 13:32:15.519790 [Database] client 1 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.519795 Node 5: leader timeout monitor running
+[Node 5] 2025/11/28 13:32:15.543522 [Database] client 2 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.564658 [Database] client 3 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.577496 [Database] client 4 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.595597 [Database] client 5 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.610517 [Database] client 6 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.625610 [Database] client 7 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.641592 [Database] client 8 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.660523 [Database] client 9 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.679605 [Database] client 10 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.696539 [Database] client 11 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.714718 [Database] client 12 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.731537 [Database] client 13 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.750638 [Database] client 14 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.775650 [Database] client 15 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.792655 [Database] client 16 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.813594 [Database] client 17 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.830570 [Database] client 18 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.848573 [Database] client 19 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.861563 [Database] client 20 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.878574 [Database] client 21 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.894573 [Database] client 22 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.910504 [Database] client 23 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.930518 [Database] client 24 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.945582 [Database] client 25 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.969465 [Database] client 26 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:15.985592 [Database] client 27 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.002562 [Database] client 28 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.019510 [Database] client 29 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.037545 [Database] client 30 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.058678 [Database] client 31 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.076636 [Database] client 32 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.097612 [Database] client 33 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.118679 [Database] client 34 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.139570 [Database] client 35 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.156758 [Database] client 36 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.175540 [Database] client 37 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.193516 [Database] client 38 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.210537 [Database] client 39 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.230657 [Database] client 40 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.247677 [Database] client 41 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.268518 [Database] client 42 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.285729 [Database] client 43 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.302533 [Database] client 44 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.319511 [Database] client 45 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.337524 [Database] client 46 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.351486 [Database] client 47 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.369460 [Database] client 48 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.389503 [Database] client 49 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.408668 [Database] client 50 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.430536 [Database] client 51 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.449451 [Database] client 52 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.466431 [Database] client 53 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.483573 [Database] client 54 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.500437 [Database] client 55 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.513670 [Database] client 56 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.530542 [Database] client 57 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.547642 [Database] client 58 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.565620 [Database] client 59 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.582760 [Database] client 60 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.602582 [Database] client 61 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.619515 [Database] client 62 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.637649 [Database] client 63 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.655525 [Database] client 64 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.674549 [Database] client 65 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.692481 [Database] client 66 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.710546 [Database] client 67 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.728452 [Database] client 68 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.749501 [Database] client 69 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.766458 [Database] client 70 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.786497 [Database] client 71 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.811454 [Database] client 72 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.834470 [Database] client 73 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.852486 [Database] client 74 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.872450 [Database] client 75 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.889507 [Database] client 76 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.907489 [Database] client 77 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.926557 [Database] client 78 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.949587 [Database] client 79 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.973511 [Database] client 80 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:16.997510 [Database] client 81 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.015612 [Database] client 82 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.038495 [Database] client 83 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.060518 [Database] client 84 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.080510 [Database] client 85 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.102484 [Database] client 86 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.125487 [Database] client 87 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.144496 [Database] client 88 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.163578 [Database] client 89 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.180456 [Database] client 90 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.198683 [Database] client 91 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.221497 [Database] client 92 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.238479 [Database] client 93 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.257588 [Database] client 94 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.275543 [Database] client 95 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.298595 [Database] client 96 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.322688 [Database] client 97 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.344590 [Database] client 98 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.362555 [Database] client 99 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.379572 [Database] client 100 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.397615 [Database] client 101 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.413528 [Database] client 102 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.432558 [Database] client 103 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.462512 [Database] client 104 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.481606 [Database] client 105 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.503462 [Database] client 106 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.523957 [Database] client 107 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.539545 [Database] client 108 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.561476 [Database] client 109 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.579484 [Database] client 110 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.596508 [Database] client 111 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.621545 [Database] client 112 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.638638 [Database] client 113 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.654537 [Database] client 114 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.674590 [Database] client 115 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.693613 [Database] client 116 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.711601 [Database] client 117 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.729613 [Database] client 118 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.755499 [Database] client 119 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.773483 [Database] client 120 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.799624 [Database] client 121 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.817510 [Database] client 122 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.837560 [Database] client 123 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.862621 [Database] client 124 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.880526 [Database] client 125 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.898602 [Database] client 126 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.917561 [Database] client 127 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.939524 [Database] client 128 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.965487 [Database] client 129 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:17.984463 [Database] client 130 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.006644 [Database] client 131 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.023574 [Database] client 132 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.041582 [Database] client 133 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.059460 [Database] client 134 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.076470 [Database] client 135 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.098493 [Database] client 136 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.117473 [Database] client 137 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.140395 [Database] client 138 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.159534 [Database] client 139 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.179382 [Database] client 140 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.195530 [Database] client 141 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.214488 [Database] client 142 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.231447 [Database] client 143 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.244626 [Database] client 144 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.265485 [Database] client 145 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.287468 [Database] client 146 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.303474 [Database] client 147 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.320440 [Database] client 148 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.339585 [Database] client 149 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.361496 [Database] client 150 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.380475 [Database] client 151 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.396503 [Database] client 152 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.423543 [Database] client 153 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.445471 [Database] client 154 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.462501 [Database] client 155 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.481555 [Database] client 156 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.497560 [Database] client 157 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.520420 [Database] client 158 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.537264 Node 5: Leader timeout (3.089623s), no leader msgs, starting election
+[Node 5] 2025/11/28 13:32:18.541629 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/28 13:32:18.537463 [Database] client 159 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.560498 [Database] client 160 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.578871 [Database] client 161 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.611442 [Database] client 162 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.629523 [Database] client 163 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.649531 [Database] client 164 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.665547 [Database] client 165 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.687508 [Database] client 166 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.704452 [Database] client 167 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.723528 [Database] client 168 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.740410 [Database] client 169 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.756441 [Database] client 170 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.773508 [Database] client 171 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.795469 [Database] client 172 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.811535 [Database] client 173 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.828500 [Database] client 174 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.851471 [Database] client 175 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.879540 [Database] client 176 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.897545 [Database] client 177 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.914644 [Database] client 178 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.932562 [Database] client 179 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.953487 [Database] client 180 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.971461 [Database] client 181 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:18.991524 [Database] client 182 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.010552 [Database] client 183 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.028497 [Database] client 184 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.052491 [Database] client 185 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.078498 [Database] client 186 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.091468 [Database] client 187 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.108420 [Database] client 188 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.124546 [Database] client 189 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.142429 [Database] client 190 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.165519 [Database] client 191 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.184487 [Database] client 192 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.205496 [Database] client 193 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.222514 [Database] client 194 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.248522 [Database] client 195 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.269488 [Database] client 196 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.288583 [Database] client 197 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.307536 [Database] client 198 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.325483 [Database] client 199 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.342494 [Database] client 200 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.363434 [Database] client 201 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.389370 [Database] client 202 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.411563 [Database] client 203 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.445782 [Database] client 204 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.467378 [Database] client 205 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.486419 [Database] client 206 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.505402 [Database] client 207 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.526369 [Database] client 208 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.550469 [Database] client 209 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.571522 [Database] client 210 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.589419 [Database] client 211 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.609477 [Database] client 212 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.630548 [Database] client 213 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.648369 [Database] client 214 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.672396 [Database] client 215 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.691426 [Database] client 216 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.709698 [Database] client 217 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.731393 [Database] client 218 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.751509 [Database] client 219 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.774383 [Database] client 220 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.800542 [Database] client 221 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.827486 [Database] client 222 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.847433 [Database] client 223 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.866471 [Database] client 224 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.890437 [Database] client 225 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.909489 [Database] client 226 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.935552 [Database] client 227 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.958465 [Database] client 228 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.980393 [Database] client 229 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:19.998522 [Database] client 230 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.022462 [Database] client 231 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.043427 [Database] client 232 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.060427 [Database] client 233 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.078503 [Database] client 234 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.097376 [Database] client 235 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.118354 [Database] client 236 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.137410 [Database] client 237 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.155330 [Database] client 238 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.182376 [Database] client 239 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.199510 [Database] client 240 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.220563 [Database] client 241 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.241574 [Database] client 242 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.259405 [Database] client 243 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.276482 [Database] client 244 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.293557 [Database] client 245 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.310488 [Database] client 246 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.328410 [Database] client 247 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.349559 [Database] client 248 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.373354 [Database] client 249 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.390318 [Database] client 250 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.413394 [Database] client 251 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.437464 [Database] client 252 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.456428 [Database] client 253 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.473397 [Database] client 254 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.491538 [Database] client 255 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.507475 [Database] client 256 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.524496 [Database] client 257 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.542455 [Database] client 258 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.553183 Node 5: Leader timeout (5.105604s), no leader msgs, starting election
+[Node 5] 2025/11/28 13:32:20.553736 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/28 13:32:20.564513 [Database] client 259 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.581376 [Database] client 260 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.597443 [Database] client 261 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.613496 [Database] client 262 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.637492 [Database] client 263 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.656359 [Database] client 264 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.674425 [Database] client 265 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.691443 [Database] client 266 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.708479 [Database] client 267 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.724459 [Database] client 268 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.742335 [Database] client 269 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.765451 [Database] client 270 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.783340 [Database] client 271 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.804516 [Database] client 272 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.837394 [Database] client 273 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.858418 [Database] client 274 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.880456 [Database] client 275 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.900451 [Database] client 276 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.922415 [Database] client 277 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.942389 [Database] client 278 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.966507 [Database] client 279 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:20.991313 [Database] client 280 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.008527 [Database] client 281 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.020376 [Database] client 282 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.039353 [Database] client 283 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.063320 [Database] client 284 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.093401 [Database] client 285 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.117429 [Database] client 286 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.140455 [Database] client 287 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.160469 [Database] client 288 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.182385 [Database] client 289 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.201388 [Database] client 290 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.222413 [Database] client 291 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.243417 [Database] client 292 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.262386 [Database] client 293 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.283473 [Database] client 294 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.309489 [Database] client 295 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.330365 [Database] client 296 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.357376 [Database] client 297 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.379422 [Database] client 298 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.400428 [Database] client 299 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.422325 [Database] client 300 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.444348 [Database] client 301 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.468333 [Database] client 302 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.491466 [Database] client 303 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.512403 [Database] client 304 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.539344 [Database] client 305 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.560360 [Database] client 306 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.577401 [Database] client 307 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.601384 [Database] client 308 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.625266 [Database] client 309 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.642532 [Database] client 310 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.660349 [Database] client 311 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.685329 [Database] client 312 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.714552 [Database] client 313 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.731488 [Database] client 314 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.757512 [Database] client 315 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.775314 [Database] client 316 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.799872 [Database] client 317 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.816352 [Database] client 318 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.835347 [Database] client 319 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.853516 [Database] client 320 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.874437 [Database] client 321 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.912369 [Database] client 322 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.930348 [Database] client 323 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.957386 [Database] client 324 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.980436 [Database] client 325 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:21.998341 [Database] client 326 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.015450 [Database] client 327 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.037390 [Database] client 328 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.054465 [Database] client 329 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.070416 [Database] client 330 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.090414 [Database] client 331 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.106444 [Database] client 332 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.122449 [Database] client 333 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.141558 [Database] client 334 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.158420 [Database] client 335 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.179445 [Database] client 336 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.197372 [Database] client 337 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.218312 [Database] client 338 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.238461 [Database] client 339 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.254450 [Database] client 340 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.282293 [Database] client 341 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.309461 [Database] client 342 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.332381 [Database] client 343 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.350369 [Database] client 344 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.377327 [Database] client 345 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.400469 [Database] client 346 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.418443 [Database] client 347 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.439378 [Database] client 348 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.465474 [Database] client 349 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.483488 [Database] client 350 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.501357 [Database] client 351 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.520298 [Database] client 352 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.538443 [Database] client 353 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.557462 [Database] client 354 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.564865 Node 5: Leader timeout (7.117360s), no leader msgs, starting election
+[Node 5] 2025/11/28 13:32:22.565532 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/28 13:32:22.579353 [Database] client 355 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.599452 [Database] client 356 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.622335 [Database] client 357 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.641339 [Database] client 358 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.659384 [Database] client 359 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.681392 [Database] client 360 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.707384 [Database] client 361 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.724451 [Database] client 362 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.746397 [Database] client 363 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.769443 [Database] client 364 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.789482 [Database] client 365 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.811377 [Database] client 366 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.832352 [Database] client 367 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.854339 [Database] client 368 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.872388 [Database] client 369 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.891358 [Database] client 370 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.910341 [Database] client 371 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.933351 [Database] client 372 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.956325 [Database] client 373 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:22.974517 [Database] client 374 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.000440 [Database] client 375 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.020369 [Database] client 376 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.038396 [Database] client 377 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.062325 [Database] client 378 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.085356 [Database] client 379 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.109456 [Database] client 380 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.154881 [Database] client 381 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.194432 [Database] client 382 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.221381 [Database] client 383 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.252353 [Database] client 384 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.277370 [Database] client 385 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.312468 [Database] client 386 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.339367 [Database] client 387 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.369381 [Database] client 388 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.393260 [Database] client 389 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.417342 [Database] client 390 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.442367 [Database] client 391 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.461342 [Database] client 392 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.485267 [Database] client 393 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.504409 [Database] client 394 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.530360 [Database] client 395 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.555411 [Database] client 396 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.575361 [Database] client 397 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.607263 [Database] client 398 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.632241 [Database] client 399 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.657337 [Database] client 400 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.678316 [Database] client 401 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.697395 [Database] client 402 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.715261 [Database] client 403 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.735235 [Database] client 404 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.757344 [Database] client 405 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.780338 [Database] client 406 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.797362 [Database] client 407 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.822417 [Database] client 408 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.841262 [Database] client 409 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.860216 [Database] client 410 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.878379 [Database] client 411 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.897442 [Database] client 412 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.928339 [Database] client 413 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.951233 [Database] client 414 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.971311 [Database] client 415 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:23.991323 [Database] client 416 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.011269 [Database] client 417 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.033354 [Database] client 418 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.053213 [Database] client 419 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.076218 [Database] client 420 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.096357 [Database] client 421 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.123269 [Database] client 422 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.145284 [Database] client 423 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.164219 [Database] client 424 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.183361 [Database] client 425 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.202348 [Database] client 426 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.221335 [Database] client 427 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.249369 [Database] client 428 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.273335 [Database] client 429 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.291330 [Database] client 430 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.310319 [Database] client 431 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.332285 [Database] client 432 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.351298 [Database] client 433 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.375282 [Database] client 434 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.395340 [Database] client 435 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.417302 [Database] client 436 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.435270 [Database] client 437 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.454391 [Database] client 438 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.480692 [Database] client 439 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.512327 [Database] client 440 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.536362 [Database] client 441 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.558296 [Database] client 442 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.575011 Node 5: Leader timeout (9.127572s), no leader msgs, starting election
+[Node 5] 2025/11/28 13:32:24.575627 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/28 13:32:24.575444 [Database] client 443 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.598379 [Database] client 444 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.631375 [Database] client 445 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.656408 [Database] client 446 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.689343 [Database] client 447 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.715469 [Database] client 448 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.740491 [Database] client 449 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.761275 [Database] client 450 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.797324 [Database] client 451 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.826376 [Database] client 452 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.850459 [Database] client 453 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.875506 [Database] client 454 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.905423 [Database] client 455 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.938384 [Database] client 456 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.962421 [Database] client 457 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:24.983366 [Database] client 458 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.018347 [Database] client 459 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.041192 [Database] client 460 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.064311 [Database] client 461 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.081407 [Database] client 462 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.099222 [Database] client 463 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.122334 [Database] client 464 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.141352 [Database] client 465 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.160156 [Database] client 466 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.175247 [Database] client 467 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.199309 [Database] client 468 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.217336 [Database] client 469 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.235371 [Database] client 470 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.251275 [Database] client 471 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.266364 [Database] client 472 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.291298 [Database] client 473 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.313169 [Database] client 474 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.332293 [Database] client 475 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.350250 [Database] client 476 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.371173 [Database] client 477 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.392177 [Database] client 478 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.414426 [Database] client 479 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.439267 [Database] client 480 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.458219 [Database] client 481 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.478251 [Database] client 482 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.495296 [Database] client 483 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.513209 [Database] client 484 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.533139 [Database] client 485 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.565301 [Database] client 486 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.584247 [Database] client 487 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.603328 [Database] client 488 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.620251 [Database] client 489 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.637315 [Database] client 490 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.656271 [Database] client 491 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.679253 [Database] client 492 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.699234 [Database] client 493 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.721263 [Database] client 494 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.747289 [Database] client 495 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.765232 [Database] client 496 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.781335 [Database] client 497 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.805299 [Database] client 498 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.823308 [Database] client 499 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.841293 [Database] client 500 initialized with balance 10 (bolt)
+[Node 5] 2025/11/28 13:32:25.860305 Node 5: initialization complete (maj=3)
+[Node 5] 2025/11/28 13:32:25.860600 Node 5: starting RPC server at localhost:8005
+[Node 5] 2025/11/28 13:36:04.867606 Node 5: Accept RPC seq=1 ballot=(5,1)
+[Node 5] 2025/11/28 13:36:04.868095 Node 5 ACCEPT seq=1 ballot=(5,1) txn=(1→2,1)
+[Node 5] 2025/11/28 13:36:04.868102 Node 5: Accepted seq 1
+[Node 5] 2025/11/28 13:36:04.888562 Node 5: Commit RPC seq=1 ballot=(5,1)
+[Node 5] 2025/11/28 13:36:04.888822 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/28 13:36:04.900752 [Database] executing txn (bolt) (1,2,1)
+[Node 5] 2025/11/28 13:36:04.921499 [Database] txn success (bolt): 1 -> 2 amount 1
+[Node 5] 2025/11/28 13:36:04.921514 Node 5: executeRequestsInOrder stopping at gap seq=2
+[Node 5] 2025/11/28 13:38:27.983565 Node 5: GetBalance RPC account=1
+[Node 5] 2025/11/28 13:38:27.984334 [Database] queried balance (bolt) 1=9
+[Node 5] 2025/11/28 13:39:21.617815 Node 5: Accept RPC seq=2 ballot=(5,1)
+[Node 5] 2025/11/28 13:39:21.617971 Node 5 ACCEPT seq=2 ballot=(5,1) txn=(1→2,1)
+[Node 5] 2025/11/28 13:39:21.617992 Node 5: Accepted seq 2
+[Node 5] 2025/11/28 13:39:21.641726 Node 5: Commit RPC seq=2 ballot=(5,1)
+[Node 5] 2025/11/28 13:39:21.641834 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/28 13:39:21.645435 [Database] executing txn (bolt) (1,2,1)
+[Node 5] 2025/11/28 13:39:21.676163 [Database] txn success (bolt): 1 -> 2 amount 1
+[Node 5] 2025/11/28 13:39:21.676208 Node 5: executeRequestsInOrder stopping at gap seq=3
+[Node 5] 2025/11/28 13:40:00.921259 Node 5: GetBalance RPC account=1
+[Node 5] 2025/11/28 13:40:00.921461 [Database] queried balance (bolt) 1=8
+[Node 5] 2025/11/28 13:41:01.634819 Node 5 shutting down...
+[Node 5] 2025/11/28 13:41:01.636273 Node 5: stopping node
+[Node 5] 2025/11/28 13:41:01.636463 Node 5: accept error: accept tcp 127.0.0.1:8005: use of closed network connection
+[Node 5] 2025/11/28 13:41:01.636593 Node 5: RPC server shutting down

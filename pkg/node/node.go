@@ -5,30 +5,31 @@
 package node
 
 import (
-    "fmt"
-    "log"
-    "multipaxos/rituraj735/config"
-    "multipaxos/rituraj735/datatypes"
-    "multipaxos/rituraj735/pkg/database"
-    "os"
-    "path/filepath"
-    "net"
-    "net/rpc"
-    "sort"
-    "strings"
-    "sync"
-    "strconv"
-    "time"
+	"fmt"
+	"log"
+	"multipaxos/rituraj735/config"
+	"multipaxos/rituraj735/datatypes"
+	"multipaxos/rituraj735/pkg/database"
+	"multipaxos/rituraj735/pkg/shard"
+	"net"
+	"net/rpc"
+	"os"
+	"path/filepath"
+	"sort"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
 )
 
 type Node struct {
-    ID       int
-    Address  string
-    Peers    map[int]string
-    IsLeader bool
+	ID       int
+	Address  string
+	Peers    map[int]string
+	IsLeader bool
 
-    // Phase 1: logical cluster metadata
-    ClusterID int
+	// Phase 1: logical cluster metadata
+	ClusterID int
 
 	lastProcessedView datatypes.BallotNumber
 
@@ -61,10 +62,10 @@ type Node struct {
 	ActiveNodes  map[int]bool
 	MajoritySize int
 
-    shutdown chan bool
+	shutdown chan bool
 
-    // Phase 2: local lock table for account-level locking
-    Locks map[int]LockInfo
+	// Phase 2: local lock table for account-level locking
+	Locks map[int]LockInfo
 }
 
 type NodeService struct {
@@ -75,58 +76,58 @@ type NodeService struct {
 // Filepath: pkg/node/node.go
 // Description: Phase 2 lock table holder tying an account to a TxnID.
 type LockInfo struct {
-    TxnID    string
-    Ballot   datatypes.BallotNumber
-    CreatedAt time.Time
+	TxnID     string
+	Ballot    datatypes.BallotNumber
+	CreatedAt time.Time
 }
 
 // tryLockLocked attempts to acquire locks on ids for txnID.
 // Requires n.mu to be held by the caller.
 func (n *Node) tryLockLocked(txnID string, ids ...int) bool {
-    sort.Ints(ids)
-    currBallot := n.CurrentBallot
+	sort.Ints(ids)
+	currBallot := n.CurrentBallot
 
-    // Drop stale locks from older ballots for the requested ids
-    for _, id := range ids {
-        if info, ok := n.Locks[id]; ok {
-            if info.Ballot.LessThan(currBallot) {
-                log.Printf("Node %d [LOCK]: dropping stale lock id=%d tx=%s ballot=%s (current=%s)",
-                    n.ID, id, info.TxnID, info.Ballot.String(), currBallot.String())
-                delete(n.Locks, id)
-            }
-        }
-    }
+	// Drop stale locks from older ballots for the requested ids
+	for _, id := range ids {
+		if info, ok := n.Locks[id]; ok {
+			if info.Ballot.LessThan(currBallot) {
+				log.Printf("Node %d [LOCK]: dropping stale lock id=%d tx=%s ballot=%s (current=%s)",
+					n.ID, id, info.TxnID, info.Ballot.String(), currBallot.String())
+				delete(n.Locks, id)
+			}
+		}
+	}
 
-    // Detect conflicts with current-ballot locks
-    for _, id := range ids {
-        if info, ok := n.Locks[id]; ok && info.TxnID != txnID {
-            log.Printf("Node %d [LOCK]: tryLock DENIED tx=%s id=%d heldBy=%s ballot=%s",
-                n.ID, txnID, id, info.TxnID, info.Ballot.String())
-            return false
-        }
-    }
+	// Detect conflicts with current-ballot locks
+	for _, id := range ids {
+		if info, ok := n.Locks[id]; ok && info.TxnID != txnID {
+			log.Printf("Node %d [LOCK]: tryLock DENIED tx=%s id=%d heldBy=%s ballot=%s",
+				n.ID, txnID, id, info.TxnID, info.Ballot.String())
+			return false
+		}
+	}
 
-    now := time.Now()
-    // Acquire under current ballot
-    for _, id := range ids {
-        if curr, ok := n.Locks[id]; !ok || curr.TxnID != txnID {
-            n.Locks[id] = LockInfo{TxnID: txnID, Ballot: currBallot, CreatedAt: now}
-            log.Printf("Node %d [LOCK]: acquired tx=%s id=%d ballot=%s", n.ID, txnID, id, currBallot.String())
-        }
-    }
-    return true
+	now := time.Now()
+	// Acquire under current ballot
+	for _, id := range ids {
+		if curr, ok := n.Locks[id]; !ok || curr.TxnID != txnID {
+			n.Locks[id] = LockInfo{TxnID: txnID, Ballot: currBallot, CreatedAt: now}
+			log.Printf("Node %d [LOCK]: acquired tx=%s id=%d ballot=%s", n.ID, txnID, id, currBallot.String())
+		}
+	}
+	return true
 }
 
 // unlockLocked releases locks for ids if held by txnID.
 // Requires n.mu to be held by the caller.
 func (n *Node) unlockLocked(txnID string, ids ...int) {
-    sort.Ints(ids)
-    for _, id := range ids {
-        if info, ok := n.Locks[id]; ok && info.TxnID == txnID {
-            delete(n.Locks, id)
-            log.Printf("Node %d [LOCK]: released tx=%s id=%d", n.ID, txnID, id)
-        }
-    }
+	sort.Ints(ids)
+	for _, id := range ids {
+		if info, ok := n.Locks[id]; ok && info.TxnID == txnID {
+			delete(n.Locks, id)
+			log.Printf("Node %d [LOCK]: released tx=%s id=%d", n.ID, txnID, id)
+		}
+	}
 }
 
 // statusRank assigns ordering weights to request statuses.
@@ -153,87 +154,86 @@ func maxStatus(a, b datatypes.RequestStatus) datatypes.RequestStatus {
 
 // NewNode wires up a node with default state, DB, and leader monitor.
 func NewNode(id int, address string, peers map[int]string) *Node {
-    log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
-    node := &Node{
-        ID:              id,
-        Address:         address,
-        Peers:           peers,
-        IsLeader:        false,
-        ClusterID:       0,
-        CurrentBallot:   datatypes.BallotNumber{Number: 0, NodeID: id},
-        HighestPromised: datatypes.BallotNumber{Number: 0, NodeID: 0},
-        NextSeqNum:      1,
-        AcceptedLog:     make(map[int]datatypes.LogEntry),
-        RequestLog:      make([]datatypes.LogEntry, 0),
-        NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
-        LastReply:       make(map[string]datatypes.ReplyMsg),
-        Database:        nil,
-        pendingAccepts:  make(map[int]map[int]datatypes.AcceptedMsg),
-        ActiveNodes:     make(map[int]bool),
-        MajoritySize:    config.MajoritySize,
-        shutdown:        make(chan bool),
-        lastLeaderMsg:   time.Now(),
-        ackFromNewView:  make(map[int]bool),
-        Locks:           make(map[int]LockInfo),
+	log.Printf("Node %d: initializing at %s with %d peers", id, address, len(peers))
+	node := &Node{
+		ID:              id,
+		Address:         address,
+		Peers:           peers,
+		IsLeader:        false,
+		ClusterID:       0,
+		CurrentBallot:   datatypes.BallotNumber{Number: 0, NodeID: id},
+		HighestPromised: datatypes.BallotNumber{Number: 0, NodeID: 0},
+		NextSeqNum:      1,
+		AcceptedLog:     make(map[int]datatypes.LogEntry),
+		RequestLog:      make([]datatypes.LogEntry, 0),
+		NewViewMsgs:     make([]datatypes.NewViewMsg, 0),
+		LastReply:       make(map[string]datatypes.ReplyMsg),
+		Database:        nil,
+		pendingAccepts:  make(map[int]map[int]datatypes.AcceptedMsg),
+		ActiveNodes:     make(map[int]bool),
+		MajoritySize:    config.MajoritySize,
+		shutdown:        make(chan bool),
+		lastLeaderMsg:   time.Now(),
+		ackFromNewView:  make(map[int]bool),
+		Locks:           make(map[int]LockInfo),
+	}
+	// Initialize persistent database (BoltDB); fall back to memory if open fails
+	dataDir := "data"
+	_ = os.MkdirAll(dataDir, 0o755)
+	dbPath := filepath.Join(dataDir, fmt.Sprintf("node-%d.db", id))
+	if config.WipeDataOnBoot {
+		_ = os.Remove(dbPath)
+	}
+    boltDB, err := database.NewBoltDatabase(dbPath)
+    if err != nil {
+        log.Fatalf("Node %d: failed to open BoltDB at %s: %v", id, dbPath, err)
     }
-    // Initialize persistent database (BoltDB); fall back to memory if open fails
-    dataDir := "data"
-    _ = os.MkdirAll(dataDir, 0o755)
-    dbPath := filepath.Join(dataDir, fmt.Sprintf("node-%d.db", id))
-    if config.WipeDataOnBoot {
-        _ = os.Remove(dbPath)
-    }
-    if boltDB, err := database.NewBoltDatabase(dbPath); err == nil {
-        node.Database = boltDB
-        log.Printf("Node %d: BoltDB initialized at %s", id, dbPath)
-    } else {
-        log.Printf("Node %d: BoltDB unavailable (%v); using in-memory DB", id, err)
-        node.Database = database.NewDatabase()
-    }
+    node.Database = boltDB
+    log.Printf("Node %d: BoltDB initialized at %s", id, dbPath)
 	go node.monitorLeaderTimeout()
-    // Phase 1: set logical ClusterID via config.ClusterMembers
-    for cid, members := range config.ClusterMembers {
-        for _, mid := range members {
-            if mid == id {
-                node.ClusterID = cid
-                break
-            }
-        }
-        if node.ClusterID != 0 {
-            break
-        }
-    }
+	// Phase 1: set logical ClusterID via config.ClusterMembers
+	for cid, members := range config.ClusterMembers {
+		for _, mid := range members {
+			if mid == id {
+				node.ClusterID = cid
+				break
+			}
+		}
+		if node.ClusterID != 0 {
+			break
+		}
+	}
 
-    // Seed numeric accounts 1..9000 with InitialBalance if missing
-    for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
-        node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
-    }
+	// Seed numeric accounts 1..9000 with InitialBalance if missing
+	for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
+		node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+	}
 
-    // Initially all nodes are active
-    for nodeID := range peers {
-        node.ActiveNodes[nodeID] = true
-    }
-    node.ActiveNodes[id] = true
+	// Initially all nodes are active
+	for nodeID := range peers {
+		node.ActiveNodes[nodeID] = true
+	}
+	node.ActiveNodes[id] = true
 
 	log.Printf("Node %d: initialization complete (maj=%d)", id, node.MajoritySize)
-    return node
+	return node
 }
 
 // TryLock attempts to acquire locks on the given account IDs for txnID.
 // Returns true only if all locks are free (or already owned by txnID) and are acquired.
 // Locks are taken in ascending order to prevent circular wait deadlocks.
 func (n *Node) TryLock(txnID string, ids ...int) bool {
-    n.mu.Lock()
-    defer n.mu.Unlock()
-    return n.tryLockLocked(txnID, ids...)
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	return n.tryLockLocked(txnID, ids...)
 }
 
 // Unlock releases locks for the provided account IDs if held by txnID.
 // Unlock is safe to call redundantly; it only releases locks owned by txnID.
 func (n *Node) Unlock(txnID string, ids ...int) {
-    n.mu.Lock()
-    defer n.mu.Unlock()
-    n.unlockLocked(txnID, ids...)
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	n.unlockLocked(txnID, ids...)
 }
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.
@@ -322,14 +322,14 @@ func (n *Node) StartRPCServer() error {
 
 // Stop shuts down network listeners and background goroutines.
 func (n *Node) Stop() {
-    log.Printf("Node %d: stopping node", n.ID)
-    close(n.shutdown)
-    if n.listener != nil {
-        n.listener.Close()
-    }
-    if n.Database != nil {
-        _ = n.Database.Close()
-    }
+	log.Printf("Node %d: stopping node", n.ID)
+	close(n.shutdown)
+	if n.listener != nil {
+		n.listener.Close()
+	}
+	if n.Database != nil {
+		_ = n.Database.Close()
+	}
 }
 
 // callRPC performs a best-effort RPC to a peer respecting active-node status.
@@ -620,14 +620,14 @@ func (n *Node) setNodeLiveness(nodeID int, isLive bool) (bool, bool) {
 	becameActive := (!prev || !existed) && isLive
 	leaderDemoted := false
 
-    if nodeID == n.ID && !isLive {
-        if n.IsLeader {
-            n.clearAllLocksLocked("self marked inactive")
-        } else {
-            n.clearAllLocksLocked("self marked inactive")
-        }
-        n.IsLeader = false
-    }
+	if nodeID == n.ID && !isLive {
+		if n.IsLeader {
+			n.clearAllLocksLocked("self marked inactive")
+		} else {
+			n.clearAllLocksLocked("self marked inactive")
+		}
+		n.IsLeader = false
+	}
 
 	if !isLive && n.CurrentBallot.NodeID == nodeID {
 		n.CurrentBallot.NodeID = 0
@@ -650,15 +650,15 @@ func (n *Node) setNodeLiveness(nodeID int, isLive bool) (bool, bool) {
 		}
 	}
 
-    return leaderDemoted, becameActive
+	return leaderDemoted, becameActive
 }
 
 // clearAllLocksLocked removes all held locks. Caller must hold n.mu.
 func (n *Node) clearAllLocksLocked(reason string) {
-    if len(n.Locks) > 0 {
-        log.Printf("Node %d [LOCK]: clearing %d locks (%s)", n.ID, len(n.Locks), reason)
-    }
-    n.Locks = make(map[int]LockInfo)
+	if len(n.Locks) > 0 {
+		log.Printf("Node %d [LOCK]: clearing %d locks (%s)", n.ID, len(n.Locks), reason)
+	}
+	n.Locks = make(map[int]LockInfo)
 }
 
 // GetCurrentBallot returns the node's ballot under lock.
@@ -677,28 +677,28 @@ func (n *Node) GetIsLeader() bool {
 
 // HandleHeartbeat refreshes leader liveness info and ballot tracking.
 func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) error {
-    // log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
-    n.node.mu.Lock()
-    defer n.node.mu.Unlock()
+	// log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
+	n.node.mu.Lock()
+	defer n.node.mu.Unlock()
 
 	if msg.LeaderID == n.node.ID {
 		*reply = true
 		return nil
 	}
 
-    n.node.lastLeaderMsg = time.Now()
+	n.node.lastLeaderMsg = time.Now()
 
-    if n.node.CurrentBallot.LessThan(msg.Ballot) {
-        // Higher ballot observed: clear locks and step down if needed.
-        n.node.CurrentBallot = msg.Ballot
-        if n.node.IsLeader {
-            n.node.IsLeader = false
-        }
-        n.node.clearAllLocksLocked("ballot updated from heartbeat")
-    }
+	if n.node.CurrentBallot.LessThan(msg.Ballot) {
+		// Higher ballot observed: clear locks and step down if needed.
+		n.node.CurrentBallot = msg.Ballot
+		if n.node.IsLeader {
+			n.node.IsLeader = false
+		}
+		n.node.clearAllLocksLocked("ballot updated from heartbeat")
+	}
 
-    *reply = true
-    return nil
+	*reply = true
+	return nil
 }
 
 // sendHeartbeats periodically notifies peers while leader remains active.
@@ -748,8 +748,8 @@ func (n *Node) sendHeartbeats() {
 
 // ProcessClientRequest validates leader status and drives accept/commit.
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
-    n.mu.Lock()
-    log.Printf("Node %d: ProcessClientRequest client=%s ts=%d no-op=%v", n.ID, request.ClientID, request.Timestamp, request.IsNoOp)
+	n.mu.Lock()
+	log.Printf("Node %d: ProcessClientRequest client=%s ts=%d no-op=%v", n.ID, request.ClientID, request.Timestamp, request.IsNoOp)
 	//fmt.Println("Inside processClientRequest")
 	// Check for duplicate request to not process it again
 	if lastReply, exists := n.LastReply[request.ClientID]; exists {
@@ -780,43 +780,43 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 	//fmt.Printf("----number of activeCount:------- %d\n", activeCount)
 
-    if activeCount < n.MajoritySize {
-        log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions",
-            n.ID, activeCount, n.MajoritySize)
-        n.mu.Unlock()
-        return datatypes.ReplyMsg{
-            Ballot:    n.CurrentBallot,
-            Timestamp: request.Timestamp,
-            ClientID:  request.ClientID,
-            Success:   false,
-            Message:   "insufficient active nodes",
-        }
-    }
+	if activeCount < n.MajoritySize {
+		log.Printf("Node %d: insufficient active nodes %d (needed %d) so skipping transactions",
+			n.ID, activeCount, n.MajoritySize)
+		n.mu.Unlock()
+		return datatypes.ReplyMsg{
+			Ballot:    n.CurrentBallot,
+			Timestamp: request.Timestamp,
+			ClientID:  request.ClientID,
+			Success:   false,
+			Message:   "insufficient active nodes",
+		}
+	}
 
-    // Phase 3: Intra-shard locking for BANK_TXN
-    // Detect and lock only for BANK_TXN where both accounts are in same shard.
-    isIntra, sID, rID, shardID := n.isIntraShardBankTxn(request)
-    var txnID string
-    var hasLocks bool
-    if isIntra {
-        if shardID != 0 && shardID != n.ClusterID {
-            log.Printf("Node %d [WARN]: intra-shard BANK_TXN routed to wrong cluster (txn shard=%d, node shard=%d)", n.ID, shardID, n.ClusterID)
-        }
-        txnID = fmt.Sprintf("%s-%d", request.ClientID, request.Timestamp)
-        if !n.tryLockLocked(txnID, sID, rID) {
-            // Deny without starting Paxos
-            log.Printf("Node %d: intra-shard txn locked (s=%d r=%d) — rejecting", n.ID, sID, rID)
-            n.mu.Unlock()
-            return datatypes.ReplyMsg{
-                Ballot:    n.CurrentBallot,
-                Timestamp: request.Timestamp,
-                ClientID:  request.ClientID,
-                Success:   false,
-                Message:   "locked",
-            }
-        }
-        hasLocks = true
-    }
+	// Phase 3: Intra-shard locking for BANK_TXN
+	// Detect and lock only for BANK_TXN where both accounts are in same shard.
+	isIntra, sID, rID, shardID := n.isIntraShardBankTxn(request)
+	var txnID string
+	var hasLocks bool
+	if isIntra {
+		if shardID != 0 && shardID != n.ClusterID {
+			log.Printf("Node %d [WARN]: intra-shard BANK_TXN routed to wrong cluster (txn shard=%d, node shard=%d)", n.ID, shardID, n.ClusterID)
+		}
+		txnID = fmt.Sprintf("%s-%d", request.ClientID, request.Timestamp)
+		if !n.tryLockLocked(txnID, sID, rID) {
+			// Deny without starting Paxos
+			log.Printf("Node %d: intra-shard txn locked (s=%d r=%d) — rejecting", n.ID, sID, rID)
+			n.mu.Unlock()
+			return datatypes.ReplyMsg{
+				Ballot:    n.CurrentBallot,
+				Timestamp: request.Timestamp,
+				ClientID:  request.ClientID,
+				Success:   false,
+				Message:   "locked",
+			}
+		}
+		hasLocks = true
+	}
 
 	seqNum := n.NextSeqNum
 	n.NextSeqNum++
@@ -858,12 +858,12 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		NodeID:  n.ID,
 	}
 
-    n.mu.Unlock()
+	n.mu.Unlock()
 
-    // Ensure locks are always released once we leave this function (after we dropped n.mu)
-    if isIntra && hasLocks {
-        defer n.Unlock(txnID, sID, rID)
-    }
+	// Ensure locks are always released once we leave this function (after we dropped n.mu)
+	if isIntra && hasLocks {
+		defer n.Unlock(txnID, sID, rID)
+	}
 
 	for nodeID := range n.Peers {
 		if nodeID != n.ID {
@@ -894,9 +894,9 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 	}
 
-    n.mu.Lock()
-    acceptCount := len(n.pendingAccepts[seqNum])
-    n.mu.Unlock()
+	n.mu.Lock()
+	acceptCount := len(n.pendingAccepts[seqNum])
+	n.mu.Unlock()
 
 	if acceptCount >= n.MajoritySize {
 		commitMsg := datatypes.CommitMsg{
@@ -925,9 +925,9 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 		//log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)",n.ID,seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
 
-        n.mu.Lock()
-        success, message := n.executeRequest(seqNum, request)
-        n.mu.Unlock()
+		n.mu.Lock()
+		success, message := n.executeRequest(seqNum, request)
+		n.mu.Unlock()
 
 		// if success {
 		// 	log.Printf("Node %d: EXECUTED seq=%d SUCCESS (%s)", n.ID, seqNum, message)
@@ -948,36 +948,36 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		n.mu.Unlock()
 		log.Printf("Node %d: ProcessClientRequest seq=%d success=%v msg=%s", n.ID, seqNum, success, message)
 
-        return reply
-    }
+		return reply
+	}
 
-    log.Printf("Node %d: consensus failed for client=%s ts=%d", n.ID, request.ClientID, request.Timestamp)
-    return datatypes.ReplyMsg{
-        Ballot:    n.CurrentBallot,
-        Timestamp: request.Timestamp,
-        ClientID:  request.ClientID,
-        Success:   false,
-        Message:   "consensus failed",
-    }
+	log.Printf("Node %d: consensus failed for client=%s ts=%d", n.ID, request.ClientID, request.Timestamp)
+	return datatypes.ReplyMsg{
+		Ballot:    n.CurrentBallot,
+		Timestamp: request.Timestamp,
+		ClientID:  request.ClientID,
+		Success:   false,
+		Message:   "consensus failed",
+	}
 }
 
 // isIntraShardBankTxn checks if this request is a Project 3 bank txn where
 // both accounts are in the same shard. Returns (true, sID, rID, clusterID).
 func (n *Node) isIntraShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int) {
-    if req.MessageType != "BANK_TXN" || req.IsNoOp {
-        return false, 0, 0, 0
-    }
-    sID, err1 := strconv.Atoi(req.Transaction.Sender)
-    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
-    if err1 != nil || err2 != nil {
-        return false, 0, 0, 0
-    }
-    cs := shard.ClusterOfItem(sID)
-    cr := shard.ClusterOfItem(rID)
-    if cs == 0 || cr == 0 || cs != cr {
-        return false, sID, rID, 0
-    }
-    return true, sID, rID, cs
+	if req.MessageType != "BANK_TXN" || req.IsNoOp {
+		return false, 0, 0, 0
+	}
+	sID, err1 := strconv.Atoi(req.Transaction.Sender)
+	rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+	if err1 != nil || err2 != nil {
+		return false, 0, 0, 0
+	}
+	cs := shard.ClusterOfItem(sID)
+	cr := shard.ClusterOfItem(rID)
+	if cs == 0 || cr == 0 || cs != cr {
+		return false, sID, rID, 0
+	}
+	return true, sID, rID, cs
 }
 
 // HandlePrepare responds to prepare RPCs with promises and prior log state.
@@ -1878,4 +1878,11 @@ func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.Prin
 	reply.DBContents = dbContents
 
 	return nil
+}
+
+// GetBalance returns the current balance for a specific account ID on this node.
+func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatypes.GetBalanceReply) error {
+    log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
+    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+    return nil
 }
