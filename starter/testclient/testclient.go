@@ -36,12 +36,12 @@ func GetBalance(nodeID int, accountID int) (int, error) {
 }
 
 var (
-	nodeID      = flag.Int("node", 1, "target node ID (1-9)")
+	nodeID      = flag.Int("node", 2, "target node ID (1-9)")
 	account     = flag.String("account", "1", "account ID to query (1..9000)")
 	leaderID    = flag.Int("leader", 1, "node ID to send requests to")
 	senderAcc   = flag.String("sender", "100", "sender account ID")
-	receiverAcc = flag.String("receiver", "4000", "receiver account ID")
-	amount      = flag.Int("amount", 5, "transfer amount")
+	receiverAcc = flag.String("receiver", "200", "receiver account ID")
+	amount      = flag.Int("amount", 3, "transfer amount")
 	bankTxn     = flag.Bool("bank", true, "use MessageType=BANK_TXN")
 	concurrent  = flag.Int("concurrent", 1, "number of concurrent requests")
 	seq         = flag.Int("seq", 0, "Paxos sequence number to inspect via PrintStatus")
@@ -86,6 +86,13 @@ func main() {
 			log.Fatalf("GetBalance failed: %v", err)
 		}
 		log.Printf("Account 100 balance at Node %d = %d", i, balance)
+	}
+	for i := 1; i <= 9; i++ {
+		balance, err := GetBalance(i, 200)
+		if err != nil {
+			log.Fatalf("GetBalance failed: %v", err)
+		}
+		log.Printf("Account 4000 balance at Node %d = %d", i, balance)
 	}
 	for i := 1; i <= 9; i++ {
 		balance, err := GetBalance(i, 4000)

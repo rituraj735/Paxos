@@ -1163,18 +1163,22 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 			Request: request,
 		}
 
-		for _, nodeID := range n.clusterPeerIDs() {
-			if nodeID == n.ID {
-				continue
-			}
-			n.mu.RLock()
-			targetActive := n.ActiveNodes[nodeID]
-			n.mu.RUnlock()
-			if !targetActive {
-				continue
-			}
-			go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
-		}
+            for _, nodeID := range n.clusterPeerIDs() {
+                if nodeID == n.ID {
+                    continue
+                }
+                n.mu.RLock()
+                targetActive := n.ActiveNodes[nodeID]
+                n.mu.RUnlock()
+                if !targetActive {
+                    continue
+                }
+                go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
+            }
+
+            // Mark self committed as well to keep leader status consistent with followers
+            var applied bool
+            _ = n.HandleCommit(commitMsg, &applied)
 
 		//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
 
@@ -1519,19 +1523,23 @@ func (n *Node) proposeAndWait(req datatypes.ClientRequest) (int, bool) {
 
 	// Commit phase
 	commitMsg := datatypes.CommitMsg{Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req}
-	for _, nodeID := range n.clusterPeerIDs() {
-		if nodeID == n.ID {
-			continue
-		}
-		n.mu.RLock()
-		targetActive := n.ActiveNodes[nodeID]
-		n.mu.RUnlock()
-		if !targetActive {
-			continue
-		}
-		log.Printf("Node %d: proposeAndWait sending COMMIT seq=%d to node %d", n.ID, seqNum, nodeID)
-		go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
-	}
+    for _, nodeID := range n.clusterPeerIDs() {
+        if nodeID == n.ID {
+            continue
+        }
+        n.mu.RLock()
+        targetActive := n.ActiveNodes[nodeID]
+        n.mu.RUnlock()
+        if !targetActive {
+            continue
+        }
+        log.Printf("Node %d: proposeAndWait sending COMMIT seq=%d to node %d", n.ID, seqNum, nodeID)
+        go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
+    }
+
+    // Also mark self committed like followers before executing
+    var applied bool
+    _ = n.HandleCommit(commitMsg, &applied)
 
 	// Execute locally outside of node mutex to avoid blocking heartbeats
 	success, _ := n.executeRequest(seqNum, req)
@@ -1714,9 +1722,13 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 		}
 	}
 
-	//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
+    //log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
 
-	go n.executeRequestsInOrder()
+    // Followers should drive execution via the background executor.
+    // The leader already executes inline in the fast path after broadcasting commit.
+    if args.Ballot.NodeID != n.ID {
+        go n.executeRequestsInOrder()
+    }
 
 	*reply = true
 	return nil
@@ -1917,81 +1929,107 @@ func (n *Node) executeRequestsInOrder() {
 	}
 }
 
+// markExecuted sets status=Executed for the given sequence number in both
+// AcceptedLog and RequestLog if present.
+func (n *Node) markExecuted(seq int) {
+    n.mu.Lock()
+    defer n.mu.Unlock()
+    if entry, ok := n.AcceptedLog[seq]; ok {
+        if entry.Status != datatypes.StatusExecuted {
+            entry.Status = datatypes.StatusExecuted
+            n.AcceptedLog[seq] = entry
+        }
+    }
+    for i := range n.RequestLog {
+        if n.RequestLog[i].SeqNum == seq {
+            if n.RequestLog[i].Status != datatypes.StatusExecuted {
+                n.RequestLog[i].Status = datatypes.StatusExecuted
+            }
+            break
+        }
+    }
+}
+
 // execute2PCCoordinator applies 2PC effects on the source shard.
 func (n *Node) execute2PCCoordinator(seqNum int, req datatypes.ClientRequest, st *TxnState) (bool, string) {
 	log.Printf("the phase value is %v", req.TwoPCPhase)
-	switch req.TwoPCPhase {
-	case datatypes.TwoPCPhasePrepare:
-		// Idempotence
-		if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
-			return true, "coord-prepared"
-		}
-		// Debit source with WAL at PREPARE
-		sID, amt := st.S, st.Amount
-		if err := n.Database.DebitWithWAL(req.TxnID, sID, amt); err != nil {
-			st.Phase = TxnPhaseAborted
-			return false, "coord-debit-failed"
-		}
-		st.Phase = TxnPhasePrepared
-		return true, "coord-prepared"
-	case datatypes.TwoPCPhaseCommit:
-		// Finalize and clear WAL, unlock source if held
-		_ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
-		_ = n.Database.ApplyWALCommit(req.TxnID)
-		_ = n.Database.ClearWAL(req.TxnID)
-		st.Phase = TxnPhaseCommitted
-		// Note: source lock is released in coordinator after decision
-		return true, "coord-committed"
-	case datatypes.TwoPCPhaseAbort:
-		_ = n.Database.UndoWAL(req.TxnID)
-		_ = n.Database.ClearWAL(req.TxnID)
-		st.Phase = TxnPhaseAborted
-		// Note: source lock is released in coordinator after decision
-		return true, "coord-aborted"
-	default:
-		return false, "coord-unknown-phase"
-	}
+    switch req.TwoPCPhase {
+    case datatypes.TwoPCPhasePrepare:
+        // Idempotence
+        if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
+            n.markExecuted(seqNum)
+            return true, "coord-prepared"
+        }
+        // Debit source with WAL at PREPARE
+        sID, amt := st.S, st.Amount
+        if err := n.Database.DebitWithWAL(req.TxnID, sID, amt); err != nil {
+            st.Phase = TxnPhaseAborted
+            return false, "coord-debit-failed"
+        }
+        st.Phase = TxnPhasePrepared
+        n.markExecuted(seqNum)
+        return true, "coord-prepared"
+    case datatypes.TwoPCPhaseCommit:
+        // Finalize and clear WAL, unlock source if held
+        _ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
+        _ = n.Database.ApplyWALCommit(req.TxnID)
+        _ = n.Database.ClearWAL(req.TxnID)
+        st.Phase = TxnPhaseCommitted
+        // Note: source lock is released in coordinator after decision
+        n.markExecuted(seqNum)
+        return true, "coord-committed"
+    case datatypes.TwoPCPhaseAbort:
+        _ = n.Database.UndoWAL(req.TxnID)
+        _ = n.Database.ClearWAL(req.TxnID)
+        st.Phase = TxnPhaseAborted
+        // Note: source lock is released in coordinator after decision
+        n.markExecuted(seqNum)
+        return true, "coord-aborted"
+    default:
+        return false, "coord-unknown-phase"
+    }
 }
 
 // execute2PCParticipant applies 2PC effects on the destination shard.
 func (n *Node) execute2PCParticipant(seqNum int, req datatypes.ClientRequest, st *TxnState) (bool, string) {
-	switch req.TwoPCPhase {
-	case datatypes.TwoPCPhasePrepare:
-		if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
-			return true, "part-prepared"
-		}
-		if err := n.Database.CreditWithWAL(req.TxnID, st.R, st.Amount); err != nil {
-			st.Phase = TxnPhaseAborted
-			if st.LockHeldOnR {
-				n.unlockLocked(req.TxnID, st.R)
-				st.LockHeldOnR = false
-			}
-			return false, "part-credit-failed"
-		}
-		st.Phase = TxnPhasePrepared
-		return true, "part-prepared"
-	case datatypes.TwoPCPhaseCommit:
-		_ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
-		_ = n.Database.ApplyWALCommit(req.TxnID)
-		_ = n.Database.ClearWAL(req.TxnID)
-		if st.LockHeldOnR {
-			n.unlockLocked(req.TxnID, st.R)
-			st.LockHeldOnR = false
-		}
-		st.Phase = TxnPhaseCommitted
-		return true, "part-committed"
-	case datatypes.TwoPCPhaseAbort:
-		_ = n.Database.UndoWAL(req.TxnID)
-		_ = n.Database.ClearWAL(req.TxnID)
-		if st.LockHeldOnR {
-			n.unlockLocked(req.TxnID, st.R)
-			st.LockHeldOnR = false
-		}
-		st.Phase = TxnPhaseAborted
-		return true, "part-aborted"
-	default:
-		return false, "part-unknown-phase"
-	}
+    switch req.TwoPCPhase {
+    case datatypes.TwoPCPhasePrepare:
+        if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted { n.markExecuted(seqNum); return true, "part-prepared" }
+        if err := n.Database.CreditWithWAL(req.TxnID, st.R, st.Amount); err != nil {
+            st.Phase = TxnPhaseAborted
+            if st.LockHeldOnR {
+                n.unlockLocked(req.TxnID, st.R)
+                st.LockHeldOnR = false
+            }
+            return false, "part-credit-failed"
+        }
+        st.Phase = TxnPhasePrepared
+        n.markExecuted(seqNum)
+        return true, "part-prepared"
+    case datatypes.TwoPCPhaseCommit:
+        _ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
+        _ = n.Database.ApplyWALCommit(req.TxnID)
+        _ = n.Database.ClearWAL(req.TxnID)
+        if st.LockHeldOnR {
+            n.unlockLocked(req.TxnID, st.R)
+            st.LockHeldOnR = false
+        }
+        st.Phase = TxnPhaseCommitted
+        n.markExecuted(seqNum)
+        return true, "part-committed"
+    case datatypes.TwoPCPhaseAbort:
+        _ = n.Database.UndoWAL(req.TxnID)
+        _ = n.Database.ClearWAL(req.TxnID)
+        if st.LockHeldOnR {
+            n.unlockLocked(req.TxnID, st.R)
+            st.LockHeldOnR = false
+        }
+        st.Phase = TxnPhaseAborted
+        n.markExecuted(seqNum)
+        return true, "part-aborted"
+    default:
+        return false, "part-unknown-phase"
+    }
 }
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
