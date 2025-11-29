@@ -802,7 +802,7 @@ func (n *Node) sendHeartbeats() {
 
 // ProcessClientRequest validates leader status and drives accept/commit.
 func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.ReplyMsg {
-	n.mu.Lock()
+    n.mu.Lock()
 	log.Printf("Node %d: ProcessClientRequest client=%s ts=%d no-op=%v", n.ID, request.ClientID, request.Timestamp, request.IsNoOp)
 	//fmt.Println("Inside processClientRequest")
 	// Check for duplicate request to not process it again
@@ -847,9 +847,16 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		}
 	}
 
-	// Phase 3: Intra-shard locking for BANK_TXN
-	// Detect and lock only for BANK_TXN where both accounts are in same shard.
-	isIntra, sID, rID, shardID := n.isIntraShardBankTxn(request)
+    // Phase 5: Cross-shard detection; coordinator path
+    isCross, xsID, xrID, xSrcCID, xDstCID := n.detectCrossShardBankTxn(request)
+    if isCross {
+        n.mu.Unlock()
+        return n.handleCrossShardCoordinator(request, xsID, xrID, xSrcCID, xDstCID)
+    }
+
+    // Phase 3: Intra-shard locking for BANK_TXN
+    // Detect and lock only for BANK_TXN where both accounts are in same shard.
+    isIntra, sID, rID, shardID := n.isIntraShardBankTxn(request)
 	var txnID string
 	var hasLocks bool
 	if isIntra {
@@ -1013,6 +1020,194 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 		Success:   false,
 		Message:   "consensus failed",
 	}
+}
+
+// detectCrossShardBankTxn returns true if a BANK_TXN touches different shards.
+func (n *Node) detectCrossShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int, int) {
+    if req.MessageType != "BANK_TXN" || req.IsNoOp {
+        return false, 0, 0, 0, 0
+    }
+    sID, err1 := strconv.Atoi(req.Transaction.Sender)
+    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+    if err1 != nil || err2 != nil {
+        return false, 0, 0, 0, 0
+    }
+    cs := shard.ClusterOfItem(sID)
+    cr := shard.ClusterOfItem(rID)
+    if cs == 0 || cr == 0 || cs == cr {
+        return false, sID, rID, cs, cr
+    }
+    return true, sID, rID, cs, cr
+}
+
+// handleCrossShardCoordinator runs the coordinator half of a 2PC for a cross-shard BANK_TXN.
+// Phase 5: participant prepare is stubbed; coordinator path logs PREPARE and ABORT/COMMIT via Paxos.
+func (n *Node) handleCrossShardCoordinator(request datatypes.ClientRequest, sID, rID int, srcCID, dstCID int) datatypes.ReplyMsg {
+    n.mu.Lock()
+    // Sanity: leader/majority were checked by caller, but we defensively ensure majority hasn't changed
+    if !n.IsLeader {
+        n.mu.Unlock()
+        return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: false, Message: "not leader"}
+    }
+    active := 0
+    for _, a := range n.ActiveNodes { if a { active++ } }
+    if active < n.MajoritySize {
+        n.mu.Unlock()
+        return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: false, Message: "insufficient active nodes"}
+    }
+
+    txnID := fmt.Sprintf("txn-%s-%d", request.ClientID, request.Timestamp)
+    st := n.getOrCreateTxnStateLocked(txnID)
+    st.TxnID = txnID
+    st.Shards = []int{srcCID, dstCID}
+
+    // Try local lock on source account
+    if !n.tryLockLocked(txnID, sID) {
+        n.mu.Unlock()
+        return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: false, Message: "locked"}
+    }
+
+    // Prepare request
+    prepReq := request
+    prepReq.TxnID = txnID
+    prepReq.IsCross = true
+    prepReq.TwoPCPhase = datatypes.TwoPCPhasePrepare
+    n.mu.Unlock()
+
+    seqP, ok := n.proposeAndWait(prepReq)
+
+    n.mu.Lock()
+    if !ok {
+        n.unlockLocked(txnID, sID)
+        n.mu.Unlock()
+        return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: false, Message: "prepare-consensus-failed"}
+    }
+    st = n.getOrCreateTxnStateLocked(txnID)
+    st.SeqPrepare = seqP
+    st.Phase = TxnPhasePrepared
+
+    // Phase 5: stub participant prepare — always returns not implemented → coordinator aborts
+    args := datatypes.TwoPCPrepareArgs{
+        TxnID: txnID, S: sID, R: rID, Amount: request.Transaction.Amount,
+        SourceCID: srcCID, DestCID: dstCID, ClientID: request.ClientID, ClientTS: request.Timestamp,
+    }
+    var prepReply datatypes.TwoPCPrepareReply
+    n.mu.Unlock()
+    _ = n.call2PCPrepare(dstCID, args, &prepReply)
+    n.mu.Lock()
+
+    phase := datatypes.TwoPCPhaseCommit
+    decision := datatypes.TwoPCDecisionCommit
+    msg := "commit"
+    if !prepReply.Success {
+        phase = datatypes.TwoPCPhaseAbort
+        decision = datatypes.TwoPCDecisionAbort
+        msg = "abort"
+    }
+
+    decReq := request
+    decReq.TxnID = txnID
+    decReq.IsCross = true
+    decReq.TwoPCPhase = phase
+    n.mu.Unlock()
+    seqD, ok := n.proposeAndWait(decReq)
+    n.mu.Lock()
+    if !ok {
+        // Keep lock; system will reconcile once decision entry is eventually proposed
+        n.mu.Unlock()
+        return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: false, Message: "decision-consensus-failed-" + msg}
+    }
+    st = n.getOrCreateTxnStateLocked(txnID)
+    st.SeqDecision = seqD
+    st.Decision = decision
+    if decision == datatypes.TwoPCDecisionCommit {
+        st.Phase = TxnPhaseCommitted
+    } else {
+        st.Phase = TxnPhaseAborted
+    }
+    n.mu.Unlock()
+
+    return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: decision == datatypes.TwoPCDecisionCommit, Message: msg}
+}
+
+// call2PCPrepare contacts the destination shard leader to request PREPARE.
+// Phase 5 stub: participant not implemented — return Success=false to force abort path.
+func (n *Node) call2PCPrepare(destCID int, args datatypes.TwoPCPrepareArgs, reply *datatypes.TwoPCPrepareReply) error {
+    reply.TxnID = args.TxnID
+    reply.Success = false
+    reply.Message = "participant not implemented (Phase 5)"
+    return nil
+}
+
+// proposeAndWait runs consensus for req and returns (seq, ok). No LastReply handling.
+func (n *Node) proposeAndWait(req datatypes.ClientRequest) (int, bool) {
+    // Initial guard and local log append
+    n.mu.Lock()
+    if !n.IsLeader {
+        n.mu.Unlock()
+        return 0, false
+    }
+    active := 0
+    for _, a := range n.ActiveNodes { if a { active++ } }
+    if active < n.MajoritySize {
+        n.mu.Unlock()
+        return 0, false
+    }
+    seqNum := n.NextSeqNum
+    n.NextSeqNum++
+    acceptMsg := datatypes.AcceptMsg{Type: "ACCEPT", Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req}
+    logEntry := datatypes.LogEntry{Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req, Status: datatypes.StatusAccepted}
+    n.AcceptedLog[seqNum] = logEntry
+    updated := false
+    for i := range n.RequestLog {
+        if n.RequestLog[i].SeqNum == logEntry.SeqNum { n.RequestLog[i] = logEntry; updated = true; break }
+    }
+    if !updated { n.RequestLog = append(n.RequestLog, logEntry) }
+    if n.pendingAccepts[seqNum] == nil { n.pendingAccepts[seqNum] = make(map[int]datatypes.AcceptedMsg) }
+    n.pendingAccepts[seqNum][n.ID] = datatypes.AcceptedMsg{Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req, NodeID: n.ID}
+    n.mu.Unlock()
+
+    // Broadcast Accept
+    for nodeID := range n.Peers {
+        if nodeID == n.ID { continue }
+        go func(id int) {
+            var reply datatypes.AcceptedMsg
+            if err := n.callRPC(id, "Accept", acceptMsg, &reply); err == nil {
+                n.mu.Lock()
+                if n.pendingAccepts[seqNum] == nil { n.pendingAccepts[seqNum] = make(map[int]datatypes.AcceptedMsg) }
+                n.pendingAccepts[seqNum][id] = reply
+                n.mu.Unlock()
+            }
+        }(nodeID)
+    }
+
+    // Wait for majority
+    for i := 0; i < 50; i++ {
+        time.Sleep(10 * time.Millisecond)
+        n.mu.RLock()
+        acceptCount := len(n.pendingAccepts[seqNum])
+        n.mu.RUnlock()
+        if acceptCount >= n.MajoritySize { break }
+    }
+    n.mu.Lock()
+    acceptCount := len(n.pendingAccepts[seqNum])
+    n.mu.Unlock()
+    if acceptCount < n.MajoritySize { return 0, false }
+
+    // Commit phase
+    commitMsg := datatypes.CommitMsg{Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req}
+    for nodeID := range n.Peers {
+        if nodeID == n.ID { continue }
+        n.mu.RLock(); targetActive := n.ActiveNodes[nodeID]; n.mu.RUnlock(); if !targetActive { continue }
+        go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
+    }
+
+    // Execute locally
+    n.mu.Lock()
+    success, _ := n.executeRequest(seqNum, req)
+    // Mark request status executed/committed as in main path
+    n.mu.Unlock()
+    return seqNum, success
 }
 
 // isIntraShardBankTxn checks if this request is a Project 3 bank txn where

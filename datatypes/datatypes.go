@@ -265,33 +265,34 @@ type CrossShardTxn struct {
     Shards   []int
 }
 
-// TwoPCPrepareArgs asks a shard leader to prepare txn TxnID.
+// TwoPCPrepareArgs asks a shard to prepare a cross-shard transfer.
 type TwoPCPrepareArgs struct {
-    TxnID        string
-    Txn          Txn
-    ShardID      int
-    CoordinatorID int
+    TxnID     string
+    S         int
+    R         int
+    Amount    int
+    SourceCID int
+    DestCID   int
+    ClientID  string
+    ClientTS  int64
 }
 
 // TwoPCPrepareReply returns the shard's vote for prepare.
 type TwoPCPrepareReply struct {
     TxnID   string
-    ShardID int
-    Vote    bool
-    Reason  string
+    Success bool
+    Message string
 }
 
-// TwoPCDecisionArgs delivers the final decision to a shard leader.
+// TwoPCDecisionArgs delivers the final decision to a shard.
 type TwoPCDecisionArgs struct {
     TxnID    string
     Decision TwoPCDecision
-    ShardID  int
 }
 
 // TwoPCDecisionReply acknowledges a decision application.
 type TwoPCDecisionReply struct {
     TxnID   string
-    ShardID int
-    Success bool
-    Reason  string
+    Acked   bool
+    Message string
 }
