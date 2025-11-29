@@ -44,6 +44,7 @@ var (
 	amount      = flag.Int("amount", 5, "transfer amount")
 	bankTxn     = flag.Bool("bank", true, "use MessageType=BANK_TXN")
 	concurrent  = flag.Int("concurrent", 1, "number of concurrent requests")
+	seq         = flag.Int("seq", 0, "Paxos sequence number to inspect via PrintStatus")
 )
 
 func main() {
@@ -60,6 +61,16 @@ func main() {
 		log.Fatalf("dial error: %v", err)
 	}
 	defer client.Close()
+
+	// If user provided a sequence number, query PrintStatus and exit
+	if *seq > 0 {
+		var status string
+		if err := client.Call("NodeService.PrintStatus", *seq, &status); err != nil {
+			log.Fatalf("PrintStatus RPC error: %v", err)
+		}
+		fmt.Printf("Node %d: %s\n", *nodeID, status)
+		return
+	}
 
 	// Invoke GetBalance RPC
 	// 	args := datatypes.GetBalanceArgs{AccountID: *account}

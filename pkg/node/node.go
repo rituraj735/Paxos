@@ -921,7 +921,7 @@ func (n *Node) GetIsLeader() bool {
 
 // HandleHeartbeat refreshes leader liveness info and ballot tracking.
 func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) error {
-	log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
+	// log.Printf("Node %d: HandleHeartbeat from leader %d ballot=(%d,%d)", n.node.ID, msg.LeaderID, msg.Ballot.Number, msg.Ballot.NodeID)
 	n.node.mu.Lock()
 	defer n.node.mu.Unlock()
 
