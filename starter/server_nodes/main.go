@@ -14,7 +14,6 @@ import (
 	"os/signal"
 	"strconv"
 	"syscall"
-	"time"
 )
 
 // main bootstraps a node instance and kicks off initial leader election.
@@ -54,7 +53,7 @@ func main() {
 
 	//log.Printf("Node %d started at %s\n", nodeID, config.NodeAddresses[nodeID])
 
-	time.Sleep(2 * time.Second)
+	// time.Sleep(2 * time.Second)
 
 	// Node 1 starts first leader election
 	if nodeID == 1 {

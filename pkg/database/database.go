@@ -240,7 +240,8 @@ func (db *Database) AppendWAL(rec datatypes.WALRecord) error {
 }
 
 // appendSingleItemWAL creates/overwrites a WAL record for txnID+phase with a
-// single item entry (id, old, new) and current timestamp.
+// single item entry (id, old, new) and current timestamp using a top-level WAL
+// append. Do not call this from inside another Bolt Update transaction.
 func (db *Database) appendSingleItemWAL(txnID string, phase datatypes.WALPhase, id int, oldBal, newBal int) error {
     rec := datatypes.WALRecord{
         TxnID:     txnID,
@@ -249,6 +250,23 @@ func (db *Database) appendSingleItemWAL(txnID string, phase datatypes.WALPhase, 
         Timestamp: time.Now().UnixNano(),
     }
     return db.AppendWAL(rec)
+}
+
+// putSingleItemWALInTx writes a WAL record directly within the provided write
+// transaction. Safe to call from inside db.bolt.Update.
+func (db *Database) putSingleItemWALInTx(tx *bbolt.Tx, txnID string, phase datatypes.WALPhase, id int, oldBal, newBal int) error {
+    rec := datatypes.WALRecord{
+        TxnID:     txnID,
+        Phase:     phase,
+        Items:     []datatypes.WALItem{{ID: id, OldBalance: oldBal, NewBalance: newBal}},
+        Timestamp: time.Now().UnixNano(),
+    }
+    key := []byte(fmt.Sprintf("%s-%s", rec.TxnID, string(rec.Phase)))
+    val, err := json.Marshal(rec)
+    if err != nil { return err }
+    b := tx.Bucket(db.bucketWAL)
+    log.Printf("[WAL] append(in-tx) key=%s items=%d phase=%s", string(key), len(rec.Items), rec.Phase)
+    return b.Put(key, val)
 }
 
 // LoadWAL loads all WAL records from storage.
@@ -369,7 +387,7 @@ func (db *Database) CreditWithWAL(txnID string, id int, amount int) error {
         if err := db.setBalanceInt(tx, id, newBal); err != nil {
             return err
         }
-        if err := db.appendSingleItemWAL(txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
             return err
         }
         log.Printf("[WAL] credit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)
@@ -391,7 +409,7 @@ func (db *Database) DebitWithWAL(txnID string, id int, amount int) error {
         if err := db.setBalanceInt(tx, id, newBal); err != nil {
             return err
         }
-        if err := db.appendSingleItemWAL(txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
             return err
         }
         log.Printf("[WAL] debit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)

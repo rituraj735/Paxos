@@ -12,7 +12,7 @@ const (
 
 	// Accounts
 	MinAccountID   = 1
-	MaxAccountID   = 500 // changed for testclient.go
+	MaxAccountID   = 9000 // changed for testclient.go
 	InitialBalance = 10
 
 	// Paxos/Client timings (unchanged defaults)
