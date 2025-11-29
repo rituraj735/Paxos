@@ -73,6 +73,19 @@ func (db *Database) Close() error {
     return nil
 }
 
+// getBalanceInt returns the integer balance for an account inside a read tx.
+// Callers outside of a Bolt Tx should prefer GetBalance.
+func (db *Database) getBalanceInt(tx *bbolt.Tx, id int) int {
+    b := tx.Bucket(db.bucketBalances)
+    return decodeInt(b.Get([]byte(strconv.Itoa(id))))
+}
+
+// setBalanceInt sets the integer balance for an account inside a write tx.
+func (db *Database) setBalanceInt(tx *bbolt.Tx, id int, val int) error {
+    b := tx.Bucket(db.bucketBalances)
+    return b.Put([]byte(strconv.Itoa(id)), encodeInt(val))
+}
+
 func encodeInt(v int) []byte {
     // store as decimal string to keep it simple and human-readable in the DB
     return []byte(fmt.Sprintf("%d", v))
@@ -158,6 +171,12 @@ func (db *Database) GetBalance(clientID string) int {
     return bal
 }
 
+// GetBalanceInt is a convenience wrapper to fetch an account balance as int
+// outside of a Bolt transaction when the caller only has an int ID.
+func (db *Database) GetBalanceInt(id int) int {
+    return db.GetBalance(strconv.Itoa(id))
+}
+
 // PrintDB renders the database contents for a node.
 func (db *Database) PrintDB(nodeID int) string {
     db.mu.RLock()
@@ -218,6 +237,18 @@ func (db *Database) AppendWAL(rec datatypes.WALRecord) error {
         log.Printf("[WAL] append key=%s items=%d phase=%s", string(key), len(rec.Items), rec.Phase)
         return b.Put(key, val)
     })
+}
+
+// appendSingleItemWAL creates/overwrites a WAL record for txnID+phase with a
+// single item entry (id, old, new) and current timestamp.
+func (db *Database) appendSingleItemWAL(txnID string, phase datatypes.WALPhase, id int, oldBal, newBal int) error {
+    rec := datatypes.WALRecord{
+        TxnID:     txnID,
+        Phase:     phase,
+        Items:     []datatypes.WALItem{{ID: id, OldBalance: oldBal, NewBalance: newBal}},
+        Timestamp: time.Now().UnixNano(),
+    }
+    return db.AppendWAL(rec)
 }
 
 // LoadWAL loads all WAL records from storage.
@@ -305,6 +336,65 @@ func (db *Database) ClearWAL(txnID string) error {
             }
         }
         log.Printf("[WAL] clear tx=%s", txnID)
+        return nil
+    })
+}
+
+// PromoteWALPrepareToCommit copies the WAL record with phase P (prepare) to a
+// new record with phase C (commit), overwriting existing C if present.
+func (db *Database) PromoteWALPrepareToCommit(txnID string) error {
+    keyP := []byte(fmt.Sprintf("%s-%s", txnID, string(datatypes.WALPrepare)))
+    keyC := []byte(fmt.Sprintf("%s-%s", txnID, string(datatypes.WALCommit)))
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        b := tx.Bucket(db.bucketWAL)
+        v := b.Get(keyP)
+        if v == nil {
+            return nil
+        }
+        return b.Put(keyC, v)
+    })
+}
+
+// CreditWithWAL applies a tentative credit to account id and writes WAL P.
+// On success, the updated balance is visible immediately; the WAL is used to
+// finalize (Promote+Apply) or undo on decision.
+func (db *Database) CreditWithWAL(txnID string, id int, amount int) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        oldBal := db.getBalanceInt(tx, id)
+        newBal := oldBal + amount
+        if err := db.setBalanceInt(tx, id, newBal); err != nil {
+            return err
+        }
+        if err := db.appendSingleItemWAL(txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+            return err
+        }
+        log.Printf("[WAL] credit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)
+        return nil
+    })
+}
+
+// DebitWithWAL applies a tentative debit to account id and writes WAL P.
+// Returns error if insufficient funds.
+func (db *Database) DebitWithWAL(txnID string, id int, amount int) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        oldBal := db.getBalanceInt(tx, id)
+        newBal := oldBal - amount
+        if newBal < 0 {
+            return fmt.Errorf("insufficient funds")
+        }
+        if err := db.setBalanceInt(tx, id, newBal); err != nil {
+            return err
+        }
+        if err := db.appendSingleItemWAL(txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+            return err
+        }
+        log.Printf("[WAL] debit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)
         return nil
     })
 }
