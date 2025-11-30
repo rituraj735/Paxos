@@ -183,6 +183,29 @@ type GetBalanceReply struct {
     Balance int
 }
 
+// Phase 8: selective balances fetch for a node
+type GetBalancesForArgs struct {
+    AccountIDs []int
+}
+
+type GetBalancesForReply struct {
+    Balances map[int]int
+}
+
+// Phase 8: trigger leader election on a node
+type TriggerElectionArgs struct{}
+type TriggerElectionReply struct {
+    Started bool
+}
+
+// Phase 8: flush/reset per-set state and balances
+type FlushStateArgs struct{
+    ResetDB bool
+}
+type FlushStateReply struct{
+    Ok bool
+}
+
 type HeartbeatMsg struct {
 	Ballot    BallotNumber
 	LeaderID  int

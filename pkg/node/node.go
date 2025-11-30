@@ -84,7 +84,7 @@ type PendingDecision struct {
 }
 
 type NodeService struct {
-	node *Node
+    node *Node
 }
 
 // LockInfo stores ownership information for a locked account ID.
@@ -378,21 +378,27 @@ func (n *Node) Unlock(txnID string, ids ...int) {
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.
 func (n *Node) monitorLeaderTimeout() {
-	log.Printf("Node %d: leader timeout monitor running", n.ID)
-	for {
-		time.Sleep(200 * time.Millisecond)
-		n.mu.RLock()
-		isLeader := n.IsLeader
-		last := n.lastLeaderMsg
-		cooldown := n.electionCoolDown
-		n.mu.RUnlock()
+    log.Printf("Node %d: leader timeout monitor running", n.ID)
+    for {
+        time.Sleep(200 * time.Millisecond)
+        n.mu.RLock()
+        selfActive := n.ActiveNodes[n.ID]
+        isLeader := n.IsLeader
+        last := n.lastLeaderMsg
+        cooldown := n.electionCoolDown
+        n.mu.RUnlock()
 
-		if isLeader {
-			n.mu.Lock()
-			n.lastLeaderMsg = time.Now() // the leader keeps its own timer fresh
-			n.mu.Unlock()
-			continue
-		}
+        if !selfActive {
+            // When node is marked inactive, suppress elections and logs
+            continue
+        }
+
+        if isLeader {
+            n.mu.Lock()
+            n.lastLeaderMsg = time.Now() // the leader keeps its own timer fresh
+            n.mu.Unlock()
+            continue
+        }
 
 		if time.Since(cooldown) < 2*time.Second {
 			continue
@@ -2819,7 +2825,42 @@ func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.Prin
 
 // GetBalance returns the current balance for a specific account ID on this node.
 func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatypes.GetBalanceReply) error {
-	log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
-	reply.Balance = ns.node.Database.GetBalance(args.AccountID)
-	return nil
+    log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
+    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+    return nil
+}
+
+// TriggerElection starts a leader election on this node if active.
+func (s *NodeService) TriggerElection(_ datatypes.TriggerElectionArgs, reply *datatypes.TriggerElectionReply) error {
+    s.node.mu.RLock()
+    active := s.node.ActiveNodes[s.node.ID]
+    s.node.mu.RUnlock()
+    started := false
+    if active {
+        started = s.node.StartLeaderElection()
+    }
+    *reply = datatypes.TriggerElectionReply{Started: started}
+    return nil
+}
+
+// GetBalancesFor returns balances for a selective set of account IDs.
+func (s *NodeService) GetBalancesFor(args datatypes.GetBalancesForArgs, reply *datatypes.GetBalancesForReply) error {
+    out := make(map[int]int)
+    for _, id := range args.AccountIDs {
+        out[id] = s.node.Database.GetBalanceInt(id)
+    }
+    reply.Balances = out
+    return nil
+}
+
+// FlushState clears per-set observability and resets DB balances if requested.
+func (s *NodeService) FlushState(args datatypes.FlushStateArgs, reply *datatypes.FlushStateReply) error {
+    s.node.mu.Lock()
+    s.node.NewViewMsgs = nil
+    s.node.mu.Unlock()
+    if args.ResetDB {
+        _ = s.node.Database.ResetBalances(config.MinAccountID, config.MaxAccountID, config.InitialBalance)
+    }
+    *reply = datatypes.FlushStateReply{Ok: true}
+    return nil
 }

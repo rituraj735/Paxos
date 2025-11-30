@@ -22,9 +22,9 @@ import (
 )
 
 type TxnSet struct {
-	SetNumber int
-	Txns      []datatypes.Txn
-	LiveNodes []int
+    SetNumber int
+    Txns      []datatypes.Txn
+    LiveNodes []int
 }
 
 var sets []TxnSet
@@ -35,6 +35,18 @@ var clients map[string]*client.Client
 var clientsMu sync.Mutex
 
 var backlog []datatypes.Txn
+
+// Phase 8: track modified IDs per set and performance stats
+var modifiedIDs map[int]bool
+
+type PerfStats struct {
+    TxnCount     int
+    TotalLatency time.Duration
+    StartWall    time.Time
+    EndWall      time.Time
+}
+
+var perf PerfStats
 
 // deferTxn queues a txn for later when quorum is unavailable.
 func deferTxn(tx datatypes.Txn) {
@@ -219,15 +231,22 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 
 		txnParts := strings.Split(txnStr, ",") // Splits A,B,3 into [A B 3]
 
-		if len(txnParts) == 3 {
-			amount, _ := strconv.Atoi(strings.TrimSpace(txnParts[2]))
-			txn := datatypes.Txn{
-				Sender:   strings.TrimSpace(txnParts[0]),
-				Receiver: strings.TrimSpace(txnParts[1]),
-				Amount:   amount,
-			}
-			currentSet.Txns = append(currentSet.Txns, txn)
-		}
+        if len(txnParts) == 3 {
+            amount, _ := strconv.Atoi(strings.TrimSpace(txnParts[2]))
+            txn := datatypes.Txn{
+                Sender:   strings.TrimSpace(txnParts[0]),
+                Receiver: strings.TrimSpace(txnParts[1]),
+                Amount:   amount,
+            }
+            currentSet.Txns = append(currentSet.Txns, txn)
+        } else if len(txnParts) == 1 {
+            // Treat single (s) as read-only for sender s
+            sender := strings.TrimSpace(txnParts[0])
+            if sender != "" {
+                txn := datatypes.Txn{Sender: sender, Receiver: "", Amount: 0}
+                currentSet.Txns = append(currentSet.Txns, txn)
+            }
+        }
 
 		if len(currentSet.Txns) == 1 {
 			nodesStr := strings.Trim(record[2], " \"[]")
@@ -394,38 +413,55 @@ func processNextTestSet(reader *bufio.Reader) {
 		return
 	}
 
-	currentSet := sets[currentSetIndex]
-	log.Printf("ClientDriver: processing set %d with %d txns", currentSet.SetNumber, len(currentSet.Txns))
+    currentSet := sets[currentSetIndex]
+    log.Printf("ClientDriver: processing set %d with %d txns", currentSet.SetNumber, len(currentSet.Txns))
+    // Flush per-set state and reset DB balances across nodes
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        address := config.NodeAddresses[nodeID]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var fr datatypes.FlushStateReply
+                _ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true}, &fr)
+            }
+        }(address)
+    }
+    time.Sleep(300 * time.Millisecond)
 
-	for _, nodeID := range []int{1, 2, 3, 4, 5} {
-		isLive := false
-		for _, liveID := range currentSet.LiveNodes {
-			if liveID == nodeID {
-				isLive = true
-				break
-			}
-		}
+    // Apply initial liveness via bulk update on each node
+    active := make(map[int]bool)
+    for id := 1; id <= config.NumNodes; id++ { active[id] = false }
+    for _, live := range currentSet.LiveNodes { active[live] = true }
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        address := config.NodeAddresses[nodeID]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var ok bool
+                _ = c.Call("NodeService.UpdateActiveStatusForBulk", datatypes.UpdateClusterStatusArgs{Active: active}, &ok)
+            }
+        }(address)
+    }
+    time.Sleep(500 * time.Millisecond)
 
-		for _, targetID := range []int{1, 2, 3, 4, 5} {
-			go func(targetID, nodeID int, live bool) {
-				address := config.NodeAddresses[targetID]
-				client, err := rpc.Dial("tcp", address)
-				if err != nil {
-					return
-				}
-				defer client.Close()
+    // Prime leaders on n1,n4,n7 if they are live
+    for _, nid := range []int{1,4,7} {
+        if !active[nid] { continue }
+        addr := config.NodeAddresses[nid]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var trep datatypes.TriggerElectionReply
+                _ = c.Call("NodeService.TriggerElection", datatypes.TriggerElectionArgs{}, &trep)
+            }
+        }(addr)
+    }
+    time.Sleep(500 * time.Millisecond)
 
-				args := datatypes.UpdateNodeArgs{
-					NodeID: nodeID,
-					IsLive: live,
-				}
-				var reply bool
-				_ = client.Call("NodeService.UpdateActiveStatus", args, &reply)
-			}(targetID, nodeID, isLive)
-		}
-	}
-
-	time.Sleep(300 * time.Millisecond)
+    // Init per-set tracking
+    modifiedIDs = make(map[int]bool)
+    perf = PerfStats{}
+    perf.StartWall = time.Now()
 
 	// Wait briefly for a real leader before flushing and sending txns.
 	// This prevents premature "no leader available" deferrals right after liveness changes.
@@ -457,15 +493,45 @@ func processNextTestSet(reader *bufio.Reader) {
 			continue
 		}
 
-		c, exists := clients[tx.Sender]
-		if !exists {
-			fmt.Printf("Client %s not found\n", tx.Sender)
-			failCount++
-			continue
-		}
+        // Read-only if Receiver is empty
+        if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
+            sid, _ := strconv.Atoi(tx.Sender)
+            // pick cluster anchor leader candidate
+            cid := shard.ClusterOfItem(sid)
+            leaderCand := 1
+            if cid == 2 { leaderCand = 4 } else if cid == 3 { leaderCand = 7 }
+            addr := config.NodeAddresses[leaderCand]
+            t0 := time.Now()
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                var r datatypes.GetBalanceReply
+                _ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
+                c.Close()
+            }
+            t1 := time.Now()
+            perf.TxnCount++
+            perf.TotalLatency += t1.Sub(t0)
+            perf.EndWall = t1
+            continue
+        }
 
-		reply, err := c.SendTransaction(tx)
-		if err != nil {
+        // RW transaction path
+        c, exists := clients[tx.Sender]
+        if !exists {
+            fmt.Printf("Client %s not found\n", tx.Sender)
+            failCount++
+            continue
+        }
+        // record attempted keys
+        if sid, err := strconv.Atoi(tx.Sender); err == nil { modifiedIDs[sid] = true }
+        if rid, err := strconv.Atoi(tx.Receiver); err == nil { modifiedIDs[rid] = true }
+
+        t0 := time.Now()
+        reply, err := c.SendTransaction(tx)
+        t1 := time.Now()
+        perf.TxnCount++
+        perf.TotalLatency += t1.Sub(t0)
+        perf.EndWall = t1
+        if err != nil {
 
 			// Defer if no leader is currently available or quorum is insufficient
 			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
@@ -473,11 +539,10 @@ func processNextTestSet(reader *bufio.Reader) {
 				deferTxn(tx)
 			}
 			failCount++
-		} else if reply.Success {
-			log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
-
-			successCount++
-		} else {
+        } else if reply.Success {
+            log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
+            successCount++
+        } else {
 
 			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
 				deferTxn(tx)
@@ -488,9 +553,17 @@ func processNextTestSet(reader *bufio.Reader) {
 		time.Sleep(200 * time.Millisecond)
 
 	}
-	log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
-	currentSetIndex++
+    log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
+    currentSetIndex++
+
+    // Post-set quick summary
+    avg := time.Duration(0)
+    dur := perf.EndWall.Sub(perf.StartWall)
+    if perf.TxnCount > 0 { avg = perf.TotalLatency / time.Duration(perf.TxnCount) }
+    log.Printf("Performance: txns=%d avgLatency=%v throughput=%.2f/s", perf.TxnCount, avg, float64(perf.TxnCount)/maxf(dur.Seconds(), 0.001))
 }
+
+func maxf(a,b float64) float64{ if a>b {return a}; return b }
 
 // printLogFromNode calls the PrintLog RPC on a chosen node.
 func printLogFromNode(reader *bufio.Reader) {

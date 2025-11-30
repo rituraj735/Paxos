@@ -221,6 +221,22 @@ func (db *Database) GetAllBalances() map[string]int {
     return balances
 }
 
+// ResetBalances sets balances for ids in [minID,maxID] to the given initial value.
+func (db *Database) ResetBalances(minID, maxID, initial int) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        b := tx.Bucket(db.bucketBalances)
+        for id := minID; id <= maxID; id++ {
+            if err := b.Put([]byte(strconv.Itoa(id)), encodeInt(initial)); err != nil {
+                return err
+            }
+        }
+        log.Printf("[Database] reset balances for %d..%d to %d", minID, maxID, initial)
+        return nil
+    })
+}
+
 // ===================== WAL API (Phase 2) =====================
 
 // AppendWAL appends/overwrites a WALRecord at key "<TxnID>-<Phase>".
