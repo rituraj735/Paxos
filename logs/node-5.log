@@ -9342,3 +9342,29 @@
 [Node 5] 2025/11/29 17:07:43.762313 [Database] queried balance (bolt) 200=10
 [Node 5] 2025/11/29 17:07:43.767106 Node 5: GetBalance RPC account=4000
 [Node 5] 2025/11/29 17:07:43.767127 [Database] queried balance (bolt) 4000=13
+[Node 5] 2025/11/29 17:10:34.362599 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection reset by peer
+[Node 5] 2025/11/29 17:10:34.392272 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.561634 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.594683 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.763712 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.792875 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.960219 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:34.993451 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.161912 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.193202 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.359461 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.392967 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.559124 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.593189 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.759956 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.793724 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.962578 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:35.993077 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:36.161683 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:36.192805 Node 5: RPC dial HandleHeartbeat to node 4 failed: dial tcp 127.0.0.1:8004: connect: connection refused
+[Node 5] 2025/11/29 17:10:36.328187 Node 5 shutting down...
+[Node 5] 2025/11/29 17:10:36.328396 Node 5: stopping node
+[Node 5] 2025/11/29 17:10:36.328532 Node 5: heartbeat loop exiting
+[Node 5] 2025/11/29 17:10:36.328550 Node 5: heartbeat loop exiting
+[Node 5] 2025/11/29 17:10:36.328632 Node 5: accept error: accept tcp 127.0.0.1:8005: use of closed network connection
+[Node 5] 2025/11/29 17:10:36.328761 Node 5: RPC server shutting down

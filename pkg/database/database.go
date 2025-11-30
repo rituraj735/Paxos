@@ -254,12 +254,14 @@ func (db *Database) appendSingleItemWAL(txnID string, phase datatypes.WALPhase, 
 
 // putSingleItemWALInTx writes a WAL record directly within the provided write
 // transaction. Safe to call from inside db.bolt.Update.
-func (db *Database) putSingleItemWALInTx(tx *bbolt.Tx, txnID string, phase datatypes.WALPhase, id int, oldBal, newBal int) error {
+func (db *Database) putSingleItemWALInTx(tx *bbolt.Tx, txnID string, phase datatypes.WALPhase, id int, oldBal, newBal int, destCID int, rID int) error {
     rec := datatypes.WALRecord{
         TxnID:     txnID,
         Phase:     phase,
         Items:     []datatypes.WALItem{{ID: id, OldBalance: oldBal, NewBalance: newBal}},
         Timestamp: time.Now().UnixNano(),
+        DestCID:   destCID,
+        R:         rID,
     }
     key := []byte(fmt.Sprintf("%s-%s", rec.TxnID, string(rec.Phase)))
     val, err := json.Marshal(rec)
@@ -387,7 +389,7 @@ func (db *Database) CreditWithWAL(txnID string, id int, amount int) error {
         if err := db.setBalanceInt(tx, id, newBal); err != nil {
             return err
         }
-        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal, 0, 0); err != nil {
             return err
         }
         log.Printf("[WAL] credit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)
@@ -409,10 +411,33 @@ func (db *Database) DebitWithWAL(txnID string, id int, amount int) error {
         if err := db.setBalanceInt(tx, id, newBal); err != nil {
             return err
         }
-        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal); err != nil {
+        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, id, oldBal, newBal, 0, 0); err != nil {
             return err
         }
         log.Printf("[WAL] debit P tx=%s id=%d %d->%d", txnID, id, oldBal, newBal)
+        return nil
+    })
+}
+
+// DebitWithWALMeta is used by the coordinator PREPARE to record DestCID and R in WAL
+// so that recovery can route decisions. Applies the debit and writes WAL P with meta
+// atomically in a single Bolt transaction.
+func (db *Database) DebitWithWALMeta(txnID string, sID int, amount int, destCID int, rID int) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        oldBal := db.getBalanceInt(tx, sID)
+        newBal := oldBal - amount
+        if newBal < 0 {
+            return fmt.Errorf("insufficient funds")
+        }
+        if err := db.setBalanceInt(tx, sID, newBal); err != nil {
+            return err
+        }
+        if err := db.putSingleItemWALInTx(tx, txnID, datatypes.WALPrepare, sID, oldBal, newBal, destCID, rID); err != nil {
+            return err
+        }
+        log.Printf("[WAL] debit P(meta) tx=%s s=%d %d->%d destCID=%d r=%d", txnID, sID, oldBal, newBal, destCID, rID)
         return nil
     })
 }

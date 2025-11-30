@@ -9323,3 +9323,8 @@
 [Node 7] 2025/11/29 17:07:43.763616 [Database] queried balance (bolt) 200=10
 [Node 7] 2025/11/29 17:07:43.768032 Node 7: GetBalance RPC account=4000
 [Node 7] 2025/11/29 17:07:43.768056 [Database] queried balance (bolt) 4000=10
+[Node 7] 2025/11/29 17:10:39.913049 Node 7 shutting down...
+[Node 7] 2025/11/29 17:10:39.913278 Node 7: stopping node
+[Node 7] 2025/11/29 17:10:39.913412 Node 7: heartbeat loop exiting
+[Node 7] 2025/11/29 17:10:39.913471 Node 7: heartbeat loop exiting
+[Node 7] 2025/11/29 17:10:39.913485 Node 7: accept error: accept tcp 127.0.0.1:8007: use of closed network connection

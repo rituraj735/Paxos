@@ -9366,3 +9366,7 @@
 [Node 1] 2025/11/29 17:08:22.419538 Node 1: PrintStatus RPC for seq=2
 [Node 1] 2025/11/29 17:08:25.360384 Node 1: PrintStatus RPC for seq=3
 [Node 1] 2025/11/29 17:08:28.296133 Node 1: PrintStatus RPC for seq=4
+[Node 1] 2025/11/29 17:10:44.867497 Node 1 shutting down...
+[Node 1] 2025/11/29 17:10:44.867627 Node 1: stopping node
+[Node 1] 2025/11/29 17:10:44.867713 Node 1: accept error: accept tcp 127.0.0.1:8001: use of closed network connection
+[Node 1] 2025/11/29 17:10:44.867775 Node 1: RPC server shutting down

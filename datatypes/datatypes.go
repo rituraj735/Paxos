@@ -231,6 +231,9 @@ type WALRecord struct {
     Phase     WALPhase  `json:"phase"`
     Items     []WALItem `json:"items"`
     Timestamp int64     `json:"ts"`
+    // Coordinator PREPARE metadata to enable recovery routing
+    DestCID   int       `json:"destCid,omitempty"`
+    R         int       `json:"r,omitempty"`
 }
 
 // =======================================

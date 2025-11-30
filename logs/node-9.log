@@ -9304,3 +9304,15 @@
 [Node 9] 2025/11/29 17:07:43.764640 [Database] queried balance (bolt) 200=10
 [Node 9] 2025/11/29 17:07:43.769027 Node 9: GetBalance RPC account=4000
 [Node 9] 2025/11/29 17:07:43.769049 [Database] queried balance (bolt) 4000=10
+[Node 9] 2025/11/29 17:10:42.982822 Node 9: Leader timeout (3.169009s), no leader msgs, starting election
+[Node 9] 2025/11/29 17:10:42.983137 Node 9: StartLeaderElection invoked (leader=false active=true)
+[Node 9] 2025/11/29 17:10:42.983362 Node 9: Starting leader election with ballot (3,9)
+[Node 9] 2025/11/29 17:10:42.983733 Node 9: RPC Prepare->node 8
+[Node 9] 2025/11/29 17:10:42.983703 Node 9: RPC Prepare->node 7
+[Node 9] 2025/11/29 17:10:42.986108 Node 9: RPC dial Prepare to node 8 failed: dial tcp 127.0.0.1:8008: connect: connection refused
+[Node 9] 2025/11/29 17:10:42.986139 Node 9: RPC dial Prepare to node 7 failed: dial tcp 127.0.0.1:8007: connect: connection refused
+[Node 9] 2025/11/29 17:10:42.986456 Node 9: leader election failed (promises=1 need=2)
+[Node 9] 2025/11/29 17:10:43.217042 Node 9 shutting down...
+[Node 9] 2025/11/29 17:10:43.217216 Node 9: stopping node
+[Node 9] 2025/11/29 17:10:43.217403 Node 9: accept error: accept tcp 127.0.0.1:8009: use of closed network connection
+[Node 9] 2025/11/29 17:10:43.217499 Node 9: RPC server shutting down

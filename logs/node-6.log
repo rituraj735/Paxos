@@ -9320,3 +9320,7 @@
 [Node 6] 2025/11/29 17:07:43.762941 [Database] queried balance (bolt) 200=10
 [Node 6] 2025/11/29 17:07:43.767546 Node 6: GetBalance RPC account=4000
 [Node 6] 2025/11/29 17:07:43.767574 [Database] queried balance (bolt) 4000=13
+[Node 6] 2025/11/29 17:10:38.117285 Node 6 shutting down...
+[Node 6] 2025/11/29 17:10:38.117362 Node 6: stopping node
+[Node 6] 2025/11/29 17:10:38.117482 Node 6: accept error: accept tcp 127.0.0.1:8006: use of closed network connection
+[Node 6] 2025/11/29 17:10:38.117519 Node 6: RPC server shutting down

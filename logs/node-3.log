@@ -9332,3 +9332,7 @@
 [Node 3] 2025/11/29 17:07:43.760989 [Database] queried balance (bolt) 200=13
 [Node 3] 2025/11/29 17:07:43.766088 Node 3: GetBalance RPC account=4000
 [Node 3] 2025/11/29 17:07:43.766130 [Database] queried balance (bolt) 4000=10
+[Node 3] 2025/11/29 17:10:48.252447 Node 3 shutting down...
+[Node 3] 2025/11/29 17:10:48.252617 Node 3: stopping node
+[Node 3] 2025/11/29 17:10:48.252801 Node 3: accept error: accept tcp 127.0.0.1:8003: use of closed network connection
+[Node 3] 2025/11/29 17:10:48.252937 Node 3: RPC server shutting down
