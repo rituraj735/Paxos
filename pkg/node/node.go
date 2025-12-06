@@ -344,10 +344,18 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		}
 	}
 
-	// Seed numeric accounts 1..9000 with InitialBalance if missing
-	for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
-		node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
-	}
+    // Seed only this cluster's account range with InitialBalance if missing
+    if node.ClusterID != 0 {
+        rng := config.ClusterRanges[node.ClusterID]
+        for acc := rng.Min; acc <= rng.Max; acc++ {
+            node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+        }
+    } else {
+        // Fallback: if cluster not resolved, seed all (should not happen in normal startup)
+        for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
+            node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+        }
+    }
 
 	// Initially all nodes are active
 	for nodeID := range peers {
@@ -2859,7 +2867,8 @@ func (s *NodeService) FlushState(args datatypes.FlushStateArgs, reply *datatypes
     s.node.NewViewMsgs = nil
     s.node.mu.Unlock()
     if args.ResetDB {
-        _ = s.node.Database.ResetBalances(config.MinAccountID, config.MaxAccountID, config.InitialBalance)
+        rng := config.ClusterRanges[s.node.ClusterID]
+        _ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
     }
     *reply = datatypes.FlushStateReply{Ok: true}
     return nil
