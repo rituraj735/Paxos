@@ -3075,3 +3075,179 @@
 [Node 3] 2025/12/07 01:19:56.859646 [Database] queried balance (bolt) 1004=10
 [Node 3] 2025/12/07 01:20:08.652013 Node 3: GetBalance RPC account=1006
 [Node 3] 2025/12/07 01:20:08.652077 [Database] queried balance (bolt) 1006=10
+[Node 3] 2025/12/07 01:21:53.071840 [Database] reset balances for 1..3000 to 10
+[Node 3] 2025/12/07 01:21:53.370420 Node 3: Bulk active update request (9 entries)
+[Node 3] 2025/12/07 01:21:53.370465 Node 3: setNodeLiveness node=8 live=true
+[Node 3] 2025/12/07 01:21:53.370482 Node 3: setNodeLiveness node=9 live=true
+[Node 3] 2025/12/07 01:21:53.370497 Node 3: setNodeLiveness node=3 live=true
+[Node 3] 2025/12/07 01:21:53.370515 Node 3: setNodeLiveness node=5 live=true
+[Node 3] 2025/12/07 01:21:53.370532 Node 3: setNodeLiveness node=1 live=true
+[Node 3] 2025/12/07 01:21:53.370547 Node 3: setNodeLiveness node=7 live=true
+[Node 3] 2025/12/07 01:21:53.370563 Node 3: setNodeLiveness node=6 live=true
+[Node 3] 2025/12/07 01:21:53.370576 Node 3: setNodeLiveness node=2 live=true
+[Node 3] 2025/12/07 01:21:53.370589 Node 3: setNodeLiveness node=4 live=true
+[Node 3] 2025/12/07 01:21:53.370614 Node 3: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 3] 2025/12/07 01:21:53.370718 [RECOVERY] Node 3: recovery complete (txns=0)
+[Node 3] 2025/12/07 01:21:53.373586 Node 3: NewView RPC ballot=(3,7) entries=1
+[Node 3] 2025/12/07 01:21:53.373752 Node 3: applyCommittedEntries up to seq=1
+[Node 3] 2025/12/07 01:21:53.373858 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:21:53.373888 Node 3: executeRequestsInOrder stopping at gap seq=2
+[Node 3] 2025/12/07 01:21:53.374020 Node 3: NewView RPC ballot=(3,4) entries=2
+[Node 3] 2025/12/07 01:21:53.374107 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:21:53.375838 Node 3: NewView RPC ballot=(3,1) entries=3
+[Node 3] 2025/12/07 01:21:53.872784 Node 3: Prepare RPC from ballot (4,1)
+[Node 3] 2025/12/07 01:21:53.872871 Node 3: Promised ballot (4,1)
+[Node 3] 2025/12/07 01:21:53.878132 Node 3: NewView RPC ballot=(4,1) entries=3
+[Node 3] 2025/12/07 01:21:53.878197 Node 3: applyCommittedEntries up to seq=3
+[Node 3] 2025/12/07 01:21:53.878219 Kind of circular Node 3: executeRequest seq=2 (1001→1002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:21:53.878254 [Database] executing txn (bolt) (1001,1002,1)
+[Node 3] 2025/12/07 01:21:53.896912 [Database] txn success (bolt): 1001 -> 1002 amount 1
+[Node 3] 2025/12/07 01:21:53.897230 Kind of circular Node 3: executeRequest seq=3 (1003→1004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:21:53.897260 [Database] executing txn (bolt) (1003,1004,1)
+[Node 3] 2025/12/07 01:21:53.912811 [Database] txn success (bolt): 1003 -> 1004 amount 1
+[Node 3] 2025/12/07 01:21:53.912891 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:21:53.912942 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:21:53.912959 Node 3: executeRequestsInOrder stopping at gap seq=4
+[Node 3] 2025/12/07 01:21:53.912969 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:21:53.912977 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:21:54.374206 Node 3: Accept RPC seq=4 ballot=(4,1)
+[Node 3] 2025/12/07 01:21:54.374311 Node 3 ACCEPT seq=4 ballot=(4,1) txn=(1005→1006,1)
+[Node 3] 2025/12/07 01:21:54.374361 Node 3: Accepted seq 4
+[Node 3] 2025/12/07 01:21:54.383921 Node 3: Commit RPC seq=4 ballot=(4,1)
+[Node 3] 2025/12/07 01:21:54.384041 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:21:54.384070 Node 3: EXECUTING seq=4 (1005→1006,1)
+[Node 3] 2025/12/07 01:21:54.384090 Kind of circular Node 3: executeRequest seq=4 (1005→1006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:21:54.384129 [Database] executing txn (bolt) (1005,1006,1)
+[Node 3] 2025/12/07 01:21:54.398870 [Database] txn success (bolt): 1005 -> 1006 amount 1
+[Node 3] 2025/12/07 01:21:54.399066 Node 3: executeRequestsInOrder stopping at gap seq=5
+[Node 3] 2025/12/07 01:21:54.891246 Node 3: UpdateActiveStatus node=9 live=false
+[Node 3] 2025/12/07 01:21:54.891313 Node 3: setNodeLiveness node=9 live=false
+[Node 3] 2025/12/07 01:21:55.319478 Node 3: UpdateActiveStatus node=9 live=true
+[Node 3] 2025/12/07 01:21:55.319609 Node 3: setNodeLiveness node=9 live=true
+[Node 3] 2025/12/07 01:21:55.976541 Node 3: UpdateActiveStatus node=7 live=false
+[Node 3] 2025/12/07 01:21:55.976577 Node 3: setNodeLiveness node=7 live=false
+[Node 3] 2025/12/07 01:47:45.704611 [Database] reset balances for 1..3000 to 10
+[Node 3] 2025/12/07 01:47:45.998858 Node 3: Bulk active update request (9 entries)
+[Node 3] 2025/12/07 01:47:45.998926 Node 3: setNodeLiveness node=2 live=true
+[Node 3] 2025/12/07 01:47:45.998945 Node 3: setNodeLiveness node=4 live=true
+[Node 3] 2025/12/07 01:47:45.998957 Node 3: setNodeLiveness node=5 live=true
+[Node 3] 2025/12/07 01:47:45.998968 Node 3: setNodeLiveness node=6 live=true
+[Node 3] 2025/12/07 01:47:45.998986 Node 3: setNodeLiveness node=7 live=true
+[Node 3] 2025/12/07 01:47:45.998997 Node 3: setNodeLiveness node=9 live=true
+[Node 3] 2025/12/07 01:47:45.999011 Node 3: setNodeLiveness node=1 live=true
+[Node 3] 2025/12/07 01:47:45.999026 Node 3: setNodeLiveness node=3 live=true
+[Node 3] 2025/12/07 01:47:45.999036 Node 3: setNodeLiveness node=8 live=true
+[Node 3] 2025/12/07 01:47:45.999073 Node 3: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 3] 2025/12/07 01:47:46.502938 Node 3: Prepare RPC from ballot (5,1)
+[Node 3] 2025/12/07 01:47:46.503013 Node 3: Promised ballot (5,1)
+[Node 3] 2025/12/07 01:47:46.507039 Node 3: NewView RPC ballot=(5,1) entries=4
+[Node 3] 2025/12/07 01:47:46.507272 Node 3: applyCommittedEntries up to seq=4
+[Node 3] 2025/12/07 01:47:46.507339 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:46.507367 Node 3: executeRequestsInOrder stopping at gap seq=5
+[Node 3] 2025/12/07 01:47:46.507395 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:46.507621 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:46.507656 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:46.507672 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:47.003710 Node 3: Accept RPC seq=5 ballot=(5,1)
+[Node 3] 2025/12/07 01:47:47.003821 Node 3 ACCEPT seq=5 ballot=(5,1) txn=(1001→1002,1)
+[Node 3] 2025/12/07 01:47:47.003972 Node 3: Accepted seq 5
+[Node 3] 2025/12/07 01:47:47.014300 Node 3: Commit RPC seq=5 ballot=(5,1)
+[Node 3] 2025/12/07 01:47:47.017903 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:47.017926 Node 3: EXECUTING seq=5 (1001→1002,1)
+[Node 3] 2025/12/07 01:47:47.017937 Kind of circular Node 3: executeRequest seq=5 (1001→1002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:47:47.017967 [Database] executing txn (bolt) (1001,1002,1)
+[Node 3] 2025/12/07 01:47:47.034493 [Database] txn success (bolt): 1001 -> 1002 amount 1
+[Node 3] 2025/12/07 01:47:47.034714 Node 3: executeRequestsInOrder stopping at gap seq=6
+[Node 3] 2025/12/07 01:47:48.908199 [Database] reset balances for 1..3000 to 10
+[Node 3] 2025/12/07 01:47:49.208031 Node 3: Bulk active update request (9 entries)
+[Node 3] 2025/12/07 01:47:49.208134 Node 3: setNodeLiveness node=3 live=false
+[Node 3] 2025/12/07 01:47:49.208178 Node 3: setNodeLiveness node=8 live=true
+[Node 3] 2025/12/07 01:47:49.208206 Node 3: setNodeLiveness node=1 live=true
+[Node 3] 2025/12/07 01:47:49.208230 Node 3: setNodeLiveness node=5 live=true
+[Node 3] 2025/12/07 01:47:49.208498 Node 3: setNodeLiveness node=6 live=false
+[Node 3] 2025/12/07 01:47:49.208523 Node 3: setNodeLiveness node=2 live=true
+[Node 3] 2025/12/07 01:47:49.208545 Node 3: setNodeLiveness node=4 live=true
+[Node 3] 2025/12/07 01:47:49.208564 Node 3: setNodeLiveness node=7 live=true
+[Node 3] 2025/12/07 01:47:49.208589 Node 3: setNodeLiveness node=9 live=false
+[Node 3] 2025/12/07 01:47:49.208637 Node 3: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 3] 2025/12/07 01:47:50.674232 Node 3: UpdateActiveStatus node=2 live=false
+[Node 3] 2025/12/07 01:47:50.674343 Node 3: setNodeLiveness node=2 live=false
+[Node 3] 2025/12/07 01:47:51.314404 Node 3: UpdateActiveStatus node=5 live=false
+[Node 3] 2025/12/07 01:47:51.314431 Node 3: setNodeLiveness node=5 live=false
+[Node 3] 2025/12/07 01:47:53.141995 [Database] reset balances for 1..3000 to 10
+[Node 3] 2025/12/07 01:47:53.438903 Node 3: Bulk active update request (9 entries)
+[Node 3] 2025/12/07 01:47:53.438961 Node 3: setNodeLiveness node=7 live=true
+[Node 3] 2025/12/07 01:47:53.438982 Node 3: setNodeLiveness node=9 live=true
+[Node 3] 2025/12/07 01:47:53.438999 Node 3: setNodeLiveness node=5 live=true
+[Node 3] 2025/12/07 01:47:53.439018 Node 3: setNodeLiveness node=2 live=true
+[Node 3] 2025/12/07 01:47:53.439036 Node 3: setNodeLiveness node=6 live=true
+[Node 3] 2025/12/07 01:47:53.439054 Node 3: setNodeLiveness node=1 live=true
+[Node 3] 2025/12/07 01:47:53.439076 Node 3: setNodeLiveness node=3 live=true
+[Node 3] 2025/12/07 01:47:53.439094 Node 3: setNodeLiveness node=4 live=true
+[Node 3] 2025/12/07 01:47:53.439111 Node 3: setNodeLiveness node=8 live=true
+[Node 3] 2025/12/07 01:47:53.439139 Node 3: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 3] 2025/12/07 01:47:53.439192 [RECOVERY] Node 3: recovery complete (txns=0)
+[Node 3] 2025/12/07 01:47:53.442192 Node 3: NewView RPC ballot=(6,1) entries=7
+[Node 3] 2025/12/07 01:47:53.442307 Node 3: applyCommittedEntries up to seq=7
+[Node 3] 2025/12/07 01:47:53.442324 Kind of circular Node 3: executeRequest seq=6 (1001→1002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:47:53.442368 [Database] executing txn (bolt) (1001,1002,1)
+[Node 3] 2025/12/07 01:47:53.442436 Node 3: NewView RPC ballot=(8,7) entries=7
+[Node 3] 2025/12/07 01:47:53.443099 Node 3: NewView RPC ballot=(6,4) entries=5
+[Node 3] 2025/12/07 01:47:53.459751 [Database] txn success (bolt): 1001 -> 1002 amount 1
+[Node 3] 2025/12/07 01:47:53.460006 Kind of circular Node 3: executeRequest seq=7 (1003→1004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:47:53.460023 [Database] executing txn (bolt) (1003,1004,1)
+[Node 3] 2025/12/07 01:47:53.478749 [Database] txn success (bolt): 1003 -> 1004 amount 1
+[Node 3] 2025/12/07 01:47:53.478966 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.478985 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479013 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479022 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479026 Node 3: applyCommittedEntries up to seq=7
+[Node 3] 2025/12/07 01:47:53.479292 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479313 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479318 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479350 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479308 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:53.481839 Node 3: executeRequestsInOrder stopping at gap seq=8
+[Node 3] 2025/12/07 01:47:53.479361 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479312 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479033 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:53.479358 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479364 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.479366 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.479371 Node 3: RPC AcceptedFromNewView->node 7
+[Node 3] 2025/12/07 01:47:53.482273 Node 3: executeRequestsInOrder stopping at gap seq=8
+[Node 3] 2025/12/07 01:47:53.941006 Node 3: Prepare RPC from ballot (7,1)
+[Node 3] 2025/12/07 01:47:53.941078 Node 3: Ignoring prepare from Node 1 (fresh leader 7, ballot (8,7))
+[Node 3] 2025/12/07 01:47:53.946093 Node 3: Prepare RPC from ballot (9,1)
+[Node 3] 2025/12/07 01:47:53.946135 Node 3: Promised ballot (9,1)
+[Node 3] 2025/12/07 01:47:53.948354 Node 3: NewView RPC ballot=(9,1) entries=7
+[Node 3] 2025/12/07 01:47:53.949316 Node 3: applyCommittedEntries up to seq=7
+[Node 3] 2025/12/07 01:47:53.949363 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949367 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:53.949602 Node 3: executeRequestsInOrder stopping at gap seq=8
+[Node 3] 2025/12/07 01:47:53.949373 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949377 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949376 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949381 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949382 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:53.949385 Node 3: RPC AcceptedFromNewView->node 1
+[Node 3] 2025/12/07 01:47:54.439456 Node 3: Accept RPC seq=8 ballot=(9,1)
+[Node 3] 2025/12/07 01:47:54.439492 Node 3 ACCEPT seq=8 ballot=(9,1) txn=(1005→1006,1)
+[Node 3] 2025/12/07 01:47:54.439505 Node 3: Accepted seq 8
+[Node 3] 2025/12/07 01:47:54.449653 Node 3: Commit RPC seq=8 ballot=(9,1)
+[Node 3] 2025/12/07 01:47:54.449736 Node 3: executeRequestsInOrder triggered
+[Node 3] 2025/12/07 01:47:54.449784 Node 3: EXECUTING seq=8 (1005→1006,1)
+[Node 3] 2025/12/07 01:47:54.449800 Kind of circular Node 3: executeRequest seq=8 (1005→1006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 3] 2025/12/07 01:47:54.449827 [Database] executing txn (bolt) (1005,1006,1)
+[Node 3] 2025/12/07 01:47:54.465141 [Database] txn success (bolt): 1005 -> 1006 amount 1
+[Node 3] 2025/12/07 01:47:54.465244 Node 3: executeRequestsInOrder stopping at gap seq=9
+[Node 3] 2025/12/07 01:47:54.949986 Node 3: UpdateActiveStatus node=9 live=false
+[Node 3] 2025/12/07 01:47:54.950023 Node 3: setNodeLiveness node=9 live=false
+[Node 3] 2025/12/07 01:47:55.379998 Node 3: UpdateActiveStatus node=9 live=true
+[Node 3] 2025/12/07 01:47:55.380088 Node 3: setNodeLiveness node=9 live=true
+[Node 3] 2025/12/07 01:47:56.041760 Node 3: UpdateActiveStatus node=7 live=false
+[Node 3] 2025/12/07 01:47:56.041957 Node 3: setNodeLiveness node=7 live=false
+[Node 3] 2025/12/07 02:53:37.985311 Node 3 shutting down...
+[Node 3] 2025/12/07 02:53:37.985394 Node 3: stopping node
+[Node 3] 2025/12/07 02:53:37.985462 Node 3: accept error: accept tcp 127.0.0.1:8003: use of closed network connection
+[Node 3] 2025/12/07 02:53:37.985495 Node 3: RPC server shutting down

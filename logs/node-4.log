@@ -5771,3 +5771,1774 @@
 [Node 4] 2025/12/07 01:20:47.171090 Node 4: skipping RPC HandleHeartbeat to inactive node 5
 [Node 4] 2025/12/07 01:20:47.243296 Node 4: skipping RPC HandleHeartbeat to inactive node 6
 [Node 4] 2025/12/07 01:20:47.243333 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.370903 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.370919 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.443014 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.443035 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.571234 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.571290 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.642801 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.642810 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.771207 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.771222 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.843078 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.843099 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:47.971205 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:47.971237 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.043140 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.043185 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.170943 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.171024 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.242984 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.243090 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.371158 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.371636 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.443369 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.443462 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.571208 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.571218 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.642669 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.642674 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.771566 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.771907 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.843300 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.843318 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:48.971148 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:48.971158 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.043446 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.043474 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.170449 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.170602 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.243265 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.243320 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.371284 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.371317 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.442778 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.442829 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.571129 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.571147 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.642984 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.643235 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.770633 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.770724 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.843189 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.843399 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:49.970841 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:49.970862 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.043445 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.043529 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.170226 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.170221 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.243185 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.243242 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.370634 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.370654 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.443146 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.443184 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.570529 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.570546 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.642754 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.642894 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.770336 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.770346 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.842979 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:50.843086 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.970262 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:50.970249 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.043476 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.043506 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.170806 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.170826 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.243378 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.243563 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.371489 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.371606 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.443472 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.443527 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.571204 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.571238 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.642843 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.642858 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.771288 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.771394 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.842928 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:51.842956 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.971236 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:51.971225 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.043373 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.043421 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.170992 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.171178 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.243325 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.243407 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.371255 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.371322 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.443356 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.443516 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.571116 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.571133 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.643409 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.643468 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.771213 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.771241 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.843387 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.843543 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:52.971037 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:52.971063 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.043333 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.043380 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.171029 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.171123 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.243509 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.243531 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.371321 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.371324 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.443387 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.443703 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.571208 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.571290 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.643810 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.643990 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.771235 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.771388 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.843462 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.843614 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:53.971252 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:53.971296 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.042828 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.042855 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.170735 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.170803 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.244747 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.244858 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.371300 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.371285 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.443894 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.444108 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.571249 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.571148 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.642761 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.642895 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.771265 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.771443 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.843486 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.843611 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:54.971192 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:54.971248 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.043435 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.043468 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.171076 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.171077 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.243747 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.243763 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.371091 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.371189 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.443414 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.443736 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.571263 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.571268 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.642790 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.642915 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.771125 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.771206 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.843863 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.843926 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:55.971129 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:55.971140 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.043829 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.043957 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.170227 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.170309 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.243443 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.243471 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.371240 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.371377 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.442904 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.443036 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.571173 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.571204 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.642671 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.642702 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.771253 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.771381 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.843692 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:56.843689 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.971209 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:56.971244 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.043390 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.043411 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.170967 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.170978 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.243581 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.243709 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.373178 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.373443 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.443223 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.443369 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.571058 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.571146 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.642746 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.642840 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.771279 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.771590 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.843696 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.843690 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:57.971177 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:57.971161 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.043455 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.043589 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.171052 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.171128 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.243324 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.243369 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.371199 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.371187 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.443947 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.444091 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.571424 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.571576 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.642757 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.642796 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.770851 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.770863 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.843530 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.843582 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:58.971022 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:58.971070 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.043417 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.043427 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.171016 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.171306 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.243642 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.243663 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.371176 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.371190 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.443077 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.443107 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.571038 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.571049 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.642729 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.642791 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.770559 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.770709 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.843438 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.843545 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:20:59.971726 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:20:59.971857 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.043398 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.043583 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.171045 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.171178 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.243733 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.243755 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.371260 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.371362 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.443298 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.443453 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.571164 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.571193 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.642695 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.642719 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.771238 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.771242 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.843211 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.843251 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:00.971194 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:00.971187 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.043355 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.043366 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.170962 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.170975 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.243704 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.243766 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.371187 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.371219 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.443368 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.443462 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.571289 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.571457 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.642725 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.642744 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.770984 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.771028 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.843685 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.843704 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:01.971202 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:01.971239 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.042785 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.042819 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.171025 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.171202 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.243408 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.243466 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.371269 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.371322 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.443687 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.443681 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.571275 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.571427 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.642900 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.643042 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.770252 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.770263 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.843783 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:02.843869 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.971505 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:02.971524 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.043700 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.043723 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.170518 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.170512 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.243691 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.243724 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.371180 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.371195 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.443830 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.443947 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.570588 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.570568 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.643161 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.643291 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.771307 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.771333 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.843485 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.843602 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:03.971230 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:03.971247 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.042747 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.042776 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.170936 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.170938 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.243882 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.244037 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.371238 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.371263 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.443870 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.443898 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.571241 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.571266 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.643079 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.643162 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.771459 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.771660 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.843676 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.843788 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:04.971170 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:04.971348 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.043429 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.043547 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.171012 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.171039 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.242991 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.243006 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.371203 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.371224 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.443712 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.443816 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.570450 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.570582 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.642702 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.642770 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.771204 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.771245 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.843297 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.843335 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:05.971299 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:05.971574 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.043033 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.043059 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.170975 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.170987 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.243325 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.243524 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.371420 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.371600 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.442868 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.442903 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.571342 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.571507 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.642764 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.642873 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.771181 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.771202 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.843697 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.843738 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:06.971267 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:06.971349 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.043396 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.043532 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.171006 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.171046 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.243320 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.243416 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.371282 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.371480 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.442888 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.442923 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.570963 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.570989 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.642735 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.642749 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.771151 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.771179 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.843190 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.843225 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:07.971143 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:07.971207 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.043103 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.043150 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.170934 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.170951 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.243038 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.243079 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.371263 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.371334 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.442859 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.442853 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.571189 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.571209 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.642734 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.642743 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.771306 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.771328 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.843299 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:08.843464 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.971239 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:08.971264 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.043293 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.043326 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.171049 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.171069 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.243376 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.243539 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.371252 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.371510 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.443831 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.443954 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.571252 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.571252 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.643152 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.643282 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.771198 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.771291 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.844506 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.844564 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:09.970946 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:09.971107 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.043879 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.043975 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.171119 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.171259 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.243268 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.243308 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.370937 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.370975 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.443284 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.443299 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.571348 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.571563 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.642762 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.642866 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.771263 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.771470 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.843294 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:10.843357 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.971266 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:10.971269 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.043657 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.043678 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.171044 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.171063 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.243560 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.243691 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.370580 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.370744 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.442832 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.443162 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.571000 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.571038 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.644584 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.644574 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.771147 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.771180 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.843388 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.843412 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:11.971217 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:11.971245 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.043686 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.043701 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.170918 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.170957 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.243281 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.243361 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.371246 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.371321 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.442805 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.442927 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.571183 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.571189 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.642693 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.642707 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.771203 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.771259 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.842747 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.842762 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:12.971154 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:12.971190 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.043687 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.043699 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.171119 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.171314 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.243629 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.243855 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.371149 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.371171 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.443504 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.443522 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.570846 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.570852 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.642723 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.642751 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.771582 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.771864 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.843496 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:13.843665 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.971122 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:13.971120 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.043307 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.043409 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.172138 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.172406 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.244648 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.244688 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.371490 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.371674 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.442900 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.442844 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.571774 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.571915 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.642744 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.642790 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.771413 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.771580 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.843208 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:14.843313 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.971184 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:14.971267 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.043543 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.043567 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.170927 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.170944 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.242729 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.242773 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.371264 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.371265 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.442828 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.442851 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.571291 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.571528 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.643123 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.643140 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.771131 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.771300 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.843236 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.843286 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:15.971398 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:15.971439 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.043412 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.043440 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.170907 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.170953 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.243786 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.243925 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.371173 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.371173 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.443974 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.444175 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.570875 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.570893 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.642894 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.643083 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.771130 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.771151 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.842746 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.842765 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:16.971177 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:16.971196 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.043087 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.043126 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.170922 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.170937 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.243368 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.243492 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.371237 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.371349 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.442986 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.443001 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.572096 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.572287 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.642732 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.642862 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.770924 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.771069 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.844279 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.844345 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:17.971118 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:17.971253 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.042826 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.042868 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.171089 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.171210 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.243697 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.243937 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.371123 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.371175 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.443792 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.443972 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.571266 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.571471 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.643122 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.643269 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.771258 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.771299 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.844030 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.844032 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:18.971191 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:18.971170 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.042660 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.042685 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.170965 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.171165 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.243947 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.244023 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.371181 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.371197 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.442807 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.442838 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.571177 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.571229 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.642674 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.642682 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.771268 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.771419 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.843193 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.843280 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:19.971252 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:19.971320 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.043255 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.043334 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.170807 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.170932 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.243442 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.243575 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.371102 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.371126 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.443570 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.443677 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.571390 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.571510 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.643213 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.643246 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.771212 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.771256 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.843412 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.843440 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:20.971274 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:20.971369 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.043963 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.044063 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.170980 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.171013 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.242995 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.243056 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.371276 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.371430 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.444083 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.444331 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.571209 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.571717 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.642896 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.643024 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.770766 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.770809 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.843523 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.843546 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:21.971248 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:21.971336 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.043174 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.043098 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.170172 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.170172 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.243587 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.243730 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.371260 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.371192 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.443761 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.443748 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.571316 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.571255 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.642702 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.642790 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.771169 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.771197 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.843568 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:22.843745 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.971311 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:22.971349 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.043346 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.043492 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.170924 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.170980 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.243763 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.243877 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.371191 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.371282 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.443384 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.443447 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.570845 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.570863 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.642900 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.642889 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.771207 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.771302 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.843838 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.843954 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:23.971162 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:23.971176 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.042864 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.042889 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.171061 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.171173 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.243117 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.243244 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.370412 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.370553 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.443277 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.443337 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.571277 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.571328 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.643283 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.643277 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.771339 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.771473 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.843671 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:24.843668 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.971286 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:24.971287 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.043487 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.043641 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.171067 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.171260 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.243457 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.243485 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.371209 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.371312 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.443546 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.443546 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.571193 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.571220 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.642723 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.642849 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.771286 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.771468 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.843346 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.843357 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:25.971259 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:25.971357 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.043478 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.043602 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.170954 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.171150 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.243709 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.243742 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.371284 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.371475 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.443686 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.443820 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.571295 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.571347 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.642661 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.642773 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.771259 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.771335 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.843666 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.843689 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:26.971231 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:26.971423 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.042859 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.042992 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.170956 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.171095 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.243391 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.243568 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.371193 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.371232 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.443465 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.443496 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.570513 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.570566 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.642674 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.642703 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.771252 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.771310 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.842940 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.843111 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:27.971244 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:27.971417 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.042861 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.043189 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.171050 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.170982 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.243407 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.243529 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.371807 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.371944 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.443422 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.443576 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.571263 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.571451 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.642824 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.642956 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.771273 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.771464 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.843339 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:28.843403 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.971194 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:28.971194 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.042802 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.042824 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.171097 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.171137 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.243744 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.243902 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.371212 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.371218 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.442980 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.443044 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.571267 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.571267 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.642754 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.643027 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.771215 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.771397 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.843424 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.843575 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:29.971164 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:29.971292 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.043071 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.043234 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.171149 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.171313 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.242840 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.242897 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.370957 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.371074 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.443613 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.443720 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.571297 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.571245 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.642956 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.642971 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.771279 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.771433 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.843336 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.843476 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:30.971159 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:30.971235 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.043356 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.043387 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.170954 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.171059 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.243477 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.243588 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.371198 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.371283 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.443289 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.443406 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.571014 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.570969 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.642778 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.642914 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.771189 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.771414 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.843407 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.843426 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:31.970371 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:31.970381 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.042811 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.042816 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.170732 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.170740 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.243729 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.243830 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.371164 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.371211 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.442933 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.442940 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.571388 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.571619 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.643402 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.643547 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.771205 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.771379 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.843063 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.843167 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:32.971013 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:32.971501 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.043291 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.043344 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.170991 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.171015 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.242818 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.242985 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.371295 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.371477 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.443374 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.443417 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.571200 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.571242 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.642830 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.643020 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.770856 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.771027 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.843946 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:33.844100 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.971185 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:33.971184 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.043639 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.043665 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.170949 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.170951 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.243947 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.244071 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.371204 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.371400 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.443215 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.443226 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.571313 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.571496 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.642971 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.643069 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.771259 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.771335 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.843641 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:34.843626 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.971095 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:34.971786 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.042725 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.042735 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.170974 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.171146 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.243544 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.243645 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.370708 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.370789 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.443887 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.444017 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.571284 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.571446 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.642671 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.642795 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.771222 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.771435 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.843537 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.843589 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:35.971278 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:35.971183 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.043267 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.043293 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.171343 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.171419 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.243472 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.243668 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.371239 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.371276 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.444196 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.444390 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.571239 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.571299 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.642673 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.642822 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.771189 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.771366 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.843319 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.843504 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:36.970402 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:36.970419 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.043429 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.043661 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.170685 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.170699 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.243323 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.243423 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.370664 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.370663 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.443364 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.443502 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.570863 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.570894 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.642861 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.643002 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.770660 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.770702 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.842815 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:37.843229 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.970342 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:37.970280 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.043466 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.043620 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.170137 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.170195 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.243882 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.244009 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.370259 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.370280 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.443364 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.443517 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.570245 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.570245 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.642774 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.642868 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.771300 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.771529 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.843528 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:38.843656 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.970630 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:38.970632 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.043275 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.043372 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.170923 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.170922 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.243481 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.243623 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.371209 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.371585 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.443793 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.443939 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.571175 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.571232 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.642990 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.643022 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.770457 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.770515 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.843309 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.843494 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:39.971280 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:39.971425 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.043793 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.044049 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.170923 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.170963 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.243248 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.243261 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.370296 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.370316 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.442963 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.442984 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.571304 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.571422 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.642791 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.643241 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.770743 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.770758 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.843386 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:40.843553 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.971442 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:40.971455 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.042849 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.042911 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.171468 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.171676 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.243410 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.243462 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.371240 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.371406 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.442996 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.443125 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.571205 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.571251 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.643469 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.643917 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.770832 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.770840 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.843562 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.843613 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:41.971180 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:41.971224 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.042683 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.042700 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.170992 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.170991 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.243658 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.243679 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.371266 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.371399 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.443165 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.443191 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.570809 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.570849 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.643144 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.643175 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.771580 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.771768 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.843402 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.843535 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:42.971273 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:42.971448 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.043382 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.043451 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.170929 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.170929 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.243288 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.243306 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.371116 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.371195 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.443579 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.443711 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.571233 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.571482 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.642972 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.643097 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.770818 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.770980 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.843775 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.843831 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:43.971113 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:43.971120 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.043253 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.043284 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.170945 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.171101 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.243342 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.243476 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.371141 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.371227 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.443439 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.443594 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.571331 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.571529 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.642746 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.642893 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.771242 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.771320 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.843186 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:44.843333 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.971444 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:44.971593 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.042793 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.042902 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.171015 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.171118 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.243311 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.243377 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.371274 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.371530 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.442786 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.442959 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.571277 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.571441 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.643069 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.643274 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.771195 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.771384 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.843755 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.843838 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:45.971367 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:45.971451 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.043300 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.043325 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.170920 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.170935 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.243282 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.243272 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.370651 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.370683 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.443314 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.443357 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.570642 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.570805 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.643417 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.643423 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.771221 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.771416 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.843720 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.843785 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:46.970327 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:46.970524 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.043272 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.043329 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.171001 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.171057 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.243649 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.243668 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.371267 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.371415 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.443215 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.443349 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.570575 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.570582 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.643658 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.643835 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.771205 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.771222 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.843293 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.843400 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:47.971226 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:47.971507 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.043027 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.043142 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.170987 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.170988 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.242888 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.242913 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.371189 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.371231 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.442862 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.442999 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.571108 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.571184 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.642828 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.642934 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.771115 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.771224 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.843421 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:48.843542 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.971135 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:48.971131 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.043250 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.043282 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.170664 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.170869 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.242771 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.242931 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.371217 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.371261 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.443519 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.443552 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.571273 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.571421 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.643195 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.643195 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.771173 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.771299 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.843376 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:49.843403 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.970235 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:49.970277 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.043401 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.043559 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.170896 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.170955 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.243582 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.243713 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.371098 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.371119 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.443299 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.443339 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.571127 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.572957 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.643029 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.643040 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.771199 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.771474 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.842829 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.842914 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:50.971285 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:50.971435 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.043744 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.043921 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.170603 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.170617 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.243785 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.243816 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.370566 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.370725 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.443517 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.443563 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.570466 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.570484 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.642664 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.642699 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.771187 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.771387 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.842912 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.843208 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:51.971726 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:51.971874 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.043366 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.043392 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.170867 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.170906 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.243259 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.243311 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.371194 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.371247 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.443489 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.443485 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.571180 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.571279 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.643143 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.643258 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.771286 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.771453 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.843327 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.843513 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:52.970545 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:52.970584 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:53.043875 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:53.044010 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:53.070807 [Database] reset balances for 3001..6000 to 10
+[Node 4] 2025/12/07 01:21:53.170925 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:53.170934 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:53.242949 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:21:53.242973 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:21:53.369422 Node 4: Bulk active update request (9 entries)
+[Node 4] 2025/12/07 01:21:53.369563 Node 4: setNodeLiveness node=1 live=true
+[Node 4] 2025/12/07 01:21:53.369599 Node 4: setNodeLiveness node=2 live=true
+[Node 4] 2025/12/07 01:21:53.369623 Node 4: setNodeLiveness node=4 live=true
+[Node 4] 2025/12/07 01:21:53.369646 Node 4: setNodeLiveness node=7 live=true
+[Node 4] 2025/12/07 01:21:53.369669 Node 4: setNodeLiveness node=8 live=true
+[Node 4] 2025/12/07 01:21:53.369690 Node 4: setNodeLiveness node=9 live=true
+[Node 4] 2025/12/07 01:21:53.369711 Node 4: setNodeLiveness node=3 live=true
+[Node 4] 2025/12/07 01:21:53.369733 Node 4: setNodeLiveness node=5 live=true
+[Node 4] 2025/12/07 01:21:53.369755 Node 4: setNodeLiveness node=6 live=true
+[Node 4] 2025/12/07 01:21:53.369796 Node 4: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 4] 2025/12/07 01:21:53.369990 Node 4: buildStateSnapshot generating from 2 entries
+[Node 4] 2025/12/07 01:21:53.370025 Node 4: snapshot ready entries=2 ballot=(3,4)
+[Node 4] 2025/12/07 01:21:53.371662 Node 4: sending snapshot entries=2 to node 6
+[Node 4] 2025/12/07 01:21:53.371678 Node 4: RPC NewView->node 6
+[Node 4] 2025/12/07 01:21:53.370851 Node 4: buildStateSnapshot generating from 2 entries
+[Node 4] 2025/12/07 01:21:53.371736 Node 4: snapshot ready entries=2 ballot=(3,4)
+[Node 4] 2025/12/07 01:21:53.371750 Node 4: sending snapshot entries=2 to node 9
+[Node 4] 2025/12/07 01:21:53.371761 Node 4: RPC NewView->node 9
+[Node 4] 2025/12/07 01:21:53.370861 Node 4: buildStateSnapshot generating from 2 entries
+[Node 4] 2025/12/07 01:21:53.371810 Node 4: snapshot ready entries=2 ballot=(3,4)
+[Node 4] 2025/12/07 01:21:53.371817 Node 4: sending snapshot entries=2 to node 2
+[Node 4] 2025/12/07 01:21:53.371824 Node 4: RPC NewView->node 2
+[Node 4] 2025/12/07 01:21:53.371487 Node 4: buildStateSnapshot generating from 2 entries
+[Node 4] 2025/12/07 01:21:53.371842 Node 4: snapshot ready entries=2 ballot=(3,4)
+[Node 4] 2025/12/07 01:21:53.372263 Node 4: sending snapshot entries=2 to node 3
+[Node 4] 2025/12/07 01:21:53.372276 Node 4: RPC NewView->node 3
+[Node 4] 2025/12/07 01:21:53.371495 Node 4: buildStateSnapshot generating from 2 entries
+[Node 4] 2025/12/07 01:21:53.372299 Node 4: snapshot ready entries=2 ballot=(3,4)
+[Node 4] 2025/12/07 01:21:53.372306 Node 4: sending snapshot entries=2 to node 5
+[Node 4] 2025/12/07 01:21:53.372326 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:21:53.384296 Node 4: AcceptedFromNewView from node 9 seq=2
+[Node 4] 2025/12/07 01:21:53.384326 Node 4: AcceptedFromNewView from node 9 seq=1
+[Node 4] 2025/12/07 01:21:53.869550 Node 4: RPC Prepare->node 6
+[Node 4] 2025/12/07 01:21:53.869579 Node 4: RPC Prepare->node 5
+[Node 4] 2025/12/07 01:21:53.873168 Node 4: creating new view from 3 promises
+[Node 4] 2025/12/07 01:21:53.873241 Node 4: applyCommittedEntries up to seq=2
+[Node 4] 2025/12/07 01:21:53.873278 Node 4: new view constructed with 2 entries (maxSeq=2)
+[Node 4] 2025/12/07 01:21:53.873342 Node 4: broadcasting NewView ballot=(4,4) entries=2
+[Node 4] 2025/12/07 01:21:53.873432 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:21:53.873815 Node 4: RPC NewView->node 6
+[Node 4] 2025/12/07 01:21:53.874008 Node 4: heartbeat loop started
+[Node 4] 2025/12/07 01:21:53.894162 Node 4: AcceptedFromNewView from node 6 seq=2
+[Node 4] 2025/12/07 01:21:53.894171 Node 4: AcceptedFromNewView from node 6 seq=1
+[Node 4] 2025/12/07 01:21:53.898443 Node 4: AcceptedFromNewView from node 5 seq=2
+[Node 4] 2025/12/07 01:21:53.898442 Node 4: AcceptedFromNewView from node 5 seq=1
+[Node 4] 2025/12/07 01:21:54.403335 something reached handleClientRequest%!(EXTRA datatypes.ClientRequestRPC={(3003,3004,1)})
+[Node 4] 2025/12/07 01:21:54.403392 Node 4: HandleClientRequest type=REQUEST client=3003 ts=1765088514402036000
+[Node 4] 2025/12/07 01:21:54.403400 Node 4: ProcessClientRequest client=3003 ts=1765088514402036000 no-op=false
+[Node 4] 2025/12/07 01:21:54.403405 Inside processClientRequest
+[Node 4] 2025/12/07 01:21:54.403428 Node 4: RPC Accept->node 6
+[Node 4] 2025/12/07 01:21:54.403439 Node 4: RPC Accept->node 5
+[Node 4] 2025/12/07 01:21:54.414105 Node 4: RPC Commit->node 5
+[Node 4] 2025/12/07 01:21:54.414081 Kind of circular Node 4: executeRequest seq=3 (3003→3004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:21:54.414155 [Database] executing txn (bolt) (3003,3004,1)
+[Node 4] 2025/12/07 01:21:54.414127 Node 4: RPC Commit->node 6
+[Node 4] 2025/12/07 01:21:54.421920 [Database] txn success (bolt): 3003 -> 3004 amount 1
+[Node 4] 2025/12/07 01:21:54.422203 Node 4: ProcessClientRequest seq=3 success=true msg=success
+[Node 4] 2025/12/07 01:21:54.890627 Node 4: UpdateActiveStatus node=9 live=false
+[Node 4] 2025/12/07 01:21:54.890765 Node 4: setNodeLiveness node=9 live=false
+[Node 4] 2025/12/07 01:21:55.318351 Node 4: UpdateActiveStatus node=9 live=true
+[Node 4] 2025/12/07 01:21:55.318490 Node 4: setNodeLiveness node=9 live=true
+[Node 4] 2025/12/07 01:21:55.318637 Node 4: buildStateSnapshot generating from 3 entries
+[Node 4] 2025/12/07 01:21:55.318707 Node 4: snapshot ready entries=3 ballot=(4,4)
+[Node 4] 2025/12/07 01:21:55.318739 Node 4: sending snapshot entries=3 to node 9
+[Node 4] 2025/12/07 01:21:55.318769 Node 4: RPC NewView->node 9
+[Node 4] 2025/12/07 01:21:55.977146 Node 4: UpdateActiveStatus node=7 live=false
+[Node 4] 2025/12/07 01:21:55.977169 Node 4: setNodeLiveness node=7 live=false
+[Node 4] 2025/12/07 01:47:45.705003 [Database] reset balances for 3001..6000 to 10
+[Node 4] 2025/12/07 01:47:45.997585 Node 4: Bulk active update request (9 entries)
+[Node 4] 2025/12/07 01:47:45.997627 Node 4: setNodeLiveness node=1 live=true
+[Node 4] 2025/12/07 01:47:45.997637 Node 4: setNodeLiveness node=2 live=true
+[Node 4] 2025/12/07 01:47:45.997645 Node 4: setNodeLiveness node=3 live=true
+[Node 4] 2025/12/07 01:47:45.997652 Node 4: setNodeLiveness node=5 live=true
+[Node 4] 2025/12/07 01:47:45.997659 Node 4: setNodeLiveness node=6 live=true
+[Node 4] 2025/12/07 01:47:45.997667 Node 4: setNodeLiveness node=9 live=true
+[Node 4] 2025/12/07 01:47:45.997673 Node 4: setNodeLiveness node=4 live=true
+[Node 4] 2025/12/07 01:47:45.997680 Node 4: setNodeLiveness node=7 live=true
+[Node 4] 2025/12/07 01:47:45.997687 Node 4: setNodeLiveness node=8 live=true
+[Node 4] 2025/12/07 01:47:45.997708 Node 4: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 4] 2025/12/07 01:47:45.997749 Node 4: buildStateSnapshot generating from 3 entries
+[Node 4] 2025/12/07 01:47:45.997762 Node 4: snapshot ready entries=3 ballot=(4,4)
+[Node 4] 2025/12/07 01:47:45.998926 Node 4: sending snapshot entries=3 to node 7
+[Node 4] 2025/12/07 01:47:45.998949 Node 4: RPC NewView->node 7
+[Node 4] 2025/12/07 01:47:46.002150 Node 4: AcceptedFromNewView from node 7 seq=2
+[Node 4] 2025/12/07 01:47:46.002305 Node 4: AcceptedFromNewView from node 7 seq=1
+[Node 4] 2025/12/07 01:47:46.002433 Node 4: AcceptedFromNewView from node 7 seq=3
+[Node 4] 2025/12/07 01:47:46.499149 Node 4: RPC Prepare->node 6
+[Node 4] 2025/12/07 01:47:46.499328 Node 4: RPC Prepare->node 5
+[Node 4] 2025/12/07 01:47:46.503802 Node 4: creating new view from 3 promises
+[Node 4] 2025/12/07 01:47:46.503908 Node 4: applyCommittedEntries up to seq=3
+[Node 4] 2025/12/07 01:47:46.503958 Node 4: new view constructed with 3 entries (maxSeq=3)
+[Node 4] 2025/12/07 01:47:46.503999 Node 4: broadcasting NewView ballot=(5,4) entries=3
+[Node 4] 2025/12/07 01:47:46.504113 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:47:46.504536 Node 4: RPC NewView->node 6
+[Node 4] 2025/12/07 01:47:46.504585 Node 4: heartbeat loop started
+[Node 4] 2025/12/07 01:47:46.509111 Node 4: AcceptedFromNewView from node 6 seq=1
+[Node 4] 2025/12/07 01:47:46.509319 Node 4: AcceptedFromNewView from node 6 seq=2
+[Node 4] 2025/12/07 01:47:46.509406 Node 4: AcceptedFromNewView from node 6 seq=3
+[Node 4] 2025/12/07 01:47:46.509503 Node 4: AcceptedFromNewView from node 5 seq=3
+[Node 4] 2025/12/07 01:47:46.509530 Node 4: AcceptedFromNewView from node 5 seq=2
+[Node 4] 2025/12/07 01:47:46.509589 Node 4: AcceptedFromNewView from node 5 seq=1
+[Node 4] 2025/12/07 01:47:47.238081 something reached handleClientRequest%!(EXTRA datatypes.ClientRequestRPC={(3001,3002,1)})
+[Node 4] 2025/12/07 01:47:47.238230 Node 4: HandleClientRequest type=REQUEST client=3001 ts=1765090067236079000
+[Node 4] 2025/12/07 01:47:47.238440 Node 4: ProcessClientRequest client=3001 ts=1765090067236079000 no-op=false
+[Node 4] 2025/12/07 01:47:47.238581 Inside processClientRequest
+[Node 4] 2025/12/07 01:47:47.238704 Node 4: RPC Accept->node 6
+[Node 4] 2025/12/07 01:47:47.238734 Node 4: RPC Accept->node 5
+[Node 4] 2025/12/07 01:47:47.249709 Node 4: RPC Commit->node 5
+[Node 4] 2025/12/07 01:47:47.249681 Kind of circular Node 4: executeRequest seq=4 (3001→3002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:47:47.249871 [Database] executing txn (bolt) (3001,3002,1)
+[Node 4] 2025/12/07 01:47:47.249733 Node 4: RPC Commit->node 6
+[Node 4] 2025/12/07 01:47:47.265315 [Database] txn success (bolt): 3001 -> 3002 amount 1
+[Node 4] 2025/12/07 01:47:47.265600 Node 4: ProcessClientRequest seq=4 success=true msg=success
+[Node 4] 2025/12/07 01:47:47.713230 Node 4: GetBalance RPC account=3002
+[Node 4] 2025/12/07 01:47:47.713461 [Database] queried balance (bolt) 3002=11
+[Node 4] 2025/12/07 01:47:48.908378 [Database] reset balances for 3001..6000 to 10
+[Node 4] 2025/12/07 01:47:49.205457 Node 4: Bulk active update request (9 entries)
+[Node 4] 2025/12/07 01:47:49.205539 Node 4: setNodeLiveness node=2 live=true
+[Node 4] 2025/12/07 01:47:49.205585 Node 4: setNodeLiveness node=4 live=true
+[Node 4] 2025/12/07 01:47:49.205616 Node 4: setNodeLiveness node=5 live=true
+[Node 4] 2025/12/07 01:47:49.205640 Node 4: setNodeLiveness node=6 live=false
+[Node 4] 2025/12/07 01:47:49.205664 Node 4: setNodeLiveness node=7 live=true
+[Node 4] 2025/12/07 01:47:49.205686 Node 4: setNodeLiveness node=9 live=false
+[Node 4] 2025/12/07 01:47:49.205708 Node 4: setNodeLiveness node=1 live=true
+[Node 4] 2025/12/07 01:47:49.205729 Node 4: setNodeLiveness node=3 live=false
+[Node 4] 2025/12/07 01:47:49.205751 Node 4: setNodeLiveness node=8 live=true
+[Node 4] 2025/12/07 01:47:49.205792 Node 4: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 4] 2025/12/07 01:47:49.226531 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.298917 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.305268 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.330707 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.426818 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.500038 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.504779 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.530740 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.626835 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.699038 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.705507 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.707407 Node 4: skipping RPC Prepare to inactive node 6
+[Node 4] 2025/12/07 01:47:49.707504 Node 4: RPC Prepare->node 5
+[Node 4] 2025/12/07 01:47:49.712636 Node 4: creating new view from 2 promises
+[Node 4] 2025/12/07 01:47:49.712718 Node 4: applyCommittedEntries up to seq=4
+[Node 4] 2025/12/07 01:47:49.712746 Node 4: new view constructed with 4 entries (maxSeq=4)
+[Node 4] 2025/12/07 01:47:49.712757 Node 4: broadcasting NewView ballot=(6,4) entries=4
+[Node 4] 2025/12/07 01:47:49.712869 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:47:49.713072 Node 4: heartbeat loop started
+[Node 4] 2025/12/07 01:47:49.715885 Node 4: AcceptedFromNewView from node 5 seq=4
+[Node 4] 2025/12/07 01:47:49.715961 Node 4: AcceptedFromNewView from node 5 seq=3
+[Node 4] 2025/12/07 01:47:49.715997 Node 4: AcceptedFromNewView from node 5 seq=2
+[Node 4] 2025/12/07 01:47:49.716118 Node 4: AcceptedFromNewView from node 5 seq=1
+[Node 4] 2025/12/07 01:47:49.730085 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.826774 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.899272 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.905279 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.913834 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:49.930101 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.026778 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.098906 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.105240 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.114032 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.130762 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.226529 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.299364 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.305121 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.313269 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.330732 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.426848 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.499353 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.504700 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.513198 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.530579 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.626770 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.673232 Node 4: UpdateActiveStatus node=2 live=false
+[Node 4] 2025/12/07 01:47:50.673390 Node 4: setNodeLiveness node=2 live=false
+[Node 4] 2025/12/07 01:47:50.698805 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.705319 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.713472 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.730136 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.825935 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.899025 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.905663 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.913471 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:50.930312 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.026893 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.079763 something reached handleClientRequest%!(EXTRA datatypes.ClientRequestRPC={(3001,3002,1)})
+[Node 4] 2025/12/07 01:47:51.079923 Node 4: HandleClientRequest type=REQUEST client=3001 ts=1765090071077342000
+[Node 4] 2025/12/07 01:47:51.079988 Node 4: ProcessClientRequest client=3001 ts=1765090071077342000 no-op=false
+[Node 4] 2025/12/07 01:47:51.080048 Inside processClientRequest
+[Node 4] 2025/12/07 01:47:51.080156 Node 4: skipping RPC Accept to inactive node 6
+[Node 4] 2025/12/07 01:47:51.080196 Node 4: RPC Accept->node 5
+[Node 4] 2025/12/07 01:47:51.091016 Kind of circular Node 4: executeRequest seq=5 (3001→3002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:47:51.091166 [Database] executing txn (bolt) (3001,3002,1)
+[Node 4] 2025/12/07 01:47:51.091073 Node 4: RPC Commit->node 5
+[Node 4] 2025/12/07 01:47:51.098781 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.105273 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.107522 [Database] txn success (bolt): 3001 -> 3002 amount 1
+[Node 4] 2025/12/07 01:47:51.107765 Node 4: ProcessClientRequest seq=5 success=true msg=success
+[Node 4] 2025/12/07 01:47:51.113313 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.130724 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.226640 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.299004 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.304954 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.313944 Node 4: UpdateActiveStatus node=5 live=false
+[Node 4] 2025/12/07 01:47:51.313982 Node 4: setNodeLiveness node=5 live=false
+[Node 4] 2025/12/07 01:47:51.314016 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.314031 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.330834 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.330837 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.426783 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.426783 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.499368 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.499429 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.504983 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.505040 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.514149 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.514190 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.514921 something reached handleClientRequest%!(EXTRA datatypes.ClientRequestRPC={(3003,3004,1)})
+[Node 4] 2025/12/07 01:47:51.514946 Node 4: HandleClientRequest type=REQUEST client=3003 ts=1765090071513339000
+[Node 4] 2025/12/07 01:47:51.514956 Node 4: ProcessClientRequest client=3003 ts=1765090071513339000 no-op=false
+[Node 4] 2025/12/07 01:47:51.514965 Inside processClientRequest
+[Node 4] 2025/12/07 01:47:51.514974 Node 4: insufficient active nodes in cluster 1/2
+[Node 4] 2025/12/07 01:47:51.530761 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.530787 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.626888 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.626952 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.698757 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.698941 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.705579 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.705698 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.713789 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.713859 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.716537 Node 4: GetBalance RPC account=3004
+[Node 4] 2025/12/07 01:47:51.716691 [Database] queried balance (bolt) 3004=10
+[Node 4] 2025/12/07 01:47:51.730139 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.730147 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.826809 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.826816 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.898936 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.898938 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.905417 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.905450 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.913381 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.913413 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:51.930141 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:51.930142 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.026846 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.026862 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.099046 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.099045 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.105033 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.105173 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.113975 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.114140 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.131296 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.131335 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.226580 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.226589 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.299042 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.299060 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.305462 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.305488 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.313431 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.313493 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.330770 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.330814 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.426889 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.426951 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.499502 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.499665 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.505130 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.505228 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.514348 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.514614 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.530918 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.530964 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.626761 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.626790 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.699156 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.699177 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.705681 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.705816 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.714164 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.714257 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.729836 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.729830 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.826593 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.826649 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.899051 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.899094 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.904967 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.905130 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.914159 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.914382 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:52.930382 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:52.930396 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.026393 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.026393 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.098987 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.099096 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.105882 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.106376 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.113858 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.113937 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.130889 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.130936 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.140361 [Database] reset balances for 3001..6000 to 10
+[Node 4] 2025/12/07 01:47:53.225828 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.225825 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.298996 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.299051 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.305605 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.305758 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.313378 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.313840 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.330826 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.330907 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.426338 Node 4: skipping RPC HandleHeartbeat to inactive node 6
+[Node 4] 2025/12/07 01:47:53.426382 Node 4: skipping RPC HandleHeartbeat to inactive node 5
+[Node 4] 2025/12/07 01:47:53.437594 Node 4: Bulk active update request (9 entries)
+[Node 4] 2025/12/07 01:47:53.437739 Node 4: setNodeLiveness node=4 live=true
+[Node 4] 2025/12/07 01:47:53.437799 Node 4: setNodeLiveness node=2 live=true
+[Node 4] 2025/12/07 01:47:53.437838 Node 4: setNodeLiveness node=7 live=true
+[Node 4] 2025/12/07 01:47:53.437870 Node 4: setNodeLiveness node=9 live=true
+[Node 4] 2025/12/07 01:47:53.437898 Node 4: setNodeLiveness node=1 live=true
+[Node 4] 2025/12/07 01:47:53.437929 Node 4: setNodeLiveness node=5 live=true
+[Node 4] 2025/12/07 01:47:53.437952 Node 4: setNodeLiveness node=8 live=true
+[Node 4] 2025/12/07 01:47:53.437970 Node 4: setNodeLiveness node=6 live=true
+[Node 4] 2025/12/07 01:47:53.437989 Node 4: setNodeLiveness node=3 live=true
+[Node 4] 2025/12/07 01:47:53.438022 Node 4: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 4] 2025/12/07 01:47:53.438262 Node 4: buildStateSnapshot generating from 5 entries
+[Node 4] 2025/12/07 01:47:53.438306 Node 4: snapshot ready entries=5 ballot=(6,4)
+[Node 4] 2025/12/07 01:47:53.440365 Node 4: sending snapshot entries=5 to node 3
+[Node 4] 2025/12/07 01:47:53.440396 Node 4: RPC NewView->node 3
+[Node 4] 2025/12/07 01:47:53.439766 Node 4: buildStateSnapshot generating from 5 entries
+[Node 4] 2025/12/07 01:47:53.440598 Node 4: snapshot ready entries=5 ballot=(6,4)
+[Node 4] 2025/12/07 01:47:53.440611 Node 4: sending snapshot entries=5 to node 9
+[Node 4] 2025/12/07 01:47:53.440622 Node 4: RPC NewView->node 9
+[Node 4] 2025/12/07 01:47:53.439773 Node 4: buildStateSnapshot generating from 5 entries
+[Node 4] 2025/12/07 01:47:53.440648 Node 4: snapshot ready entries=5 ballot=(6,4)
+[Node 4] 2025/12/07 01:47:53.440654 Node 4: sending snapshot entries=5 to node 2
+[Node 4] 2025/12/07 01:47:53.440661 Node 4: RPC NewView->node 2
+[Node 4] 2025/12/07 01:47:53.440326 Node 4: buildStateSnapshot generating from 5 entries
+[Node 4] 2025/12/07 01:47:53.440676 Node 4: snapshot ready entries=5 ballot=(6,4)
+[Node 4] 2025/12/07 01:47:53.440682 Node 4: sending snapshot entries=5 to node 5
+[Node 4] 2025/12/07 01:47:53.440688 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:47:53.440340 Node 4: buildStateSnapshot generating from 5 entries
+[Node 4] 2025/12/07 01:47:53.440704 Node 4: snapshot ready entries=5 ballot=(6,4)
+[Node 4] 2025/12/07 01:47:53.440710 Node 4: sending snapshot entries=5 to node 6
+[Node 4] 2025/12/07 01:47:53.440720 Node 4: RPC NewView->node 6
+[Node 4] 2025/12/07 01:47:53.938812 Node 4: RPC Prepare->node 6
+[Node 4] 2025/12/07 01:47:53.938812 Node 4: RPC Prepare->node 5
+[Node 4] 2025/12/07 01:47:53.942445 Node 4: RPC Prepare->node 6
+[Node 4] 2025/12/07 01:47:53.942812 Node 4: RPC Prepare->node 5
+[Node 4] 2025/12/07 01:47:53.945679 Node 4: creating new view from 3 promises
+[Node 4] 2025/12/07 01:47:53.945715 Node 4: applyCommittedEntries up to seq=7
+[Node 4] 2025/12/07 01:47:53.945727 Kind of circular Node 4: executeRequest seq=6 (6009→6010,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:47:53.945759 [Database] executing txn (bolt) (6009,6010,1)
+[Node 4] 2025/12/07 01:47:53.953038 [Database] txn failed (bolt): (6009,6010,1) — sender does not exist
+[Node 4] 2025/12/07 01:47:53.953059 Kind of circular Node 4: executeRequest seq=7 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:47:53.953071 [Database] executing txn (bolt) (6001,6002,1)
+[Node 4] 2025/12/07 01:47:53.961095 [Database] txn failed (bolt): (6001,6002,1) — sender does not exist
+[Node 4] 2025/12/07 01:47:53.961192 Node 4: new view constructed with 7 entries (maxSeq=7)
+[Node 4] 2025/12/07 01:47:53.961203 Node 4: broadcasting NewView ballot=(9,4) entries=7
+[Node 4] 2025/12/07 01:47:53.961231 Node 4: RPC NewView->node 6
+[Node 4] 2025/12/07 01:47:53.961237 Node 4: heartbeat loop started
+[Node 4] 2025/12/07 01:47:53.961245 Node 4: RPC NewView->node 5
+[Node 4] 2025/12/07 01:47:53.963285 Node 4: AcceptedFromNewView from node 5 seq=6
+[Node 4] 2025/12/07 01:47:53.963321 Node 4: AcceptedFromNewView from node 5 seq=2
+[Node 4] 2025/12/07 01:47:53.963291 Node 4: AcceptedFromNewView from node 6 seq=3
+[Node 4] 2025/12/07 01:47:53.963535 Node 4: AcceptedFromNewView from node 5 seq=5
+[Node 4] 2025/12/07 01:47:53.963588 Node 4: AcceptedFromNewView from node 6 seq=2
+[Node 4] 2025/12/07 01:47:53.963624 Node 4: AcceptedFromNewView from node 5 seq=4
+[Node 4] 2025/12/07 01:47:53.963649 Node 4: AcceptedFromNewView from node 6 seq=6
+[Node 4] 2025/12/07 01:47:53.964098 Node 4: AcceptedFromNewView from node 6 seq=4
+[Node 4] 2025/12/07 01:47:53.964146 Node 4: AcceptedFromNewView from node 5 seq=3
+[Node 4] 2025/12/07 01:47:53.964157 Node 4: AcceptedFromNewView from node 5 seq=7
+[Node 4] 2025/12/07 01:47:53.964162 Node 4: AcceptedFromNewView from node 6 seq=1
+[Node 4] 2025/12/07 01:47:53.964207 Node 4: AcceptedFromNewView from node 6 seq=7
+[Node 4] 2025/12/07 01:47:53.964233 Node 4: AcceptedFromNewView from node 6 seq=5
+[Node 4] 2025/12/07 01:47:53.964222 Node 4: AcceptedFromNewView from node 5 seq=1
+[Node 4] 2025/12/07 01:47:54.466024 something reached handleClientRequest%!(EXTRA datatypes.ClientRequestRPC={(3003,3004,1)})
+[Node 4] 2025/12/07 01:47:54.466044 Node 4: HandleClientRequest type=REQUEST client=3003 ts=1765090074462711000
+[Node 4] 2025/12/07 01:47:54.466052 Node 4: ProcessClientRequest client=3003 ts=1765090074462711000 no-op=false
+[Node 4] 2025/12/07 01:47:54.466058 Inside processClientRequest
+[Node 4] 2025/12/07 01:47:54.466078 Node 4: RPC Accept->node 6
+[Node 4] 2025/12/07 01:47:54.466081 Node 4: RPC Accept->node 5
+[Node 4] 2025/12/07 01:47:54.476985 Kind of circular Node 4: executeRequest seq=8 (3003→3004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 4] 2025/12/07 01:47:54.477036 [Database] executing txn (bolt) (3003,3004,1)
+[Node 4] 2025/12/07 01:47:54.477010 Node 4: RPC Commit->node 5
+[Node 4] 2025/12/07 01:47:54.477026 Node 4: RPC Commit->node 6
+[Node 4] 2025/12/07 01:47:54.484952 [Database] txn success (bolt): 3003 -> 3004 amount 1
+[Node 4] 2025/12/07 01:47:54.485060 Node 4: ProcessClientRequest seq=8 success=true msg=success
+[Node 4] 2025/12/07 01:47:54.949250 Node 4: UpdateActiveStatus node=9 live=false
+[Node 4] 2025/12/07 01:47:54.949292 Node 4: setNodeLiveness node=9 live=false
+[Node 4] 2025/12/07 01:47:55.379561 Node 4: UpdateActiveStatus node=9 live=true
+[Node 4] 2025/12/07 01:47:55.379669 Node 4: setNodeLiveness node=9 live=true
+[Node 4] 2025/12/07 01:47:55.379785 Node 4: buildStateSnapshot generating from 8 entries
+[Node 4] 2025/12/07 01:47:55.379873 Node 4: snapshot ready entries=8 ballot=(9,4)
+[Node 4] 2025/12/07 01:47:55.379924 Node 4: sending snapshot entries=8 to node 9
+[Node 4] 2025/12/07 01:47:55.379960 Node 4: RPC NewView->node 9
+[Node 4] 2025/12/07 01:47:56.040957 Node 4: UpdateActiveStatus node=7 live=false
+[Node 4] 2025/12/07 01:47:56.041159 Node 4: setNodeLiveness node=7 live=false
+[Node 4] 2025/12/07 02:53:33.819620 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:33.891606 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:33.897485 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:33.905884 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:33.922575 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:33.955884 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.018787 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.091906 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.097667 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.105841 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.123357 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.154060 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.218763 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.291241 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.297485 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.306186 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.322905 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.354385 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.419073 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.491969 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.497079 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.506218 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.522579 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.554182 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.618954 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.690688 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.697244 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.705767 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.722146 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.753595 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.818554 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.890839 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.897352 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.905779 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.922041 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:34.954127 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.018953 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.091858 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.097156 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.106289 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.122903 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.154032 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.218437 Node 4: RPC dial HandleHeartbeat to node 6 failed: dial tcp 127.0.0.1:8006: connect: connection refused
+[Node 4] 2025/12/07 02:53:35.226575 Node 4 shutting down...
+[Node 4] 2025/12/07 02:53:35.226635 Node 4: stopping node
+[Node 4] 2025/12/07 02:53:35.226667 Node 4: accept error: accept tcp 127.0.0.1:8004: use of closed network connection
+[Node 4] 2025/12/07 02:53:35.226677 Node 4: RPC server shutting down

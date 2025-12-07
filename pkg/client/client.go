@@ -127,6 +127,28 @@ func (c *Client) SendTransaction(txn datatypes.Txn) (datatypes.ReplyMsg, error) 
 	}
     log.Printf("Client %s: leader %d request failed: %v", c.ID, leader, err)
 
+    // Attempt quick leader discovery within this cluster before broadcasting
+    if members, ok := config.ClusterMembers[cid]; ok {
+        deadline := time.Now().Add(800 * time.Millisecond)
+        for time.Now().Before(deadline) {
+            for _, nodeID := range members {
+                addr := c.NodeAddresses[nodeID]
+                cli, derr := rpc.Dial("tcp", addr)
+                if derr != nil { continue }
+                var info datatypes.LeaderInfo
+                _ = cli.Call("NodeService.GetLeader", true, &info)
+                cli.Close()
+                if info.IsLeader && info.LeaderID != 0 {
+                    c.UpdateLeaderForCluster(cid, info.LeaderID)
+                    if r, e := c.sendToNode(info.LeaderID, request); e == nil {
+                        return r, nil
+                    }
+                }
+            }
+            time.Sleep(100 * time.Millisecond)
+        }
+    }
+
     //If the request to cached leader fails, try other nodes in the same cluster
     log.Printf("Client %s: cluster %d leader %d failed, trying cluster members\n", c.ID, cid, leader)
 
