@@ -1247,20 +1247,21 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 // detectCrossShardBankTxn returns true if a BANK_TXN touches different shards.
 func (n *Node) detectCrossShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int, int) {
-	if req.MessageType != "BANK_TXN" || req.IsNoOp {
-		return false, 0, 0, 0, 0
-	}
-	sID, err1 := strconv.Atoi(req.Transaction.Sender)
-	rID, err2 := strconv.Atoi(req.Transaction.Receiver)
-	if err1 != nil || err2 != nil {
-		return false, 0, 0, 0, 0
-	}
-	cs := shard.ClusterOfItem(sID)
-	cr := shard.ClusterOfItem(rID)
-	if cs == 0 || cr == 0 || cs == cr {
-		return false, sID, rID, cs, cr
-	}
-	return true, sID, rID, cs, cr
+    // Treat as potential write txn based on payload, not MessageType
+    if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
+        return false, 0, 0, 0, 0
+    }
+    sID, err1 := strconv.Atoi(req.Transaction.Sender)
+    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+    if err1 != nil || err2 != nil {
+        return false, 0, 0, 0, 0
+    }
+    cs := shard.ClusterOfItem(sID)
+    cr := shard.ClusterOfItem(rID)
+    if cs == 0 || cr == 0 || cs == cr {
+        return false, sID, rID, cs, cr
+    }
+    return true, sID, rID, cs, cr
 }
 
 // handleCrossShardCoordinator runs the coordinator half of a 2PC for a cross-shard BANK_TXN.
@@ -1583,20 +1584,21 @@ func (n *Node) proposeAndWait(req datatypes.ClientRequest) (int, bool) {
 // isIntraShardBankTxn checks if this request is a Project 3 bank txn where
 // both accounts are in the same shard. Returns (true, sID, rID, clusterID).
 func (n *Node) isIntraShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int) {
-	if req.MessageType != "BANK_TXN" || req.IsNoOp {
-		return false, 0, 0, 0
-	}
-	sID, err1 := strconv.Atoi(req.Transaction.Sender)
-	rID, err2 := strconv.Atoi(req.Transaction.Receiver)
-	if err1 != nil || err2 != nil {
-		return false, 0, 0, 0
-	}
-	cs := shard.ClusterOfItem(sID)
-	cr := shard.ClusterOfItem(rID)
-	if cs == 0 || cr == 0 || cs != cr {
-		return false, sID, rID, 0
-	}
-	return true, sID, rID, cs
+    // Treat as potential write txn based on payload, not MessageType
+    if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
+        return false, 0, 0, 0
+    }
+    sID, err1 := strconv.Atoi(req.Transaction.Sender)
+    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+    if err1 != nil || err2 != nil {
+        return false, 0, 0, 0
+    }
+    cs := shard.ClusterOfItem(sID)
+    cr := shard.ClusterOfItem(rID)
+    if cs == 0 || cr == 0 || cs != cr {
+        return false, sID, rID, 0
+    }
+    return true, sID, rID, cs
 }
 
 // HandlePrepare responds to prepare RPCs with promises and prior log state.
