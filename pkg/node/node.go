@@ -2194,13 +2194,16 @@ func (n *Node) StartLeaderElection() bool {
 		n.acceptedFromNewViewCount = 0
 		n.ackFromNewView = make(map[int]bool)
 
-		// New leader epoch: clear any locks from previous ballots to avoid stale locks
-		n.clearAllLocksLocked("became leader with new ballot")
+			// New leader epoch: clear any locks from previous ballots to avoid stale locks
+			n.clearAllLocksLocked("became leader with new ballot")
 
-		n.CurrentBallot = ballot
-		go n.sendHeartbeats()
-		go n.runDecisionRetryLoop()
-		//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
+			n.CurrentBallot = ballot
+			// Refresh leader timers to avoid immediate timeout-triggered re-elections
+			n.lastLeaderMsg = time.Now()
+			n.electionCoolDown = time.Now()
+			go n.sendHeartbeats()
+			go n.runDecisionRetryLoop()
+			//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
 
@@ -2323,6 +2326,9 @@ func (n *Node) ForceLeader() bool {
 			n.IsLeader = true
 			n.clearAllLocksLocked("force leader with new ballot")
 			n.CurrentBallot = ballot
+			// Refresh leader timers to avoid immediate timeout-triggered re-elections
+			n.lastLeaderMsg = time.Now()
+			n.electionCoolDown = time.Now()
 			acceptLog := n.createNewViewFromPromises(promises)
 			newViewMsg := datatypes.NewViewMsg{Ballot: ballot, AcceptLog: acceptLog}
 			n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
