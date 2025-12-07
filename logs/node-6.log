@@ -3032,3 +3032,92 @@
 [Node 6] 2025/12/06 20:22:59.781001 [Database] executing txn (bolt) (3001,3002,1)
 [Node 6] 2025/12/06 20:22:59.795981 [Database] txn success (bolt): 3001 -> 3002 amount 1
 [Node 6] 2025/12/06 20:22:59.796191 Node 6: executeRequestsInOrder stopping at gap seq=2
+[Node 6] 2025/12/06 22:21:05.205670 Node 6: GetBalance RPC account=3002
+[Node 6] 2025/12/06 22:21:05.205816 [Database] queried balance (bolt) 3002=11
+[Node 6] 2025/12/06 22:21:15.097228 Node 6: GetBalance RPC account=3001
+[Node 6] 2025/12/06 22:21:15.097366 [Database] queried balance (bolt) 3001=9
+[Node 6] 2025/12/06 22:23:59.050753 [Database] reset balances for 3001..6000 to 10
+[Node 6] 2025/12/06 22:23:59.348388 Node 6: Bulk active update request (9 entries)
+[Node 6] 2025/12/06 22:23:59.348515 Node 6: setNodeLiveness node=5 live=true
+[Node 6] 2025/12/06 22:23:59.348557 Node 6: setNodeLiveness node=7 live=true
+[Node 6] 2025/12/06 22:23:59.348587 Node 6: setNodeLiveness node=3 live=true
+[Node 6] 2025/12/06 22:23:59.348616 Node 6: setNodeLiveness node=6 live=true
+[Node 6] 2025/12/06 22:23:59.348646 Node 6: setNodeLiveness node=8 live=true
+[Node 6] 2025/12/06 22:23:59.348669 Node 6: setNodeLiveness node=9 live=true
+[Node 6] 2025/12/06 22:23:59.348696 Node 6: setNodeLiveness node=1 live=true
+[Node 6] 2025/12/06 22:23:59.348722 Node 6: setNodeLiveness node=4 live=true
+[Node 6] 2025/12/06 22:23:59.348748 Node 6: setNodeLiveness node=2 live=true
+[Node 6] 2025/12/06 22:23:59.348793 Node 6: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 6] 2025/12/06 22:23:59.851876 Node 6: Prepare RPC from ballot (3,4)
+[Node 6] 2025/12/06 22:23:59.851956 Node 6: Promised ballot (3,4)
+[Node 6] 2025/12/06 22:23:59.855461 Node 6: NewView RPC ballot=(3,4) entries=1
+[Node 6] 2025/12/06 22:23:59.855631 Node 6: applyCommittedEntries up to seq=1
+[Node 6] 2025/12/06 22:23:59.855685 Node 6: executeRequestsInOrder triggered
+[Node 6] 2025/12/06 22:23:59.855705 Node 6: executeRequestsInOrder stopping at gap seq=2
+[Node 6] 2025/12/06 22:23:59.855717 Node 6: RPC AcceptedFromNewView->node 4
+[Node 6] 2025/12/06 22:24:00.577670 Node 6: Accept RPC seq=2 ballot=(3,4)
+[Node 6] 2025/12/06 22:24:00.577775 Node 6 ACCEPT seq=2 ballot=(3,4) txn=(3001→3002,1)
+[Node 6] 2025/12/06 22:24:00.577817 Node 6: Accepted seq 2
+[Node 6] 2025/12/06 22:24:00.588068 Node 6: Commit RPC seq=2 ballot=(3,4)
+[Node 6] 2025/12/06 22:24:00.588164 Node 6: executeRequestsInOrder triggered
+[Node 6] 2025/12/06 22:24:00.588183 Node 6: EXECUTING seq=2 (3001→3002,1)
+[Node 6] 2025/12/06 22:24:00.588202 Kind of circular Node 6: executeRequest seq=2 (3001→3002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 6] 2025/12/06 22:24:00.588232 [Database] executing txn (bolt) (3001,3002,1)
+[Node 6] 2025/12/06 22:24:00.604318 [Database] txn success (bolt): 3001 -> 3002 amount 1
+[Node 6] 2025/12/06 22:24:00.604501 Node 6: executeRequestsInOrder stopping at gap seq=3
+[Node 6] 2025/12/06 22:24:28.401632 Node 6: GetBalance RPC account=3004
+[Node 6] 2025/12/06 22:24:28.401795 [Database] queried balance (bolt) 3004=10
+[Node 6] 2025/12/06 22:25:10.757438 Node 6: GetBalance RPC account=3001
+[Node 6] 2025/12/06 22:25:10.757499 [Database] queried balance (bolt) 3001=9
+[Node 6] 2025/12/06 22:25:19.912908 Node 6: GetBalance RPC account=3002
+[Node 6] 2025/12/06 22:25:19.913095 [Database] queried balance (bolt) 3002=11
+[Node 6] 2025/12/06 22:40:45.365028 [Database] reset balances for 3001..6000 to 10
+[Node 6] 2025/12/06 22:40:45.657964 Node 6: Bulk active update request (9 entries)
+[Node 6] 2025/12/06 22:40:45.658023 Node 6: setNodeLiveness node=9 live=true
+[Node 6] 2025/12/06 22:40:45.658047 Node 6: setNodeLiveness node=3 live=true
+[Node 6] 2025/12/06 22:40:45.658066 Node 6: setNodeLiveness node=1 live=true
+[Node 6] 2025/12/06 22:40:45.658082 Node 6: setNodeLiveness node=2 live=true
+[Node 6] 2025/12/06 22:40:45.658101 Node 6: setNodeLiveness node=8 live=true
+[Node 6] 2025/12/06 22:40:45.658118 Node 6: setNodeLiveness node=4 live=true
+[Node 6] 2025/12/06 22:40:45.658134 Node 6: setNodeLiveness node=5 live=true
+[Node 6] 2025/12/06 22:40:45.658152 Node 6: setNodeLiveness node=6 live=true
+[Node 6] 2025/12/06 22:40:45.658167 Node 6: setNodeLiveness node=7 live=true
+[Node 6] 2025/12/06 22:40:45.658199 Node 6: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 6] 2025/12/06 22:40:46.162071 Node 6: Prepare RPC from ballot (4,4)
+[Node 6] 2025/12/06 22:40:46.162164 Node 6: Promised ballot (4,4)
+[Node 6] 2025/12/06 22:40:46.165157 Node 6: NewView RPC ballot=(4,4) entries=2
+[Node 6] 2025/12/06 22:40:46.165296 Node 6: applyCommittedEntries up to seq=2
+[Node 6] 2025/12/06 22:40:46.165369 Node 6: executeRequestsInOrder triggered
+[Node 6] 2025/12/06 22:40:46.165412 Node 6: executeRequestsInOrder stopping at gap seq=3
+[Node 6] 2025/12/06 22:40:46.165443 Node 6: RPC AcceptedFromNewView->node 4
+[Node 6] 2025/12/06 22:40:46.165760 Node 6: RPC AcceptedFromNewView->node 4
+[Node 6] 2025/12/06 22:40:46.891448 Node 6: Accept RPC seq=3 ballot=(4,4)
+[Node 6] 2025/12/06 22:40:46.891531 Node 6 ACCEPT seq=3 ballot=(4,4) txn=(3001→3002,1)
+[Node 6] 2025/12/06 22:40:46.891562 Node 6: Accepted seq 3
+[Node 6] 2025/12/06 22:40:46.903105 Node 6: Commit RPC seq=3 ballot=(4,4)
+[Node 6] 2025/12/06 22:40:46.906126 Node 6: executeRequestsInOrder triggered
+[Node 6] 2025/12/06 22:40:46.906168 Node 6: EXECUTING seq=3 (3001→3002,1)
+[Node 6] 2025/12/06 22:40:46.906189 Kind of circular Node 6: executeRequest seq=3 (3001→3002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 6] 2025/12/06 22:40:46.906427 [Database] executing txn (bolt) (3001,3002,1)
+[Node 6] 2025/12/06 22:40:46.925042 [Database] txn success (bolt): 3001 -> 3002 amount 1
+[Node 6] 2025/12/06 22:40:46.925073 Node 6: executeRequestsInOrder stopping at gap seq=4
+[Node 6] 2025/12/06 22:41:18.614893 Node 6: GetBalance RPC account=3001
+[Node 6] 2025/12/06 22:41:18.615047 [Database] queried balance (bolt) 3001=9
+[Node 6] 2025/12/06 22:41:22.443206 Node 6: GetBalance RPC account=3002
+[Node 6] 2025/12/06 22:41:22.443338 [Database] queried balance (bolt) 3002=11
+[Node 6] 2025/12/06 22:41:50.602827 [Database] reset balances for 3001..6000 to 10
+[Node 6] 2025/12/06 22:41:50.902528 Node 6: Bulk active update request (9 entries)
+[Node 6] 2025/12/06 22:41:50.902706 Node 6: setNodeLiveness node=9 live=false
+[Node 6] 2025/12/06 22:41:50.902759 Node 6: setNodeLiveness node=5 live=true
+[Node 6] 2025/12/06 22:41:50.902789 Node 6: setNodeLiveness node=2 live=true
+[Node 6] 2025/12/06 22:41:50.902809 Node 6: setNodeLiveness node=6 live=false
+[Node 6] 2025/12/06 22:41:50.902837 Node 6: setNodeLiveness node=8 live=true
+[Node 6] 2025/12/06 22:41:50.902862 Node 6: setNodeLiveness node=1 live=true
+[Node 6] 2025/12/06 22:41:50.902892 Node 6: setNodeLiveness node=4 live=true
+[Node 6] 2025/12/06 22:41:50.902916 Node 6: setNodeLiveness node=3 live=false
+[Node 6] 2025/12/06 22:41:50.902938 Node 6: setNodeLiveness node=7 live=true
+[Node 6] 2025/12/06 22:41:50.902977 Node 6: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 6] 2025/12/06 22:43:39.264644 Node 6: GetBalance RPC account=3001
+[Node 6] 2025/12/06 22:43:39.264909 [Database] queried balance (bolt) 3001=10
+[Node 6] 2025/12/06 22:44:46.289162 Node 6: GetBalance RPC account=3004
+[Node 6] 2025/12/06 22:44:46.289309 [Database] queried balance (bolt) 3004=10

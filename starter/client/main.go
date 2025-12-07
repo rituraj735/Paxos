@@ -135,7 +135,7 @@ func main() {
 	fmt.Scanln(&fileName)
 	fmt.Println("Choose an option:")
 	for {
-		if option == 6 {
+		if option == 7 {
 			break
 		}
 		fmt.Println("1.Process next transactions set")
@@ -143,7 +143,8 @@ func main() {
 		fmt.Println("3.PrintDB")
 		fmt.Println("4.PrintStatus")
 		fmt.Println("5.PrintView")
-		fmt.Println("6.Exit")
+		fmt.Println("6.PrintBalance")
+		fmt.Println("7.Exit")
 		fmt.Scanln(&option)
 		fmt.Println("You chose option:", option)
 		switch option {
@@ -158,6 +159,8 @@ func main() {
 		case 5:
 			printViewFromAllNodes()
 		case 6:
+			printBalanceFromCluster(filePathReader)
+		case 7:
 			fmt.Println("Exiting...")
 			return
 		default:
@@ -470,7 +473,7 @@ func processNextTestSet(reader *bufio.Reader) {
 	perf = PerfStats{}
 	perf.StartWall = time.Now()
 
-    // No global leader updates here; routing is cluster-aware in client.SendTransaction
+	// No global leader updates here; routing is cluster-aware in client.SendTransaction
 
 	flushBacklog()
 	successCount := 0
@@ -563,6 +566,7 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 	log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
 	currentSetIndex++
+	currentSet.SetNumber++
 
 	// Post-set quick summary
 	avg := time.Duration(0)
@@ -711,4 +715,45 @@ func printViewFromAllNodes() {
 	}
 
 	fmt.Println("==============================================")
+}
+
+// printBalanceFromCluster prompts for a client ID and prints balances on all
+// three nodes in the owning cluster in the format: nX : bal, nY : bal, nZ : bal
+func printBalanceFromCluster(reader *bufio.Reader) {
+	fmt.Print("Enter client ID: ")
+	line, _ := reader.ReadString('\n')
+	line = strings.TrimSpace(line)
+	id, err := strconv.Atoi(line)
+	if err != nil || id < config.MinAccountID || id > config.MaxAccountID {
+		fmt.Println("❌ Invalid client ID")
+		return
+	}
+
+	cid := shard.ClusterOfItem(id)
+	if cid == 0 {
+		fmt.Println("❌ No cluster for this ID")
+		return
+	}
+
+	nodes, ok := config.ClusterMembers[cid]
+	if !ok || len(nodes) == 0 {
+		fmt.Println("❌ No nodes for cluster")
+		return
+	}
+
+	parts := make([]string, 0, len(nodes))
+	for _, nid := range nodes {
+		addr := config.NodeAddresses[nid]
+		c, err := rpc.Dial("tcp", addr)
+		if err != nil {
+			parts = append(parts, fmt.Sprintf("n%d : down/disconnected", nid))
+			continue
+		}
+		var rep datatypes.GetBalanceReply
+		_ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+		c.Close()
+		parts = append(parts, fmt.Sprintf("n%d : %d", nid, rep.Balance))
+	}
+
+	fmt.Println(strings.Join(parts, ", "))
 }
