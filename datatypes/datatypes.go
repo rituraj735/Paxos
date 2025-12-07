@@ -200,7 +200,9 @@ type TriggerElectionReply struct {
 
 // Phase 8: flush/reset per-set state and balances
 type FlushStateArgs struct{
-    ResetDB bool
+    ResetDB        bool
+    ResetConsensus bool
+    ResetWAL       bool
 }
 type FlushStateReply struct{
     Ok bool

@@ -1,547 +1,270 @@
-[Client] 2025/12/07 01:18:19.046288 ClientDriver: started; expecting 9000 clients
-[Client] 2025/12/07 01:18:24.362950 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:18:24.365314 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:18:24.365493 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:18:27.832679 ClientDriver: processing set 1 with 5 txns
-[Client] 2025/12/07 01:18:29.136172 
+[Client] 2025/12/07 12:02:12.020296 ClientDriver: started; expecting 9000 clients
+[Client] 2025/12/07 12:02:18.459939 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/07 12:02:18.462536 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/07 12:02:18.462630 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/07 12:02:20.696629 ClientDriver: processing set 1 with 5 txns
+[Client] 2025/12/07 12:02:22.000363 
 [1/5] Transaction: (1001,1002,1)
-[Client] 2025/12/07 01:18:29.136431 ClientDriver: set 1 txn 1/5 (1001,1002,1)
-[Client] 2025/12/07 01:18:29.136621 Client 1001: sending txn (1001,1002,1) ts=1765088309136599000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:18:29.138597 Client 1001: sending request to node 1 seq? pending ts=1765088309136599000
-[Client] 2025/12/07 01:18:29.162700 Client 1001: node 1 replied success=true seq=1
-[Client] 2025/12/07 01:18:29.165405 Client 1001: cluster 1 leader 1 succeeded ts=1765088309136599000 seq=1
-[Client] 2025/12/07 01:18:29.165419 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 01:18:29.366513 
+[Client] 2025/12/07 12:02:22.000657 ClientDriver: set 1 txn 1/5 (1001,1002,1)
+[Client] 2025/12/07 12:02:22.000788 Client 1001: sending txn (1001,1002,1) ts=1765126942000729000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:02:22.002068 Client 1001: sending request to node 1 seq? pending ts=1765126942000729000
+[Client] 2025/12/07 12:02:22.031214 Client 1001: node 1 replied success=true seq=1
+[Client] 2025/12/07 12:02:22.034491 Client 1001: cluster 1 leader 1 succeeded ts=1765126942000729000 seq=1
+[Client] 2025/12/07 12:02:22.034509 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:22.235611 
 [2/5] Transaction: (3001,3002,1)
-[Client] 2025/12/07 01:18:29.366754 ClientDriver: set 1 txn 2/5 (3001,3002,1)
-[Client] 2025/12/07 01:18:29.366937 Client 3001: sending txn (3001,3002,1) ts=1765088309366843000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:18:29.368636 Client 3001: sending request to node 4 seq? pending ts=1765088309366843000
-[Client] 2025/12/07 01:18:29.395894 Client 3001: node 4 replied success=true seq=1
-[Client] 2025/12/07 01:18:29.395964 Client 3001: cluster 2 leader 4 succeeded ts=1765088309366843000 seq=1
-[Client] 2025/12/07 01:18:29.398250 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 01:18:29.599349 
+[Client] 2025/12/07 12:02:22.235804 ClientDriver: set 1 txn 2/5 (3001,3002,1)
+[Client] 2025/12/07 12:02:22.235938 Client 3001: sending txn (3001,3002,1) ts=1765126942235873000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:02:22.237128 Client 3001: sending request to node 4 seq? pending ts=1765126942235873000
+[Client] 2025/12/07 12:02:22.262508 Client 3001: node 4 replied success=true seq=1
+[Client] 2025/12/07 12:02:22.264883 Client 3001: cluster 2 leader 4 succeeded ts=1765126942235873000 seq=1
+[Client] 2025/12/07 12:02:22.268733 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:22.469851 
 [3/5] Transaction: (6001,6002,1)
-[Client] 2025/12/07 01:18:29.599577 ClientDriver: set 1 txn 3/5 (6001,6002,1)
-[Client] 2025/12/07 01:18:29.599688 Client 6001: sending txn (6001,6002,1) ts=1765088309599671000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:18:29.601436 Client 6001: sending request to node 7 seq? pending ts=1765088309599671000
-[Client] 2025/12/07 01:18:29.627122 Client 6001: node 7 replied success=true seq=1
-[Client] 2025/12/07 01:18:29.629339 Client 6001: cluster 3 leader 7 succeeded ts=1765088309599671000 seq=1
-[Client] 2025/12/07 01:18:29.629355 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 01:18:29.830491 
+[Client] 2025/12/07 12:02:22.469950 ClientDriver: set 1 txn 3/5 (6001,6002,1)
+[Client] 2025/12/07 12:02:22.469967 Client 6001: sending txn (6001,6002,1) ts=1765126942469960000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:22.470406 Client 6001: sending request to node 7 seq? pending ts=1765126942469960000
+[Client] 2025/12/07 12:02:22.489315 Client 6001: node 7 replied success=true seq=1
+[Client] 2025/12/07 12:02:22.489360 Client 6001: cluster 3 leader 7 succeeded ts=1765126942469960000 seq=1
+[Client] 2025/12/07 12:02:22.489368 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:22.689749 
 [4/5] Transaction: (1002,,0)
-[Client] 2025/12/07 01:18:29.830790 ClientDriver: set 1 txn 4/5 (1002,,0)
-[Client] 2025/12/07 01:18:29.834416 
+[Client] 2025/12/07 12:02:22.689910 ClientDriver: set 1 txn 4/5 (1002,,0)
+[Client] 2025/12/07 12:02:22.691862 
 [5/5] Transaction: (3002,,0)
-[Client] 2025/12/07 01:18:29.834530 ClientDriver: set 1 txn 5/5 (3002,,0)
-[Client] 2025/12/07 01:18:29.838800 ClientDriver: set 1 complete success=3 fail=0
-[Client] 2025/12/07 01:18:29.838900 Performance: txns=5 avgLatency=19.517033ms throughput=7.12/s
-[Client] 2025/12/07 01:18:32.360648 ClientDriver: processing set 2 with 9 txns
-[Client] 2025/12/07 01:18:33.664397 
+[Client] 2025/12/07 12:02:22.691952 ClientDriver: set 1 txn 5/5 (3002,,0)
+[Client] 2025/12/07 12:02:22.693444 ClientDriver: set 1 complete success=3 fail=0
+[Client] 2025/12/07 12:02:22.693535 Performance: txns=5 avgLatency=17.872983ms throughput=7.21/s
+[Client] 2025/12/07 12:02:23.600686 ClientDriver: processing set 2 with 9 txns
+[Client] 2025/12/07 12:02:24.903400 
 [1/9] Transaction: (1001,1002,1)
-[Client] 2025/12/07 01:18:33.664615 ClientDriver: set 2 txn 1/9 (1001,1002,1)
-[Client] 2025/12/07 01:18:33.664697 Client 1001: sending txn (1001,1002,1) ts=1765088313664679000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:18:33.666136 Client 1001: sending request to node 1 seq? pending ts=1765088313664679000
-[Client] 2025/12/07 01:18:33.690614 Client 1001: node 1 replied success=true seq=2
-[Client] 2025/12/07 01:18:33.693669 Client 1001: cluster 1 leader 1 succeeded ts=1765088313664679000 seq=2
-[Client] 2025/12/07 01:18:33.693689 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 01:18:33.894578 
+[Client] 2025/12/07 12:02:24.903617 ClientDriver: set 2 txn 1/9 (1001,1002,1)
+[Client] 2025/12/07 12:02:24.903728 Client 1001: sending txn (1001,1002,1) ts=1765126944903702000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:02:24.904998 Client 1001: sending request to node 1 seq? pending ts=1765126944903702000
+[Client] 2025/12/07 12:02:24.932811 Client 1001: node 1 replied success=true seq=1
+[Client] 2025/12/07 12:02:24.935628 Client 1001: cluster 1 leader 1 succeeded ts=1765126944903702000 seq=1
+[Client] 2025/12/07 12:02:24.935653 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:25.136742 
 [2/9] Transaction: (1003,1004,1)
-[Client] 2025/12/07 01:18:33.894688 ClientDriver: set 2 txn 2/9 (1003,1004,1)
-[Client] 2025/12/07 01:18:33.894745 Client 1003: sending txn (1003,1004,1) ts=1765088313894715000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:18:33.895779 Client 1003: sending request to node 1 seq? pending ts=1765088313894715000
-[Client] 2025/12/07 01:18:33.921733 Client 1003: node 1 replied success=true seq=3
-[Client] 2025/12/07 01:18:33.924360 Client 1003: cluster 1 leader 1 succeeded ts=1765088313894715000 seq=3
-[Client] 2025/12/07 01:18:33.924369 ClientDriver: txn applied seq=3
-[Client] 2025/12/07 01:18:34.125448 
+[Client] 2025/12/07 12:02:25.136973 ClientDriver: set 2 txn 2/9 (1003,1004,1)
+[Client] 2025/12/07 12:02:25.137034 Client 1003: sending txn (1003,1004,1) ts=1765126945137006000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:02:25.138222 Client 1003: sending request to node 1 seq? pending ts=1765126945137006000
+[Client] 2025/12/07 12:02:25.158626 Client 1003: node 1 replied success=true seq=2
+[Client] 2025/12/07 12:02:25.158744 Client 1003: cluster 1 leader 1 succeeded ts=1765126945137006000 seq=2
+[Client] 2025/12/07 12:02:25.161921 ClientDriver: txn applied seq=2
+[Client] 2025/12/07 12:02:25.363001 
 [3/9] Transaction: (F(n2,,0)
-[Client] 2025/12/07 01:18:34.125637 ClientDriver: set 2 txn 3/9 (F(n2,,0)
-[Client] 2025/12/07 01:18:34.326936 
+[Client] 2025/12/07 12:02:25.363173 ClientDriver: set 2 txn 3/9 (F(n2,,0)
+[Client] 2025/12/07 12:02:25.564440 
 [4/9] Transaction: (1005,1006,1)
-[Client] 2025/12/07 01:18:34.327142 ClientDriver: set 2 txn 4/9 (1005,1006,1)
-[Client] 2025/12/07 01:18:34.327322 Client 1005: sending txn (1005,1006,1) ts=1765088314327259000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:18:34.329533 Client 1005: sending request to node 1 seq? pending ts=1765088314327259000
-[Client] 2025/12/07 01:18:34.331138 Client 1005: node 1 replied success=false seq=0
-[Client] 2025/12/07 01:18:34.331346 ClientDriver: deferring txn (1005,1006,1)
-[Client] 2025/12/07 01:18:34.532520 
+[Client] 2025/12/07 12:02:25.564621 ClientDriver: set 2 txn 4/9 (1005,1006,1)
+[Client] 2025/12/07 12:02:25.564779 Client 1005: sending txn (1005,1006,1) ts=1765126945564684000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:02:25.566078 Client 1005: sending request to node 1 seq? pending ts=1765126945564684000
+[Client] 2025/12/07 12:02:25.567264 Client 1005: node 1 replied success=false seq=0
+[Client] 2025/12/07 12:02:25.567389 ClientDriver: deferring txn (1005,1006,1)
+[Client] 2025/12/07 12:02:25.768564 
 [5/9] Transaction: (3001,3002,1)
-[Client] 2025/12/07 01:18:34.532770 ClientDriver: set 2 txn 5/9 (3001,3002,1)
-[Client] 2025/12/07 01:18:34.532868 Client 3001: sending txn (3001,3002,1) ts=1765088314532848000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:18:34.534484 Client 3001: sending request to node 4 seq? pending ts=1765088314532848000
-[Client] 2025/12/07 01:18:34.559836 Client 3001: node 4 replied success=true seq=2
-[Client] 2025/12/07 01:18:34.562258 Client 3001: cluster 2 leader 4 succeeded ts=1765088314532848000 seq=2
-[Client] 2025/12/07 01:18:34.562273 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 01:18:34.763373 
+[Client] 2025/12/07 12:02:25.768727 ClientDriver: set 2 txn 5/9 (3001,3002,1)
+[Client] 2025/12/07 12:02:25.768813 Client 3001: sending txn (3001,3002,1) ts=1765126945768788000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:02:25.770306 Client 3001: sending request to node 4 seq? pending ts=1765126945768788000
+[Client] 2025/12/07 12:02:25.795519 Client 3001: node 4 replied success=true seq=1
+[Client] 2025/12/07 12:02:25.798830 Client 3001: cluster 2 leader 4 succeeded ts=1765126945768788000 seq=1
+[Client] 2025/12/07 12:02:25.798847 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:25.999917 
 [6/9] Transaction: (F(n5,,0)
-[Client] 2025/12/07 01:18:34.763697 ClientDriver: set 2 txn 6/9 (F(n5,,0)
-[Client] 2025/12/07 01:18:34.964695 
+[Client] 2025/12/07 12:02:26.000060 ClientDriver: set 2 txn 6/9 (F(n5,,0)
+[Client] 2025/12/07 12:02:26.201337 
 [7/9] Transaction: (3003,3004,1)
-[Client] 2025/12/07 01:18:34.964906 ClientDriver: set 2 txn 7/9 (3003,3004,1)
-[Client] 2025/12/07 01:18:34.965071 Client 3003: sending txn (3003,3004,1) ts=1765088314965048000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:18:34.966843 Client 3003: sending request to node 4 seq? pending ts=1765088314965048000
-[Client] 2025/12/07 01:18:34.968238 Client 3003: node 4 replied success=false seq=0
-[Client] 2025/12/07 01:18:34.968487 ClientDriver: deferring txn (3003,3004,1)
-[Client] 2025/12/07 01:18:35.169744 
+[Client] 2025/12/07 12:02:26.201511 ClientDriver: set 2 txn 7/9 (3003,3004,1)
+[Client] 2025/12/07 12:02:26.201571 Client 3003: sending txn (3003,3004,1) ts=1765126946201551000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:02:26.202694 Client 3003: sending request to node 4 seq? pending ts=1765126946201551000
+[Client] 2025/12/07 12:02:26.203746 Client 3003: node 4 replied success=false seq=0
+[Client] 2025/12/07 12:02:26.203824 ClientDriver: deferring txn (3003,3004,1)
+[Client] 2025/12/07 12:02:26.404927 
 [8/9] Transaction: (3004,,0)
-[Client] 2025/12/07 01:18:35.169940 ClientDriver: set 2 txn 8/9 (3004,,0)
-[Client] 2025/12/07 01:18:35.173696 
+[Client] 2025/12/07 12:02:26.405146 ClientDriver: set 2 txn 8/9 (3004,,0)
+[Client] 2025/12/07 12:02:26.408359 
 [9/9] Transaction: (1005,,0)
-[Client] 2025/12/07 01:18:35.173811 ClientDriver: set 2 txn 9/9 (1005,,0)
-[Client] 2025/12/07 01:18:35.176785 ClientDriver: set 2 complete success=3 fail=2
-[Client] 2025/12/07 01:18:35.176876 Performance: txns=7 avgLatency=14.590893ms throughput=4.63/s
-[Client] 2025/12/07 01:21:53.065954 ClientDriver: processing set 3 with 12 txns
-[Client] 2025/12/07 01:21:54.368330 ClientDriver: flushing backlog (2 txns)
-[Client] 2025/12/07 01:21:54.368555 Client 1005: sending txn (1005,1006,1) ts=1765088514368530000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:21:54.370271 Client 1005: sending request to node 1 seq? pending ts=1765088514368530000
-[Client] 2025/12/07 01:21:54.399433 Client 1005: node 1 replied success=true seq=4
-[Client] 2025/12/07 01:21:54.402009 Client 1005: cluster 1 leader 1 succeeded ts=1765088514368530000 seq=4
-[Client] 2025/12/07 01:21:54.402048 Client 3003: sending txn (3003,3004,1) ts=1765088514402036000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:21:54.402948 Client 3003: sending request to node 4 seq? pending ts=1765088514402036000
-[Client] 2025/12/07 01:21:54.425545 Client 3003: node 4 replied success=true seq=3
-[Client] 2025/12/07 01:21:54.429062 Client 3003: cluster 2 leader 4 succeeded ts=1765088514402036000 seq=3
-[Client] 2025/12/07 01:21:54.432084 
+[Client] 2025/12/07 12:02:26.408471 ClientDriver: set 2 txn 9/9 (1005,,0)
+[Client] 2025/12/07 12:02:26.410648 ClientDriver: set 2 complete success=3 fail=2
+[Client] 2025/12/07 12:02:26.410769 Performance: txns=7 avgLatency=13.861738ms throughput=4.64/s
+[Client] 2025/12/07 12:02:27.675611 ClientDriver: processing set 3 with 12 txns
+[Client] 2025/12/07 12:02:28.978555 ClientDriver: flushing backlog (2 txns)
+[Client] 2025/12/07 12:02:28.978788 Client 1005: sending txn (1005,1006,1) ts=1765126948978712000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:02:28.980072 Client 1005: sending request to node 1 seq? pending ts=1765126948978712000
+[Client] 2025/12/07 12:02:29.006007 Client 1005: node 1 replied success=true seq=1
+[Client] 2025/12/07 12:02:29.009354 Client 1005: cluster 1 leader 1 succeeded ts=1765126948978712000 seq=1
+[Client] 2025/12/07 12:02:29.009380 Client 3003: sending txn (3003,3004,1) ts=1765126949009370000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:02:29.010083 Client 3003: sending request to node 4 seq? pending ts=1765126949009370000
+[Client] 2025/12/07 12:02:29.031671 Client 3003: node 4 replied success=true seq=1
+[Client] 2025/12/07 12:02:29.035359 Client 3003: cluster 2 leader 4 succeeded ts=1765126949009370000 seq=1
+[Client] 2025/12/07 12:02:29.039423 
 [1/12] Transaction: (6001,6002,1)
-[Client] 2025/12/07 01:21:54.432103 ClientDriver: set 3 txn 1/12 (6001,6002,1)
-[Client] 2025/12/07 01:21:54.432123 Client 6001: sending txn (6001,6002,1) ts=1765088514432114000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:54.432990 Client 6001: sending request to node 7 seq? pending ts=1765088514432114000
-[Client] 2025/12/07 01:21:54.454260 Client 6001: node 7 replied success=true seq=2
-[Client] 2025/12/07 01:21:54.454314 Client 6001: cluster 3 leader 7 succeeded ts=1765088514432114000 seq=2
-[Client] 2025/12/07 01:21:54.454322 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 01:21:54.655406 
+[Client] 2025/12/07 12:02:29.039435 ClientDriver: set 3 txn 1/12 (6001,6002,1)
+[Client] 2025/12/07 12:02:29.039449 Client 6001: sending txn (6001,6002,1) ts=1765126949039443000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:29.039978 Client 6001: sending request to node 7 seq? pending ts=1765126949039443000
+[Client] 2025/12/07 12:02:29.071404 Client 6001: node 7 replied success=true seq=1
+[Client] 2025/12/07 12:02:29.074447 Client 6001: cluster 3 leader 7 succeeded ts=1765126949039443000 seq=1
+[Client] 2025/12/07 12:02:29.078272 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:02:29.278952 
 [2/12] Transaction: (6003,6004,1)
-[Client] 2025/12/07 01:21:54.655611 ClientDriver: set 3 txn 2/12 (6003,6004,1)
-[Client] 2025/12/07 01:21:54.655772 Client 6003: sending txn (6003,6004,1) ts=1765088514655688000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:54.657305 Client 6003: sending request to node 7 seq? pending ts=1765088514655688000
-[Client] 2025/12/07 01:21:54.677558 Client 6003: node 7 replied success=true seq=3
-[Client] 2025/12/07 01:21:54.680223 Client 6003: cluster 3 leader 7 succeeded ts=1765088514655688000 seq=3
-[Client] 2025/12/07 01:21:54.684145 ClientDriver: txn applied seq=3
-[Client] 2025/12/07 01:21:54.888272 
+[Client] 2025/12/07 12:02:29.279101 ClientDriver: set 3 txn 2/12 (6003,6004,1)
+[Client] 2025/12/07 12:02:29.279176 Client 6003: sending txn (6003,6004,1) ts=1765126949279159000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:29.281726 Client 6003: sending request to node 7 seq? pending ts=1765126949279159000
+[Client] 2025/12/07 12:02:29.310021 Client 6003: node 7 replied success=true seq=2
+[Client] 2025/12/07 12:02:29.312572 Client 6003: cluster 3 leader 7 succeeded ts=1765126949279159000 seq=2
+[Client] 2025/12/07 12:02:29.312587 ClientDriver: txn applied seq=2
+[Client] 2025/12/07 12:02:29.512664 
 [3/12] Transaction: (F(n9,,0)
-[Client] 2025/12/07 01:21:54.888436 ClientDriver: set 3 txn 3/12 (F(n9,,0)
-[Client] 2025/12/07 01:21:55.089636 
+[Client] 2025/12/07 12:02:29.512834 ClientDriver: set 3 txn 3/12 (F(n9,,0)
+[Client] 2025/12/07 12:02:29.714138 
 [4/12] Transaction: (6005,6006,1)
-[Client] 2025/12/07 01:21:55.089801 ClientDriver: set 3 txn 4/12 (6005,6006,1)
-[Client] 2025/12/07 01:21:55.089892 Client 6005: sending txn (6005,6006,1) ts=1765088515089872000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:55.091740 Client 6005: sending request to node 7 seq? pending ts=1765088515089872000
-[Client] 2025/12/07 01:21:55.110617 Client 6005: node 7 replied success=true seq=4
-[Client] 2025/12/07 01:21:55.113936 Client 6005: cluster 3 leader 7 succeeded ts=1765088515089872000 seq=4
-[Client] 2025/12/07 01:21:55.113961 ClientDriver: txn applied seq=4
-[Client] 2025/12/07 01:21:55.315449 
+[Client] 2025/12/07 12:02:29.714322 ClientDriver: set 3 txn 4/12 (6005,6006,1)
+[Client] 2025/12/07 12:02:29.714419 Client 6005: sending txn (6005,6006,1) ts=1765126949714382000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:29.715826 Client 6005: sending request to node 7 seq? pending ts=1765126949714382000
+[Client] 2025/12/07 12:02:29.738956 Client 6005: node 7 replied success=true seq=3
+[Client] 2025/12/07 12:02:29.741494 Client 6005: cluster 3 leader 7 succeeded ts=1765126949714382000 seq=3
+[Client] 2025/12/07 12:02:29.741517 ClientDriver: txn applied seq=3
+[Client] 2025/12/07 12:02:29.942594 
 [5/12] Transaction: (R(n9,,0)
-[Client] 2025/12/07 01:21:55.315733 ClientDriver: set 3 txn 5/12 (R(n9,,0)
-[Client] 2025/12/07 01:21:55.516794 
+[Client] 2025/12/07 12:02:29.942775 ClientDriver: set 3 txn 5/12 (R(n9,,0)
+[Client] 2025/12/07 12:02:30.143955 
 [6/12] Transaction: (6007,6008,1)
-[Client] 2025/12/07 01:21:55.516988 ClientDriver: set 3 txn 6/12 (6007,6008,1)
-[Client] 2025/12/07 01:21:55.517090 Client 6007: sending txn (6007,6008,1) ts=1765088515517068000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:55.519039 Client 6007: sending request to node 7 seq? pending ts=1765088515517068000
-[Client] 2025/12/07 01:21:55.542348 Client 6007: node 7 replied success=true seq=5
-[Client] 2025/12/07 01:21:55.542390 Client 6007: cluster 3 leader 7 succeeded ts=1765088515517068000 seq=5
-[Client] 2025/12/07 01:21:55.544947 ClientDriver: txn applied seq=5
-[Client] 2025/12/07 01:21:55.746000 
+[Client] 2025/12/07 12:02:30.144154 ClientDriver: set 3 txn 6/12 (6007,6008,1)
+[Client] 2025/12/07 12:02:30.144265 Client 6007: sending txn (6007,6008,1) ts=1765126950144224000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:30.145553 Client 6007: sending request to node 7 seq? pending ts=1765126950144224000
+[Client] 2025/12/07 12:02:30.169696 Client 6007: node 7 replied success=true seq=4
+[Client] 2025/12/07 12:02:30.172291 Client 6007: cluster 3 leader 7 succeeded ts=1765126950144224000 seq=4
+[Client] 2025/12/07 12:02:30.172307 ClientDriver: txn applied seq=4
+[Client] 2025/12/07 12:02:30.373376 
 [7/12] Transaction: (6009,6010,1)
-[Client] 2025/12/07 01:21:55.746115 ClientDriver: set 3 txn 7/12 (6009,6010,1)
-[Client] 2025/12/07 01:21:55.746320 Client 6009: sending txn (6009,6010,1) ts=1765088515746153000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:55.748406 Client 6009: sending request to node 7 seq? pending ts=1765088515746153000
-[Client] 2025/12/07 01:21:55.772158 Client 6009: node 7 replied success=true seq=6
-[Client] 2025/12/07 01:21:55.774687 Client 6009: cluster 3 leader 7 succeeded ts=1765088515746153000 seq=6
-[Client] 2025/12/07 01:21:55.774702 ClientDriver: txn applied seq=6
-[Client] 2025/12/07 01:21:55.975749 
+[Client] 2025/12/07 12:02:30.373535 ClientDriver: set 3 txn 7/12 (6009,6010,1)
+[Client] 2025/12/07 12:02:30.373622 Client 6009: sending txn (6009,6010,1) ts=1765126950373604000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:30.374933 Client 6009: sending request to node 7 seq? pending ts=1765126950373604000
+[Client] 2025/12/07 12:02:30.395919 Client 6009: node 7 replied success=true seq=5
+[Client] 2025/12/07 12:02:30.395980 Client 6009: cluster 3 leader 7 succeeded ts=1765126950373604000 seq=5
+[Client] 2025/12/07 12:02:30.399491 ClientDriver: txn applied seq=5
+[Client] 2025/12/07 12:02:30.600560 
 [8/12] Transaction: (F(n7,,0)
-[Client] 2025/12/07 01:21:55.975809 ClientDriver: set 3 txn 8/12 (F(n7,,0)
-[Client] 2025/12/07 01:21:56.176926 
+[Client] 2025/12/07 12:02:30.600710 ClientDriver: set 3 txn 8/12 (F(n7,,0)
+[Client] 2025/12/07 12:02:30.801278 
 [9/12] Transaction: (6011,6012,1)
-[Client] 2025/12/07 01:21:56.177170 ClientDriver: set 3 txn 9/12 (6011,6012,1)
-[Client] 2025/12/07 01:21:56.177224 Client 6011: sending txn (6011,6012,1) ts=1765088516177203000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:56.177988 Client 6011: sending request to node 7 seq? pending ts=1765088516177203000
-[Client] 2025/12/07 01:21:56.179176 Client 6011: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.187005 Client 6011: sending request to node 7 seq? pending ts=1765088516177203000
-[Client] 2025/12/07 01:21:56.187630 Client 6011: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.188203 Client 6011: sending request to node 8 seq? pending ts=1765088516177203000
-[Client] 2025/12/07 01:21:56.188742 Client 6011: node 8 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.189402 Client 6011: sending request to node 9 seq? pending ts=1765088516177203000
-[Client] 2025/12/07 01:21:56.190101 Client 6011: node 9 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.190177 Client 6011: no leader available for txn (6011,6012,1)
-[Client] 2025/12/07 01:21:56.190195 ClientDriver: deferring txn (6011,6012,1)
-[Client] 2025/12/07 01:21:56.391285 
+[Client] 2025/12/07 12:02:30.801460 ClientDriver: set 3 txn 9/12 (6011,6012,1)
+[Client] 2025/12/07 12:02:30.801536 Client 6011: sending txn (6011,6012,1) ts=1765126950801514000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:30.802711 Client 6011: sending request to node 7 seq? pending ts=1765126950801514000
+[Client] 2025/12/07 12:02:30.803785 Client 6011: node 7 replied success=false seq=0
+[Client] 2025/12/07 12:02:30.809752 Client 6011: sending request to node 7 seq? pending ts=1765126950801514000
+[Client] 2025/12/07 12:02:30.810356 Client 6011: node 7 replied success=false seq=0
+[Client] 2025/12/07 12:02:30.810979 Client 6011: sending request to node 8 seq? pending ts=1765126950801514000
+[Client] 2025/12/07 12:02:30.811556 Client 6011: node 8 replied success=false seq=0
+[Client] 2025/12/07 12:02:30.812129 Client 6011: sending request to node 9 seq? pending ts=1765126950801514000
+[Client] 2025/12/07 12:02:30.812616 Client 6011: node 9 replied success=false seq=0
+[Client] 2025/12/07 12:02:30.812651 Client 6011: no leader available for txn (6011,6012,1)
+[Client] 2025/12/07 12:02:30.812682 ClientDriver: deferring txn (6011,6012,1)
+[Client] 2025/12/07 12:02:31.013757 
 [10/12] Transaction: (6013,6014,1)
-[Client] 2025/12/07 01:21:56.391700 ClientDriver: set 3 txn 10/12 (6013,6014,1)
-[Client] 2025/12/07 01:21:56.391961 Client 6013: sending txn (6013,6014,1) ts=1765088516391901000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:21:56.393591 Client 6013: sending request to node 7 seq? pending ts=1765088516391901000
-[Client] 2025/12/07 01:21:56.394897 Client 6013: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.401800 Client 6013: sending request to node 7 seq? pending ts=1765088516391901000
-[Client] 2025/12/07 01:21:56.402231 Client 6013: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.402744 Client 6013: sending request to node 8 seq? pending ts=1765088516391901000
-[Client] 2025/12/07 01:21:56.403384 Client 6013: node 8 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.404031 Client 6013: sending request to node 9 seq? pending ts=1765088516391901000
-[Client] 2025/12/07 01:21:56.404472 Client 6013: node 9 replied success=false seq=0
-[Client] 2025/12/07 01:21:56.404506 Client 6013: no leader available for txn (6013,6014,1)
-[Client] 2025/12/07 01:21:56.404517 ClientDriver: deferring txn (6013,6014,1)
-[Client] 2025/12/07 01:21:56.605591 
+[Client] 2025/12/07 12:02:31.013966 ClientDriver: set 3 txn 10/12 (6013,6014,1)
+[Client] 2025/12/07 12:02:31.014034 Client 6013: sending txn (6013,6014,1) ts=1765126951014016000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:02:31.015181 Client 6013: sending request to node 7 seq? pending ts=1765126951014016000
+[Client] 2025/12/07 12:02:31.016324 Client 6013: node 7 replied success=false seq=0
+[Client] 2025/12/07 12:02:31.021158 Client 6013: sending request to node 7 seq? pending ts=1765126951014016000
+[Client] 2025/12/07 12:02:31.022263 Client 6013: node 7 replied success=false seq=0
+[Client] 2025/12/07 12:02:31.022987 Client 6013: sending request to node 8 seq? pending ts=1765126951014016000
+[Client] 2025/12/07 12:02:31.023540 Client 6013: node 8 replied success=false seq=0
+[Client] 2025/12/07 12:02:31.023971 Client 6013: sending request to node 9 seq? pending ts=1765126951014016000
+[Client] 2025/12/07 12:02:31.024419 Client 6013: node 9 replied success=false seq=0
+[Client] 2025/12/07 12:02:31.024547 Client 6013: no leader available for txn (6013,6014,1)
+[Client] 2025/12/07 12:02:31.024573 ClientDriver: deferring txn (6013,6014,1)
+[Client] 2025/12/07 12:02:31.225655 
 [11/12] Transaction: (6005,,0)
-[Client] 2025/12/07 01:21:56.605701 ClientDriver: set 3 txn 11/12 (6005,,0)
-[Client] 2025/12/07 01:21:56.607296 
+[Client] 2025/12/07 12:02:31.225827 ClientDriver: set 3 txn 11/12 (6005,,0)
+[Client] 2025/12/07 12:02:31.228935 
 [12/12] Transaction: (6011,,0)
-[Client] 2025/12/07 01:21:56.607329 ClientDriver: set 3 txn 12/12 (6011,,0)
-[Client] 2025/12/07 01:21:56.608202 ClientDriver: set 3 complete success=5 fail=2
-[Client] 2025/12/07 01:21:56.608212 Performance: txns=9 avgLatency=17.692597ms throughput=4.02/s
-[Client] 2025/12/07 01:29:50.848002 ClientDriver: PrintLog command selected
-[Client] 2025/12/07 01:30:06.383426 ClientDriver: PrintLog command selected
-[Client] 2025/12/07 01:47:38.256286 ClientDriver: started; expecting 9000 clients
-[Client] 2025/12/07 01:47:43.923148 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:47:43.925557 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:47:43.925656 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 01:47:45.694377 ClientDriver: processing set 1 with 5 txns
-[Client] 2025/12/07 01:47:46.997502 
-[1/5] Transaction: (1001,1002,1)
-[Client] 2025/12/07 01:47:46.997932 ClientDriver: set 1 txn 1/5 (1001,1002,1)
-[Client] 2025/12/07 01:47:46.998037 Client 1001: sending txn (1001,1002,1) ts=1765090066998013000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:47:47.000237 Client 1001: sending request to node 1 seq? pending ts=1765090066998013000
-[Client] 2025/12/07 01:47:47.023125 Client 1001: node 1 replied success=true seq=5
-[Client] 2025/12/07 01:47:47.028730 Client 1001: cluster 1 leader 1 succeeded ts=1765090066998013000 seq=5
-[Client] 2025/12/07 01:47:47.031611 ClientDriver: txn applied seq=5
-[Client] 2025/12/07 01:47:47.235813 
-[2/5] Transaction: (3001,3002,1)
-[Client] 2025/12/07 01:47:47.235989 ClientDriver: set 1 txn 2/5 (3001,3002,1)
-[Client] 2025/12/07 01:47:47.236095 Client 3001: sending txn (3001,3002,1) ts=1765090067236079000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:47:47.237474 Client 3001: sending request to node 4 seq? pending ts=1765090067236079000
-[Client] 2025/12/07 01:47:47.268940 Client 3001: node 4 replied success=true seq=4
-[Client] 2025/12/07 01:47:47.272274 Client 3001: cluster 2 leader 4 succeeded ts=1765090067236079000 seq=4
-[Client] 2025/12/07 01:47:47.272291 ClientDriver: txn applied seq=4
-[Client] 2025/12/07 01:47:47.472471 
-[3/5] Transaction: (6001,6002,1)
-[Client] 2025/12/07 01:47:47.472737 ClientDriver: set 1 txn 3/5 (6001,6002,1)
-[Client] 2025/12/07 01:47:47.472865 Client 6001: sending txn (6001,6002,1) ts=1765090067472843000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:47.474946 Client 6001: sending request to node 7 seq? pending ts=1765090067472843000
-[Client] 2025/12/07 01:47:47.499453 Client 6001: node 7 replied success=true seq=7
-[Client] 2025/12/07 01:47:47.502763 Client 6001: cluster 3 leader 7 succeeded ts=1765090067472843000 seq=7
-[Client] 2025/12/07 01:47:47.506839 ClientDriver: txn applied seq=7
-[Client] 2025/12/07 01:47:47.708275 
-[4/5] Transaction: (1002,,0)
-[Client] 2025/12/07 01:47:47.708426 ClientDriver: set 1 txn 4/5 (1002,,0)
-[Client] 2025/12/07 01:47:47.712122 
-[5/5] Transaction: (3002,,0)
-[Client] 2025/12/07 01:47:47.712218 ClientDriver: set 1 txn 5/5 (3002,,0)
-[Client] 2025/12/07 01:47:47.713992 ClientDriver: set 1 complete success=3 fail=0
-[Client] 2025/12/07 01:47:47.714026 Performance: txns=5 avgLatency=21.841633ms throughput=6.98/s
-[Client] 2025/12/07 01:47:48.901282 ClientDriver: processing set 2 with 9 txns
-[Client] 2025/12/07 01:47:50.204297 
-[1/9] Transaction: (1001,1002,1)
-[Client] 2025/12/07 01:47:50.204485 ClientDriver: set 2 txn 1/9 (1001,1002,1)
-[Client] 2025/12/07 01:47:50.204583 Client 1001: sending txn (1001,1002,1) ts=1765090070204560000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:47:50.206791 Client 1001: sending request to node 1 seq? pending ts=1765090070204560000
-[Client] 2025/12/07 01:47:50.232350 Client 1001: node 1 replied success=true seq=6
-[Client] 2025/12/07 01:47:50.232400 Client 1001: cluster 1 leader 1 succeeded ts=1765090070204560000 seq=6
-[Client] 2025/12/07 01:47:50.235846 ClientDriver: txn applied seq=6
-[Client] 2025/12/07 01:47:50.436947 
-[2/9] Transaction: (1003,1004,1)
-[Client] 2025/12/07 01:47:50.437161 ClientDriver: set 2 txn 2/9 (1003,1004,1)
-[Client] 2025/12/07 01:47:50.437359 Client 1003: sending txn (1003,1004,1) ts=1765090070437340000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:47:50.439086 Client 1003: sending request to node 1 seq? pending ts=1765090070437340000
-[Client] 2025/12/07 01:47:50.466768 Client 1003: node 1 replied success=true seq=7
-[Client] 2025/12/07 01:47:50.469233 Client 1003: cluster 1 leader 1 succeeded ts=1765090070437340000 seq=7
-[Client] 2025/12/07 01:47:50.469246 ClientDriver: txn applied seq=7
-[Client] 2025/12/07 01:47:50.670351 
-[3/9] Transaction: (F(n2,,0)
-[Client] 2025/12/07 01:47:50.670524 ClientDriver: set 2 txn 3/9 (F(n2,,0)
-[Client] 2025/12/07 01:47:50.871804 
-[4/9] Transaction: (1005,1006,1)
-[Client] 2025/12/07 01:47:50.872024 ClientDriver: set 2 txn 4/9 (1005,1006,1)
-[Client] 2025/12/07 01:47:50.872219 Client 1005: sending txn (1005,1006,1) ts=1765090070872186000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:47:50.874059 Client 1005: sending request to node 1 seq? pending ts=1765090070872186000
-[Client] 2025/12/07 01:47:50.875596 Client 1005: node 1 replied success=false seq=0
-[Client] 2025/12/07 01:47:50.875787 ClientDriver: deferring txn (1005,1006,1)
-[Client] 2025/12/07 01:47:51.076993 
-[5/9] Transaction: (3001,3002,1)
-[Client] 2025/12/07 01:47:51.077187 ClientDriver: set 2 txn 5/9 (3001,3002,1)
-[Client] 2025/12/07 01:47:51.077363 Client 3001: sending txn (3001,3002,1) ts=1765090071077342000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:47:51.079014 Client 3001: sending request to node 4 seq? pending ts=1765090071077342000
-[Client] 2025/12/07 01:47:51.108066 Client 3001: node 4 replied success=true seq=5
-[Client] 2025/12/07 01:47:51.111631 Client 3001: cluster 2 leader 4 succeeded ts=1765090071077342000 seq=5
-[Client] 2025/12/07 01:47:51.111646 ClientDriver: txn applied seq=5
-[Client] 2025/12/07 01:47:51.312710 
-[6/9] Transaction: (F(n5,,0)
-[Client] 2025/12/07 01:47:51.312789 ClientDriver: set 2 txn 6/9 (F(n5,,0)
-[Client] 2025/12/07 01:47:51.513263 
-[7/9] Transaction: (3003,3004,1)
-[Client] 2025/12/07 01:47:51.513320 ClientDriver: set 2 txn 7/9 (3003,3004,1)
-[Client] 2025/12/07 01:47:51.513374 Client 3003: sending txn (3003,3004,1) ts=1765090071513339000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:47:51.514643 Client 3003: sending request to node 4 seq? pending ts=1765090071513339000
-[Client] 2025/12/07 01:47:51.515165 Client 3003: node 4 replied success=false seq=0
-[Client] 2025/12/07 01:47:51.515204 ClientDriver: deferring txn (3003,3004,1)
-[Client] 2025/12/07 01:47:51.715341 
-[8/9] Transaction: (3004,,0)
-[Client] 2025/12/07 01:47:51.715404 ClientDriver: set 2 txn 8/9 (3004,,0)
-[Client] 2025/12/07 01:47:51.717001 
-[9/9] Transaction: (1005,,0)
-[Client] 2025/12/07 01:47:51.717032 ClientDriver: set 2 txn 9/9 (1005,,0)
-[Client] 2025/12/07 01:47:51.718198 ClientDriver: set 2 complete success=3 fail=2
-[Client] 2025/12/07 01:47:51.718222 Performance: txns=7 avgLatency=15.099339ms throughput=4.62/s
-[Client] 2025/12/07 01:47:53.133998 ClientDriver: processing set 3 with 12 txns
-[Client] 2025/12/07 01:47:54.437015 ClientDriver: flushing backlog (2 txns)
-[Client] 2025/12/07 01:47:54.437137 Client 1005: sending txn (1005,1006,1) ts=1765090074437117000 (cluster=1 leader=1)
-[Client] 2025/12/07 01:47:54.438058 Client 1005: sending request to node 1 seq? pending ts=1765090074437117000
-[Client] 2025/12/07 01:47:54.462664 Client 1005: node 1 replied success=true seq=8
-[Client] 2025/12/07 01:47:54.462703 Client 1005: cluster 1 leader 1 succeeded ts=1765090074437117000 seq=8
-[Client] 2025/12/07 01:47:54.462716 Client 3003: sending txn (3003,3004,1) ts=1765090074462711000 (cluster=2 leader=4)
-[Client] 2025/12/07 01:47:54.465839 Client 3003: sending request to node 4 seq? pending ts=1765090074462711000
-[Client] 2025/12/07 01:47:54.485218 Client 3003: node 4 replied success=true seq=8
-[Client] 2025/12/07 01:47:54.488098 Client 3003: cluster 2 leader 4 succeeded ts=1765090074462711000 seq=8
-[Client] 2025/12/07 01:47:54.488110 
-[1/12] Transaction: (6001,6002,1)
-[Client] 2025/12/07 01:47:54.488131 ClientDriver: set 3 txn 1/12 (6001,6002,1)
-[Client] 2025/12/07 01:47:54.488175 Client 6001: sending txn (6001,6002,1) ts=1765090074488169000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:54.488778 Client 6001: sending request to node 7 seq? pending ts=1765090074488169000
-[Client] 2025/12/07 01:47:54.513570 Client 6001: node 7 replied success=true seq=8
-[Client] 2025/12/07 01:47:54.516300 Client 6001: cluster 3 leader 7 succeeded ts=1765090074488169000 seq=8
-[Client] 2025/12/07 01:47:54.519306 ClientDriver: txn applied seq=8
-[Client] 2025/12/07 01:47:54.719590 
-[2/12] Transaction: (6003,6004,1)
-[Client] 2025/12/07 01:47:54.719663 ClientDriver: set 3 txn 2/12 (6003,6004,1)
-[Client] 2025/12/07 01:47:54.719688 Client 6003: sending txn (6003,6004,1) ts=1765090074719677000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:54.720417 Client 6003: sending request to node 7 seq? pending ts=1765090074719677000
-[Client] 2025/12/07 01:47:54.741432 Client 6003: node 7 replied success=true seq=9
-[Client] 2025/12/07 01:47:54.744260 Client 6003: cluster 3 leader 7 succeeded ts=1765090074719677000 seq=9
-[Client] 2025/12/07 01:47:54.748134 ClientDriver: txn applied seq=9
-[Client] 2025/12/07 01:47:54.948237 
-[3/12] Transaction: (F(n9,,0)
-[Client] 2025/12/07 01:47:54.948304 ClientDriver: set 3 txn 3/12 (F(n9,,0)
-[Client] 2025/12/07 01:47:55.148586 
-[4/12] Transaction: (6005,6006,1)
-[Client] 2025/12/07 01:47:55.148887 ClientDriver: set 3 txn 4/12 (6005,6006,1)
-[Client] 2025/12/07 01:47:55.148984 Client 6005: sending txn (6005,6006,1) ts=1765090075148967000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:55.150611 Client 6005: sending request to node 7 seq? pending ts=1765090075148967000
-[Client] 2025/12/07 01:47:55.172008 Client 6005: node 7 replied success=true seq=10
-[Client] 2025/12/07 01:47:55.175601 Client 6005: cluster 3 leader 7 succeeded ts=1765090075148967000 seq=10
-[Client] 2025/12/07 01:47:55.175616 ClientDriver: txn applied seq=10
-[Client] 2025/12/07 01:47:55.376723 
-[5/12] Transaction: (R(n9,,0)
-[Client] 2025/12/07 01:47:55.376908 ClientDriver: set 3 txn 5/12 (R(n9,,0)
-[Client] 2025/12/07 01:47:55.578206 
-[6/12] Transaction: (6007,6008,1)
-[Client] 2025/12/07 01:47:55.578451 ClientDriver: set 3 txn 6/12 (6007,6008,1)
-[Client] 2025/12/07 01:47:55.578659 Client 6007: sending txn (6007,6008,1) ts=1765090075578625000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:55.580573 Client 6007: sending request to node 7 seq? pending ts=1765090075578625000
-[Client] 2025/12/07 01:47:55.606920 Client 6007: node 7 replied success=true seq=11
-[Client] 2025/12/07 01:47:55.609397 Client 6007: cluster 3 leader 7 succeeded ts=1765090075578625000 seq=11
-[Client] 2025/12/07 01:47:55.609419 ClientDriver: txn applied seq=11
-[Client] 2025/12/07 01:47:55.810541 
-[7/12] Transaction: (6009,6010,1)
-[Client] 2025/12/07 01:47:55.810738 ClientDriver: set 3 txn 7/12 (6009,6010,1)
-[Client] 2025/12/07 01:47:55.810844 Client 6009: sending txn (6009,6010,1) ts=1765090075810822000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:55.812458 Client 6009: sending request to node 7 seq? pending ts=1765090075810822000
-[Client] 2025/12/07 01:47:55.833428 Client 6009: node 7 replied success=true seq=12
-[Client] 2025/12/07 01:47:55.836894 Client 6009: cluster 3 leader 7 succeeded ts=1765090075810822000 seq=12
-[Client] 2025/12/07 01:47:55.836912 ClientDriver: txn applied seq=12
-[Client] 2025/12/07 01:47:56.038013 
-[8/12] Transaction: (F(n7,,0)
-[Client] 2025/12/07 01:47:56.038197 ClientDriver: set 3 txn 8/12 (F(n7,,0)
-[Client] 2025/12/07 01:47:56.239563 
-[9/12] Transaction: (6011,6012,1)
-[Client] 2025/12/07 01:47:56.239750 ClientDriver: set 3 txn 9/12 (6011,6012,1)
-[Client] 2025/12/07 01:47:56.239834 Client 6011: sending txn (6011,6012,1) ts=1765090076239815000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:56.242471 Client 6011: sending request to node 7 seq? pending ts=1765090076239815000
-[Client] 2025/12/07 01:47:56.243927 Client 6011: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.251794 Client 6011: sending request to node 7 seq? pending ts=1765090076239815000
-[Client] 2025/12/07 01:47:56.252303 Client 6011: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.252986 Client 6011: sending request to node 8 seq? pending ts=1765090076239815000
-[Client] 2025/12/07 01:47:56.253385 Client 6011: node 8 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.254030 Client 6011: sending request to node 9 seq? pending ts=1765090076239815000
-[Client] 2025/12/07 01:47:56.254428 Client 6011: node 9 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.254472 Client 6011: no leader available for txn (6011,6012,1)
-[Client] 2025/12/07 01:47:56.254491 ClientDriver: deferring txn (6011,6012,1)
-[Client] 2025/12/07 01:47:56.455598 
-[10/12] Transaction: (6013,6014,1)
-[Client] 2025/12/07 01:47:56.455682 ClientDriver: set 3 txn 10/12 (6013,6014,1)
-[Client] 2025/12/07 01:47:56.455727 Client 6013: sending txn (6013,6014,1) ts=1765090076455693000 (cluster=3 leader=7)
-[Client] 2025/12/07 01:47:56.456598 Client 6013: sending request to node 7 seq? pending ts=1765090076455693000
-[Client] 2025/12/07 01:47:56.457000 Client 6013: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.459853 Client 6013: sending request to node 7 seq? pending ts=1765090076455693000
-[Client] 2025/12/07 01:47:56.460130 Client 6013: node 7 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.460557 Client 6013: sending request to node 8 seq? pending ts=1765090076455693000
-[Client] 2025/12/07 01:47:56.460838 Client 6013: node 8 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.461326 Client 6013: sending request to node 9 seq? pending ts=1765090076455693000
-[Client] 2025/12/07 01:47:56.461748 Client 6013: node 9 replied success=false seq=0
-[Client] 2025/12/07 01:47:56.461796 Client 6013: no leader available for txn (6013,6014,1)
-[Client] 2025/12/07 01:47:56.461806 ClientDriver: deferring txn (6013,6014,1)
-[Client] 2025/12/07 01:47:56.662932 
-[11/12] Transaction: (6005,,0)
-[Client] 2025/12/07 01:47:56.663157 ClientDriver: set 3 txn 11/12 (6005,,0)
-[Client] 2025/12/07 01:47:56.667765 
-[12/12] Transaction: (6011,,0)
-[Client] 2025/12/07 01:47:56.667886 ClientDriver: set 3 txn 12/12 (6011,,0)
-[Client] 2025/12/07 01:47:56.672059 ClientDriver: set 3 complete success=5 fail=2
-[Client] 2025/12/07 01:47:56.672097 Performance: txns=9 avgLatency=19.172671ms throughput=4.03/s
-[Client] 2025/12/07 03:12:19.053643 ClientDriver: started; expecting 9000 clients
-[Client] 2025/12/07 03:12:28.056629 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 03:12:28.057893 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 03:12:28.058034 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
-[Client] 2025/12/07 03:12:29.811423 ClientDriver: processing set 1 with 5 txns
-[Client] 2025/12/07 03:12:31.114730 
-[1/5] Transaction: (1001,1002,1)
-[Client] 2025/12/07 03:12:31.115023 ClientDriver: set 1 txn 1/5 (1001,1002,1)
-[Client] 2025/12/07 03:12:31.115094 Client 1001: sending txn (1001,1002,1) ts=1765095151115064000 (cluster=1 leader=1)
-[Client] 2025/12/07 03:12:31.116320 Client 1001: sending request to node 1 seq? pending ts=1765095151115064000
-[Client] 2025/12/07 03:12:31.137657 Client 1001: node 1 replied success=true seq=1
-[Client] 2025/12/07 03:12:31.140992 Client 1001: cluster 1 leader 1 succeeded ts=1765095151115064000 seq=1
-[Client] 2025/12/07 03:12:31.141013 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 03:12:31.342150 
-[2/5] Transaction: (3001,3002,1)
-[Client] 2025/12/07 03:12:31.342420 ClientDriver: set 1 txn 2/5 (3001,3002,1)
-[Client] 2025/12/07 03:12:31.342584 Client 3001: sending txn (3001,3002,1) ts=1765095151342566000 (cluster=2 leader=4)
-[Client] 2025/12/07 03:12:31.344355 Client 3001: sending request to node 4 seq? pending ts=1765095151342566000
-[Client] 2025/12/07 03:12:31.369870 Client 3001: node 4 replied success=true seq=1
-[Client] 2025/12/07 03:12:31.373276 Client 3001: cluster 2 leader 4 succeeded ts=1765095151342566000 seq=1
-[Client] 2025/12/07 03:12:31.373294 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 03:12:31.574405 
-[3/5] Transaction: (6001,6002,1)
-[Client] 2025/12/07 03:12:31.574657 ClientDriver: set 1 txn 3/5 (6001,6002,1)
-[Client] 2025/12/07 03:12:31.574861 Client 6001: sending txn (6001,6002,1) ts=1765095151574839000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:31.576649 Client 6001: sending request to node 7 seq? pending ts=1765095151574839000
-[Client] 2025/12/07 03:12:31.603985 Client 6001: node 7 replied success=true seq=1
-[Client] 2025/12/07 03:12:31.607218 Client 6001: cluster 3 leader 7 succeeded ts=1765095151574839000 seq=1
-[Client] 2025/12/07 03:12:31.607233 ClientDriver: txn applied seq=1
-[Client] 2025/12/07 03:12:31.807592 
-[4/5] Transaction: (1002,,0)
-[Client] 2025/12/07 03:12:31.807780 ClientDriver: set 1 txn 4/5 (1002,,0)
-[Client] 2025/12/07 03:12:31.810395 
-[5/5] Transaction: (3002,,0)
-[Client] 2025/12/07 03:12:31.810507 ClientDriver: set 1 txn 5/5 (3002,,0)
-[Client] 2025/12/07 03:12:31.812350 ClientDriver: set 1 complete success=3 fail=0
-[Client] 2025/12/07 03:12:31.812450 Performance: txns=5 avgLatency=18.685083ms throughput=7.17/s
-[Client] 2025/12/07 03:12:32.693711 ClientDriver: processing set 2 with 9 txns
-[Client] 2025/12/07 03:12:33.996649 
-[1/9] Transaction: (1001,1002,1)
-[Client] 2025/12/07 03:12:33.996829 ClientDriver: set 2 txn 1/9 (1001,1002,1)
-[Client] 2025/12/07 03:12:33.996980 Client 1001: sending txn (1001,1002,1) ts=1765095153996961000 (cluster=1 leader=1)
-[Client] 2025/12/07 03:12:33.998366 Client 1001: sending request to node 1 seq? pending ts=1765095153996961000
-[Client] 2025/12/07 03:12:34.025043 Client 1001: node 1 replied success=true seq=2
-[Client] 2025/12/07 03:12:34.025099 Client 1001: cluster 1 leader 1 succeeded ts=1765095153996961000 seq=2
-[Client] 2025/12/07 03:12:34.025115 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 03:12:34.225386 
-[2/9] Transaction: (1003,1004,1)
-[Client] 2025/12/07 03:12:34.225545 ClientDriver: set 2 txn 2/9 (1003,1004,1)
-[Client] 2025/12/07 03:12:34.225611 Client 1003: sending txn (1003,1004,1) ts=1765095154225594000 (cluster=1 leader=1)
-[Client] 2025/12/07 03:12:34.227166 Client 1003: sending request to node 1 seq? pending ts=1765095154225594000
-[Client] 2025/12/07 03:12:34.252533 Client 1003: node 1 replied success=true seq=3
-[Client] 2025/12/07 03:12:34.254984 Client 1003: cluster 1 leader 1 succeeded ts=1765095154225594000 seq=3
-[Client] 2025/12/07 03:12:34.255001 ClientDriver: txn applied seq=3
-[Client] 2025/12/07 03:12:34.456068 
-[3/9] Transaction: (F(n2,,0)
-[Client] 2025/12/07 03:12:34.456259 ClientDriver: set 2 txn 3/9 (F(n2,,0)
-[Client] 2025/12/07 03:12:34.657432 
-[4/9] Transaction: (1005,1006,1)
-[Client] 2025/12/07 03:12:34.657617 ClientDriver: set 2 txn 4/9 (1005,1006,1)
-[Client] 2025/12/07 03:12:34.657697 Client 1005: sending txn (1005,1006,1) ts=1765095154657673000 (cluster=1 leader=1)
-[Client] 2025/12/07 03:12:34.658976 Client 1005: sending request to node 1 seq? pending ts=1765095154657673000
-[Client] 2025/12/07 03:12:34.660239 Client 1005: node 1 replied success=false seq=0
-[Client] 2025/12/07 03:12:34.660373 ClientDriver: deferring txn (1005,1006,1)
-[Client] 2025/12/07 03:12:34.861490 
-[5/9] Transaction: (3001,3002,1)
-[Client] 2025/12/07 03:12:34.861568 ClientDriver: set 2 txn 5/9 (3001,3002,1)
-[Client] 2025/12/07 03:12:34.861602 Client 3001: sending txn (3001,3002,1) ts=1765095154861594000 (cluster=2 leader=4)
-[Client] 2025/12/07 03:12:34.863651 Client 3001: sending request to node 4 seq? pending ts=1765095154861594000
-[Client] 2025/12/07 03:12:34.883758 Client 3001: node 4 replied success=true seq=2
-[Client] 2025/12/07 03:12:34.887390 Client 3001: cluster 2 leader 4 succeeded ts=1765095154861594000 seq=2
-[Client] 2025/12/07 03:12:34.887407 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 03:12:35.088482 
-[6/9] Transaction: (F(n5,,0)
-[Client] 2025/12/07 03:12:35.088697 ClientDriver: set 2 txn 6/9 (F(n5,,0)
-[Client] 2025/12/07 03:12:35.289880 
-[7/9] Transaction: (3003,3004,1)
-[Client] 2025/12/07 03:12:35.290073 ClientDriver: set 2 txn 7/9 (3003,3004,1)
-[Client] 2025/12/07 03:12:35.290164 Client 3003: sending txn (3003,3004,1) ts=1765095155290143000 (cluster=2 leader=4)
-[Client] 2025/12/07 03:12:35.291539 Client 3003: sending request to node 4 seq? pending ts=1765095155290143000
-[Client] 2025/12/07 03:12:35.292908 Client 3003: node 4 replied success=false seq=0
-[Client] 2025/12/07 03:12:35.293090 ClientDriver: deferring txn (3003,3004,1)
-[Client] 2025/12/07 03:12:35.493251 
-[8/9] Transaction: (3004,,0)
-[Client] 2025/12/07 03:12:35.493448 ClientDriver: set 2 txn 8/9 (3004,,0)
-[Client] 2025/12/07 03:12:35.495855 
-[9/9] Transaction: (1005,,0)
-[Client] 2025/12/07 03:12:35.495955 ClientDriver: set 2 txn 9/9 (1005,,0)
-[Client] 2025/12/07 03:12:35.497816 ClientDriver: set 2 complete success=3 fail=2
-[Client] 2025/12/07 03:12:35.497947 Performance: txns=7 avgLatency=13.308077ms throughput=4.66/s
-[Client] 2025/12/07 03:12:39.046084 ClientDriver: processing set 3 with 12 txns
-[Client] 2025/12/07 03:12:40.349789 ClientDriver: flushing backlog (2 txns)
-[Client] 2025/12/07 03:12:40.350037 Client 1005: sending txn (1005,1006,1) ts=1765095160349963000 (cluster=1 leader=1)
-[Client] 2025/12/07 03:12:40.351355 Client 1005: sending request to node 1 seq? pending ts=1765095160349963000
-[Client] 2025/12/07 03:12:40.375377 Client 1005: node 1 replied success=true seq=4
-[Client] 2025/12/07 03:12:40.379139 Client 1005: cluster 1 leader 1 succeeded ts=1765095160349963000 seq=4
-[Client] 2025/12/07 03:12:40.383033 Client 3003: sending txn (3003,3004,1) ts=1765095160383022000 (cluster=2 leader=4)
-[Client] 2025/12/07 03:12:40.383994 Client 3003: sending request to node 4 seq? pending ts=1765095160383022000
-[Client] 2025/12/07 03:12:40.411201 Client 3003: node 4 replied success=true seq=4
-[Client] 2025/12/07 03:12:40.415055 Client 3003: cluster 2 leader 4 succeeded ts=1765095160383022000 seq=4
-[Client] 2025/12/07 03:12:40.418984 
-[1/12] Transaction: (6001,6002,1)
-[Client] 2025/12/07 03:12:40.419005 ClientDriver: set 3 txn 1/12 (6001,6002,1)
-[Client] 2025/12/07 03:12:40.419028 Client 6001: sending txn (6001,6002,1) ts=1765095160419017000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:40.419879 Client 6001: sending request to node 7 seq? pending ts=1765095160419017000
-[Client] 2025/12/07 03:12:40.442082 Client 6001: node 7 replied success=true seq=2
-[Client] 2025/12/07 03:12:40.442123 Client 6001: cluster 3 leader 7 succeeded ts=1765095160419017000 seq=2
-[Client] 2025/12/07 03:12:40.442134 ClientDriver: txn applied seq=2
-[Client] 2025/12/07 03:12:40.642665 
-[2/12] Transaction: (6003,6004,1)
-[Client] 2025/12/07 03:12:40.642857 ClientDriver: set 3 txn 2/12 (6003,6004,1)
-[Client] 2025/12/07 03:12:40.642926 Client 6003: sending txn (6003,6004,1) ts=1765095160642910000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:40.644024 Client 6003: sending request to node 7 seq? pending ts=1765095160642910000
-[Client] 2025/12/07 03:12:40.664384 Client 6003: node 7 replied success=true seq=3
-[Client] 2025/12/07 03:12:40.664440 Client 6003: cluster 3 leader 7 succeeded ts=1765095160642910000 seq=3
-[Client] 2025/12/07 03:12:40.664450 ClientDriver: txn applied seq=3
-[Client] 2025/12/07 03:12:40.868850 
-[3/12] Transaction: (F(n9,,0)
-[Client] 2025/12/07 03:12:40.868929 ClientDriver: set 3 txn 3/12 (F(n9,,0)
-[Client] 2025/12/07 03:12:41.070170 
-[4/12] Transaction: (6005,6006,1)
-[Client] 2025/12/07 03:12:41.070238 ClientDriver: set 3 txn 4/12 (6005,6006,1)
-[Client] 2025/12/07 03:12:41.070261 Client 6005: sending txn (6005,6006,1) ts=1765095161070250000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:41.070862 Client 6005: sending request to node 7 seq? pending ts=1765095161070250000
-[Client] 2025/12/07 03:12:41.095214 Client 6005: node 7 replied success=true seq=4
-[Client] 2025/12/07 03:12:41.098703 Client 6005: cluster 3 leader 7 succeeded ts=1765095161070250000 seq=4
-[Client] 2025/12/07 03:12:41.098720 ClientDriver: txn applied seq=4
-[Client] 2025/12/07 03:12:41.299787 
-[5/12] Transaction: (R(n9,,0)
-[Client] 2025/12/07 03:12:41.300000 ClientDriver: set 3 txn 5/12 (R(n9,,0)
-[Client] 2025/12/07 03:12:41.501231 
-[6/12] Transaction: (6007,6008,1)
-[Client] 2025/12/07 03:12:41.501384 ClientDriver: set 3 txn 6/12 (6007,6008,1)
-[Client] 2025/12/07 03:12:41.501456 Client 6007: sending txn (6007,6008,1) ts=1765095161501439000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:41.502983 Client 6007: sending request to node 7 seq? pending ts=1765095161501439000
-[Client] 2025/12/07 03:12:41.529116 Client 6007: node 7 replied success=true seq=5
-[Client] 2025/12/07 03:12:41.532563 Client 6007: cluster 3 leader 7 succeeded ts=1765095161501439000 seq=5
-[Client] 2025/12/07 03:12:41.532580 ClientDriver: txn applied seq=5
-[Client] 2025/12/07 03:12:41.733001 
-[7/12] Transaction: (6009,6010,1)
-[Client] 2025/12/07 03:12:41.733158 ClientDriver: set 3 txn 7/12 (6009,6010,1)
-[Client] 2025/12/07 03:12:41.733240 Client 6009: sending txn (6009,6010,1) ts=1765095161733223000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:41.734598 Client 6009: sending request to node 7 seq? pending ts=1765095161733223000
-[Client] 2025/12/07 03:12:41.759901 Client 6009: node 7 replied success=true seq=6
-[Client] 2025/12/07 03:12:41.763449 Client 6009: cluster 3 leader 7 succeeded ts=1765095161733223000 seq=6
-[Client] 2025/12/07 03:12:41.763466 ClientDriver: txn applied seq=6
-[Client] 2025/12/07 03:12:41.964535 
-[8/12] Transaction: (F(n7,,0)
-[Client] 2025/12/07 03:12:41.964717 ClientDriver: set 3 txn 8/12 (F(n7,,0)
-[Client] 2025/12/07 03:12:42.165967 
-[9/12] Transaction: (6011,6012,1)
-[Client] 2025/12/07 03:12:42.166167 ClientDriver: set 3 txn 9/12 (6011,6012,1)
-[Client] 2025/12/07 03:12:42.166273 Client 6011: sending txn (6011,6012,1) ts=1765095162166241000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:42.167542 Client 6011: sending request to node 7 seq? pending ts=1765095162166241000
-[Client] 2025/12/07 03:12:42.168683 Client 6011: node 7 replied success=false seq=0
-[Client] 2025/12/07 03:12:42.173927 Client 6011: sending request to node 8 seq? pending ts=1765095162166241000
-[Client] 2025/12/07 03:12:42.201563 Client 6011: node 8 replied success=true seq=7
-[Client] 2025/12/07 03:12:42.205254 ClientDriver: txn applied seq=7
-[Client] 2025/12/07 03:12:42.406340 
-[10/12] Transaction: (6013,6014,1)
-[Client] 2025/12/07 03:12:42.406518 ClientDriver: set 3 txn 10/12 (6013,6014,1)
-[Client] 2025/12/07 03:12:42.406705 Client 6013: sending txn (6013,6014,1) ts=1765095162406635000 (cluster=3 leader=7)
-[Client] 2025/12/07 03:12:42.407910 Client 6013: sending request to node 7 seq? pending ts=1765095162406635000
-[Client] 2025/12/07 03:12:42.409185 Client 6013: node 7 replied success=false seq=0
-[Client] 2025/12/07 03:12:42.413658 Client 6013: sending request to node 8 seq? pending ts=1765095162406635000
-[Client] 2025/12/07 03:12:42.436766 Client 6013: node 8 replied success=true seq=8
-[Client] 2025/12/07 03:12:42.439034 ClientDriver: txn applied seq=8
-[Client] 2025/12/07 03:12:42.639627 
-[11/12] Transaction: (6005,,0)
-[Client] 2025/12/07 03:12:42.639777 ClientDriver: set 3 txn 11/12 (6005,,0)
-[Client] 2025/12/07 03:12:42.641984 
-[12/12] Transaction: (6011,,0)
-[Client] 2025/12/07 03:12:42.642086 ClientDriver: set 3 txn 12/12 (6011,,0)
-[Client] 2025/12/07 03:12:42.643518 ClientDriver: set 3 complete success=7 fail=0
-[Client] 2025/12/07 03:12:42.643589 Performance: txns=9 avgLatency=23.27368ms throughput=3.92/s
+[Client] 2025/12/07 12:02:31.229064 ClientDriver: set 3 txn 12/12 (6011,,0)
+[Client] 2025/12/07 12:02:31.230943 ClientDriver: set 3 complete success=5 fail=2
+[Client] 2025/12/07 12:02:31.231031 Performance: txns=9 avgLatency=19.986074ms throughput=4.00/s
+[Client] 2025/12/07 12:02:34.347827 ClientDriver: PrintLog command selected
+[Client] 2025/12/07 12:12:26.314047 ClientDriver: processing set 4 with 7 txns
+[Client] 2025/12/07 12:12:27.617534 ClientDriver: flushing backlog (2 txns)
+[Client] 2025/12/07 12:12:27.617671 Client 6011: sending txn (6011,6012,1) ts=1765127547617663000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:12:27.618229 Client 6011: sending request to node 7 seq? pending ts=1765127547617663000
+[Client] 2025/12/07 12:12:27.645913 Client 6011: node 7 replied success=true seq=1
+[Client] 2025/12/07 12:12:27.645958 Client 6011: cluster 3 leader 7 succeeded ts=1765127547617663000 seq=1
+[Client] 2025/12/07 12:12:27.645972 Client 6013: sending txn (6013,6014,1) ts=1765127547645967000 (cluster=3 leader=7)
+[Client] 2025/12/07 12:12:27.650005 Client 6013: sending request to node 7 seq? pending ts=1765127547645967000
+[Client] 2025/12/07 12:12:27.672930 Client 6013: node 7 replied success=true seq=2
+[Client] 2025/12/07 12:12:27.676648 Client 6013: cluster 3 leader 7 succeeded ts=1765127547645967000 seq=2
+[Client] 2025/12/07 12:12:27.679662 
+[1/7] Transaction: (3001,3002,1)
+[Client] 2025/12/07 12:12:27.679674 ClientDriver: set 4 txn 1/7 (3001,3002,1)
+[Client] 2025/12/07 12:12:27.679689 Client 3001: sending txn (3001,3002,1) ts=1765127547679683000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:12:27.680154 Client 3001: sending request to node 4 seq? pending ts=1765127547679683000
+[Client] 2025/12/07 12:12:27.702869 Client 3001: node 4 replied success=true seq=1
+[Client] 2025/12/07 12:12:27.702910 Client 3001: cluster 2 leader 4 succeeded ts=1765127547679683000 seq=1
+[Client] 2025/12/07 12:12:27.705577 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:12:27.906624 
+[2/7] Transaction: (3004,3005,1)
+[Client] 2025/12/07 12:12:27.906693 ClientDriver: set 4 txn 2/7 (3004,3005,1)
+[Client] 2025/12/07 12:12:27.906706 Client 3004: sending txn (3004,3005,1) ts=1765127547906701000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:12:27.907350 Client 3004: sending request to node 4 seq? pending ts=1765127547906701000
+[Client] 2025/12/07 12:12:27.936052 Client 3004: node 4 replied success=true seq=2
+[Client] 2025/12/07 12:12:27.939900 Client 3004: cluster 2 leader 4 succeeded ts=1765127547906701000 seq=2
+[Client] 2025/12/07 12:12:27.939911 ClientDriver: txn applied seq=2
+[Client] 2025/12/07 12:12:28.140938 
+[3/7] Transaction: (3004,3006,9)
+[Client] 2025/12/07 12:12:28.140996 ClientDriver: set 4 txn 3/7 (3004,3006,9)
+[Client] 2025/12/07 12:12:28.141015 Client 3004: sending txn (3004,3006,9) ts=1765127548141008000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:12:28.141630 Client 3004: sending request to node 4 seq? pending ts=1765127548141008000
+[Client] 2025/12/07 12:12:28.161611 Client 3004: node 4 replied success=true seq=3
+[Client] 2025/12/07 12:12:28.165486 Client 3004: cluster 2 leader 4 succeeded ts=1765127548141008000 seq=3
+[Client] 2025/12/07 12:12:28.169431 ClientDriver: txn applied seq=3
+[Client] 2025/12/07 12:12:28.374530 
+[4/7] Transaction: (3001,3003,10)
+[Client] 2025/12/07 12:12:28.374689 ClientDriver: set 4 txn 4/7 (3001,3003,10)
+[Client] 2025/12/07 12:12:28.374753 Client 3001: sending txn (3001,3003,10) ts=1765127548374734000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:12:28.375870 Client 3001: sending request to node 4 seq? pending ts=1765127548374734000
+[Client] 2025/12/07 12:12:28.396890 Client 3001: node 4 replied success=false seq=4
+[Client] 2025/12/07 12:12:28.601502 
+[5/7] Transaction: (3001,,0)
+[Client] 2025/12/07 12:12:28.601724 ClientDriver: set 4 txn 5/7 (3001,,0)
+[Client] 2025/12/07 12:12:28.603503 
+[6/7] Transaction: (3002,,0)
+[Client] 2025/12/07 12:12:28.603528 ClientDriver: set 4 txn 6/7 (3002,,0)
+[Client] 2025/12/07 12:12:28.604438 
+[7/7] Transaction: (3003,,0)
+[Client] 2025/12/07 12:12:28.604452 ClientDriver: set 4 txn 7/7 (3003,,0)
+[Client] 2025/12/07 12:12:28.605296 ClientDriver: set 4 complete success=3 fail=1
+[Client] 2025/12/07 12:12:28.605314 Performance: txns=7 avgLatency=16.654404ms throughput=7.09/s
+[Client] 2025/12/07 12:19:13.422350 ClientDriver: started; expecting 9000 clients
+[Client] 2025/12/07 12:19:18.285791 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/sample_testcases.csv
+[Client] 2025/12/07 12:19:18.286828 ClientDriver: parsed 2 sets from /Users/rituraj/Downloads/cft-rituraj735/sample_testcases.csv
+[Client] 2025/12/07 12:19:18.286955 ClientDriver: loaded 2 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/sample_testcases.csv
+[Client] 2025/12/07 12:19:22.816257 ClientDriver: processing set 1 with 4 txns
+[Client] 2025/12/07 12:19:24.119691 
+[1/4] Transaction: (21,700,2)
+[Client] 2025/12/07 12:19:24.119925 ClientDriver: set 1 txn 1/4 (21,700,2)
+[Client] 2025/12/07 12:19:24.120010 Client 21: sending txn (21,700,2) ts=1765127964119985000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:19:24.121231 Client 21: sending request to node 1 seq? pending ts=1765127964119985000
+[Client] 2025/12/07 12:19:24.149894 Client 21: node 1 replied success=true seq=1
+[Client] 2025/12/07 12:19:24.153459 Client 21: cluster 1 leader 1 succeeded ts=1765127964119985000 seq=1
+[Client] 2025/12/07 12:19:24.153474 ClientDriver: txn applied seq=1
+[Client] 2025/12/07 12:19:24.354543 
+[2/4] Transaction: (F(n5,,0)
+[Client] 2025/12/07 12:19:24.354689 ClientDriver: set 1 txn 2/4 (F(n5,,0)
+[Client] 2025/12/07 12:19:24.555872 
+[3/4] Transaction: (3003,4001,2)
+[Client] 2025/12/07 12:19:24.556040 ClientDriver: set 1 txn 3/4 (3003,4001,2)
+[Client] 2025/12/07 12:19:24.556121 Client 3003: sending txn (3003,4001,2) ts=1765127964556100000 (cluster=2 leader=4)
+[Client] 2025/12/07 12:19:24.557680 Client 3003: sending request to node 4 seq? pending ts=1765127964556100000
+[Client] 2025/12/07 12:19:24.559031 Client 3003: node 4 replied success=false seq=0
+[Client] 2025/12/07 12:19:24.559169 ClientDriver: deferring txn (3003,4001,2)
+[Client] 2025/12/07 12:19:24.760280 
+[4/4] Transaction: (21,4002,2)
+[Client] 2025/12/07 12:19:24.760481 ClientDriver: set 1 txn 4/4 (21,4002,2)
+[Client] 2025/12/07 12:19:24.760567 Client 21: sending txn (21,4002,2) ts=1765127964760547000 (cluster=1 leader=1)
+[Client] 2025/12/07 12:19:24.762082 Client 21: sending request to node 1 seq? pending ts=1765127964760547000
+[Client] 2025/12/07 12:19:24.793500 Client 21: node 1 replied success=true seq=2
+[Client] 2025/12/07 12:19:24.796974 Client 21: cluster 1 leader 1 succeeded ts=1765127964760547000 seq=2
+[Client] 2025/12/07 12:19:24.796992 ClientDriver: txn applied seq=2
+[Client] 2025/12/07 12:19:24.998056 ClientDriver: set 1 complete success=2 fail=1
+[Client] 2025/12/07 12:19:24.998182 Performance: txns=3 avgLatency=24.333319ms throughput=4.43/s

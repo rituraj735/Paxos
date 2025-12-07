@@ -3028,13 +3028,39 @@ func (s *NodeService) GetBalancesFor(args datatypes.GetBalancesForArgs, reply *d
 
 // FlushState clears per-set observability and resets DB balances if requested.
 func (s *NodeService) FlushState(args datatypes.FlushStateArgs, reply *datatypes.FlushStateReply) error {
-	s.node.mu.Lock()
-	s.node.NewViewMsgs = nil
-	s.node.mu.Unlock()
-	if args.ResetDB {
-		rng := config.ClusterRanges[s.node.ClusterID]
-		_ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
-	}
-	*reply = datatypes.FlushStateReply{Ok: true}
-	return nil
+    s.node.mu.Lock()
+    // Always clear view messages for fresh observability per set
+    s.node.NewViewMsgs = nil
+
+    if args.ResetConsensus {
+        // Clear consensus logs and state while preserving topology/liveness
+        s.node.AcceptedLog = make(map[int]datatypes.LogEntry)
+        s.node.RequestLog = nil
+        s.node.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+        s.node.NextSeqNum = 1
+        s.node.LastReply = make(map[string]datatypes.ReplyMsg)
+        s.node.HighestPromised = datatypes.BallotNumber{Number: 0, NodeID: 0}
+        s.node.CurrentBallot = datatypes.BallotNumber{Number: 0, NodeID: 0}
+        s.node.IsLeader = false
+        s.node.ackFromNewView = make(map[int]bool)
+        s.node.acceptedFromNewViewCount = 0
+        s.node.Locks = make(map[int]LockInfo)
+        s.node.TxnStates = make(map[string]*TxnState)
+        s.node.Pending2PCAcks = make(map[string]*PendingDecision)
+        // Prevent immediate re-election before the driver primes leaders
+        s.node.lastLeaderMsg = time.Now()
+        s.node.electionCoolDown = time.Now()
+    }
+
+    s.node.mu.Unlock()
+
+    if args.ResetWAL {
+        _ = s.node.Database.ClearAllWAL()
+    }
+    if args.ResetDB {
+        rng := config.ClusterRanges[s.node.ClusterID]
+        _ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
+    }
+    *reply = datatypes.FlushStateReply{Ok: true}
+    return nil
 }

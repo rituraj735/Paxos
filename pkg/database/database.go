@@ -376,6 +376,23 @@ func (db *Database) ClearWAL(txnID string) error {
     })
 }
 
+// ClearAllWAL removes all WAL entries regardless of transaction ID.
+func (db *Database) ClearAllWAL() error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        b := tx.Bucket(db.bucketWAL)
+        c := b.Cursor()
+        for k, _ := c.First(); k != nil; k, _ = c.Next() {
+            if err := b.Delete(k); err != nil {
+                return err
+            }
+        }
+        log.Printf("[WAL] clear all entries")
+        return nil
+    })
+}
+
 // PromoteWALPrepareToCommit copies the WAL record with phase P (prepare) to a
 // new record with phase C (commit), overwriting existing C if present.
 func (db *Database) PromoteWALPrepareToCommit(txnID string) error {

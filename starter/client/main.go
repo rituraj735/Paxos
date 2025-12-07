@@ -426,7 +426,7 @@ func processNextTestSet(reader *bufio.Reader) {
 			if c, err := rpc.Dial("tcp", addr); err == nil {
 				defer c.Close()
 				var fr datatypes.FlushStateReply
-				_ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true}, &fr)
+				_ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true, ResetConsensus: true, ResetWAL: true}, &fr)
 			}
 		}(address)
 	}
@@ -475,7 +475,7 @@ func processNextTestSet(reader *bufio.Reader) {
 
 	// No global leader updates here; routing is cluster-aware in client.SendTransaction
 
-	flushBacklog()
+	//flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
@@ -496,42 +496,42 @@ func processNextTestSet(reader *bufio.Reader) {
 			continue
 		}
 
-        // F/R admin commands
-        s := strings.TrimSpace(tx.Sender)
-        if strings.HasPrefix(strings.ToUpper(s), "F(") || strings.HasPrefix(strings.ToUpper(s), "R(") {
-            inside := s
-            if i := strings.Index(inside, "("); i >= 0 {
-                inside = inside[i+1:]
-            }
-            if j := strings.Index(inside, ")"); j >= 0 {
-                inside = inside[:j]
-            }
-            inside = strings.TrimSpace(inside)
-            inside = strings.TrimPrefix(inside, "n")
-            nid, perr := strconv.Atoi(inside)
-            if perr != nil || nid < 1 || nid > config.NumNodes {
-                log.Printf("ClientDriver: invalid F/R command target=%q", s)
-                continue
-            }
-            isRecover := strings.HasPrefix(strings.ToUpper(s), "R(")
-            // Broadcast liveness change to all nodes
-            for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-                addr := config.NodeAddresses[nodeID]
-                go func(addr string) {
-                    if c, err := rpc.Dial("tcp", addr); err == nil {
-                        defer c.Close()
-                        var ok bool
-                        _ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
-                    }
-                }(addr)
-            }
-            // allow brief settle
-            time.Sleep(200 * time.Millisecond)
-            continue
-        }
+		// F/R admin commands
+		s := strings.TrimSpace(tx.Sender)
+		if strings.HasPrefix(strings.ToUpper(s), "F(") || strings.HasPrefix(strings.ToUpper(s), "R(") {
+			inside := s
+			if i := strings.Index(inside, "("); i >= 0 {
+				inside = inside[i+1:]
+			}
+			if j := strings.Index(inside, ")"); j >= 0 {
+				inside = inside[:j]
+			}
+			inside = strings.TrimSpace(inside)
+			inside = strings.TrimPrefix(inside, "n")
+			nid, perr := strconv.Atoi(inside)
+			if perr != nil || nid < 1 || nid > config.NumNodes {
+				log.Printf("ClientDriver: invalid F/R command target=%q", s)
+				continue
+			}
+			isRecover := strings.HasPrefix(strings.ToUpper(s), "R(")
+			// Broadcast liveness change to all nodes
+			for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+				addr := config.NodeAddresses[nodeID]
+				go func(addr string) {
+					if c, err := rpc.Dial("tcp", addr); err == nil {
+						defer c.Close()
+						var ok bool
+						_ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
+					}
+				}(addr)
+			}
+			// allow brief settle
+			time.Sleep(200 * time.Millisecond)
+			continue
+		}
 
-        // Read-only if Receiver is empty
-        if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
+		// Read-only if Receiver is empty
+		if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
 			sid, _ := strconv.Atoi(tx.Sender)
 			// pick cluster anchor leader candidate
 			cid := shard.ClusterOfItem(sid)
