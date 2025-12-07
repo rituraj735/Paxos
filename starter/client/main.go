@@ -62,14 +62,14 @@ func flushBacklog() {
 	}
 	log.Printf("ClientDriver: flushing backlog (%d txns)", len(backlog))
 
-	//fmt.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
+	//log.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
 
 	i := 0
 	for i < len(backlog) {
 		tx := backlog[i]
 		c, ok := clients[tx.Sender]
 		if !ok {
-			//fmt.Printf("Backlog: client %s not found; skipping\n", tx.Sender)
+			//log.Printf("Backlog: client %s not found; skipping\n", tx.Sender)
 			i++
 			continue
 		}
@@ -169,7 +169,7 @@ func main() {
 
 // ClientWorker is a placeholder goroutine for future async work per client.
 func ClientWorker(clientID int, inputChan <-chan string) {
-	//fmt.Printf("Client %d started and listening for commands...\n", clientID)
+	//log.Printf("Client %d started and listening for commands...\n", clientID)
 	log.Printf("ClientWorker %d: started", clientID)
 
 	for txn := range inputChan {
@@ -449,7 +449,7 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 	time.Sleep(500 * time.Millisecond)
 
-	// Prime leaders on n1,n4,n7 if they are live
+	// Prime leaders on n1,n4,n7 if they are live using ForceLeader (runs Phase-1 safely)
 	for _, nid := range []int{1, 4, 7} {
 		if !active[nid] {
 			continue
@@ -459,7 +459,7 @@ func processNextTestSet(reader *bufio.Reader) {
 			if c, err := rpc.Dial("tcp", addr); err == nil {
 				defer c.Close()
 				var trep datatypes.TriggerElectionReply
-				_ = c.Call("NodeService.TriggerElection", datatypes.TriggerElectionArgs{}, &trep)
+				_ = c.Call("NodeService.ForceLeader", datatypes.TriggerElectionArgs{}, &trep)
 			}
 		}(addr)
 	}
@@ -470,30 +470,23 @@ func processNextTestSet(reader *bufio.Reader) {
 	perf = PerfStats{}
 	perf.StartWall = time.Now()
 
-	// Wait briefly for a real leader before flushing and sending txns.
-	// This prevents premature "no leader available" deferrals right after liveness changes.
-	waitBudget := time.Duration(config.LeaderTimeout)*time.Millisecond + 500*time.Millisecond
-	if leaderID, err := waitForStableLeader(waitBudget); err == nil && leaderID != 0 {
-		for _, c := range clients {
-			c.UpdateLeader(leaderID)
-		}
-	}
+    // No global leader updates here; routing is cluster-aware in client.SendTransaction
 
 	flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
-		fmt.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
+		log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
 		log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
 
 		if tx.Sender == lfSentinelSender {
 			//fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
 			newLeader, err := triggerLeaderFailure()
 			if err != nil {
-				//fmt.Printf("❌ LF failed: %v\n", err)
+				//log.Printf("❌ LF failed: %v\n", err)
 				failCount++
 			} else {
-				fmt.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
+				log.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
 			}
 			// experimenting with sleep time after LF
 			time.Sleep(2 * time.Second)
@@ -528,7 +521,7 @@ func processNextTestSet(reader *bufio.Reader) {
 		// RW transaction path
 		c, exists := clients[tx.Sender]
 		if !exists {
-			fmt.Printf("Client %s not found\n", tx.Sender)
+			log.Printf("Client %s not found\n", tx.Sender)
 			failCount++
 			continue
 		}
@@ -600,13 +593,13 @@ func printLogFromNode(reader *bufio.Reader) {
 
 	address, ok := config.NodeAddresses[nodeID]
 	if !ok {
-		fmt.Printf("❌ Unknown node ID %d\n", nodeID)
+		log.Printf("❌ Unknown node ID %d\n", nodeID)
 		return
 	}
 
 	client, err := rpc.Dial("tcp", address)
 	if err != nil {
-		fmt.Printf("❌ Could not connect to node %d at %s: %v\n", nodeID, address, err)
+		log.Printf("❌ Could not connect to node %d at %s: %v\n", nodeID, address, err)
 		return
 	}
 	defer client.Close()
@@ -614,7 +607,7 @@ func printLogFromNode(reader *bufio.Reader) {
 	var reply string
 	err = client.Call("NodeService.PrintLog", true, &reply)
 	if err != nil {
-		fmt.Printf("❌ RPC error calling PrintLog on node %d: %v\n", nodeID, err)
+		log.Printf("❌ RPC error calling PrintLog on node %d: %v\n", nodeID, err)
 		return
 	}
 
@@ -664,18 +657,18 @@ func printStatusFromNode(reader *bufio.Reader) {
 		return
 	}
 
-	fmt.Printf("\n===== Status of Seq %d across all nodes =====\n", seqNum)
+	log.Printf("\n===== Status of Seq %d across all nodes =====\n", seqNum)
 	log.Printf("ClientDriver: querying status for seq %d", seqNum)
 
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address, ok := config.NodeAddresses[nodeID]
 		if !ok {
-			fmt.Printf("❌ Unknown node ID %d\n", nodeID)
+			log.Printf("❌ Unknown node ID %d\n", nodeID)
 			continue
 		}
 		client, err := rpc.Dial("tcp", address)
 		if err != nil {
-			fmt.Printf("❌ Could not connect to node %d: %v\n", nodeID, err)
+			log.Printf("❌ Could not connect to node %d: %v\n", nodeID, err)
 			return
 		}
 		var reply string
@@ -683,7 +676,7 @@ func printStatusFromNode(reader *bufio.Reader) {
 		client.Close()
 
 		if err != nil {
-			fmt.Printf("❌ RPC error calling PrintStatus on node %d: %v\n", nodeID, err)
+			log.Printf("❌ RPC error calling PrintStatus on node %d: %v\n", nodeID, err)
 			return
 		}
 
@@ -701,7 +694,7 @@ func printViewFromAllNodes() {
 
 		client, err := rpc.Dial("tcp", address)
 		if err != nil {
-			fmt.Printf("❌ Node %d unreachable: %v\n", nodeID, err)
+			log.Printf("❌ Node %d unreachable: %v\n", nodeID, err)
 			continue
 		}
 
@@ -710,7 +703,7 @@ func printViewFromAllNodes() {
 		client.Close()
 
 		if err != nil {
-			fmt.Printf("❌ RPC error on Node %d: %v\n", nodeID, err)
+			log.Printf("❌ RPC error on Node %d: %v\n", nodeID, err)
 			continue
 		}
 

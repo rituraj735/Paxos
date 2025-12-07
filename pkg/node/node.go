@@ -2247,6 +2247,101 @@ func (n *Node) StartLeaderElection() bool {
 	return false
 }
 
+// ForceLeader elevates this node's ballot and executes a bounded Phase-1 to
+// become leader of its cluster, then performs New-View and starts heartbeats.
+// Returns true on success (quorum promises), false otherwise.
+func (n *Node) ForceLeader() bool {
+    // Pre-check activity and cluster majority availability
+    n.mu.RLock()
+    if !n.ActiveNodes[n.ID] {
+        n.mu.RUnlock()
+        return false
+    }
+    // Compute an elevated starting ballot
+    startNum := n.CurrentBallot.Number
+    if n.HighestPromised.Number > startNum {
+        startNum = n.HighestPromised.Number
+    }
+    ballot := datatypes.BallotNumber{Number: startNum + 1, NodeID: n.ID}
+    n.mu.RUnlock()
+
+    // Attempt a few times in case of higher nacks
+    for attempt := 0; attempt < 3; attempt++ {
+        // Collect promises from cluster peers
+        promises := make(map[int]datatypes.PromiseMsg)
+        var mu sync.Mutex
+        var wg sync.WaitGroup
+        highestNack := ballot
+        // Send prepares to cluster peers (excluding self)
+        for _, pid := range n.clusterPeerIDs() {
+            if pid == n.ID { continue }
+            wg.Add(1)
+            go func(id int) {
+                defer wg.Done()
+                req := datatypes.PrepareMsg{Ballot: ballot}
+                var rep datatypes.PromiseMsg
+                if err := n.callRPC(id, "Prepare", req, &rep); err == nil {
+                    mu.Lock()
+                    if rep.Success {
+                        promises[id] = rep
+                    } else {
+                        // track the highest promised to bump above
+                        if rep.Ballot.Number > highestNack.Number || (rep.Ballot.Number == highestNack.Number && rep.Ballot.NodeID > highestNack.NodeID) {
+                            highestNack = rep.Ballot
+                        }
+                    }
+                    mu.Unlock()
+                }
+            }(pid)
+        }
+        // Self-promise (include our accept log)
+        n.mu.RLock()
+        selfLog := make([]datatypes.AcceptLogEntry, 0)
+        for seqNum, entry := range n.AcceptedLog {
+            selfLog = append(selfLog, datatypes.AcceptLogEntry{AcceptNum: entry.Ballot, SeqNum: seqNum, Request: entry.Request, Status: entry.Status})
+        }
+        n.mu.RUnlock()
+        mu.Lock()
+        promises[n.ID] = datatypes.PromiseMsg{Ballot: ballot, AcceptLog: selfLog, Success: true}
+        mu.Unlock()
+
+        wg.Wait()
+
+        // Check quorum
+        n.mu.RLock()
+        maj := n.clusterMajorityLocked()
+        n.mu.RUnlock()
+        if len(promises) >= maj {
+            // Become leader and perform New-View
+            n.mu.Lock()
+            if !n.ActiveNodes[n.ID] {
+                n.mu.Unlock()
+                return false
+            }
+            n.IsLeader = true
+            n.clearAllLocksLocked("force leader with new ballot")
+            n.CurrentBallot = ballot
+            acceptLog := n.createNewViewFromPromises(promises)
+            newViewMsg := datatypes.NewViewMsg{Ballot: ballot, AcceptLog: acceptLog}
+            n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
+            n.mu.Unlock()
+
+            n.sendNewViewMessages(newViewMsg)
+            go n.sendHeartbeats()
+            return true
+        }
+        // If we saw a higher promised ballot, bump above and retry
+        if highestNack.Number > ballot.Number || (highestNack.Number == ballot.Number && highestNack.NodeID > ballot.NodeID) {
+            ballot.Number = highestNack.Number + 1
+            ballot.NodeID = n.ID
+            continue
+        }
+        // No path to quorum
+        return false
+    }
+    return false
+}
+
 // recoverEntryWithNewBallot ensures an entry is accepted by a majority under the
 // current leader ballot, then issues a commit and applies it locally.
 func (n *Node) recoverEntryWithNewBallot(entry datatypes.AcceptLogEntry, ballot datatypes.BallotNumber) {
@@ -2848,6 +2943,22 @@ func (s *NodeService) TriggerElection(_ datatypes.TriggerElectionArgs, reply *da
         started = s.node.StartLeaderElection()
     }
     *reply = datatypes.TriggerElectionReply{Started: started}
+    return nil
+}
+
+// ForceLeader attempts to make this node the leader of its cluster by
+// running Phase-1 with an elevated ballot and performing New-View before
+// sending heartbeats. Returns Started=true if the process initiated and
+// reached quorum.
+func (s *NodeService) ForceLeader(_ datatypes.TriggerElectionArgs, reply *datatypes.TriggerElectionReply) error {
+    s.node.mu.RLock()
+    selfActive := s.node.ActiveNodes[s.node.ID]
+    s.node.mu.RUnlock()
+    ok := false
+    if selfActive {
+        ok = s.node.ForceLeader()
+    }
+    *reply = datatypes.TriggerElectionReply{Started: ok}
     return nil
 }
 

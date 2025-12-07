@@ -1,0 +1,45 @@
+[Client] 2025/12/06 20:22:48.874078 ClientDriver: started; expecting 9000 clients
+[Client] 2025/12/06 20:22:53.992122 ClientDriver: parsing CSV file /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/06 20:22:53.993654 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/06 20:22:53.993687 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/cft-rituraj735/CSE535-F25-Project-3-Testcases.csv
+[Client] 2025/12/06 20:22:58.216227 ClientDriver: processing set 1 with 5 txns
+[Client] 2025/12/06 20:22:59.519930 
+[1/5] Transaction: (1001,1002,1)
+[Client] 2025/12/06 20:22:59.520235 ClientDriver: set 1 txn 1/5 (1001,1002,1)
+[Client] 2025/12/06 20:22:59.520378 Client 1001: sending txn (1001,1002,1) ts=1765070579520357000 (cluster=1 leader=1)
+[Client] 2025/12/06 20:22:59.523291 Client 1001: sending request to node 1 seq? pending ts=1765070579520357000
+[Client] 2025/12/06 20:22:59.555924 Client 1001: node 1 replied success=true seq=1
+[Client] 2025/12/06 20:22:59.558706 Client 1001: cluster 1 leader 1 succeeded ts=1765070579520357000 seq=1
+[Client] 2025/12/06 20:22:59.558726 ClientDriver: txn applied seq=1
+[Client] 2025/12/06 20:22:59.759825 
+[2/5] Transaction: (3001,3002,1)
+[Client] 2025/12/06 20:22:59.760153 ClientDriver: set 1 txn 2/5 (3001,3002,1)
+[Client] 2025/12/06 20:22:59.760449 Client 3001: sending txn (3001,3002,1) ts=1765070579760428000 (cluster=2 leader=4)
+[Client] 2025/12/06 20:22:59.763514 Client 3001: sending request to node 4 seq? pending ts=1765070579760428000
+[Client] 2025/12/06 20:22:59.785207 Client 3001: node 4 replied success=true seq=1
+[Client] 2025/12/06 20:22:59.789257 Client 3001: cluster 2 leader 4 succeeded ts=1765070579760428000 seq=1
+[Client] 2025/12/06 20:22:59.789274 ClientDriver: txn applied seq=1
+[Client] 2025/12/06 20:22:59.990063 
+[3/5] Transaction: (6001,6002,1)
+[Client] 2025/12/06 20:22:59.990267 ClientDriver: set 1 txn 3/5 (6001,6002,1)
+[Client] 2025/12/06 20:22:59.990368 Client 6001: sending txn (6001,6002,1) ts=1765070579990354000 (cluster=3 leader=7)
+[Client] 2025/12/06 20:22:59.991882 Client 6001: sending request to node 7 seq? pending ts=1765070579990354000
+[Client] 2025/12/06 20:23:00.020495 Client 6001: node 7 replied success=true seq=1
+[Client] 2025/12/06 20:23:00.024043 Client 6001: cluster 3 leader 7 succeeded ts=1765070579990354000 seq=1
+[Client] 2025/12/06 20:23:00.024060 ClientDriver: txn applied seq=1
+[Client] 2025/12/06 20:23:00.225169 
+[4/5] Transaction: (1002,,0)
+[Client] 2025/12/06 20:23:00.225966 ClientDriver: set 1 txn 4/5 (1002,,0)
+[Client] 2025/12/06 20:23:00.231615 
+[5/5] Transaction: (3002,,0)
+[Client] 2025/12/06 20:23:00.231725 ClientDriver: set 1 txn 5/5 (3002,,0)
+[Client] 2025/12/06 20:23:00.235201 ClientDriver: set 1 complete success=3 fail=0
+[Client] 2025/12/06 20:23:00.235238 Performance: txns=5 avgLatency=21.973316ms throughput=6.99/s
+[Client] 2025/12/06 20:23:52.990614 ClientDriver: PrintDB command selected
+[Client] 2025/12/06 20:24:25.564163 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:31:23.919609 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:31:32.376152 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:31:38.376622 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:31:46.895554 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:31:52.747169 ClientDriver: PrintLog command selected
+[Client] 2025/12/06 20:32:06.755556 ClientDriver: PrintLog command selected

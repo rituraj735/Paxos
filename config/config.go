@@ -4,6 +4,8 @@
 // =======================================
 package config
 
+import "strconv"
+
 const (
 	// Topology
 	NumNodes    = 9
@@ -41,8 +43,19 @@ var NodeAddresses = map[int]string{
 	9: "localhost:8009",
 }
 
-// Legacy: keep present to satisfy client code compilation; now unused.
-var ClientIDs = []string{}
+// ClientIDs: pre-populate logical client IDs for full range [MinAccountID..MaxAccountID].
+var ClientIDs []string
+
+func init() {
+    total := MaxAccountID - MinAccountID + 1
+    if total < 0 {
+        total = 0
+    }
+    ClientIDs = make([]string, 0, total)
+    for i := MinAccountID; i <= MaxAccountID; i++ {
+        ClientIDs = append(ClientIDs, strconv.Itoa(i))
+    }
+}
 
 // Logical cluster composition (metadata only in Phase 1)
 var ClusterMembers = map[int][]int{
