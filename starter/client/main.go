@@ -5,21 +5,23 @@
 package main
 
 import (
-	"bufio"
-	"encoding/csv"
-	"fmt"
-	"io"
-	"log"
-	"multipaxos/rituraj735/config"
-	"multipaxos/rituraj735/datatypes"
-	"multipaxos/rituraj735/pkg/client"
-	"multipaxos/rituraj735/pkg/shard"
-	"net/rpc"
-	"os"
-	"strconv"
-	"strings"
-	"sync"
-	"time"
+    "bufio"
+    "encoding/csv"
+    "flag"
+    "fmt"
+    "io"
+    "log"
+    "math/rand"
+    "multipaxos/rituraj735/config"
+    "multipaxos/rituraj735/datatypes"
+    "multipaxos/rituraj735/pkg/client"
+    "multipaxos/rituraj735/pkg/shard"
+    "net/rpc"
+    "os"
+    "strconv"
+    "strings"
+    "sync"
+    "time"
 )
 
 type TxnSet struct {
@@ -101,11 +103,24 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	log.SetPrefix("[Client] ")
 
-	fmt.Println("Welcome to Bank of Paxos")
-	fmt.Println("==========================")
-	log.Printf("ClientDriver: started; expecting %d clients", len(config.ClientIDs))
-	var option int
-	var fileName string
+    // Flags for Phase 9 benchmark mode
+    bench := flag.Bool("bench", false, "run benchmark mode and exit")
+    modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro")
+    durationFlag := flag.Int("duration", 30, "benchmark duration in seconds")
+    clientsFlag := flag.Int("clients", 4, "number of concurrent workers")
+    amountFlag := flag.Int("amount", 1, "transfer amount for rw mode")
+    crossRatioFlag := flag.Float64("crossRatio", 0.0, "fraction of cross-shard txns [0..1]")
+    hotKFlag := flag.Int("hotK", 100, "size of hot set for skew")
+    hotProbFlag := flag.Float64("hotProb", 0.0, "probability of choosing from hot set [0..1]")
+    seedFlag := flag.Int64("seed", 1, "RNG seed")
+    sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
+    flag.Parse()
+
+    fmt.Println("Welcome to Bank of Paxos")
+    fmt.Println("==========================")
+    log.Printf("ClientDriver: started; expecting %d clients", len(config.ClientIDs))
+    var option int
+    var fileName string
 
 	// Initializing 10 clients
 	clients = make(map[string]*client.Client)
@@ -116,20 +131,27 @@ func main() {
 	time.Sleep(1 * time.Second) //Just waiting for clients to initialize and come up
 	fmt.Println("All 10 clients are ready")
 
-	// Reading CSV file path from user
-	fmt.Println("Please enter the test file path to start: ")
-	filePathReader := bufio.NewReader(os.Stdin)
-	filePath, err := filePathReader.ReadString('\n')
-	if err != nil {
-		log.Fatalf("Failed to read file path: %v", err)
-	}
-	filePath = strings.TrimSpace(filePath)
-	sets, err = ParseTxnSetsFromCSV(filePath)
+    // If -bench is set, run benchmark flow and exit
+    if *bench {
+        if err := runBenchmark(*modeFlag, *durationFlag, *clientsFlag, *amountFlag, *crossRatioFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
+            log.Fatalf("Benchmark failed: %v", err)
+        }
+        return
+    }
 
-	if err != nil {
-		log.Fatalf("Failed to parse CSV file: %v", err)
-	}
-	log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
+    // Reading CSV file path from user (interactive mode)
+    fmt.Println("Please enter the test file path to start: ")
+    filePathReader := bufio.NewReader(os.Stdin)
+    filePath, err := filePathReader.ReadString('\n')
+    if err != nil {
+        log.Fatalf("Failed to read file path: %v", err)
+    }
+    filePath = strings.TrimSpace(filePath)
+    sets, err = ParseTxnSetsFromCSV(filePath)
+    if err != nil {
+        log.Fatalf("Failed to parse CSV file: %v", err)
+    }
+    log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
 
 	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
@@ -168,6 +190,298 @@ func main() {
 		}
 	}
 
+}
+
+// ========================
+// Phase 9: Benchmark Mode
+// ========================
+
+type benchWorkerStats struct {
+    totalOps     int64
+    successOps   int64
+    abortOps     int64
+    errorOps     int64
+    totalLatency time.Duration
+}
+
+func runBenchmark(mode string, durationSec int, workers int, amount int, crossRatio float64, hotK int, hotProb float64, seed int64, sourceCID int) error {
+    // Validate flags
+    if mode != "rw" && mode != "ro" {
+        return fmt.Errorf("invalid -mode: %s", mode)
+    }
+    if durationSec <= 0 { return fmt.Errorf("duration must be > 0") }
+    if workers <= 0 { workers = 1 }
+    if crossRatio < 0.0 { crossRatio = 0.0 }
+    if crossRatio > 1.0 { crossRatio = 1.0 }
+    if hotProb < 0.0 { hotProb = 0.0 }
+    if hotProb > 1.0 { hotProb = 1.0 }
+    if sourceCID < 1 || sourceCID > 3 { sourceCID = 1 }
+
+    // 1) Flush state on all nodes
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        addr := config.NodeAddresses[nodeID]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var fr datatypes.FlushStateReply
+                _ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true, ResetConsensus: true, ResetWAL: true}, &fr)
+            }
+        }(addr)
+    }
+    time.Sleep(300 * time.Millisecond)
+
+    // 2) Prime leaders on cluster anchors (1,4,7)
+    for _, nid := range []int{1, 4, 7} {
+        addr := config.NodeAddresses[nid]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var trep datatypes.TriggerElectionReply
+                _ = c.Call("NodeService.ForceLeader", datatypes.TriggerElectionArgs{}, &trep)
+            }
+        }(addr)
+    }
+    time.Sleep(500 * time.Millisecond)
+
+    // 3) Prepare ranges and helpers
+    rngMain := rand.New(rand.NewSource(seed))
+    clusterRanges := config.ClusterRanges
+    pickInRange := func(rng *rand.Rand, lo, hi int) int {
+        if hi < lo { return lo }
+        return lo + rng.Intn(hi-lo+1)
+    }
+    clamp := func(x, lo, hi int) int {
+        if x < lo { return lo }
+        if x > hi { return hi }
+        return x
+    }
+
+    // leader cache per cluster
+    var cacheMu sync.Mutex
+    leaderCache := make(map[int]int)
+
+    getClusterLeader := func(clusterID int, rng *rand.Rand) (int, string, error) {
+        members, ok := config.ClusterMembers[clusterID]
+        if !ok || len(members) == 0 {
+            return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
+        }
+        // choose a candidate: cached or the first member
+        cacheMu.Lock()
+        cand := leaderCache[clusterID]
+        cacheMu.Unlock()
+        if cand == 0 { cand = members[0] }
+
+        queryLeader := func(nodeID int) (int, error) {
+            addr := config.NodeAddresses[nodeID]
+            cli, err := rpc.Dial("tcp", addr)
+            if err != nil { return 0, err }
+            defer cli.Close()
+            var info datatypes.LeaderInfo
+            if err := cli.Call("NodeService.GetLeader", true, &info); err != nil { return 0, err }
+            if info.IsLeader && info.LeaderID != 0 {
+                return info.LeaderID, nil
+            }
+            return 0, fmt.Errorf("no leader from node %d", nodeID)
+        }
+
+        if lid, err := queryLeader(cand); err == nil {
+            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
+            return lid, config.NodeAddresses[lid], nil
+        }
+        // try a different random member once
+        alt := cand
+        for tries := 0; tries < 5 && alt == cand; tries++ {
+            alt = members[rng.Intn(len(members))]
+        }
+        if lid, err := queryLeader(alt); err == nil {
+            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
+            return lid, config.NodeAddresses[lid], nil
+        }
+        return 0, "", fmt.Errorf("leader discovery failed for cluster %d", clusterID)
+    }
+
+    // sender sampler for sourceCID
+    senderSampler := func(rng *rand.Rand) int {
+        rngDef, ok := clusterRanges[sourceCID]
+        if !ok { return 1 }
+        if hotProb <= 0.0 || hotK <= 0 {
+            return pickInRange(rng, rngDef.Min, rngDef.Max)
+        }
+        size := rngDef.Max - rngDef.Min + 1
+        hk := clamp(hotK, 1, size)
+        if rng.Float64() < hotProb {
+            // hot set
+            return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1)
+        }
+        // cold set
+        coldLo := rngDef.Min + hk
+        if coldLo > rngDef.Max { coldLo = rngDef.Min }
+        return pickInRange(rng, coldLo, rngDef.Max)
+    }
+
+    // receiver sampler based on sender and cross/intra choice
+    receiverSampler := func(rng *rand.Rand, senderID int) (int, int) {
+        sCID := shard.ClusterOfItem(senderID)
+        targetCID := sCID
+        if mode == "rw" && rng.Float64() < crossRatio {
+            // pick a different cluster uniformly
+            options := []int{}
+            for cid := 1; cid <= config.NumClusters; cid++ { if cid != sCID { options = append(options, cid) } }
+            targetCID = options[rng.Intn(len(options))]
+        }
+        rngDef, ok := clusterRanges[targetCID]
+        if !ok { return 0, targetCID }
+        if hotProb <= 0.0 || hotK <= 0 {
+            return pickInRange(rng, rngDef.Min, rngDef.Max), targetCID
+        }
+        size := rngDef.Max - rngDef.Min + 1
+        hk := clamp(hotK, 1, size)
+        if rng.Float64() < hotProb {
+            return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1), targetCID
+        }
+        coldLo := rngDef.Min + hk
+        if coldLo > rngDef.Max { coldLo = rngDef.Min }
+        return pickInRange(rng, coldLo, rngDef.Max), targetCID
+    }
+
+    // worker function
+    doRW := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
+        st := benchWorkerStats{}
+        seq := int64(0)
+        for time.Now().Before(end) {
+            sid := senderSampler(rng)
+            rid, _ := receiverSampler(rng, sid)
+            sCID := shard.ClusterOfItem(sid)
+            lid, addr, err := getClusterLeader(sCID, rng)
+            if err != nil || lid == 0 || addr == "" {
+                st.totalOps++
+                st.errorOps++
+                continue
+            }
+            req := datatypes.ClientRequest{
+                MessageType: "REQUEST",
+                Transaction: datatypes.Txn{Sender: fmt.Sprintf("%d", sid), Receiver: fmt.Sprintf("%d", rid), Amount: amount},
+                Timestamp:   time.Now().UnixNano(),
+                ClientID:    fmt.Sprintf("bench-%d-%d", wid, seq),
+                IsNoOp:      false,
+            }
+            seq++
+            args := datatypes.ClientRequestRPC{Request: req}
+            var rep datatypes.ClientReplyRPC
+            t0 := time.Now()
+            cli, err := rpc.Dial("tcp", addr)
+            if err != nil {
+                st.totalOps++; st.errorOps++; continue
+            }
+            done := make(chan error, 1)
+            go func() { done <- cli.Call("NodeService.HandleClientRequest", args, &rep) }()
+            callTimeout := time.Duration(config.ClientTimeout) * time.Millisecond
+            var callErr error
+            select {
+            case callErr = <-done:
+            case <-time.After(callTimeout):
+                callErr = fmt.Errorf("timeout")
+            }
+            cli.Close()
+            t1 := time.Now()
+
+            st.totalOps++
+            st.totalLatency += t1.Sub(t0)
+            if callErr != nil {
+                st.errorOps++
+                continue
+            }
+            // classify reply
+            msg := strings.ToLower(rep.Reply.Message)
+            if rep.Reply.Success {
+                st.successOps++
+            } else if strings.Contains(msg, "locked") || strings.Contains(msg, "insufficient") || strings.Contains(msg, "abort") {
+                // contentions/logic
+                st.abortOps++
+            } else if strings.Contains(msg, "insufficient active nodes") || strings.Contains(msg, "not leader") || strings.Contains(msg, "consensus") {
+                st.errorOps++
+            } else {
+                // default to error if unexpected
+                st.errorOps++
+            }
+        }
+        return st
+    }
+
+    doRO := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
+        st := benchWorkerStats{}
+        for time.Now().Before(end) {
+            sid := senderSampler(rng) // target account for read
+            sCID := shard.ClusterOfItem(sid)
+            _, addr, err := getClusterLeader(sCID, rng)
+            if err != nil || addr == "" {
+                st.totalOps++
+                st.errorOps++
+                continue
+            }
+            t0 := time.Now()
+            cli, err := rpc.Dial("tcp", addr)
+            if err != nil {
+                st.totalOps++; st.errorOps++; continue
+            }
+            var gbr datatypes.GetBalanceReply
+            callErr := cli.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", sid)}, &gbr)
+            cli.Close()
+            t1 := time.Now()
+            st.totalOps++
+            st.totalLatency += t1.Sub(t0)
+            if callErr != nil {
+                st.errorOps++
+            } else {
+                // success read
+                st.successOps++
+            }
+        }
+        return st
+    }
+
+    // 4) run workers
+    end := time.Now().Add(time.Duration(durationSec) * time.Second)
+    startWall := time.Now()
+    var wg sync.WaitGroup
+    stats := make([]benchWorkerStats, workers)
+    for i := 0; i < workers; i++ {
+        wg.Add(1)
+        idx := i
+        go func() {
+            defer wg.Done()
+            wrng := rand.New(rand.NewSource(seed + int64(idx) + 1000))
+            if mode == "rw" {
+                stats[idx] = doRW(wrng, idx, end)
+            } else {
+                stats[idx] = doRO(wrng, idx, end)
+            }
+        }()
+    }
+    wg.Wait()
+    endWall := time.Now()
+
+    // 5) aggregate
+    var agg benchWorkerStats
+    for i := 0; i < workers; i++ {
+        agg.totalOps += stats[i].totalOps
+        agg.successOps += stats[i].successOps
+        agg.abortOps += stats[i].abortOps
+        agg.errorOps += stats[i].errorOps
+        agg.totalLatency += stats[i].totalLatency
+    }
+    wallSecs := endWall.Sub(startWall).Seconds()
+    tps := 0.0
+    avgLatMs := 0.0
+    if wallSecs > 0 { tps = float64(agg.totalOps) / wallSecs }
+    if agg.totalOps > 0 { avgLatMs = (float64(agg.totalLatency.Milliseconds())) / float64(agg.totalOps) }
+
+    // 6) report
+    fmt.Printf("mode=%s dur=%d clients=%d cross=%.2f hotProb=%.2f\n", mode, durationSec, workers, crossRatio, hotProb)
+    fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n",
+        agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
+
+    return nil
 }
 
 // ClientWorker is a placeholder goroutine for future async work per client.
