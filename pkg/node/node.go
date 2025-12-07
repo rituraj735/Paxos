@@ -67,24 +67,24 @@ type Node struct {
 	// Phase 2: local lock table for account-level locking
 	Locks map[int]LockInfo
 
-    // Phase 4: per-node 2PC transaction state (plumbing only)
-    TxnStates map[string]*TxnState
+	// Phase 4: per-node 2PC transaction state (plumbing only)
+	TxnStates map[string]*TxnState
 
-    // Phase 7: pending 2PC decision acknowledgments (coordinator retries)
-    Pending2PCAcks map[string]*PendingDecision
+	// Phase 7: pending 2PC decision acknowledgments (coordinator retries)
+	Pending2PCAcks map[string]*PendingDecision
 }
 
 // PendingDecision tracks an unacked decision that coordinator must retry.
 type PendingDecision struct {
-    TxnID    string
-    Decision datatypes.TwoPCDecision
-    DestCID  int
-    Attempts int
-    LastAttempt time.Time
+	TxnID       string
+	Decision    datatypes.TwoPCDecision
+	DestCID     int
+	Attempts    int
+	LastAttempt time.Time
 }
 
 type NodeService struct {
-    node *Node
+	node *Node
 }
 
 // LockInfo stores ownership information for a locked account ID.
@@ -187,22 +187,19 @@ func (n *Node) clusterPeerIDs() []int {
 	return ids
 }
 
-// clusterMajorityLocked computes majority among active cluster members.
+// clusterMajorityLocked computes majority based on the fixed cluster size,
+// not the number of currently active nodes. Liveness checks are done
+// separately before proposing/committing.
 func (n *Node) clusterMajorityLocked() int {
 	peers := n.clusterPeerIDs()
-	active := 0
-	for _, id := range peers {
-		if n.ActiveNodes[id] {
-			active++
-		}
-	}
-	if active <= 0 {
+	size := len(peers)
+	if size <= 0 {
 		return 1
 	}
-	maj := active/2 + 1
-	if maj < 1 {
-		maj = 1
-	}
+	maj := size/2 + 1
+	// if maj < 1 {
+	//     maj = 1
+	// }
 	return maj
 }
 
@@ -313,10 +310,10 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		shutdown:        make(chan bool),
 		lastLeaderMsg:   time.Now(),
 		ackFromNewView:  make(map[int]bool),
-        Locks:             make(map[int]LockInfo),
-        TxnStates:         make(map[string]*TxnState),
-        Pending2PCAcks:    make(map[string]*PendingDecision),
-    }
+		Locks:           make(map[int]LockInfo),
+		TxnStates:       make(map[string]*TxnState),
+		Pending2PCAcks:  make(map[string]*PendingDecision),
+	}
 	// Initialize persistent database (BoltDB); fall back to memory if open fails
 	dataDir := "data"
 	_ = os.MkdirAll(dataDir, 0o755)
@@ -344,18 +341,18 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 		}
 	}
 
-    // Seed only this cluster's account range with InitialBalance if missing
-    if node.ClusterID != 0 {
-        rng := config.ClusterRanges[node.ClusterID]
-        for acc := rng.Min; acc <= rng.Max; acc++ {
-            node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
-        }
-    } else {
-        // Fallback: if cluster not resolved, seed all (should not happen in normal startup)
-        for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
-            node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
-        }
-    }
+	// Seed only this cluster's account range with InitialBalance if missing
+	if node.ClusterID != 0 {
+		rng := config.ClusterRanges[node.ClusterID]
+		for acc := rng.Min; acc <= rng.Max; acc++ {
+			node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+		}
+	} else {
+		// Fallback: if cluster not resolved, seed all (should not happen in normal startup)
+		for acc := config.MinAccountID; acc <= config.MaxAccountID; acc++ {
+			node.Database.InitializeClient(strconv.Itoa(acc), config.InitialBalance)
+		}
+	}
 
 	// Initially all nodes are active
 	for nodeID := range peers {
@@ -386,27 +383,27 @@ func (n *Node) Unlock(txnID string, ids ...int) {
 
 // monitorLeaderTimeout watches for missing leader messages and triggers elections.
 func (n *Node) monitorLeaderTimeout() {
-    log.Printf("Node %d: leader timeout monitor running", n.ID)
-    for {
-        time.Sleep(200 * time.Millisecond)
-        n.mu.RLock()
-        selfActive := n.ActiveNodes[n.ID]
-        isLeader := n.IsLeader
-        last := n.lastLeaderMsg
-        cooldown := n.electionCoolDown
-        n.mu.RUnlock()
+	log.Printf("Node %d: leader timeout monitor running", n.ID)
+	for {
+		time.Sleep(200 * time.Millisecond)
+		n.mu.RLock()
+		selfActive := n.ActiveNodes[n.ID]
+		isLeader := n.IsLeader
+		last := n.lastLeaderMsg
+		cooldown := n.electionCoolDown
+		n.mu.RUnlock()
 
-        if !selfActive {
-            // When node is marked inactive, suppress elections and logs
-            continue
-        }
+		if !selfActive {
+			// When node is marked inactive, suppress elections and logs
+			continue
+		}
 
-        if isLeader {
-            n.mu.Lock()
-            n.lastLeaderMsg = time.Now() // the leader keeps its own timer fresh
-            n.mu.Unlock()
-            continue
-        }
+		if isLeader {
+			n.mu.Lock()
+			n.lastLeaderMsg = time.Now() // the leader keeps its own timer fresh
+			n.mu.Unlock()
+			continue
+		}
 
 		if time.Since(cooldown) < 2*time.Second {
 			continue
@@ -778,15 +775,15 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 		go s.node.StartLeaderElection()
 	}
 
-    if activated {
-        if args.NodeID == selfID {
-            // Phase 7: synchronous crash recovery before returning
-            s.node.RecoverFromCrash()
-        } else if isLeaderActive {
-            go s.node.sendStateSnapshot(args.NodeID)
-        }
-    }
-    return nil
+	if activated {
+		if args.NodeID == selfID {
+			// Phase 7: synchronous crash recovery before returning
+			s.node.RecoverFromCrash()
+		} else if isLeaderActive {
+			go s.node.sendStateSnapshot(args.NodeID)
+		}
+	}
+	return nil
 }
 
 // UpdateActiveStatusForBulk applies liveness changes for many nodes at once.
@@ -816,14 +813,14 @@ func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStat
 		go s.node.StartLeaderElection()
 	}
 
-    for _, id := range activatedNodes {
-        if id == selfID {
-            // Phase 7: synchronous crash recovery for self
-            s.node.RecoverFromCrash()
-        } else if isLeaderActive {
-            go s.node.sendStateSnapshot(id)
-        }
-    }
+	for _, id := range activatedNodes {
+		if id == selfID {
+			// Phase 7: synchronous crash recovery for self
+			s.node.RecoverFromCrash()
+		} else if isLeaderActive {
+			go s.node.sendStateSnapshot(id)
+		}
+	}
 
 	return nil
 }
@@ -961,14 +958,14 @@ func (n *NodeService) HandleHeartbeat(msg datatypes.HeartbeatMsg, reply *bool) e
 
 	n.node.lastLeaderMsg = time.Now()
 
-    if n.node.CurrentBallot.LessThan(msg.Ballot) {
-        // Higher ballot observed: clear locks and step down if needed.
-        n.node.CurrentBallot = msg.Ballot
-        if n.node.IsLeader {
-            n.node.IsLeader = false
-        }
-        n.node.clearAllLocksLocked("ballot updated from heartbeat")
-    }
+	if n.node.CurrentBallot.LessThan(msg.Ballot) {
+		// Higher ballot observed: clear locks and step down if needed.
+		n.node.CurrentBallot = msg.Ballot
+		if n.node.IsLeader {
+			n.node.IsLeader = false
+		}
+		n.node.clearAllLocksLocked("ballot updated from heartbeat")
+	}
 
 	*reply = true
 	return nil
@@ -1192,22 +1189,22 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 			Request: request,
 		}
 
-            for _, nodeID := range n.clusterPeerIDs() {
-                if nodeID == n.ID {
-                    continue
-                }
-                n.mu.RLock()
-                targetActive := n.ActiveNodes[nodeID]
-                n.mu.RUnlock()
-                if !targetActive {
-                    continue
-                }
-                go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
-            }
+		for _, nodeID := range n.clusterPeerIDs() {
+			if nodeID == n.ID {
+				continue
+			}
+			n.mu.RLock()
+			targetActive := n.ActiveNodes[nodeID]
+			n.mu.RUnlock()
+			if !targetActive {
+				continue
+			}
+			go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
+		}
 
-            // Mark self committed as well to keep leader status consistent with followers
-            var applied bool
-            _ = n.HandleCommit(commitMsg, &applied)
+		// Mark self committed as well to keep leader status consistent with followers
+		var applied bool
+		_ = n.HandleCommit(commitMsg, &applied)
 
 		//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
 
@@ -1359,20 +1356,20 @@ func (n *Node) handleCrossShardCoordinator(request datatypes.ClientRequest, sID,
 		st.Phase = TxnPhaseAborted
 	}
 	// Notify participant of decision (best-effort)
-    n.mu.Unlock()
-    var decReply datatypes.TwoPCDecisionReply
-    _ = n.call2PCDecision(dstCID, datatypes.TwoPCDecisionArgs{TxnID: txnID, Decision: datatypes.TwoPCDecision(phase)}, &decReply)
-    // Always ensure source lock is released after decision
-    n.mu.Lock()
-    n.unlockLocked(txnID, sID)
-    if !decReply.Acked {
-        // Queue for retry while leader
-        n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: datatypes.TwoPCDecision(phase), DestCID: dstCID}
-    } else {
-        // Participant acked; safe to clear coordinator WAL for this txn
-        go n.Database.ClearWAL(txnID)
-    }
-    n.mu.Unlock()
+	n.mu.Unlock()
+	var decReply datatypes.TwoPCDecisionReply
+	_ = n.call2PCDecision(dstCID, datatypes.TwoPCDecisionArgs{TxnID: txnID, Decision: datatypes.TwoPCDecision(phase)}, &decReply)
+	// Always ensure source lock is released after decision
+	n.mu.Lock()
+	n.unlockLocked(txnID, sID)
+	if !decReply.Acked {
+		// Queue for retry while leader
+		n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: datatypes.TwoPCDecision(phase), DestCID: dstCID}
+	} else {
+		// Participant acked; safe to clear coordinator WAL for this txn
+		go n.Database.ClearWAL(txnID)
+	}
+	n.mu.Unlock()
 
 	return datatypes.ReplyMsg{Ballot: n.CurrentBallot, Timestamp: request.Timestamp, ClientID: request.ClientID, Success: decision == datatypes.TwoPCDecisionCommit, Message: msg}
 }
@@ -1560,23 +1557,23 @@ func (n *Node) proposeAndWait(req datatypes.ClientRequest) (int, bool) {
 
 	// Commit phase
 	commitMsg := datatypes.CommitMsg{Ballot: n.CurrentBallot, SeqNum: seqNum, Request: req}
-    for _, nodeID := range n.clusterPeerIDs() {
-        if nodeID == n.ID {
-            continue
-        }
-        n.mu.RLock()
-        targetActive := n.ActiveNodes[nodeID]
-        n.mu.RUnlock()
-        if !targetActive {
-            continue
-        }
-        log.Printf("Node %d: proposeAndWait sending COMMIT seq=%d to node %d", n.ID, seqNum, nodeID)
-        go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
-    }
+	for _, nodeID := range n.clusterPeerIDs() {
+		if nodeID == n.ID {
+			continue
+		}
+		n.mu.RLock()
+		targetActive := n.ActiveNodes[nodeID]
+		n.mu.RUnlock()
+		if !targetActive {
+			continue
+		}
+		log.Printf("Node %d: proposeAndWait sending COMMIT seq=%d to node %d", n.ID, seqNum, nodeID)
+		go func(id int) { var reply bool; n.callRPC(id, "Commit", commitMsg, &reply) }(nodeID)
+	}
 
-    // Also mark self committed like followers before executing
-    var applied bool
-    _ = n.HandleCommit(commitMsg, &applied)
+	// Also mark self committed like followers before executing
+	var applied bool
+	_ = n.HandleCommit(commitMsg, &applied)
 
 	// Execute locally outside of node mutex to avoid blocking heartbeats
 	success, _ := n.executeRequest(seqNum, req)
@@ -1759,13 +1756,13 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 		}
 	}
 
-    //log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
+	//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
 
-    // Followers should drive execution via the background executor.
-    // The leader already executes inline in the fast path after broadcasting commit.
-    if args.Ballot.NodeID != n.ID {
-        go n.executeRequestsInOrder()
-    }
+	// Followers should drive execution via the background executor.
+	// The leader already executes inline in the fast path after broadcasting commit.
+	if args.Ballot.NodeID != n.ID {
+		go n.executeRequestsInOrder()
+	}
 
 	*reply = true
 	return nil
@@ -1969,104 +1966,107 @@ func (n *Node) executeRequestsInOrder() {
 // markExecuted sets status=Executed for the given sequence number in both
 // AcceptedLog and RequestLog if present.
 func (n *Node) markExecuted(seq int) {
-    n.mu.Lock()
-    defer n.mu.Unlock()
-    if entry, ok := n.AcceptedLog[seq]; ok {
-        if entry.Status != datatypes.StatusExecuted {
-            entry.Status = datatypes.StatusExecuted
-            n.AcceptedLog[seq] = entry
-        }
-    }
-    for i := range n.RequestLog {
-        if n.RequestLog[i].SeqNum == seq {
-            if n.RequestLog[i].Status != datatypes.StatusExecuted {
-                n.RequestLog[i].Status = datatypes.StatusExecuted
-            }
-            break
-        }
-    }
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	if entry, ok := n.AcceptedLog[seq]; ok {
+		if entry.Status != datatypes.StatusExecuted {
+			entry.Status = datatypes.StatusExecuted
+			n.AcceptedLog[seq] = entry
+		}
+	}
+	for i := range n.RequestLog {
+		if n.RequestLog[i].SeqNum == seq {
+			if n.RequestLog[i].Status != datatypes.StatusExecuted {
+				n.RequestLog[i].Status = datatypes.StatusExecuted
+			}
+			break
+		}
+	}
 }
 
 // execute2PCCoordinator applies 2PC effects on the source shard.
 func (n *Node) execute2PCCoordinator(seqNum int, req datatypes.ClientRequest, st *TxnState) (bool, string) {
 	log.Printf("the phase value is %v", req.TwoPCPhase)
-    switch req.TwoPCPhase {
-    case datatypes.TwoPCPhasePrepare:
-        // Idempotence
-        if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
-            n.markExecuted(seqNum)
-            return true, "coord-prepared"
-        }
-        // Debit source with WAL at PREPARE; include metadata for recovery routing
-        sID, amt := st.S, st.Amount
-        if err := n.Database.DebitWithWALMeta(req.TxnID, sID, amt, st.DestCID, st.R); err != nil {
-            st.Phase = TxnPhaseAborted
-            return false, "coord-debit-failed"
-        }
-        st.Phase = TxnPhasePrepared
-        n.markExecuted(seqNum)
-        return true, "coord-prepared"
-    case datatypes.TwoPCPhaseCommit:
-        // Finalize and clear WAL, unlock source if held
-        _ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
-        _ = n.Database.ApplyWALCommit(req.TxnID)
-        // Do NOT clear coordinator WAL here; only clear after participant ACK (retry loop)
-        st.Phase = TxnPhaseCommitted
-        // Note: source lock is released in coordinator after decision
-        n.markExecuted(seqNum)
-        return true, "coord-committed"
-    case datatypes.TwoPCPhaseAbort:
-        _ = n.Database.UndoWAL(req.TxnID)
-        // Do NOT clear coordinator WAL here; only clear after participant ACK (retry loop)
-        st.Phase = TxnPhaseAborted
-        // Note: source lock is released in coordinator after decision
-        n.markExecuted(seqNum)
-        return true, "coord-aborted"
-    default:
-        return false, "coord-unknown-phase"
-    }
+	switch req.TwoPCPhase {
+	case datatypes.TwoPCPhasePrepare:
+		// Idempotence
+		if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
+			n.markExecuted(seqNum)
+			return true, "coord-prepared"
+		}
+		// Debit source with WAL at PREPARE; include metadata for recovery routing
+		sID, amt := st.S, st.Amount
+		if err := n.Database.DebitWithWALMeta(req.TxnID, sID, amt, st.DestCID, st.R); err != nil {
+			st.Phase = TxnPhaseAborted
+			return false, "coord-debit-failed"
+		}
+		st.Phase = TxnPhasePrepared
+		n.markExecuted(seqNum)
+		return true, "coord-prepared"
+	case datatypes.TwoPCPhaseCommit:
+		// Finalize and clear WAL, unlock source if held
+		_ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
+		_ = n.Database.ApplyWALCommit(req.TxnID)
+		// Do NOT clear coordinator WAL here; only clear after participant ACK (retry loop)
+		st.Phase = TxnPhaseCommitted
+		// Note: source lock is released in coordinator after decision
+		n.markExecuted(seqNum)
+		return true, "coord-committed"
+	case datatypes.TwoPCPhaseAbort:
+		_ = n.Database.UndoWAL(req.TxnID)
+		// Do NOT clear coordinator WAL here; only clear after participant ACK (retry loop)
+		st.Phase = TxnPhaseAborted
+		// Note: source lock is released in coordinator after decision
+		n.markExecuted(seqNum)
+		return true, "coord-aborted"
+	default:
+		return false, "coord-unknown-phase"
+	}
 }
 
 // execute2PCParticipant applies 2PC effects on the destination shard.
 func (n *Node) execute2PCParticipant(seqNum int, req datatypes.ClientRequest, st *TxnState) (bool, string) {
-    switch req.TwoPCPhase {
-    case datatypes.TwoPCPhasePrepare:
-        if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted { n.markExecuted(seqNum); return true, "part-prepared" }
-        if err := n.Database.CreditWithWAL(req.TxnID, st.R, st.Amount); err != nil {
-            st.Phase = TxnPhaseAborted
-            if st.LockHeldOnR {
-                n.unlockLocked(req.TxnID, st.R)
-                st.LockHeldOnR = false
-            }
-            return false, "part-credit-failed"
-        }
-        st.Phase = TxnPhasePrepared
-        n.markExecuted(seqNum)
-        return true, "part-prepared"
-    case datatypes.TwoPCPhaseCommit:
-        _ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
-        _ = n.Database.ApplyWALCommit(req.TxnID)
-        _ = n.Database.ClearWAL(req.TxnID)
-        if st.LockHeldOnR {
-            n.unlockLocked(req.TxnID, st.R)
-            st.LockHeldOnR = false
-        }
-        st.Phase = TxnPhaseCommitted
-        n.markExecuted(seqNum)
-        return true, "part-committed"
-    case datatypes.TwoPCPhaseAbort:
-        _ = n.Database.UndoWAL(req.TxnID)
-        _ = n.Database.ClearWAL(req.TxnID)
-        if st.LockHeldOnR {
-            n.unlockLocked(req.TxnID, st.R)
-            st.LockHeldOnR = false
-        }
-        st.Phase = TxnPhaseAborted
-        n.markExecuted(seqNum)
-        return true, "part-aborted"
-    default:
-        return false, "part-unknown-phase"
-    }
+	switch req.TwoPCPhase {
+	case datatypes.TwoPCPhasePrepare:
+		if st.Phase == TxnPhasePrepared || st.Phase == TxnPhaseCommitted {
+			n.markExecuted(seqNum)
+			return true, "part-prepared"
+		}
+		if err := n.Database.CreditWithWAL(req.TxnID, st.R, st.Amount); err != nil {
+			st.Phase = TxnPhaseAborted
+			if st.LockHeldOnR {
+				n.unlockLocked(req.TxnID, st.R)
+				st.LockHeldOnR = false
+			}
+			return false, "part-credit-failed"
+		}
+		st.Phase = TxnPhasePrepared
+		n.markExecuted(seqNum)
+		return true, "part-prepared"
+	case datatypes.TwoPCPhaseCommit:
+		_ = n.Database.PromoteWALPrepareToCommit(req.TxnID)
+		_ = n.Database.ApplyWALCommit(req.TxnID)
+		_ = n.Database.ClearWAL(req.TxnID)
+		if st.LockHeldOnR {
+			n.unlockLocked(req.TxnID, st.R)
+			st.LockHeldOnR = false
+		}
+		st.Phase = TxnPhaseCommitted
+		n.markExecuted(seqNum)
+		return true, "part-committed"
+	case datatypes.TwoPCPhaseAbort:
+		_ = n.Database.UndoWAL(req.TxnID)
+		_ = n.Database.ClearWAL(req.TxnID)
+		if st.LockHeldOnR {
+			n.unlockLocked(req.TxnID, st.R)
+			st.LockHeldOnR = false
+		}
+		st.Phase = TxnPhaseAborted
+		n.markExecuted(seqNum)
+		return true, "part-aborted"
+	default:
+		return false, "part-unknown-phase"
+	}
 }
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
@@ -2198,8 +2198,8 @@ func (n *Node) StartLeaderElection() bool {
 		n.clearAllLocksLocked("became leader with new ballot")
 
 		n.CurrentBallot = ballot
-            go n.sendHeartbeats()
-            go n.runDecisionRetryLoop()
+		go n.sendHeartbeats()
+		go n.runDecisionRetryLoop()
 		//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
@@ -2251,95 +2251,98 @@ func (n *Node) StartLeaderElection() bool {
 // become leader of its cluster, then performs New-View and starts heartbeats.
 // Returns true on success (quorum promises), false otherwise.
 func (n *Node) ForceLeader() bool {
-    // Pre-check activity and cluster majority availability
-    n.mu.RLock()
-    if !n.ActiveNodes[n.ID] {
-        n.mu.RUnlock()
-        return false
-    }
-    // Compute an elevated starting ballot
-    startNum := n.CurrentBallot.Number
-    if n.HighestPromised.Number > startNum {
-        startNum = n.HighestPromised.Number
-    }
-    ballot := datatypes.BallotNumber{Number: startNum + 1, NodeID: n.ID}
-    n.mu.RUnlock()
+	// Pre-check activity and cluster majority availability
+	n.mu.RLock()
+	if !n.ActiveNodes[n.ID] {
+		n.mu.RUnlock()
+		return false
+	}
+	// Compute an elevated starting ballot
+	startNum := n.CurrentBallot.Number
+	if n.HighestPromised.Number > startNum {
+		startNum = n.HighestPromised.Number
+	}
+	ballot := datatypes.BallotNumber{Number: startNum + 1, NodeID: n.ID}
+	n.mu.RUnlock()
 
-    // Attempt a few times in case of higher nacks
-    for attempt := 0; attempt < 3; attempt++ {
-        // Collect promises from cluster peers
-        promises := make(map[int]datatypes.PromiseMsg)
-        var mu sync.Mutex
-        var wg sync.WaitGroup
-        highestNack := ballot
-        // Send prepares to cluster peers (excluding self)
-        for _, pid := range n.clusterPeerIDs() {
-            if pid == n.ID { continue }
-            wg.Add(1)
-            go func(id int) {
-                defer wg.Done()
-                req := datatypes.PrepareMsg{Ballot: ballot}
-                var rep datatypes.PromiseMsg
-                if err := n.callRPC(id, "Prepare", req, &rep); err == nil {
-                    mu.Lock()
-                    if rep.Success {
-                        promises[id] = rep
-                    } else {
-                        // track the highest promised to bump above
-                        if rep.Ballot.Number > highestNack.Number || (rep.Ballot.Number == highestNack.Number && rep.Ballot.NodeID > highestNack.NodeID) {
-                            highestNack = rep.Ballot
-                        }
-                    }
-                    mu.Unlock()
-                }
-            }(pid)
-        }
-        // Self-promise (include our accept log)
-        n.mu.RLock()
-        selfLog := make([]datatypes.AcceptLogEntry, 0)
-        for seqNum, entry := range n.AcceptedLog {
-            selfLog = append(selfLog, datatypes.AcceptLogEntry{AcceptNum: entry.Ballot, SeqNum: seqNum, Request: entry.Request, Status: entry.Status})
-        }
-        n.mu.RUnlock()
-        mu.Lock()
-        promises[n.ID] = datatypes.PromiseMsg{Ballot: ballot, AcceptLog: selfLog, Success: true}
-        mu.Unlock()
+	// Attempt a few times in case of higher nacks
+	for attempt := 0; attempt < 3; attempt++ {
+		// Collect promises from cluster peers
+		promises := make(map[int]datatypes.PromiseMsg)
+		var mu sync.Mutex
+		var wg sync.WaitGroup
+		highestNack := ballot
+		// Send prepares to cluster peers (excluding self)
+		for _, pid := range n.clusterPeerIDs() {
+			if pid == n.ID {
+				continue
+			}
+			wg.Add(1)
+			go func(id int) {
+				defer wg.Done()
+				req := datatypes.PrepareMsg{Ballot: ballot}
+				var rep datatypes.PromiseMsg
+				if err := n.callRPC(id, "Prepare", req, &rep); err == nil {
+					mu.Lock()
+					if rep.Success {
+						promises[id] = rep
+					} else {
+						// track the highest promised to bump above
+						if rep.Ballot.Number > highestNack.Number || (rep.Ballot.Number == highestNack.Number && rep.Ballot.NodeID > highestNack.NodeID) {
+							highestNack = rep.Ballot
+						}
+					}
+					mu.Unlock()
+				}
+			}(pid)
+		}
+		// Self-promise (include our accept log)
+		n.mu.RLock()
+		selfLog := make([]datatypes.AcceptLogEntry, 0)
+		for seqNum, entry := range n.AcceptedLog {
+			selfLog = append(selfLog, datatypes.AcceptLogEntry{AcceptNum: entry.Ballot, SeqNum: seqNum, Request: entry.Request, Status: entry.Status})
+		}
+		n.mu.RUnlock()
+		mu.Lock()
+		promises[n.ID] = datatypes.PromiseMsg{Ballot: ballot, AcceptLog: selfLog, Success: true}
+		mu.Unlock()
 
-        wg.Wait()
+		wg.Wait()
 
-        // Check quorum
-        n.mu.RLock()
-        maj := n.clusterMajorityLocked()
-        n.mu.RUnlock()
-        if len(promises) >= maj {
-            // Become leader and perform New-View
-            n.mu.Lock()
-            if !n.ActiveNodes[n.ID] {
-                n.mu.Unlock()
-                return false
-            }
-            n.IsLeader = true
-            n.clearAllLocksLocked("force leader with new ballot")
-            n.CurrentBallot = ballot
-            acceptLog := n.createNewViewFromPromises(promises)
-            newViewMsg := datatypes.NewViewMsg{Ballot: ballot, AcceptLog: acceptLog}
-            n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
-            n.mu.Unlock()
+		// Check quorum
+		n.mu.RLock()
+		maj := n.clusterMajorityLocked()
+		n.mu.RUnlock()
+		if len(promises) >= maj {
+			// Become leader and perform New-View
+			n.mu.Lock()
+			if !n.ActiveNodes[n.ID] {
+				n.mu.Unlock()
+				return false
+			}
+			n.IsLeader = true
+			n.clearAllLocksLocked("force leader with new ballot")
+			n.CurrentBallot = ballot
+			acceptLog := n.createNewViewFromPromises(promises)
+			newViewMsg := datatypes.NewViewMsg{Ballot: ballot, AcceptLog: acceptLog}
+			n.NewViewMsgs = append(n.NewViewMsgs, newViewMsg)
+			n.mu.Unlock()
 
-            n.sendNewViewMessages(newViewMsg)
-            go n.sendHeartbeats()
-            return true
-        }
-        // If we saw a higher promised ballot, bump above and retry
-        if highestNack.Number > ballot.Number || (highestNack.Number == ballot.Number && highestNack.NodeID > ballot.NodeID) {
-            ballot.Number = highestNack.Number + 1
-            ballot.NodeID = n.ID
-            continue
-        }
-        // No path to quorum
-        return false
-    }
-    return false
+			n.sendNewViewMessages(newViewMsg)
+			go n.sendHeartbeats()
+			go n.runDecisionRetryLoop()
+			return true
+		}
+		// If we saw a higher promised ballot, bump above and retry
+		if highestNack.Number > ballot.Number || (highestNack.Number == ballot.Number && highestNack.NodeID > ballot.NodeID) {
+			ballot.Number = highestNack.Number + 1
+			ballot.NodeID = n.ID
+			continue
+		}
+		// No path to quorum
+		return false
+	}
+	return false
 }
 
 // recoverEntryWithNewBallot ensures an entry is accepted by a majority under the
@@ -2609,167 +2612,212 @@ func (n *Node) buildStateSnapshot() datatypes.NewViewMsg {
 // runDecisionRetryLoop periodically retries sending 2PC decision to participants
 // for any pending entries while this node is the leader.
 func (n *Node) runDecisionRetryLoop() {
-    ticker := time.NewTicker(500 * time.Millisecond)
-    defer ticker.Stop()
-    for {
-        if !n.GetIsLeader() {
-            return
-        }
-        <-ticker.C
-        // snapshot pending under lock
-        n.mu.RLock()
-        pending := make([]*PendingDecision, 0, len(n.Pending2PCAcks))
-        for _, pd := range n.Pending2PCAcks {
-            pending = append(pending, &PendingDecision{TxnID: pd.TxnID, Decision: pd.Decision, DestCID: pd.DestCID})
-        }
-        n.mu.RUnlock()
-        for _, pd := range pending {
-            var reply datatypes.TwoPCDecisionReply
-            args := datatypes.TwoPCDecisionArgs{TxnID: pd.TxnID, Decision: datatypes.TwoPCDecision(pd.Decision)}
-            _ = n.call2PCDecision(pd.DestCID, args, &reply)
-            if reply.Acked {
-                // on ack, clear WAL and remove from pending
-                go n.Database.ClearWAL(pd.TxnID)
-                n.mu.Lock()
-                delete(n.Pending2PCAcks, pd.TxnID)
-                n.mu.Unlock()
-            } else {
-                log.Printf("[RECOVERY][RETRY] txn=%s destCID=%d decision=%s no-ack-yet", pd.TxnID, pd.DestCID, pd.Decision)
-            }
-        }
-    }
+	ticker := time.NewTicker(500 * time.Millisecond)
+	defer ticker.Stop()
+	for {
+		if !n.GetIsLeader() {
+			return
+		}
+		<-ticker.C
+		// snapshot pending under lock
+		n.mu.RLock()
+		pending := make([]*PendingDecision, 0, len(n.Pending2PCAcks))
+		for _, pd := range n.Pending2PCAcks {
+			pending = append(pending, &PendingDecision{TxnID: pd.TxnID, Decision: pd.Decision, DestCID: pd.DestCID})
+		}
+		n.mu.RUnlock()
+		for _, pd := range pending {
+			var reply datatypes.TwoPCDecisionReply
+			args := datatypes.TwoPCDecisionArgs{TxnID: pd.TxnID, Decision: datatypes.TwoPCDecision(pd.Decision)}
+			_ = n.call2PCDecision(pd.DestCID, args, &reply)
+			if reply.Acked {
+				// on ack, clear WAL and remove from pending
+				go n.Database.ClearWAL(pd.TxnID)
+				n.mu.Lock()
+				delete(n.Pending2PCAcks, pd.TxnID)
+				n.mu.Unlock()
+			} else {
+				log.Printf("[RECOVERY][RETRY] txn=%s destCID=%d decision=%s no-ack-yet", pd.TxnID, pd.DestCID, pd.Decision)
+			}
+		}
+	}
 }
 
 // RecoverFromCrash performs synchronous 2PC crash recovery using WAL.
 func (n *Node) RecoverFromCrash() {
-    // Wipe volatile in-memory state before loading WAL
-    n.mu.Lock()
-    n.clearAllLocksLocked("hard recovery")
-    n.TxnStates = make(map[string]*TxnState)
-    n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
-    n.mu.Unlock()
+	// Wipe volatile in-memory state before loading WAL
+	n.mu.Lock()
+	n.clearAllLocksLocked("hard recovery")
+	n.TxnStates = make(map[string]*TxnState)
+	n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+	n.mu.Unlock()
 
-    recs, err := n.Database.LoadWAL()
-    if err != nil {
-        log.Printf("Node %d: RecoverFromCrash LoadWAL error: %v", n.ID, err)
-        return
-    }
-    type group struct{ prep *datatypes.WALRecord; hasCommit bool; hasAbort bool }
-    groups := make(map[string]*group)
-    for i := range recs {
-        r := &recs[i]
-        g := groups[r.TxnID]
-        if g == nil { g = &group{}; groups[r.TxnID] = g }
-        switch r.Phase {
-        case datatypes.WALPrepare:
-            g.prep = r
-        case datatypes.WALCommit:
-            g.hasCommit = true
-        case datatypes.WALAbort:
-            g.hasAbort = true
-        }
-    }
-    // Process each txn
-    for txnID, g := range groups {
-        // Case B: decision present
-        if g.hasCommit || g.hasAbort {
-            // Determine role: coordinator iff prep exists with DestCID>0
-            if g.prep != nil && g.prep.DestCID > 0 {
-                // Coordinator: ensure decision will be retried until ack
-                decision := datatypes.TwoPCDecisionAbort
-                if g.hasCommit { decision = datatypes.TwoPCDecisionCommit }
-                // Rehydrate TxnState (coord)
-                sID := 0; amount := 0
-                if g.prep != nil && len(g.prep.Items) > 0 {
-                    sID = g.prep.Items[0].ID
-                    amount = g.prep.Items[0].OldBalance - g.prep.Items[0].NewBalance
-                    if amount < 0 { amount = -amount }
-                }
-                st := &TxnState{TxnID: txnID, Role: TxnRoleCoord, S: sID, R: g.prep.R, Amount: amount, SourceCID: shard.ClusterOfItem(sID), DestCID: g.prep.DestCID}
-                if g.hasCommit { st.Phase = TxnPhaseCommitted } else { st.Phase = TxnPhaseAborted }
-                n.mu.Lock()
-                n.TxnStates[txnID] = st
-                n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: decision, DestCID: g.prep.DestCID}
-                n.mu.Unlock()
-                log.Printf("[RECOVERY] txn=%s role=coord action=pending-%s destCID=%d", txnID, decision, g.prep.DestCID)
-            } else {
-                // Participant: ensure DB reflects decision and clear WAL
-                if g.hasCommit {
-                    _ = n.Database.ApplyWALCommit(txnID)
-                    log.Printf("[RECOVERY] txn=%s role=part action=apply-commit+clear", txnID)
-                } else if g.hasAbort {
-                    _ = n.Database.UndoWAL(txnID)
-                    log.Printf("[RECOVERY] txn=%s role=part action=apply-abort+clear", txnID)
-                }
-                _ = n.Database.ClearWAL(txnID)
-                // Rehydrate TxnState (participant)
-                rID := 0; amount := 0
-                if g.prep != nil && len(g.prep.Items) > 0 {
-                    rID = g.prep.Items[0].ID
-                    amount = g.prep.Items[0].NewBalance - g.prep.Items[0].OldBalance
-                    if amount < 0 { amount = -amount }
-                }
-                st := &TxnState{TxnID: txnID, Role: TxnRolePart, R: rID, Amount: amount, DestCID: shard.ClusterOfItem(rID)}
-                if g.hasCommit { st.Phase = TxnPhaseCommitted } else { st.Phase = TxnPhaseAborted }
-                n.mu.Lock(); n.TxnStates[txnID] = st; n.mu.Unlock()
-            }
-            continue
-        }
-        // Case A: only PREPARE present
-        if g.prep == nil { continue }
-        prep := g.prep
-        // Coordinator if meta present
-        if prep.DestCID > 0 {
-            // Undo local debit
-            _ = n.Database.UndoWAL(txnID)
-            if n.GetIsLeader() {
-                // Propose ABORT via Paxos
-                // Rebuild minimal request
-                sID := 0; rID := prep.R; amount := 0
-                if len(prep.Items) > 0 {
-                    sID = prep.Items[0].ID
-                    amount = prep.Items[0].OldBalance - prep.Items[0].NewBalance
-                    if amount < 0 { amount = -amount }
-                }
-                // Rehydrate TxnState (coord, prepared)
-                st := &TxnState{TxnID: txnID, Role: TxnRoleCoord, S: sID, R: rID, Amount: amount, SourceCID: shard.ClusterOfItem(sID), DestCID: prep.DestCID, Phase: TxnPhasePrepared}
-                n.mu.Lock(); n.TxnStates[txnID] = st; n.mu.Unlock()
-                decReq := datatypes.ClientRequest{
-                    MessageType: "BANK_TXN",
-                    ClientID:    "recovery",
-                    Timestamp:   time.Now().UnixNano(),
-                    Transaction: datatypes.Txn{Sender: strconv.Itoa(sID), Receiver: strconv.Itoa(rID), Amount: amount},
-                    TxnID:       txnID,
-                    TwoPCPhase:  datatypes.TwoPCPhaseAbort,
-                    IsCross:     true,
-                }
-                _, _ = n.proposeAndWait(decReq)
-                // Send decision to participant and queue if not acked
-                var rep datatypes.TwoPCDecisionReply
-                _ = n.call2PCDecision(prep.DestCID, datatypes.TwoPCDecisionArgs{TxnID: txnID, Decision: datatypes.TwoPCDecisionAbort}, &rep)
-                if rep.Acked {
-                    _ = n.Database.ClearWAL(txnID)
-                    n.mu.Lock(); st.Phase = TxnPhaseAborted; n.TxnStates[txnID] = st; n.mu.Unlock()
-                    log.Printf("[RECOVERY] txn=%s role=coord action=presumed-abort+acked destCID=%d", txnID, prep.DestCID)
-                } else {
-                    n.mu.Lock(); n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: datatypes.TwoPCDecisionAbort, DestCID: prep.DestCID}; n.mu.Unlock()
-                    log.Printf("[RECOVERY] txn=%s role=coord action=presumed-abort+pended destCID=%d", txnID, prep.DestCID)
-                }
-            }
-        } else {
-            // Participant: re-acquire lock on receiver item
-            if len(prep.Items) > 0 {
-                rID := prep.Items[0].ID
-                n.mu.Lock(); _ = n.tryLockLocked(txnID, rID); n.mu.Unlock()
-                // Rehydrate TxnState (participant prepared)
-                amount := prep.Items[0].NewBalance - prep.Items[0].OldBalance
-                if amount < 0 { amount = -amount }
-                st := &TxnState{TxnID: txnID, Role: TxnRolePart, R: rID, Amount: amount, DestCID: shard.ClusterOfItem(rID), Phase: TxnPhasePrepared}
-                n.mu.Lock(); n.TxnStates[txnID] = st; n.mu.Unlock()
-                log.Printf("[RECOVERY] txn=%s role=part action=prepared+relock r=%d", txnID, rID)
-            }
-        }
-    }
+	recs, err := n.Database.LoadWAL()
+	if err != nil {
+		log.Printf("Node %d: RecoverFromCrash LoadWAL error: %v", n.ID, err)
+		return
+	}
+	type group struct {
+		prep      *datatypes.WALRecord
+		hasCommit bool
+		hasAbort  bool
+	}
+	groups := make(map[string]*group)
+	for i := range recs {
+		r := &recs[i]
+		g := groups[r.TxnID]
+		if g == nil {
+			g = &group{}
+			groups[r.TxnID] = g
+		}
+		switch r.Phase {
+		case datatypes.WALPrepare:
+			g.prep = r
+		case datatypes.WALCommit:
+			g.hasCommit = true
+		case datatypes.WALAbort:
+			g.hasAbort = true
+		}
+	}
+	// Process each txn
+	for txnID, g := range groups {
+		// Case B: decision present
+		if g.hasCommit || g.hasAbort {
+			// Determine role: coordinator iff prep exists with DestCID>0
+			if g.prep != nil && g.prep.DestCID > 0 {
+				// Coordinator: ensure decision will be retried until ack
+				decision := datatypes.TwoPCDecisionAbort
+				if g.hasCommit {
+					decision = datatypes.TwoPCDecisionCommit
+				}
+				// Rehydrate TxnState (coord)
+				sID := 0
+				amount := 0
+				if g.prep != nil && len(g.prep.Items) > 0 {
+					sID = g.prep.Items[0].ID
+					amount = g.prep.Items[0].OldBalance - g.prep.Items[0].NewBalance
+					if amount < 0 {
+						amount = -amount
+					}
+				}
+				st := &TxnState{TxnID: txnID, Role: TxnRoleCoord, S: sID, R: g.prep.R, Amount: amount, SourceCID: shard.ClusterOfItem(sID), DestCID: g.prep.DestCID}
+				if g.hasCommit {
+					st.Phase = TxnPhaseCommitted
+				} else {
+					st.Phase = TxnPhaseAborted
+				}
+				n.mu.Lock()
+				n.TxnStates[txnID] = st
+				n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: decision, DestCID: g.prep.DestCID}
+				n.mu.Unlock()
+				log.Printf("[RECOVERY] txn=%s role=coord action=pending-%s destCID=%d", txnID, decision, g.prep.DestCID)
+			} else {
+				// Participant: ensure DB reflects decision and clear WAL
+				if g.hasCommit {
+					_ = n.Database.ApplyWALCommit(txnID)
+					log.Printf("[RECOVERY] txn=%s role=part action=apply-commit+clear", txnID)
+				} else if g.hasAbort {
+					_ = n.Database.UndoWAL(txnID)
+					log.Printf("[RECOVERY] txn=%s role=part action=apply-abort+clear", txnID)
+				}
+				_ = n.Database.ClearWAL(txnID)
+				// Rehydrate TxnState (participant)
+				rID := 0
+				amount := 0
+				if g.prep != nil && len(g.prep.Items) > 0 {
+					rID = g.prep.Items[0].ID
+					amount = g.prep.Items[0].NewBalance - g.prep.Items[0].OldBalance
+					if amount < 0 {
+						amount = -amount
+					}
+				}
+				st := &TxnState{TxnID: txnID, Role: TxnRolePart, R: rID, Amount: amount, DestCID: shard.ClusterOfItem(rID)}
+				if g.hasCommit {
+					st.Phase = TxnPhaseCommitted
+				} else {
+					st.Phase = TxnPhaseAborted
+				}
+				n.mu.Lock()
+				n.TxnStates[txnID] = st
+				n.mu.Unlock()
+			}
+			continue
+		}
+		// Case A: only PREPARE present
+		if g.prep == nil {
+			continue
+		}
+		prep := g.prep
+		// Coordinator if meta present
+		if prep.DestCID > 0 {
+			// Undo local debit
+			_ = n.Database.UndoWAL(txnID)
+			if n.GetIsLeader() {
+				// Propose ABORT via Paxos
+				// Rebuild minimal request
+				sID := 0
+				rID := prep.R
+				amount := 0
+				if len(prep.Items) > 0 {
+					sID = prep.Items[0].ID
+					amount = prep.Items[0].OldBalance - prep.Items[0].NewBalance
+					if amount < 0 {
+						amount = -amount
+					}
+				}
+				// Rehydrate TxnState (coord, prepared)
+				st := &TxnState{TxnID: txnID, Role: TxnRoleCoord, S: sID, R: rID, Amount: amount, SourceCID: shard.ClusterOfItem(sID), DestCID: prep.DestCID, Phase: TxnPhasePrepared}
+				n.mu.Lock()
+				n.TxnStates[txnID] = st
+				n.mu.Unlock()
+				decReq := datatypes.ClientRequest{
+					MessageType: "BANK_TXN",
+					ClientID:    "recovery",
+					Timestamp:   time.Now().UnixNano(),
+					Transaction: datatypes.Txn{Sender: strconv.Itoa(sID), Receiver: strconv.Itoa(rID), Amount: amount},
+					TxnID:       txnID,
+					TwoPCPhase:  datatypes.TwoPCPhaseAbort,
+					IsCross:     true,
+				}
+				_, _ = n.proposeAndWait(decReq)
+				// Send decision to participant and queue if not acked
+				var rep datatypes.TwoPCDecisionReply
+				_ = n.call2PCDecision(prep.DestCID, datatypes.TwoPCDecisionArgs{TxnID: txnID, Decision: datatypes.TwoPCDecisionAbort}, &rep)
+				if rep.Acked {
+					_ = n.Database.ClearWAL(txnID)
+					n.mu.Lock()
+					st.Phase = TxnPhaseAborted
+					n.TxnStates[txnID] = st
+					n.mu.Unlock()
+					log.Printf("[RECOVERY] txn=%s role=coord action=presumed-abort+acked destCID=%d", txnID, prep.DestCID)
+				} else {
+					n.mu.Lock()
+					n.Pending2PCAcks[txnID] = &PendingDecision{TxnID: txnID, Decision: datatypes.TwoPCDecisionAbort, DestCID: prep.DestCID}
+					n.mu.Unlock()
+					log.Printf("[RECOVERY] txn=%s role=coord action=presumed-abort+pended destCID=%d", txnID, prep.DestCID)
+				}
+			}
+		} else {
+			// Participant: re-acquire lock on receiver item
+			if len(prep.Items) > 0 {
+				rID := prep.Items[0].ID
+				n.mu.Lock()
+				_ = n.tryLockLocked(txnID, rID)
+				n.mu.Unlock()
+				// Rehydrate TxnState (participant prepared)
+				amount := prep.Items[0].NewBalance - prep.Items[0].OldBalance
+				if amount < 0 {
+					amount = -amount
+				}
+				st := &TxnState{TxnID: txnID, Role: TxnRolePart, R: rID, Amount: amount, DestCID: shard.ClusterOfItem(rID), Phase: TxnPhasePrepared}
+				n.mu.Lock()
+				n.TxnStates[txnID] = st
+				n.mu.Unlock()
+				log.Printf("[RECOVERY] txn=%s role=part action=prepared+relock r=%d", txnID, rID)
+			}
+		}
+	}
+	log.Printf("[RECOVERY] Node %d: recovery complete (txns=%d)", n.ID, len(groups))
 }
 
 // sendStateSnapshot pushes the latest snapshot to a specific follower.
@@ -2928,22 +2976,22 @@ func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.Prin
 
 // GetBalance returns the current balance for a specific account ID on this node.
 func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatypes.GetBalanceReply) error {
-    log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
-    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
-    return nil
+	log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
+	reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+	return nil
 }
 
 // TriggerElection starts a leader election on this node if active.
 func (s *NodeService) TriggerElection(_ datatypes.TriggerElectionArgs, reply *datatypes.TriggerElectionReply) error {
-    s.node.mu.RLock()
-    active := s.node.ActiveNodes[s.node.ID]
-    s.node.mu.RUnlock()
-    started := false
-    if active {
-        started = s.node.StartLeaderElection()
-    }
-    *reply = datatypes.TriggerElectionReply{Started: started}
-    return nil
+	s.node.mu.RLock()
+	active := s.node.ActiveNodes[s.node.ID]
+	s.node.mu.RUnlock()
+	started := false
+	if active {
+		started = s.node.StartLeaderElection()
+	}
+	*reply = datatypes.TriggerElectionReply{Started: started}
+	return nil
 }
 
 // ForceLeader attempts to make this node the leader of its cluster by
@@ -2951,36 +2999,36 @@ func (s *NodeService) TriggerElection(_ datatypes.TriggerElectionArgs, reply *da
 // sending heartbeats. Returns Started=true if the process initiated and
 // reached quorum.
 func (s *NodeService) ForceLeader(_ datatypes.TriggerElectionArgs, reply *datatypes.TriggerElectionReply) error {
-    s.node.mu.RLock()
-    selfActive := s.node.ActiveNodes[s.node.ID]
-    s.node.mu.RUnlock()
-    ok := false
-    if selfActive {
-        ok = s.node.ForceLeader()
-    }
-    *reply = datatypes.TriggerElectionReply{Started: ok}
-    return nil
+	s.node.mu.RLock()
+	selfActive := s.node.ActiveNodes[s.node.ID]
+	s.node.mu.RUnlock()
+	ok := false
+	if selfActive {
+		ok = s.node.ForceLeader()
+	}
+	*reply = datatypes.TriggerElectionReply{Started: ok}
+	return nil
 }
 
 // GetBalancesFor returns balances for a selective set of account IDs.
 func (s *NodeService) GetBalancesFor(args datatypes.GetBalancesForArgs, reply *datatypes.GetBalancesForReply) error {
-    out := make(map[int]int)
-    for _, id := range args.AccountIDs {
-        out[id] = s.node.Database.GetBalanceInt(id)
-    }
-    reply.Balances = out
-    return nil
+	out := make(map[int]int)
+	for _, id := range args.AccountIDs {
+		out[id] = s.node.Database.GetBalanceInt(id)
+	}
+	reply.Balances = out
+	return nil
 }
 
 // FlushState clears per-set observability and resets DB balances if requested.
 func (s *NodeService) FlushState(args datatypes.FlushStateArgs, reply *datatypes.FlushStateReply) error {
-    s.node.mu.Lock()
-    s.node.NewViewMsgs = nil
-    s.node.mu.Unlock()
-    if args.ResetDB {
-        rng := config.ClusterRanges[s.node.ClusterID]
-        _ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
-    }
-    *reply = datatypes.FlushStateReply{Ok: true}
-    return nil
+	s.node.mu.Lock()
+	s.node.NewViewMsgs = nil
+	s.node.mu.Unlock()
+	if args.ResetDB {
+		rng := config.ClusterRanges[s.node.ClusterID]
+		_ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
+	}
+	*reply = datatypes.FlushStateReply{Ok: true}
+	return nil
 }
