@@ -1659,10 +1659,11 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 // HandleAccept stores a leader's proposal when the ballot is acceptable.
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
-	n.mu.Lock()
-	// Do not refresh lastLeaderMsg here; heartbeats keep recency
-
-	defer n.mu.Unlock()
+    n.mu.Lock()
+    // Refresh leader recency on Accept to avoid follower timeouts during
+    // active proposal flow from the current leader.
+    n.lastLeaderMsg = time.Now()
+    defer n.mu.Unlock()
 
 	// If this node is marked inactive, ignore accept requests
 	if !n.ActiveNodes[n.ID] {
@@ -1718,9 +1719,11 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 // HandleCommit marks an entry committed and triggers execution ordering.
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
-	n.mu.Lock()
-	defer n.mu.Unlock()
-	// Do not refresh lastLeaderMsg here; heartbeats keep recency
+    n.mu.Lock()
+    defer n.mu.Unlock()
+    // Refresh leader recency on Commit to avoid follower timeouts during
+    // active commit flow from the current leader.
+    n.lastLeaderMsg = time.Now()
 
 	// If this node is marked inactive, ignore commit to keep it unchanged
 	if !n.ActiveNodes[n.ID] {
