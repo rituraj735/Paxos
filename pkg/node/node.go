@@ -2190,25 +2190,34 @@ func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
 	requiredMajority := n.clusterMajorityLocked()
 	n.mu.Unlock()
-	if promiseCount >= requiredMajority {
-		n.mu.Lock()
-		if !n.ActiveNodes[n.ID] {
-			n.mu.Unlock()
-			return false
-		}
-		n.IsLeader = true
-		n.acceptedFromNewViewCount = 0
-		n.ackFromNewView = make(map[int]bool)
+    if promiseCount >= requiredMajority {
+        n.mu.Lock()
+        if !n.ActiveNodes[n.ID] {
+            n.mu.Unlock()
+            return false
+        }
+        // Ignore stale election completions: if during this attempt we have
+        // already promised a higher ballot, or have already become leader with
+        // an equal/higher ballot, abort this completion.
+        if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
+            log.Printf("Node %d: ignoring stale election completion (attempt=%s highestPromised=%s current=%s)",
+                n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
+            n.mu.Unlock()
+            return false
+        }
+        n.IsLeader = true
+        n.acceptedFromNewViewCount = 0
+        n.ackFromNewView = make(map[int]bool)
 
 			// New leader epoch: clear any locks from previous ballots to avoid stale locks
 			n.clearAllLocksLocked("became leader with new ballot")
 
-			n.CurrentBallot = ballot
-			// Refresh leader timers to avoid immediate timeout-triggered re-elections
-			n.lastLeaderMsg = time.Now()
-			n.electionCoolDown = time.Now()
-			go n.sendHeartbeats()
-			go n.runDecisionRetryLoop()
+        n.CurrentBallot = ballot
+        // Refresh leader timers to avoid immediate timeout-triggered re-elections
+        n.lastLeaderMsg = time.Now()
+        n.electionCoolDown = time.Now()
+        go n.sendHeartbeats()
+        go n.runDecisionRetryLoop()
 			//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
@@ -2323,13 +2332,20 @@ func (n *Node) ForceLeader() bool {
 		maj := n.clusterMajorityLocked()
 		n.mu.RUnlock()
 		if len(promises) >= maj {
-			// Become leader and perform New-View
-			n.mu.Lock()
-			if !n.ActiveNodes[n.ID] {
-				n.mu.Unlock()
-				return false
-			}
-			n.IsLeader = true
+        // Become leader and perform New-View
+        n.mu.Lock()
+        if !n.ActiveNodes[n.ID] {
+            n.mu.Unlock()
+            return false
+        }
+        // Ignore stale completion if a higher promise/leader is already present
+        if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
+            log.Printf("Node %d: ignoring stale force-leader completion (attempt=%s highestPromised=%s current=%s)",
+                n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
+            n.mu.Unlock()
+            return false
+        }
+        n.IsLeader = true
 			n.clearAllLocksLocked("force leader with new ballot")
 			n.CurrentBallot = ballot
 			// Refresh leader timers to avoid immediate timeout-triggered re-elections
