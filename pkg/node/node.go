@@ -2892,25 +2892,49 @@ func (n *Node) requestStateSync() {
 
 // PrintLog dumps the node's request log via RPC.
 func (s *NodeService) PrintLog(_ bool, reply *string) error {
-	log.Printf("Node %d: PrintLog RPC invoked", s.node.ID)
-	s.node.mu.RLock()
-	defer s.node.mu.RUnlock()
+    log.Printf("Node %d: PrintLog RPC invoked", s.node.ID)
+    s.node.mu.RLock()
+    defer s.node.mu.RUnlock()
 
-	builder := strings.Builder{}
-	builder.WriteString(fmt.Sprintf("===== Node %d Log =====\n", s.node.ID))
-	for _, entry := range s.node.RequestLog {
-		status := entry.Status
-		builder.WriteString(fmt.Sprintf("Seq %d | Ballot (%d,%d) | %s -> %s | Amount %d | Status %v\n",
-			entry.SeqNum,
-			entry.Ballot.Number,
-			entry.Ballot.NodeID,
-			entry.Request.Transaction.Sender,
-			entry.Request.Transaction.Receiver,
-			entry.Request.Transaction.Amount,
-			status))
-	}
-	*reply = builder.String()
-	return nil
+    var b strings.Builder
+    b.WriteString(fmt.Sprintf("===== Node %d Log =====\n", s.node.ID))
+    for _, e := range s.node.RequestLog {
+        // Basic fields
+        seq := e.SeqNum
+        bn, bi := e.Ballot.Number, e.Ballot.NodeID
+        sID, rID, amt := e.Request.Transaction.Sender, e.Request.Transaction.Receiver, e.Request.Transaction.Amount
+        stat := e.Status
+
+        // 2PC/context fields
+        phase := string(e.Request.TwoPCPhase)
+        isCross := e.Request.IsCross
+        tid := e.Request.TxnID
+        isNoOp := e.Request.IsNoOp
+
+        // Cluster hints
+        sInt, _ := strconv.Atoi(sID)
+        rInt, _ := strconv.Atoi(rID)
+        sCID := shard.ClusterOfItem(sInt)
+        rCID := shard.ClusterOfItem(rInt)
+
+        if isNoOp {
+            fmt.Fprintf(&b, "Seq %d | Ballot (%d,%d) | NO-OP | Status %s\n", seq, bn, bi, stat)
+            continue
+        }
+
+        // Compose line with extended info; include 2PC details when present
+        if tid != "" || phase != "" || isCross {
+            fmt.Fprintf(&b,
+                "Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | 2PC{txn=%s phase=%s cross=%v} | Clusters %d->%d\n",
+                seq, bn, bi, sID, rID, amt, stat, tid, phase, isCross, sCID, rCID)
+        } else {
+            fmt.Fprintf(&b,
+                "Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | Clusters %d->%d\n",
+                seq, bn, bi, sID, rID, amt, stat, sCID, rCID)
+        }
+    }
+    *reply = b.String()
+    return nil
 }
 
 // PrintStatus reports the consensus status of a sequence number.
