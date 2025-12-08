@@ -244,7 +244,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
     time.Sleep(500 * time.Millisecond)
 
     // 3) Prepare ranges and helpers
-    rngMain := rand.New(rand.NewSource(seed))
     clusterRanges := config.ClusterRanges
     pickInRange := func(rng *rand.Rand, lo, hi int) int {
         if hi < lo { return lo }
