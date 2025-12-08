@@ -177,6 +177,34 @@ func (db *Database) GetBalanceInt(id int) int {
     return db.GetBalance(strconv.Itoa(id))
 }
 
+// SetBalance sets an account's balance directly (admin/offline use).
+func (db *Database) SetBalance(accountID string, value int) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        b := tx.Bucket(db.bucketBalances)
+        if err := b.Put([]byte(accountID), encodeInt(value)); err != nil {
+            return err
+        }
+        log.Printf("[AdminDB] set %s = %d", accountID, value)
+        return nil
+    })
+}
+
+// DeleteAccount removes an account key directly (admin/offline use).
+func (db *Database) DeleteAccount(accountID string) error {
+    db.mu.Lock()
+    defer db.mu.Unlock()
+    return db.bolt.Update(func(tx *bbolt.Tx) error {
+        b := tx.Bucket(db.bucketBalances)
+        if err := b.Delete([]byte(accountID)); err != nil {
+            return err
+        }
+        log.Printf("[AdminDB] delete %s", accountID)
+        return nil
+    })
+}
+
 // PrintDB renders the database contents for a node.
 func (db *Database) PrintDB(nodeID int) string {
     db.mu.RLock()

@@ -29,6 +29,9 @@ const (
 
 	// Data handling
 	WipeDataOnBoot = true
+
+	// Resharding demo cap
+	ReshardTopK = 10
 )
 
 var NodeAddresses = map[int]string{

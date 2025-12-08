@@ -327,6 +327,10 @@ func NewNode(id int, address string, peers map[int]string) *Node {
 	}
 	node.Database = boltDB
 	log.Printf("Node %d: BoltDB initialized at %s", id, dbPath)
+	// Load shard overrides (non-fatal if missing)
+	if err := shard.LoadOverridesFromFile(); err != nil {
+		log.Printf("Node %d: no shard overrides loaded (%v)", id, err)
+	}
 	go node.monitorLeaderTimeout()
 	// Phase 1: set logical ClusterID via config.ClusterMembers
 	for cid, members := range config.ClusterMembers {
@@ -2984,9 +2988,52 @@ func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.Prin
 
 // GetBalance returns the current balance for a specific account ID on this node.
 func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatypes.GetBalanceReply) error {
-	log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
-	reply.Balance = ns.node.Database.GetBalance(args.AccountID)
-	return nil
+    log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
+    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+    return nil
+}
+
+// =====================
+// Phase 10: Admin RPCs
+// =====================
+
+// AdminGetBalance returns raw balance (works on any node).
+func (ns *NodeService) AdminGetBalance(args datatypes.AdminGetBalanceArgs, reply *datatypes.AdminGetBalanceReply) error {
+    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+    reply.Ok = true
+    return nil
+}
+
+// AdminSetBalance writes a balance directly (offline use only; any node).
+func (ns *NodeService) AdminSetBalance(args datatypes.AdminSetBalanceArgs, reply *datatypes.AdminSetBalanceReply) error {
+    if err := ns.node.Database.SetBalance(args.AccountID, args.Balance); err != nil {
+        reply.Ok = false
+        return nil
+    }
+    reply.Ok = true
+    return nil
+}
+
+// AdminDeleteAccount removes an account key directly.
+func (ns *NodeService) AdminDeleteAccount(args datatypes.AdminDeleteAccountArgs, reply *datatypes.AdminDeleteAccountReply) error {
+    if err := ns.node.Database.DeleteAccount(args.AccountID); err != nil {
+        reply.Ok = false
+        return nil
+    }
+    reply.Ok = true
+    return nil
+}
+
+// AdminReloadOverrides reloads shard overrides from disk.
+func (ns *NodeService) AdminReloadOverrides(_ datatypes.AdminReloadOverridesArgs, reply *datatypes.AdminReloadOverridesReply) error {
+    if err := shard.LoadOverridesFromFile(); err != nil {
+        log.Printf("Node %d: AdminReloadOverrides load error: %v", ns.node.ID, err)
+        // Still return Ok to keep flow non-fatal.
+        reply.Ok = false
+        return nil
+    }
+    reply.Ok = true
+    return nil
 }
 
 // TriggerElection starts a leader election on this node if active.

@@ -12,6 +12,7 @@ import (
     "io"
     "log"
     "math/rand"
+    "sort"
     "multipaxos/rituraj735/config"
     "multipaxos/rituraj735/datatypes"
     "multipaxos/rituraj735/pkg/client"
@@ -50,6 +51,45 @@ type PerfStats struct {
 }
 
 var perf PerfStats
+
+// ========================
+// Phase 10: TxnSample ring buffer (RW only)
+// ========================
+
+type txnPair struct{ S, R int }
+
+type TxnSample struct {
+    mu    sync.Mutex
+    buf   []txnPair
+    size  int
+    idx   int
+    full  bool
+}
+
+func newTxnSample(n int) *TxnSample { return &TxnSample{size: n, buf: make([]txnPair, n)} }
+
+func (ts *TxnSample) record(s, r int) {
+    ts.mu.Lock(); defer ts.mu.Unlock()
+    if ts.size == 0 { return }
+    ts.buf[ts.idx] = txnPair{S: s, R: r}
+    ts.idx = (ts.idx + 1) % ts.size
+    if ts.idx == 0 { ts.full = true }
+}
+
+func (ts *TxnSample) snapshot() []txnPair {
+    ts.mu.Lock(); defer ts.mu.Unlock()
+    if !ts.full {
+        out := make([]txnPair, 0, ts.idx)
+        out = append(out, ts.buf[:ts.idx]...)
+        return out
+    }
+    out := make([]txnPair, 0, ts.size)
+    out = append(out, ts.buf[ts.idx:]...)
+    out = append(out, ts.buf[:ts.idx]...)
+    return out
+}
+
+var txnSample = newTxnSample(1000)
 
 // deferTxn queues a txn for later when quorum is unavailable.
 func deferTxn(tx datatypes.Txn) {
@@ -101,7 +141,10 @@ func main() {
 	defer logFile.Close()
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
-	log.SetPrefix("[Client] ")
+    log.SetPrefix("[Client] ")
+
+    // Load shard overrides at startup (non-fatal)
+    _ = shard.LoadOverridesFromFile()
 
     // Flags for Phase 9 benchmark mode
     bench := flag.Bool("bench", false, "run benchmark mode and exit")
@@ -156,22 +199,23 @@ func main() {
 	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
 	fmt.Println("Choose an option:")
-	for {
-		if option == 7 {
-			break
-		}
-		fmt.Println("1.Process next transactions set")
-		fmt.Println("2.PrintLog")
-		fmt.Println("3.PrintDB")
-		fmt.Println("4.PrintStatus")
-		fmt.Println("5.PrintView")
-		fmt.Println("6.PrintBalance")
-		fmt.Println("7.Exit")
-		fmt.Scanln(&option)
-		fmt.Println("You chose option:", option)
-		switch option {
-		case 1:
-			processNextTestSet(filePathReader)
+    for {
+        if option == 8 {
+            break
+        }
+        fmt.Println("1.Process next transactions set")
+        fmt.Println("2.PrintLog")
+        fmt.Println("3.PrintDB")
+        fmt.Println("4.PrintStatus")
+        fmt.Println("5.PrintView")
+        fmt.Println("6.PrintBalance")
+        fmt.Println("7.PrintReshard")
+        fmt.Println("8.Exit")
+        fmt.Scanln(&option)
+        fmt.Println("You chose option:", option)
+        switch option {
+        case 1:
+            processNextTestSet(filePathReader)
 		case 2:
 			printLogFromNode(filePathReader)
 		case 3:
@@ -180,15 +224,17 @@ func main() {
 			printStatusFromNode(filePathReader)
 		case 5:
 			printViewFromAllNodes()
-		case 6:
-			printBalanceFromCluster(filePathReader)
-		case 7:
-			fmt.Println("Exiting...")
-			return
-		default:
-			fmt.Println("Invalid option. Please try again.")
-		}
-	}
+        case 6:
+            printBalanceFromCluster(filePathReader)
+        case 7:
+            runReshard()
+        case 8:
+            fmt.Println("Exiting...")
+            return
+        default:
+            fmt.Println("Invalid option. Please try again.")
+        }
+    }
 
 }
 
@@ -481,6 +527,182 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
         agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
 
     return nil
+}
+
+// ========================
+// Phase 10: Resharding
+// ========================
+
+type move struct{ ID, OldCID, NewCID int; Score int }
+
+// buildReshardMoves computes candidate moves using the TxnSample heuristic.
+func buildReshardMoves() []move {
+    pairs := txnSample.snapshot()
+    // counts[account][cluster] -> frequency
+    counts := make(map[int]map[int]int)
+    totals := make(map[int]int)
+
+    // For each transaction, attribute interactions to both participants
+    for _, p := range pairs {
+        sPeerCID := shard.ClusterOfItem(p.R)
+        rPeerCID := shard.ClusterOfItem(p.S)
+        if sPeerCID != 0 {
+            if counts[p.S] == nil { counts[p.S] = make(map[int]int) }
+            counts[p.S][sPeerCID]++
+            totals[p.S]++
+        }
+        if rPeerCID != 0 {
+            if counts[p.R] == nil { counts[p.R] = make(map[int]int) }
+            counts[p.R][rPeerCID]++
+            totals[p.R]++
+        }
+    }
+
+    moves := make([]move, 0)
+    for id, per := range counts {
+        // pick best cluster by frequency
+        bestCID, bestScore := 0, 0
+        for cid, c := range per {
+            if c > bestScore { bestCID, bestScore = cid, c }
+        }
+        if bestCID == 0 { continue }
+        oldCID := shard.ClusterOfItem(id)
+        if oldCID == 0 || oldCID == bestCID { continue }
+        moves = append(moves, move{ID: id, OldCID: oldCID, NewCID: bestCID, Score: totals[id]})
+    }
+    // sort by Score desc
+    sort.Slice(moves, func(i, j int) bool { return moves[i].Score > moves[j].Score })
+    // cap at config.ReshardTopK
+    if len(moves) > config.ReshardTopK {
+        moves = moves[:config.ReshardTopK]
+    }
+    return moves
+}
+
+// findClusterLeader returns (nodeID, address) for a cluster leader by probing members.
+func findClusterLeader(clusterID int) (int, string, error) {
+    members, ok := config.ClusterMembers[clusterID]
+    if !ok || len(members) == 0 {
+        return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
+    }
+    for _, nid := range members {
+        addr := config.NodeAddresses[nid]
+        c, err := rpc.Dial("tcp", addr)
+        if err != nil { continue }
+        var info datatypes.LeaderInfo
+        _ = c.Call("NodeService.GetLeader", true, &info)
+        c.Close()
+        if info.IsLeader && info.LeaderID != 0 {
+            return info.LeaderID, config.NodeAddresses[info.LeaderID], nil
+        }
+    }
+    return 0, "", fmt.Errorf("no leader for cluster %d", clusterID)
+}
+
+func adminGetBalance(addr string, id int) (int, error) {
+    c, err := rpc.Dial("tcp", addr)
+    if err != nil { return 0, err }
+    defer c.Close()
+    var rep datatypes.AdminGetBalanceReply
+    err = c.Call("NodeService.AdminGetBalance", datatypes.AdminGetBalanceArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+    if err != nil { return 0, err }
+    if !rep.Ok { return 0, fmt.Errorf("admin get failed") }
+    return rep.Balance, nil
+}
+
+func adminSetBalance(addr string, id int, bal int) error {
+    c, err := rpc.Dial("tcp", addr)
+    if err != nil { return err }
+    defer c.Close()
+    var rep datatypes.AdminSetBalanceReply
+    err = c.Call("NodeService.AdminSetBalance", datatypes.AdminSetBalanceArgs{AccountID: fmt.Sprintf("%d", id), Balance: bal}, &rep)
+    if err != nil { return err }
+    if !rep.Ok { return fmt.Errorf("admin set failed") }
+    return nil
+}
+
+func adminDeleteAccount(addr string, id int) error {
+    c, err := rpc.Dial("tcp", addr)
+    if err != nil { return err }
+    defer c.Close()
+    var rep datatypes.AdminDeleteAccountReply
+    err = c.Call("NodeService.AdminDeleteAccount", datatypes.AdminDeleteAccountArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+    if err != nil { return err }
+    if !rep.Ok { return fmt.Errorf("admin delete failed") }
+    return nil
+}
+
+func adminReloadOverridesAllNodes() {
+    for nid := 1; nid <= config.NumNodes; nid++ {
+        addr := config.NodeAddresses[nid]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var rep datatypes.AdminReloadOverridesReply
+                _ = c.Call("NodeService.AdminReloadOverrides", datatypes.AdminReloadOverridesArgs{}, &rep)
+            }
+        }(addr)
+    }
+}
+
+// applyReshardMoves performs the migration for a set of moves.
+func applyReshardMoves(moves []move) {
+    for _, m := range moves {
+        // 1) Get balance from old leader
+        _, oldAddr, err := findClusterLeader(m.OldCID)
+        if err != nil {
+            log.Printf("[Reshard] skip id=%d: old leader err: %v", m.ID, err)
+            continue
+        }
+        bal, err := adminGetBalance(oldAddr, m.ID)
+        if err != nil {
+            log.Printf("[Reshard] skip id=%d: admin get err: %v", m.ID, err)
+            continue
+        }
+        // 2) Fan-out set to destination cluster
+        destNodes := config.ClusterMembers[m.NewCID]
+        destOK := true
+        for _, nid := range destNodes {
+            addr := config.NodeAddresses[nid]
+            if err := adminSetBalance(addr, m.ID, bal); err != nil {
+                log.Printf("[Reshard] abort move id=%d -> cid=%d: set fail on n%d: %v", m.ID, m.NewCID, nid, err)
+                destOK = false
+                break
+            }
+        }
+        if !destOK {
+            // Abort move
+            continue
+        }
+        // 3) Fan-out delete to source cluster (best-effort)
+        srcNodes := config.ClusterMembers[m.OldCID]
+        for _, nid := range srcNodes {
+            addr := config.NodeAddresses[nid]
+            if err := adminDeleteAccount(addr, m.ID); err != nil {
+                log.Printf("[Reshard] WARN delete old id=%d on n%d failed: %v", m.ID, nid, err)
+            }
+        }
+        // 4) Update override map in-process
+        shard.SetAccountClusterOverride(m.ID, m.NewCID)
+    }
+    // Persist and fan-out reload
+    _ = shard.SaveOverridesToFile()
+    adminReloadOverridesAllNodes()
+}
+
+// runReshard builds a move list and applies it.
+func runReshard() {
+    log.Printf("[Reshard] computing moves from sample of %d txns", len(txnSample.snapshot()))
+    mv := buildReshardMoves()
+    if len(mv) == 0 {
+        fmt.Println("No moves suggested.")
+        return
+    }
+    for _, m := range mv {
+        fmt.Printf("Move account %d: %d -> %d (score=%d)\n", m.ID, m.OldCID, m.NewCID, m.Score)
+    }
+    applyReshardMoves(mv)
+    fmt.Println("=== RESHARD DONE ===")
 }
 
 // ClientWorker is a placeholder goroutine for future async work per client.
@@ -868,20 +1090,26 @@ func processNextTestSet(reader *bufio.Reader) {
 			continue
 		}
 
-		// RW transaction path
-		c, exists := clients[tx.Sender]
-		if !exists {
-			log.Printf("Client %s not found\n", tx.Sender)
-			failCount++
-			continue
-		}
-		// record attempted keys
-		if sid, err := strconv.Atoi(tx.Sender); err == nil {
-			modifiedIDs[sid] = true
-		}
-		if rid, err := strconv.Atoi(tx.Receiver); err == nil {
-			modifiedIDs[rid] = true
-		}
+        // RW transaction path
+        c, exists := clients[tx.Sender]
+        if !exists {
+            log.Printf("Client %s not found\n", tx.Sender)
+            failCount++
+            continue
+        }
+        // record attempted keys
+        if sid, err := strconv.Atoi(tx.Sender); err == nil {
+            modifiedIDs[sid] = true
+        }
+        if rid, err := strconv.Atoi(tx.Receiver); err == nil {
+            modifiedIDs[rid] = true
+        }
+        // Phase 10: record into TxnSample (RW only)
+        if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
+            if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 {
+                txnSample.record(sid, rid)
+            }
+        }
 
 		t0 := time.Now()
 		reply, err := c.SendTransaction(tx)

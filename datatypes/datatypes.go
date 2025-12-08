@@ -324,3 +324,23 @@ type TwoPCDecisionReply struct {
     Acked   bool
     Message string
 }
+
+// =======================================
+// Phase 10: Admin RPCs for offline resharding
+// =======================================
+
+// AdminGetBalance returns a raw balance read.
+type AdminGetBalanceArgs struct { AccountID string }
+type AdminGetBalanceReply struct { Balance int; Ok bool }
+
+// AdminSetBalance writes a raw balance value.
+type AdminSetBalanceArgs struct { AccountID string; Balance int }
+type AdminSetBalanceReply struct { Ok bool }
+
+// AdminDeleteAccount deletes the key entirely.
+type AdminDeleteAccountArgs struct { AccountID string }
+type AdminDeleteAccountReply struct { Ok bool }
+
+// AdminReloadOverrides makes a node reload shard overrides from disk.
+type AdminReloadOverridesArgs struct{}
+type AdminReloadOverridesReply struct{ Ok bool }
