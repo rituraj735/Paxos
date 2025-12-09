@@ -1853,23 +1853,23 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
 
 // executeRequest applies a request or marks a no-op executed.
 func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool, string) {
-	log.Printf("Kind of circular Node %d: executeRequest seq=%d (%s→%s,%d) 2PCPhase=%d IsCross=%v IsNoOp=%v", n.ID, seqNum, request.Transaction.Sender, request.Transaction.Receiver, request.Transaction.Amount, request.TwoPCPhase, request.IsCross, request.IsNoOp)
-	if request.IsNoOp {
-		if entry, exists := n.AcceptedLog[seqNum]; exists {
-			entry.Status = datatypes.StatusExecuted
-			n.AcceptedLog[seqNum] = entry
-		}
-		return true, "no-op executed"
-	}
+    log.Printf("Kind of circular Node %d: executeRequest seq=%d (%s→%s,%d) 2PCPhase=%d IsCross=%v IsNoOp=%v", n.ID, seqNum, request.Transaction.Sender, request.Transaction.Receiver, request.Transaction.Amount, request.TwoPCPhase, request.IsCross, request.IsNoOp)
+    if request.IsNoOp {
+        // Mark executed under lock to avoid concurrent map access
+        n.markExecuted(seqNum)
+        return true, "no-op executed"
+    }
 
 	// Phase 6: 2PC execution paths (coordinator or participant)
-	if request.IsCross && request.TwoPCPhase != datatypes.TwoPCPhaseNone {
-		// Attempt fast read without lock
-		st, ok := n.TxnStates[request.TxnID]
-		if !ok {
-			// Infer minimal txn state from the request so followers/new leaders can execute the log
-			sID, errS := strconv.Atoi(request.Transaction.Sender)
-			rID, errR := strconv.Atoi(request.Transaction.Receiver)
+    if request.IsCross && request.TwoPCPhase != datatypes.TwoPCPhaseNone {
+        // Read current txn state under read lock (may be populated by RPC handlers)
+        n.mu.RLock()
+        st, ok := n.TxnStates[request.TxnID]
+        n.mu.RUnlock()
+        if !ok {
+            // Infer minimal txn state from the request so followers/new leaders can execute the log
+            sID, errS := strconv.Atoi(request.Transaction.Sender)
+            rID, errR := strconv.Atoi(request.Transaction.Receiver)
 			if errS != nil || errR != nil {
 				log.Printf("Node %d [2PC]: bad account ids in request for txn=%s", n.ID, request.TxnID)
 				return false, "bad-ids"
@@ -1911,20 +1911,9 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 		return false, "unknown-txn-role"
 	}
 
-	// Try applying the transaction
-	success, message := n.Database.ExecuteTransaction(request.Transaction)
-
-	if entry, exists := n.AcceptedLog[seqNum]; exists {
-		entry.Status = datatypes.StatusExecuted
-		n.AcceptedLog[seqNum] = entry
-
-		for i := range n.RequestLog {
-			if n.RequestLog[i].SeqNum == seqNum {
-				n.RequestLog[i].Status = datatypes.StatusExecuted
-				break
-			}
-		}
-	}
+    // Try applying the transaction (outside mutex), then mark executed under lock
+    success, message := n.Database.ExecuteTransaction(request.Transaction)
+    n.markExecuted(seqNum)
 
 	// if success {
 	// 	log.Printf("Node %d: EXECUTED seq=%d SUCCESS (%s→%s,%d)",n.ID, seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
@@ -1940,7 +1929,10 @@ func (n *Node) executeRequestsInOrder() {
     log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
     didSync := false
     for seqNum := 1; ; seqNum++ {
+        // Safe snapshot read of the entry
+        n.mu.RLock()
         entry, exists := n.AcceptedLog[seqNum]
+        n.mu.RUnlock()
         if !exists {
             // Attempt a one-time state transfer from the current leader to fill gaps
             if !didSync {
@@ -1956,16 +1948,15 @@ func (n *Node) executeRequestsInOrder() {
             break
         }
 
-		if entry.Status == datatypes.StatusExecuted {
-			continue
-		}
+        if entry.Status == datatypes.StatusExecuted {
+            continue
+        }
 
-		if entry.Status == datatypes.StatusCommitted {
-			log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)", n.ID, seqNum, entry.Request.Transaction.Sender, entry.Request.Transaction.Receiver, entry.Request.Transaction.Amount)
-
-			n.executeRequest(seqNum, entry.Request)
-		}
-	}
+        if entry.Status == datatypes.StatusCommitted {
+            log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)", n.ID, seqNum, entry.Request.Transaction.Sender, entry.Request.Transaction.Receiver, entry.Request.Transaction.Amount)
+            n.executeRequest(seqNum, entry.Request)
+        }
+    }
 }
 
 // tryStateTransferFromLeader fetches a snapshot from the current cluster leader
@@ -2119,31 +2110,40 @@ func (n *Node) execute2PCParticipant(seqNum int, req datatypes.ClientRequest, st
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
 func (n *Node) applyCommittedEntries(prevAccepted map[int]datatypes.LogEntry, maxSeq int) {
-	log.Printf("Node %d: applyCommittedEntries up to seq=%d", n.ID, maxSeq)
-	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
-		entry, exists := n.AcceptedLog[seqNum]
-		if !exists {
-			continue
-		}
+    log.Printf("Node %d: applyCommittedEntries up to seq=%d", n.ID, maxSeq)
+    for seqNum := 1; seqNum <= maxSeq; seqNum++ {
+        // Safe snapshot read of the entry
+        n.mu.RLock()
+        entry, exists := n.AcceptedLog[seqNum]
+        n.mu.RUnlock()
+        if !exists {
+            continue
+        }
 
-		if entry.Status == datatypes.StatusCommitted || entry.Status == datatypes.StatusExecuted {
-			if prevEntry, ok := prevAccepted[seqNum]; ok && prevEntry.Status == datatypes.StatusExecuted {
-				if entry.Status == datatypes.StatusCommitted {
-					entry.Status = datatypes.StatusExecuted
-					n.AcceptedLog[seqNum] = entry
-					for i := range n.RequestLog {
-						if n.RequestLog[i].SeqNum == seqNum {
-							n.RequestLog[i].Status = datatypes.StatusExecuted
-							break
-						}
-					}
-				}
-				continue
-			}
+        if entry.Status == datatypes.StatusCommitted || entry.Status == datatypes.StatusExecuted {
+            if prevEntry, ok := prevAccepted[seqNum]; ok && prevEntry.Status == datatypes.StatusExecuted {
+                if entry.Status == datatypes.StatusCommitted {
+                    // Upgrade to Executed under lock
+                    n.mu.Lock()
+                    cur := n.AcceptedLog[seqNum]
+                    if cur.Status == datatypes.StatusCommitted {
+                        cur.Status = datatypes.StatusExecuted
+                        n.AcceptedLog[seqNum] = cur
+                        for i := range n.RequestLog {
+                            if n.RequestLog[i].SeqNum == seqNum {
+                                n.RequestLog[i].Status = datatypes.StatusExecuted
+                                break
+                            }
+                        }
+                    }
+                    n.mu.Unlock()
+                }
+                continue
+            }
 
-			n.executeRequest(seqNum, entry.Request)
-		}
-	}
+            n.executeRequest(seqNum, entry.Request)
+        }
+    }
 }
 
 // StartLeaderElection initiates Paxos phase-1 to try becoming leader.
@@ -2598,8 +2598,6 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 	} else {
 		n.NextSeqNum = maxSeq + 1
 	}
-
-	n.applyCommittedEntries(prevAccepted, maxSeq)
 
 	keepSeq := make(map[int]struct{}, len(acceptLog))
 	for _, e := range acceptLog {

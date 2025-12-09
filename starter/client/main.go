@@ -22,6 +22,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -153,16 +154,22 @@ func main() {
 	_ = shard.LoadOverridesFromFile()
 
 	// Flags for Phase 9 benchmark mode
-	bench := flag.Bool("bench", false, "run benchmark mode and exit")
-	modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro")
-	durationFlag := flag.Int("duration", 30, "benchmark duration in seconds")
-	clientsFlag := flag.Int("clients", 4, "number of concurrent workers")
-	amountFlag := flag.Int("amount", 1, "transfer amount for rw mode")
-	crossRatioFlag := flag.Float64("crossRatio", 0.0, "fraction of cross-shard txns [0..1]")
-	hotKFlag := flag.Int("hotK", 100, "size of hot set for skew")
-	hotProbFlag := flag.Float64("hotProb", 0.0, "probability of choosing from hot set [0..1]")
-	seedFlag := flag.Int64("seed", 1, "RNG seed")
-	sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
+    bench := flag.Bool("bench", false, "run benchmark mode and exit")
+    modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro (time-based mode)")
+    durationFlag := flag.Int("duration", 30, "benchmark duration in seconds (used if -txns is 0)")
+    clientsFlag := flag.Int("clients", 4, "number of concurrent workers")
+    amountFlag := flag.Int("amount", 1, "transfer amount for rw mode")
+    crossRatioFlag := flag.Float64("crossRatio", 0.0, "fraction of cross-shard txns [0..1] (time-based mode)")
+    hotKFlag := flag.Int("hotK", 100, "size of hot set for skew")
+    hotProbFlag := flag.Float64("hotProb", 0.0, "probability of choosing from hot set [0..1]")
+    seedFlag := flag.Int64("seed", 1, "RNG seed")
+    sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
+
+    // Fixed-ops benchmark flags
+    txnsFlag := flag.Int("txns", 0, "run a fixed total number of operations; overrides -duration when >0")
+    rwPctFlag := flag.Int("rwPct", 100, "percentage of operations that are read-write [0..100] (fixed-ops mode)")
+    crossPctFlag := flag.Int("crossPct", 0, "percentage of cross-shard among read-write [0..100] (fixed-ops mode)")
+    presetFlag := flag.Int("preset", 0, "benchmark preset: 1, 2, or 3 (sets txns/rwPct/crossPct/skew)")
 	flag.Parse()
 
 	fmt.Println("Welcome to Bank of Paxos")
@@ -181,12 +188,44 @@ func main() {
 	fmt.Println("All 10 clients are ready")
 
 	// If -bench is set, run benchmark flow and exit
-	if *bench {
-		if err := runBenchmark(*modeFlag, *durationFlag, *clientsFlag, *amountFlag, *crossRatioFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
-			log.Fatalf("Benchmark failed: %v", err)
-		}
-		return
-	}
+    if *bench {
+        // Optional presets per assignment
+        if *presetFlag == 1 {
+            *txnsFlag = 200
+            *rwPctFlag = 80
+            *crossPctFlag = 10
+            *hotProbFlag = 0.0 // uniform
+            *modeFlag = "rw"
+        } else if *presetFlag == 2 {
+            *txnsFlag = 2000
+            *rwPctFlag = 80
+            *crossPctFlag = 20
+            *hotProbFlag = 0.95 // highly skewed
+            *hotKFlag = 100
+            *modeFlag = "rw"
+        } else if *presetFlag == 3 {
+            *txnsFlag = 30000
+            *rwPctFlag = 100
+            *crossPctFlag = 0
+            *hotProbFlag = 0.0 // uniform
+            *modeFlag = "rw"
+        }
+
+        if *txnsFlag > 0 {
+            if *clientsFlag <= 0 { *clientsFlag = config.NumNodes }
+            if *rwPctFlag < 0 { *rwPctFlag = 0 } else if *rwPctFlag > 100 { *rwPctFlag = 100 }
+            if *crossPctFlag < 0 { *crossPctFlag = 0 } else if *crossPctFlag > 100 { *crossPctFlag = 100 }
+            if err := runBenchmarkByOps(*txnsFlag, *clientsFlag, *amountFlag, *rwPctFlag, *crossPctFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
+                log.Fatalf("Benchmark (fixed-ops) failed: %v", err)
+            }
+            return
+        }
+
+        if err := runBenchmark(*modeFlag, *durationFlag, *clientsFlag, *amountFlag, *crossRatioFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
+            log.Fatalf("Benchmark failed: %v", err)
+        }
+        return
+    }
 
 	// Reading CSV file path from user (interactive mode)
 	fmt.Println("Please enter the test file path to start: ")
@@ -583,6 +622,243 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
 
 	return nil
+}
+
+// runBenchmarkByOps executes a fixed total number of operations across workers.
+// It supports a mix of read-write and read-only ops via rwPct, and applies
+// cross-shard selection for RW ops via crossPct. Distribution skew is controlled
+// with hotK/hotProb similar to time-based benchmark.
+func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPct int, hotK int, hotProb float64, seed int64, sourceCID int) error {
+    if totalOps <= 0 {
+        return fmt.Errorf("txns must be > 0")
+    }
+    if workers <= 0 {
+        workers = 1
+    }
+    if rwPct < 0 { rwPct = 0 } else if rwPct > 100 { rwPct = 100 }
+    if crossPct < 0 { crossPct = 0 } else if crossPct > 100 { crossPct = 100 }
+    if hotProb < 0.0 { hotProb = 0.0 } else if hotProb > 1.0 { hotProb = 1.0 }
+    if sourceCID < 1 || sourceCID > 3 { sourceCID = 1 }
+
+    crossRatio := float64(crossPct) / 100.0
+
+    // 1) Flush state on all nodes
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        addr := config.NodeAddresses[nodeID]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var fr datatypes.FlushStateReply
+                _ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true, ResetConsensus: true, ResetWAL: true}, &fr)
+            }
+        }(addr)
+    }
+    time.Sleep(300 * time.Millisecond)
+
+    // 2) Prime leaders on cluster anchors (1,4,7)
+    for _, nid := range []int{1, 4, 7} {
+        addr := config.NodeAddresses[nid]
+        go func(addr string) {
+            if c, err := rpc.Dial("tcp", addr); err == nil {
+                defer c.Close()
+                var trep datatypes.TriggerElectionReply
+                _ = c.Call("NodeService.ForceLeader", datatypes.TriggerElectionArgs{}, &trep)
+            }
+        }(addr)
+    }
+    time.Sleep(500 * time.Millisecond)
+
+    // 3) Helpers for ID sampling and leader discovery
+    clusterRanges := config.ClusterRanges
+    pickInRange := func(rng *rand.Rand, lo, hi int) int {
+        if hi < lo { return lo }
+        return lo + rng.Intn(hi-lo+1)
+    }
+    clamp := func(x, lo, hi int) int {
+        if x < lo { return lo }
+        if x > hi { return hi }
+        return x
+    }
+
+    var cacheMu sync.Mutex
+    leaderCache := make(map[int]int)
+    getClusterLeader := func(clusterID int, rng *rand.Rand) (int, string, error) {
+        members, ok := config.ClusterMembers[clusterID]
+        if !ok || len(members) == 0 {
+            return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
+        }
+        cacheMu.Lock()
+        cand := leaderCache[clusterID]
+        cacheMu.Unlock()
+        if cand == 0 { cand = members[0] }
+        queryLeader := func(nodeID int) (int, error) {
+            addr := config.NodeAddresses[nodeID]
+            cli, err := rpc.Dial("tcp", addr)
+            if err != nil { return 0, err }
+            defer cli.Close()
+            var info datatypes.LeaderInfo
+            if err := cli.Call("NodeService.GetLeader", true, &info); err != nil { return 0, err }
+            if info.IsLeader && info.LeaderID != 0 { return info.LeaderID, nil }
+            return 0, fmt.Errorf("no leader from node %d", nodeID)
+        }
+        if lid, err := queryLeader(cand); err == nil {
+            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
+            return lid, config.NodeAddresses[lid], nil
+        }
+        alt := cand
+        for tries := 0; tries < 5 && alt == cand; tries++ { alt = members[rng.Intn(len(members))] }
+        if lid, err := queryLeader(alt); err == nil {
+            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
+            return lid, config.NodeAddresses[lid], nil
+        }
+        return 0, "", fmt.Errorf("leader discovery failed for cluster %d", clusterID)
+    }
+
+    senderSampler := func(rng *rand.Rand) int {
+        rngDef, ok := clusterRanges[sourceCID]
+        if !ok { return 1 }
+        if hotProb <= 0.0 || hotK <= 0 { return pickInRange(rng, rngDef.Min, rngDef.Max) }
+        size := rngDef.Max - rngDef.Min + 1
+        hk := clamp(hotK, 1, size)
+        if rng.Float64() < hotProb { return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1) }
+        coldLo := rngDef.Min + hk
+        if coldLo > rngDef.Max { coldLo = rngDef.Min }
+        return pickInRange(rng, coldLo, rngDef.Max)
+    }
+
+    receiverSamplerRW := func(rng *rand.Rand, senderID int) (int, int) {
+        sCID := shard.ClusterOfItem(senderID)
+        targetCID := sCID
+        if rng.Float64() < crossRatio {
+            // choose a different target cluster uniformly
+            options := []int{}
+            for cid := 1; cid <= config.NumClusters; cid++ {
+                if cid != sCID { options = append(options, cid) }
+            }
+            targetCID = options[rng.Intn(len(options))]
+        }
+        rngDef, ok := clusterRanges[targetCID]
+        if !ok { return 0, targetCID }
+        if hotProb <= 0.0 || hotK <= 0 { return pickInRange(rng, rngDef.Min, rngDef.Max), targetCID }
+        size := rngDef.Max - rngDef.Min + 1
+        hk := clamp(hotK, 1, size)
+        if rng.Float64() < hotProb { return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1), targetCID }
+        coldLo := rngDef.Min + hk
+        if coldLo > rngDef.Max { coldLo = rngDef.Min }
+        return pickInRange(rng, coldLo, rngDef.Max), targetCID
+    }
+
+    // 4) run workers for fixed ops
+    var done int64
+    var wg sync.WaitGroup
+    stats := make([]benchWorkerStats, workers)
+    startWall := time.Now()
+
+    for i := 0; i < workers; i++ {
+        wg.Add(1)
+        idx := i
+        go func() {
+            defer wg.Done()
+            rng := rand.New(rand.NewSource(seed + int64(idx) + 5000))
+            st := benchWorkerStats{}
+
+            for {
+                cur := atomic.AddInt64(&done, 1)
+                if cur > int64(totalOps) { break }
+
+                // Decide RW vs RO per op
+                if rng.Intn(100) < rwPct {
+                    // RW op
+                    sid := senderSampler(rng)
+                    rid, _ := receiverSamplerRW(rng, sid)
+                    sCID := shard.ClusterOfItem(sid)
+                    _, addr, err := getClusterLeader(sCID, rng)
+                    if err != nil || addr == "" {
+                        st.totalOps++; st.errorOps++; continue
+                    }
+                    // record for resharding heuristic
+                    txnSample.record(sid, rid)
+                    req := datatypes.ClientRequest{
+                        MessageType: "REQUEST",
+                        Transaction: datatypes.Txn{Sender: fmt.Sprintf("%d", sid), Receiver: fmt.Sprintf("%d", rid), Amount: amount},
+                        Timestamp:   time.Now().UnixNano(),
+                        ClientID:    fmt.Sprintf("benchfx-%d-%d", idx, cur),
+                        IsNoOp:      false,
+                    }
+                    args := datatypes.ClientRequestRPC{Request: req}
+                    var rep datatypes.ClientReplyRPC
+                    t0 := time.Now()
+                    cli, err := rpc.Dial("tcp", addr)
+                    if err != nil { st.totalOps++; st.errorOps++; continue }
+                    doneCh := make(chan error, 1)
+                    go func() { doneCh <- cli.Call("NodeService.HandleClientRequest", args, &rep) }()
+                    callTimeout := time.Duration(config.ClientTimeout) * time.Millisecond
+                    var callErr error
+                    select {
+                    case callErr = <-doneCh:
+                    case <-time.After(callTimeout):
+                        callErr = fmt.Errorf("timeout")
+                    }
+                    cli.Close()
+                    t1 := time.Now()
+                    st.totalOps++
+                    st.totalLatency += t1.Sub(t0)
+                    if callErr != nil { st.errorOps++; continue }
+                    msg := strings.ToLower(rep.Reply.Message)
+                    if rep.Reply.Success {
+                        st.successOps++
+                    } else if strings.Contains(msg, "locked") || strings.Contains(msg, "insufficient") || strings.Contains(msg, "abort") {
+                        st.abortOps++
+                    } else if strings.Contains(msg, "insufficient active nodes") || strings.Contains(msg, "not leader") || strings.Contains(msg, "consensus") {
+                        st.errorOps++
+                    } else {
+                        st.errorOps++
+                    }
+                } else {
+                    // RO op
+                    sid := senderSampler(rng)
+                    sCID := shard.ClusterOfItem(sid)
+                    _, addr, err := getClusterLeader(sCID, rng)
+                    if err != nil || addr == "" { st.totalOps++; st.errorOps++; continue }
+                    t0 := time.Now()
+                    cli, err := rpc.Dial("tcp", addr)
+                    if err != nil { st.totalOps++; st.errorOps++; continue }
+                    var gbr datatypes.GetBalanceReply
+                    callErr := cli.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", sid)}, &gbr)
+                    cli.Close()
+                    t1 := time.Now()
+                    st.totalOps++
+                    st.totalLatency += t1.Sub(t0)
+                    if callErr != nil { st.errorOps++ } else { st.successOps++ }
+                }
+            }
+
+            stats[idx] = st
+        }()
+    }
+    wg.Wait()
+    endWall := time.Now()
+
+    // 5) aggregate
+    var agg benchWorkerStats
+    for i := 0; i < workers; i++ {
+        agg.totalOps += stats[i].totalOps
+        agg.successOps += stats[i].successOps
+        agg.abortOps += stats[i].abortOps
+        agg.errorOps += stats[i].errorOps
+        agg.totalLatency += stats[i].totalLatency
+    }
+    wallSecs := endWall.Sub(startWall).Seconds()
+    tps := 0.0
+    avgLatMs := 0.0
+    if wallSecs > 0 { tps = float64(agg.totalOps) / wallSecs }
+    if agg.totalOps > 0 { avgLatMs = float64(agg.totalLatency.Milliseconds()) / float64(agg.totalOps) }
+
+    // 6) report
+    fmt.Printf("mode=fixed-ops txns=%d clients=%d rwPct=%d crossPct=%d hotProb=%.2f\n", totalOps, workers, rwPct, crossPct, hotProb)
+    fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n", agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
+
+    return nil
 }
 
 // ========================
