@@ -71,7 +71,10 @@ type Node struct {
 	TxnStates map[string]*TxnState
 
 	// Phase 7: pending 2PC decision acknowledgments (coordinator retries)
-	Pending2PCAcks map[string]*PendingDecision
+    Pending2PCAcks map[string]*PendingDecision
+
+    // ensure only one background executor runs at a time on a node
+    execRunning bool
 }
 
 // PendingDecision tracks an unacked decision that coordinator must retry.
@@ -1720,7 +1723,6 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 // HandleCommit marks an entry committed and triggers execution ordering.
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
     n.mu.Lock()
-    defer n.mu.Unlock()
     // Refresh leader recency on Commit to avoid follower timeouts during
     // active commit flow from the current leader.
     n.lastLeaderMsg = time.Now()
@@ -1767,11 +1769,15 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 	//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
 
-	// Followers should drive execution via the background executor.
-	// The leader already executes inline in the fast path after broadcasting commit.
-	if args.Ballot.NodeID != n.ID {
-		go n.executeRequestsInOrder()
-	}
+    // Determine outside-lock follow-up
+    followerShouldExec := args.Ballot.NodeID != n.ID
+    n.mu.Unlock()
+
+    // Followers drive execution via a single-flight background executor.
+    // The leader already executes inline in the fast path after broadcasting commit.
+    if followerShouldExec {
+        n.triggerExecutor()
+    }
 
 	*reply = true
 	return nil
@@ -1779,91 +1785,70 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 // HandleNewView rebuilds local logs from the leader's snapshot.
 func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
-	n.mu.Lock()
-	defer n.mu.Unlock()
+    // Phase 1: minimal updates under lock
+    n.mu.Lock()
+    if args.Ballot.LessThan(n.HighestPromised) {
+        n.mu.Unlock()
+        *reply = false
+        return nil
+    }
+    if args.Ballot.Number == n.lastProcessedView.Number && args.Ballot.NodeID == n.lastProcessedView.NodeID {
+        n.mu.Unlock()
+        *reply = true
+        return nil
+    }
+    n.lastProcessedView = args.Ballot
+    n.lastLeaderMsg = time.Now()
+    n.HighestPromised = args.Ballot
+    n.CurrentBallot = args.Ballot
+    n.IsLeader = args.Ballot.NodeID == n.ID
+    n.NewViewMsgs = append(n.NewViewMsgs, args)
 
-	if args.Ballot.LessThan(n.HighestPromised) {
-		//log.Printf("Node %d: Ignoring outdated New-View for ballot %v (current promise %v)", n.ID, args.Ballot, n.HighestPromised)
-		*reply = false
-		return nil
-	}
+    // Snapshot previous accepted for status preservation
+    prevAcceptedCopy := make(map[int]datatypes.LogEntry, len(n.AcceptedLog))
+    for seq, e := range n.AcceptedLog {
+        prevAcceptedCopy[seq] = e
+    }
+    n.mu.Unlock()
 
-	if args.Ballot.Number == n.lastProcessedView.Number && args.Ballot.NodeID == n.lastProcessedView.NodeID {
-		*reply = true
-		return nil
-	}
-	n.lastProcessedView = args.Ballot
+    // Phase 2: build new logs outside lock
+    newAcceptedLog := make(map[int]datatypes.LogEntry, len(args.AcceptLog))
+    newRequestLog := make([]datatypes.LogEntry, 0, len(args.AcceptLog))
+    maxSeq := 0
+    for _, entry := range args.AcceptLog {
+        if entry.SeqNum > maxSeq { maxSeq = entry.SeqNum }
+        status := entry.Status
+        if prev, ok := prevAcceptedCopy[entry.SeqNum]; ok {
+            status = maxStatus(status, prev.Status)
+        }
+        logEntry := datatypes.LogEntry{Ballot: entry.AcceptNum, SeqNum: entry.SeqNum, Request: entry.Request, Status: status}
+        newAcceptedLog[entry.SeqNum] = logEntry
+        newRequestLog = append(newRequestLog, logEntry)
+    }
+    sort.Slice(newRequestLog, func(i, j int) bool { return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum })
 
-	n.lastLeaderMsg = time.Now()
-	n.HighestPromised = args.Ballot
-	n.CurrentBallot = args.Ballot
-	n.IsLeader = args.Ballot.NodeID == n.ID
+    // Phase 3: swap new logs under short lock
+    n.mu.Lock()
+    n.AcceptedLog = newAcceptedLog
+    n.RequestLog = newRequestLog
+    n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+    if maxSeq == 0 { n.NextSeqNum = 1 } else { n.NextSeqNum = maxSeq + 1 }
+    n.mu.Unlock()
 
-	n.NewViewMsgs = append(n.NewViewMsgs, args)
-
-	prevAccepted := n.AcceptedLog
-	newAcceptedLog := make(map[int]datatypes.LogEntry, len(args.AcceptLog))
-	newRequestLog := make([]datatypes.LogEntry, 0, len(args.AcceptLog))
-	maxSeq := 0
-
-	for _, entry := range args.AcceptLog {
-		if entry.SeqNum > maxSeq {
-			maxSeq = entry.SeqNum
-		}
-
-		status := entry.Status
-		if prevEntry, ok := prevAccepted[entry.SeqNum]; ok {
-			status = maxStatus(status, prevEntry.Status)
-		}
-
-		logEntry := datatypes.LogEntry{
-			Ballot:  entry.AcceptNum,
-			SeqNum:  entry.SeqNum,
-			Request: entry.Request,
-			Status:  status,
-		}
-
-		newAcceptedLog[entry.SeqNum] = logEntry
-		newRequestLog = append(newRequestLog, logEntry)
-	}
-
-	sort.Slice(newRequestLog, func(i, j int) bool {
-		return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum
-	})
-
-	n.AcceptedLog = newAcceptedLog
-	n.RequestLog = newRequestLog
-
-	n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
-
-	if maxSeq == 0 {
-		n.NextSeqNum = 1
-	} else {
-		n.NextSeqNum = maxSeq + 1
-	}
-
-	n.applyCommittedEntries(prevAccepted, maxSeq)
-
-	if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
-		for _, entry := range args.AcceptLog {
-			go func(e datatypes.AcceptLogEntry) {
-				var acceptedReply datatypes.AcceptedMsg
-				acceptedMsg := datatypes.AcceptedMsg{
-					Ballot:  args.Ballot,
-					SeqNum:  e.SeqNum,
-					Request: e.Request,
-					NodeID:  n.ID,
-				}
-				_ = n.callRPC(args.Ballot.NodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
-			}(entry)
-		}
-	}
-	// Execute the entries from the new view here
-	go n.executeRequestsInOrder()
-
-	*reply = true
-	//log.Printf("Node %d: Processed New-View from ballot %s with %d entries\n",n.ID, args.Ballot, len(args.AcceptLog))
-	return nil
+    // Phase 4: apply committed entries and send acks outside lock
+    n.applyCommittedEntries(prevAcceptedCopy, maxSeq)
+    if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
+        for _, entry := range args.AcceptLog {
+            go func(e datatypes.AcceptLogEntry) {
+                var acceptedReply datatypes.AcceptedMsg
+                acceptedMsg := datatypes.AcceptedMsg{Ballot: args.Ballot, SeqNum: e.SeqNum, Request: e.Request, NodeID: n.ID}
+                _ = n.callRPC(args.Ballot.NodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
+            }(entry)
+        }
+    }
+    n.triggerExecutor()
+    *reply = true
+    return nil
 }
 
 // executeRequest applies a request or marks a no-op executed.
@@ -1952,8 +1937,8 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 
 // executeRequestsInOrder walks committed entries sequentially and executes them.
 func (n *Node) executeRequestsInOrder() {
-	log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
-	for seqNum := 1; ; seqNum++ {
+    log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
+    for seqNum := 1; ; seqNum++ {
 		entry, exists := n.AcceptedLog[seqNum]
 		if !exists {
 			log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d", n.ID, seqNum)
@@ -1970,6 +1955,25 @@ func (n *Node) executeRequestsInOrder() {
 			n.executeRequest(seqNum, entry.Request)
 		}
 	}
+}
+
+// triggerExecutor starts the executor if one is not already running.
+func (n *Node) triggerExecutor() {
+    n.mu.Lock()
+    if n.execRunning {
+        n.mu.Unlock()
+        return
+    }
+    n.execRunning = true
+    n.mu.Unlock()
+    go func() {
+        defer func() {
+            n.mu.Lock()
+            n.execRunning = false
+            n.mu.Unlock()
+        }()
+        n.executeRequestsInOrder()
+    }()
 }
 
 // markExecuted sets status=Executed for the given sequence number in both
