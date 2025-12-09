@@ -5,24 +5,24 @@
 package main
 
 import (
-    "bufio"
-    "encoding/csv"
-    "flag"
-    "fmt"
-    "io"
-    "log"
-    "math/rand"
-    "sort"
-    "multipaxos/rituraj735/config"
-    "multipaxos/rituraj735/datatypes"
-    "multipaxos/rituraj735/pkg/client"
-    "multipaxos/rituraj735/pkg/shard"
-    "net/rpc"
-    "os"
-    "strconv"
-    "strings"
-    "sync"
-    "time"
+	"bufio"
+	"encoding/csv"
+	"flag"
+	"fmt"
+	"io"
+	"log"
+	"math/rand"
+	"multipaxos/rituraj735/config"
+	"multipaxos/rituraj735/datatypes"
+	"multipaxos/rituraj735/pkg/client"
+	"multipaxos/rituraj735/pkg/shard"
+	"net/rpc"
+	"os"
+	"sort"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
 )
 
 type TxnSet struct {
@@ -59,34 +59,40 @@ var perf PerfStats
 type txnPair struct{ S, R int }
 
 type TxnSample struct {
-    mu    sync.Mutex
-    buf   []txnPair
-    size  int
-    idx   int
-    full  bool
+	mu   sync.Mutex
+	buf  []txnPair
+	size int
+	idx  int
+	full bool
 }
 
 func newTxnSample(n int) *TxnSample { return &TxnSample{size: n, buf: make([]txnPair, n)} }
 
 func (ts *TxnSample) record(s, r int) {
-    ts.mu.Lock(); defer ts.mu.Unlock()
-    if ts.size == 0 { return }
-    ts.buf[ts.idx] = txnPair{S: s, R: r}
-    ts.idx = (ts.idx + 1) % ts.size
-    if ts.idx == 0 { ts.full = true }
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
+	if ts.size == 0 {
+		return
+	}
+	ts.buf[ts.idx] = txnPair{S: s, R: r}
+	ts.idx = (ts.idx + 1) % ts.size
+	if ts.idx == 0 {
+		ts.full = true
+	}
 }
 
 func (ts *TxnSample) snapshot() []txnPair {
-    ts.mu.Lock(); defer ts.mu.Unlock()
-    if !ts.full {
-        out := make([]txnPair, 0, ts.idx)
-        out = append(out, ts.buf[:ts.idx]...)
-        return out
-    }
-    out := make([]txnPair, 0, ts.size)
-    out = append(out, ts.buf[ts.idx:]...)
-    out = append(out, ts.buf[:ts.idx]...)
-    return out
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
+	if !ts.full {
+		out := make([]txnPair, 0, ts.idx)
+		out = append(out, ts.buf[:ts.idx]...)
+		return out
+	}
+	out := make([]txnPair, 0, ts.size)
+	out = append(out, ts.buf[ts.idx:]...)
+	out = append(out, ts.buf[:ts.idx]...)
+	return out
 }
 
 var txnSample = newTxnSample(1000)
@@ -141,29 +147,29 @@ func main() {
 	defer logFile.Close()
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
-    log.SetPrefix("[Client] ")
+	log.SetPrefix("[Client] ")
 
-    // Load shard overrides at startup (non-fatal)
-    _ = shard.LoadOverridesFromFile()
+	// Load shard overrides at startup (non-fatal)
+	_ = shard.LoadOverridesFromFile()
 
-    // Flags for Phase 9 benchmark mode
-    bench := flag.Bool("bench", false, "run benchmark mode and exit")
-    modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro")
-    durationFlag := flag.Int("duration", 30, "benchmark duration in seconds")
-    clientsFlag := flag.Int("clients", 4, "number of concurrent workers")
-    amountFlag := flag.Int("amount", 1, "transfer amount for rw mode")
-    crossRatioFlag := flag.Float64("crossRatio", 0.0, "fraction of cross-shard txns [0..1]")
-    hotKFlag := flag.Int("hotK", 100, "size of hot set for skew")
-    hotProbFlag := flag.Float64("hotProb", 0.0, "probability of choosing from hot set [0..1]")
-    seedFlag := flag.Int64("seed", 1, "RNG seed")
-    sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
-    flag.Parse()
+	// Flags for Phase 9 benchmark mode
+	bench := flag.Bool("bench", false, "run benchmark mode and exit")
+	modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro")
+	durationFlag := flag.Int("duration", 30, "benchmark duration in seconds")
+	clientsFlag := flag.Int("clients", 4, "number of concurrent workers")
+	amountFlag := flag.Int("amount", 1, "transfer amount for rw mode")
+	crossRatioFlag := flag.Float64("crossRatio", 0.0, "fraction of cross-shard txns [0..1]")
+	hotKFlag := flag.Int("hotK", 100, "size of hot set for skew")
+	hotProbFlag := flag.Float64("hotProb", 0.0, "probability of choosing from hot set [0..1]")
+	seedFlag := flag.Int64("seed", 1, "RNG seed")
+	sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
+	flag.Parse()
 
-    fmt.Println("Welcome to Bank of Paxos")
-    fmt.Println("==========================")
-    log.Printf("ClientDriver: started; expecting %d clients", len(config.ClientIDs))
-    var option int
-    var fileName string
+	fmt.Println("Welcome to Bank of Paxos")
+	fmt.Println("==========================")
+	log.Printf("ClientDriver: started; expecting %d clients", len(config.ClientIDs))
+	var option int
+	var fileName string
 
 	// Initializing 10 clients
 	clients = make(map[string]*client.Client)
@@ -174,48 +180,48 @@ func main() {
 	time.Sleep(1 * time.Second) //Just waiting for clients to initialize and come up
 	fmt.Println("All 10 clients are ready")
 
-    // If -bench is set, run benchmark flow and exit
-    if *bench {
-        if err := runBenchmark(*modeFlag, *durationFlag, *clientsFlag, *amountFlag, *crossRatioFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
-            log.Fatalf("Benchmark failed: %v", err)
-        }
-        return
-    }
+	// If -bench is set, run benchmark flow and exit
+	if *bench {
+		if err := runBenchmark(*modeFlag, *durationFlag, *clientsFlag, *amountFlag, *crossRatioFlag, *hotKFlag, *hotProbFlag, *seedFlag, *sourceCIDFlag); err != nil {
+			log.Fatalf("Benchmark failed: %v", err)
+		}
+		return
+	}
 
-    // Reading CSV file path from user (interactive mode)
-    fmt.Println("Please enter the test file path to start: ")
-    filePathReader := bufio.NewReader(os.Stdin)
-    filePath, err := filePathReader.ReadString('\n')
-    if err != nil {
-        log.Fatalf("Failed to read file path: %v", err)
-    }
-    filePath = strings.TrimSpace(filePath)
-    sets, err = ParseTxnSetsFromCSV(filePath)
-    if err != nil {
-        log.Fatalf("Failed to parse CSV file: %v", err)
-    }
-    log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
+	// Reading CSV file path from user (interactive mode)
+	fmt.Println("Please enter the test file path to start: ")
+	filePathReader := bufio.NewReader(os.Stdin)
+	filePath, err := filePathReader.ReadString('\n')
+	if err != nil {
+		log.Fatalf("Failed to read file path: %v", err)
+	}
+	filePath = strings.TrimSpace(filePath)
+	sets, err = ParseTxnSetsFromCSV(filePath)
+	if err != nil {
+		log.Fatalf("Failed to parse CSV file: %v", err)
+	}
+	log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
 
 	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
 	fmt.Println("Choose an option:")
-    for {
-        if option == 8 {
-            break
-        }
-        fmt.Println("1.Process next transactions set")
-        fmt.Println("2.PrintLog")
-        fmt.Println("3.PrintDB")
-        fmt.Println("4.PrintStatus")
-        fmt.Println("5.PrintView")
-        fmt.Println("6.PrintBalance")
-        fmt.Println("7.PrintReshard")
-        fmt.Println("8.Exit")
-        fmt.Scanln(&option)
-        fmt.Println("You chose option:", option)
-        switch option {
-        case 1:
-            processNextTestSet(filePathReader)
+	for {
+		if option == 8 {
+			break
+		}
+		fmt.Println("1.Process next transactions set")
+		fmt.Println("2.PrintLog")
+		fmt.Println("3.PrintDB")
+		fmt.Println("4.PrintStatus")
+		fmt.Println("5.PrintView")
+		fmt.Println("6.PrintBalance")
+		fmt.Println("7.PrintReshard")
+		fmt.Println("8.Exit")
+		fmt.Scanln(&option)
+		fmt.Println("You chose option:", option)
+		switch option {
+		case 1:
+			processNextTestSet(filePathReader)
 		case 2:
 			printLogFromNode(filePathReader)
 		case 3:
@@ -224,17 +230,17 @@ func main() {
 			printStatusFromNode(filePathReader)
 		case 5:
 			printViewFromAllNodes()
-        case 6:
-            printBalanceFromCluster(filePathReader)
-        case 7:
-            runReshard()
-        case 8:
-            fmt.Println("Exiting...")
-            return
-        default:
-            fmt.Println("Invalid option. Please try again.")
-        }
-    }
+		case 6:
+			printBalanceFromCluster(filePathReader)
+		case 7:
+			runReshard()
+		case 8:
+			fmt.Println("Exiting...")
+			return
+		default:
+			fmt.Println("Invalid option. Please try again.")
+		}
+	}
 
 }
 
@@ -243,466 +249,549 @@ func main() {
 // ========================
 
 type benchWorkerStats struct {
-    totalOps     int64
-    successOps   int64
-    abortOps     int64
-    errorOps     int64
-    totalLatency time.Duration
+	totalOps     int64
+	successOps   int64
+	abortOps     int64
+	errorOps     int64
+	totalLatency time.Duration
 }
 
 func runBenchmark(mode string, durationSec int, workers int, amount int, crossRatio float64, hotK int, hotProb float64, seed int64, sourceCID int) error {
-    // Validate flags
-    if mode != "rw" && mode != "ro" {
-        return fmt.Errorf("invalid -mode: %s", mode)
-    }
-    if durationSec <= 0 { return fmt.Errorf("duration must be > 0") }
-    if workers <= 0 { workers = 1 }
-    if crossRatio < 0.0 { crossRatio = 0.0 }
-    if crossRatio > 1.0 { crossRatio = 1.0 }
-    if hotProb < 0.0 { hotProb = 0.0 }
-    if hotProb > 1.0 { hotProb = 1.0 }
-    if sourceCID < 1 || sourceCID > 3 { sourceCID = 1 }
+	// Validate flags
+	if mode != "rw" && mode != "ro" {
+		return fmt.Errorf("invalid -mode: %s", mode)
+	}
+	if durationSec <= 0 {
+		return fmt.Errorf("duration must be > 0")
+	}
+	if workers <= 0 {
+		workers = 1
+	}
+	if crossRatio < 0.0 {
+		crossRatio = 0.0
+	}
+	if crossRatio > 1.0 {
+		crossRatio = 1.0
+	}
+	if hotProb < 0.0 {
+		hotProb = 0.0
+	}
+	if hotProb > 1.0 {
+		hotProb = 1.0
+	}
+	if sourceCID < 1 || sourceCID > 3 {
+		sourceCID = 1
+	}
 
-    // 1) Flush state on all nodes
-    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-        addr := config.NodeAddresses[nodeID]
-        go func(addr string) {
-            if c, err := rpc.Dial("tcp", addr); err == nil {
-                defer c.Close()
-                var fr datatypes.FlushStateReply
-                _ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true, ResetConsensus: true, ResetWAL: true}, &fr)
-            }
-        }(addr)
-    }
-    time.Sleep(300 * time.Millisecond)
+	// 1) Flush state on all nodes
+	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+		addr := config.NodeAddresses[nodeID]
+		go func(addr string) {
+			if c, err := rpc.Dial("tcp", addr); err == nil {
+				defer c.Close()
+				var fr datatypes.FlushStateReply
+				_ = c.Call("NodeService.FlushState", datatypes.FlushStateArgs{ResetDB: true, ResetConsensus: true, ResetWAL: true}, &fr)
+			}
+		}(addr)
+	}
+	time.Sleep(300 * time.Millisecond)
 
-    // 2) Prime leaders on cluster anchors (1,4,7)
-    for _, nid := range []int{1, 4, 7} {
-        addr := config.NodeAddresses[nid]
-        go func(addr string) {
-            if c, err := rpc.Dial("tcp", addr); err == nil {
-                defer c.Close()
-                var trep datatypes.TriggerElectionReply
-                _ = c.Call("NodeService.ForceLeader", datatypes.TriggerElectionArgs{}, &trep)
-            }
-        }(addr)
-    }
-    time.Sleep(500 * time.Millisecond)
+	// 2) Prime leaders on cluster anchors (1,4,7)
+	for _, nid := range []int{1, 4, 7} {
+		addr := config.NodeAddresses[nid]
+		go func(addr string) {
+			if c, err := rpc.Dial("tcp", addr); err == nil {
+				defer c.Close()
+				var trep datatypes.TriggerElectionReply
+				_ = c.Call("NodeService.ForceLeader", datatypes.TriggerElectionArgs{}, &trep)
+			}
+		}(addr)
+	}
+	time.Sleep(500 * time.Millisecond)
 
-    // 3) Prepare ranges and helpers
-    clusterRanges := config.ClusterRanges
-    pickInRange := func(rng *rand.Rand, lo, hi int) int {
-        if hi < lo { return lo }
-        return lo + rng.Intn(hi-lo+1)
-    }
-    clamp := func(x, lo, hi int) int {
-        if x < lo { return lo }
-        if x > hi { return hi }
-        return x
-    }
+	// 3) Prepare ranges and helpers
+	clusterRanges := config.ClusterRanges
+	pickInRange := func(rng *rand.Rand, lo, hi int) int {
+		if hi < lo {
+			return lo
+		}
+		return lo + rng.Intn(hi-lo+1)
+	}
+	clamp := func(x, lo, hi int) int {
+		if x < lo {
+			return lo
+		}
+		if x > hi {
+			return hi
+		}
+		return x
+	}
 
-    // leader cache per cluster
-    var cacheMu sync.Mutex
-    leaderCache := make(map[int]int)
+	// leader cache per cluster
+	var cacheMu sync.Mutex
+	leaderCache := make(map[int]int)
 
-    getClusterLeader := func(clusterID int, rng *rand.Rand) (int, string, error) {
-        members, ok := config.ClusterMembers[clusterID]
-        if !ok || len(members) == 0 {
-            return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
-        }
-        // choose a candidate: cached or the first member
-        cacheMu.Lock()
-        cand := leaderCache[clusterID]
-        cacheMu.Unlock()
-        if cand == 0 { cand = members[0] }
+	getClusterLeader := func(clusterID int, rng *rand.Rand) (int, string, error) {
+		members, ok := config.ClusterMembers[clusterID]
+		if !ok || len(members) == 0 {
+			return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
+		}
+		// choose a candidate: cached or the first member
+		cacheMu.Lock()
+		cand := leaderCache[clusterID]
+		cacheMu.Unlock()
+		if cand == 0 {
+			cand = members[0]
+		}
 
-        queryLeader := func(nodeID int) (int, error) {
-            addr := config.NodeAddresses[nodeID]
-            cli, err := rpc.Dial("tcp", addr)
-            if err != nil { return 0, err }
-            defer cli.Close()
-            var info datatypes.LeaderInfo
-            if err := cli.Call("NodeService.GetLeader", true, &info); err != nil { return 0, err }
-            if info.IsLeader && info.LeaderID != 0 {
-                return info.LeaderID, nil
-            }
-            return 0, fmt.Errorf("no leader from node %d", nodeID)
-        }
+		queryLeader := func(nodeID int) (int, error) {
+			addr := config.NodeAddresses[nodeID]
+			cli, err := rpc.Dial("tcp", addr)
+			if err != nil {
+				return 0, err
+			}
+			defer cli.Close()
+			var info datatypes.LeaderInfo
+			if err := cli.Call("NodeService.GetLeader", true, &info); err != nil {
+				return 0, err
+			}
+			if info.IsLeader && info.LeaderID != 0 {
+				return info.LeaderID, nil
+			}
+			return 0, fmt.Errorf("no leader from node %d", nodeID)
+		}
 
-        if lid, err := queryLeader(cand); err == nil {
-            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
-            return lid, config.NodeAddresses[lid], nil
-        }
-        // try a different random member once
-        alt := cand
-        for tries := 0; tries < 5 && alt == cand; tries++ {
-            alt = members[rng.Intn(len(members))]
-        }
-        if lid, err := queryLeader(alt); err == nil {
-            cacheMu.Lock(); leaderCache[clusterID] = lid; cacheMu.Unlock()
-            return lid, config.NodeAddresses[lid], nil
-        }
-        return 0, "", fmt.Errorf("leader discovery failed for cluster %d", clusterID)
-    }
+		if lid, err := queryLeader(cand); err == nil {
+			cacheMu.Lock()
+			leaderCache[clusterID] = lid
+			cacheMu.Unlock()
+			return lid, config.NodeAddresses[lid], nil
+		}
+		// try a different random member once
+		alt := cand
+		for tries := 0; tries < 5 && alt == cand; tries++ {
+			alt = members[rng.Intn(len(members))]
+		}
+		if lid, err := queryLeader(alt); err == nil {
+			cacheMu.Lock()
+			leaderCache[clusterID] = lid
+			cacheMu.Unlock()
+			return lid, config.NodeAddresses[lid], nil
+		}
+		return 0, "", fmt.Errorf("leader discovery failed for cluster %d", clusterID)
+	}
 
-    // sender sampler for sourceCID
-    senderSampler := func(rng *rand.Rand) int {
-        rngDef, ok := clusterRanges[sourceCID]
-        if !ok { return 1 }
-        if hotProb <= 0.0 || hotK <= 0 {
-            return pickInRange(rng, rngDef.Min, rngDef.Max)
-        }
-        size := rngDef.Max - rngDef.Min + 1
-        hk := clamp(hotK, 1, size)
-        if rng.Float64() < hotProb {
-            // hot set
-            return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1)
-        }
-        // cold set
-        coldLo := rngDef.Min + hk
-        if coldLo > rngDef.Max { coldLo = rngDef.Min }
-        return pickInRange(rng, coldLo, rngDef.Max)
-    }
+	// sender sampler for sourceCID
+	senderSampler := func(rng *rand.Rand) int {
+		rngDef, ok := clusterRanges[sourceCID]
+		if !ok {
+			return 1
+		}
+		if hotProb <= 0.0 || hotK <= 0 {
+			return pickInRange(rng, rngDef.Min, rngDef.Max)
+		}
+		size := rngDef.Max - rngDef.Min + 1
+		hk := clamp(hotK, 1, size)
+		if rng.Float64() < hotProb {
+			// hot set
+			return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1)
+		}
+		// cold set
+		coldLo := rngDef.Min + hk
+		if coldLo > rngDef.Max {
+			coldLo = rngDef.Min
+		}
+		return pickInRange(rng, coldLo, rngDef.Max)
+	}
 
-    // receiver sampler based on sender and cross/intra choice
-    receiverSampler := func(rng *rand.Rand, senderID int) (int, int) {
-        sCID := shard.ClusterOfItem(senderID)
-        targetCID := sCID
-        if mode == "rw" && rng.Float64() < crossRatio {
-            // pick a different cluster uniformly
-            options := []int{}
-            for cid := 1; cid <= config.NumClusters; cid++ { if cid != sCID { options = append(options, cid) } }
-            targetCID = options[rng.Intn(len(options))]
-        }
-        rngDef, ok := clusterRanges[targetCID]
-        if !ok { return 0, targetCID }
-        if hotProb <= 0.0 || hotK <= 0 {
-            return pickInRange(rng, rngDef.Min, rngDef.Max), targetCID
-        }
-        size := rngDef.Max - rngDef.Min + 1
-        hk := clamp(hotK, 1, size)
-        if rng.Float64() < hotProb {
-            return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1), targetCID
-        }
-        coldLo := rngDef.Min + hk
-        if coldLo > rngDef.Max { coldLo = rngDef.Min }
-        return pickInRange(rng, coldLo, rngDef.Max), targetCID
-    }
+	// receiver sampler based on sender and cross/intra choice
+	receiverSampler := func(rng *rand.Rand, senderID int) (int, int) {
+		sCID := shard.ClusterOfItem(senderID)
+		targetCID := sCID
+		if mode == "rw" && rng.Float64() < crossRatio {
+			// pick a different cluster uniformly
+			options := []int{}
+			for cid := 1; cid <= config.NumClusters; cid++ {
+				if cid != sCID {
+					options = append(options, cid)
+				}
+			}
+			targetCID = options[rng.Intn(len(options))]
+		}
+		rngDef, ok := clusterRanges[targetCID]
+		if !ok {
+			return 0, targetCID
+		}
+		if hotProb <= 0.0 || hotK <= 0 {
+			return pickInRange(rng, rngDef.Min, rngDef.Max), targetCID
+		}
+		size := rngDef.Max - rngDef.Min + 1
+		hk := clamp(hotK, 1, size)
+		if rng.Float64() < hotProb {
+			return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1), targetCID
+		}
+		coldLo := rngDef.Min + hk
+		if coldLo > rngDef.Max {
+			coldLo = rngDef.Min
+		}
+		return pickInRange(rng, coldLo, rngDef.Max), targetCID
+	}
 
-    // worker function
-    doRW := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
-        st := benchWorkerStats{}
-        seq := int64(0)
-        for time.Now().Before(end) {
-            sid := senderSampler(rng)
-            rid, _ := receiverSampler(rng, sid)
-            sCID := shard.ClusterOfItem(sid)
-            lid, addr, err := getClusterLeader(sCID, rng)
-            if err != nil || lid == 0 || addr == "" {
-                st.totalOps++
-                st.errorOps++
-                continue
-            }
-            req := datatypes.ClientRequest{
-                MessageType: "REQUEST",
-                Transaction: datatypes.Txn{Sender: fmt.Sprintf("%d", sid), Receiver: fmt.Sprintf("%d", rid), Amount: amount},
-                Timestamp:   time.Now().UnixNano(),
-                ClientID:    fmt.Sprintf("bench-%d-%d", wid, seq),
-                IsNoOp:      false,
-            }
-            seq++
-            args := datatypes.ClientRequestRPC{Request: req}
-            var rep datatypes.ClientReplyRPC
-            t0 := time.Now()
-            cli, err := rpc.Dial("tcp", addr)
-            if err != nil {
-                st.totalOps++; st.errorOps++; continue
-            }
-            done := make(chan error, 1)
-            go func() { done <- cli.Call("NodeService.HandleClientRequest", args, &rep) }()
-            callTimeout := time.Duration(config.ClientTimeout) * time.Millisecond
-            var callErr error
-            select {
-            case callErr = <-done:
-            case <-time.After(callTimeout):
-                callErr = fmt.Errorf("timeout")
-            }
-            cli.Close()
-            t1 := time.Now()
+	// worker function
+	doRW := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
+		st := benchWorkerStats{}
+		seq := int64(0)
+		for time.Now().Before(end) {
+			sid := senderSampler(rng)
+			rid, _ := receiverSampler(rng, sid)
+			sCID := shard.ClusterOfItem(sid)
+			lid, addr, err := getClusterLeader(sCID, rng)
+			if err != nil || lid == 0 || addr == "" {
+				st.totalOps++
+				st.errorOps++
+				continue
+			}
+			req := datatypes.ClientRequest{
+				MessageType: "REQUEST",
+				Transaction: datatypes.Txn{Sender: fmt.Sprintf("%d", sid), Receiver: fmt.Sprintf("%d", rid), Amount: amount},
+				Timestamp:   time.Now().UnixNano(),
+				ClientID:    fmt.Sprintf("bench-%d-%d", wid, seq),
+				IsNoOp:      false,
+			}
+			seq++
+			args := datatypes.ClientRequestRPC{Request: req}
+			var rep datatypes.ClientReplyRPC
+			t0 := time.Now()
+			cli, err := rpc.Dial("tcp", addr)
+			if err != nil {
+				st.totalOps++
+				st.errorOps++
+				continue
+			}
+			done := make(chan error, 1)
+			go func() { done <- cli.Call("NodeService.HandleClientRequest", args, &rep) }()
+			callTimeout := time.Duration(config.ClientTimeout) * time.Millisecond
+			var callErr error
+			select {
+			case callErr = <-done:
+			case <-time.After(callTimeout):
+				callErr = fmt.Errorf("timeout")
+			}
+			cli.Close()
+			t1 := time.Now()
 
-            st.totalOps++
-            st.totalLatency += t1.Sub(t0)
-            if callErr != nil {
-                st.errorOps++
-                continue
-            }
-            // classify reply
-            msg := strings.ToLower(rep.Reply.Message)
-            if rep.Reply.Success {
-                st.successOps++
-            } else if strings.Contains(msg, "locked") || strings.Contains(msg, "insufficient") || strings.Contains(msg, "abort") {
-                // contentions/logic
-                st.abortOps++
-            } else if strings.Contains(msg, "insufficient active nodes") || strings.Contains(msg, "not leader") || strings.Contains(msg, "consensus") {
-                st.errorOps++
-            } else {
-                // default to error if unexpected
-                st.errorOps++
-            }
-        }
-        return st
-    }
+			st.totalOps++
+			st.totalLatency += t1.Sub(t0)
+			if callErr != nil {
+				st.errorOps++
+				continue
+			}
+			// classify reply
+			msg := strings.ToLower(rep.Reply.Message)
+			if rep.Reply.Success {
+				st.successOps++
+			} else if strings.Contains(msg, "locked") || strings.Contains(msg, "insufficient") || strings.Contains(msg, "abort") {
+				// contentions/logic
+				st.abortOps++
+			} else if strings.Contains(msg, "insufficient active nodes") || strings.Contains(msg, "not leader") || strings.Contains(msg, "consensus") {
+				st.errorOps++
+			} else {
+				// default to error if unexpected
+				st.errorOps++
+			}
+		}
+		return st
+	}
 
-    doRO := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
-        st := benchWorkerStats{}
-        for time.Now().Before(end) {
-            sid := senderSampler(rng) // target account for read
-            sCID := shard.ClusterOfItem(sid)
-            _, addr, err := getClusterLeader(sCID, rng)
-            if err != nil || addr == "" {
-                st.totalOps++
-                st.errorOps++
-                continue
-            }
-            t0 := time.Now()
-            cli, err := rpc.Dial("tcp", addr)
-            if err != nil {
-                st.totalOps++; st.errorOps++; continue
-            }
-            var gbr datatypes.GetBalanceReply
-            callErr := cli.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", sid)}, &gbr)
-            cli.Close()
-            t1 := time.Now()
-            st.totalOps++
-            st.totalLatency += t1.Sub(t0)
-            if callErr != nil {
-                st.errorOps++
-            } else {
-                // success read
-                st.successOps++
-            }
-        }
-        return st
-    }
+	doRO := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
+		st := benchWorkerStats{}
+		for time.Now().Before(end) {
+			sid := senderSampler(rng) // target account for read
+			sCID := shard.ClusterOfItem(sid)
+			_, addr, err := getClusterLeader(sCID, rng)
+			if err != nil || addr == "" {
+				st.totalOps++
+				st.errorOps++
+				continue
+			}
+			t0 := time.Now()
+			cli, err := rpc.Dial("tcp", addr)
+			if err != nil {
+				st.totalOps++
+				st.errorOps++
+				continue
+			}
+			var gbr datatypes.GetBalanceReply
+			callErr := cli.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", sid)}, &gbr)
+			cli.Close()
+			t1 := time.Now()
+			st.totalOps++
+			st.totalLatency += t1.Sub(t0)
+			if callErr != nil {
+				st.errorOps++
+			} else {
+				// success read
+				st.successOps++
+			}
+		}
+		return st
+	}
 
-    // 4) run workers
-    end := time.Now().Add(time.Duration(durationSec) * time.Second)
-    startWall := time.Now()
-    var wg sync.WaitGroup
-    stats := make([]benchWorkerStats, workers)
-    for i := 0; i < workers; i++ {
-        wg.Add(1)
-        idx := i
-        go func() {
-            defer wg.Done()
-            wrng := rand.New(rand.NewSource(seed + int64(idx) + 1000))
-            if mode == "rw" {
-                stats[idx] = doRW(wrng, idx, end)
-            } else {
-                stats[idx] = doRO(wrng, idx, end)
-            }
-        }()
-    }
-    wg.Wait()
-    endWall := time.Now()
+	// 4) run workers
+	end := time.Now().Add(time.Duration(durationSec) * time.Second)
+	startWall := time.Now()
+	var wg sync.WaitGroup
+	stats := make([]benchWorkerStats, workers)
+	for i := 0; i < workers; i++ {
+		wg.Add(1)
+		idx := i
+		go func() {
+			defer wg.Done()
+			wrng := rand.New(rand.NewSource(seed + int64(idx) + 1000))
+			if mode == "rw" {
+				stats[idx] = doRW(wrng, idx, end)
+			} else {
+				stats[idx] = doRO(wrng, idx, end)
+			}
+		}()
+	}
+	wg.Wait()
+	endWall := time.Now()
 
-    // 5) aggregate
-    var agg benchWorkerStats
-    for i := 0; i < workers; i++ {
-        agg.totalOps += stats[i].totalOps
-        agg.successOps += stats[i].successOps
-        agg.abortOps += stats[i].abortOps
-        agg.errorOps += stats[i].errorOps
-        agg.totalLatency += stats[i].totalLatency
-    }
-    wallSecs := endWall.Sub(startWall).Seconds()
-    tps := 0.0
-    avgLatMs := 0.0
-    if wallSecs > 0 { tps = float64(agg.totalOps) / wallSecs }
-    if agg.totalOps > 0 { avgLatMs = (float64(agg.totalLatency.Milliseconds())) / float64(agg.totalOps) }
+	// 5) aggregate
+	var agg benchWorkerStats
+	for i := 0; i < workers; i++ {
+		agg.totalOps += stats[i].totalOps
+		agg.successOps += stats[i].successOps
+		agg.abortOps += stats[i].abortOps
+		agg.errorOps += stats[i].errorOps
+		agg.totalLatency += stats[i].totalLatency
+	}
+	wallSecs := endWall.Sub(startWall).Seconds()
+	tps := 0.0
+	avgLatMs := 0.0
+	if wallSecs > 0 {
+		tps = float64(agg.totalOps) / wallSecs
+	}
+	if agg.totalOps > 0 {
+		avgLatMs = (float64(agg.totalLatency.Milliseconds())) / float64(agg.totalOps)
+	}
 
-    // 6) report
-    fmt.Printf("mode=%s dur=%d clients=%d cross=%.2f hotProb=%.2f\n", mode, durationSec, workers, crossRatio, hotProb)
-    fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n",
-        agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
+	// 6) report
+	fmt.Printf("mode=%s dur=%d clients=%d cross=%.2f hotProb=%.2f\n", mode, durationSec, workers, crossRatio, hotProb)
+	fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n",
+		agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
 
-    return nil
+	return nil
 }
 
 // ========================
 // Phase 10: Resharding
 // ========================
 
-type move struct{ ID, OldCID, NewCID int; Score int }
+type move struct {
+	ID, OldCID, NewCID int
+	Score              int
+}
 
 // buildReshardMoves computes candidate moves using the TxnSample heuristic.
 func buildReshardMoves() []move {
-    pairs := txnSample.snapshot()
-    // counts[account][cluster] -> frequency
-    counts := make(map[int]map[int]int)
-    totals := make(map[int]int)
+	pairs := txnSample.snapshot()
+	// counts[account][cluster] -> frequency
+	counts := make(map[int]map[int]int)
+	totals := make(map[int]int)
 
-    // For each transaction, attribute interactions to both participants
-    for _, p := range pairs {
-        sPeerCID := shard.ClusterOfItem(p.R)
-        rPeerCID := shard.ClusterOfItem(p.S)
-        if sPeerCID != 0 {
-            if counts[p.S] == nil { counts[p.S] = make(map[int]int) }
-            counts[p.S][sPeerCID]++
-            totals[p.S]++
-        }
-        if rPeerCID != 0 {
-            if counts[p.R] == nil { counts[p.R] = make(map[int]int) }
-            counts[p.R][rPeerCID]++
-            totals[p.R]++
-        }
-    }
+	// For each transaction, attribute interactions to both participants
+	for _, p := range pairs {
+		sPeerCID := shard.ClusterOfItem(p.R)
+		rPeerCID := shard.ClusterOfItem(p.S)
+		if sPeerCID != 0 {
+			if counts[p.S] == nil {
+				counts[p.S] = make(map[int]int)
+			}
+			counts[p.S][sPeerCID]++
+			totals[p.S]++
+		}
+		if rPeerCID != 0 {
+			if counts[p.R] == nil {
+				counts[p.R] = make(map[int]int)
+			}
+			counts[p.R][rPeerCID]++
+			totals[p.R]++
+		}
+	}
 
-    moves := make([]move, 0)
-    for id, per := range counts {
-        // pick best cluster by frequency
-        bestCID, bestScore := 0, 0
-        for cid, c := range per {
-            if c > bestScore { bestCID, bestScore = cid, c }
-        }
-        if bestCID == 0 { continue }
-        oldCID := shard.ClusterOfItem(id)
-        if oldCID == 0 || oldCID == bestCID { continue }
-        moves = append(moves, move{ID: id, OldCID: oldCID, NewCID: bestCID, Score: totals[id]})
-    }
-    // sort by Score desc
-    sort.Slice(moves, func(i, j int) bool { return moves[i].Score > moves[j].Score })
-    // cap at config.ReshardTopK
-    if len(moves) > config.ReshardTopK {
-        moves = moves[:config.ReshardTopK]
-    }
-    return moves
+	moves := make([]move, 0)
+	for id, per := range counts {
+		// pick best cluster by frequency
+		bestCID, bestScore := 0, 0
+		for cid, c := range per {
+			if c > bestScore {
+				bestCID, bestScore = cid, c
+			}
+		}
+		if bestCID == 0 {
+			continue
+		}
+		oldCID := shard.ClusterOfItem(id)
+		if oldCID == 0 || oldCID == bestCID {
+			continue
+		}
+		moves = append(moves, move{ID: id, OldCID: oldCID, NewCID: bestCID, Score: totals[id]})
+	}
+	// sort by Score desc
+	sort.Slice(moves, func(i, j int) bool { return moves[i].Score > moves[j].Score })
+	// cap at config.ReshardTopK
+	if len(moves) > config.ReshardTopK {
+		moves = moves[:config.ReshardTopK]
+	}
+	return moves
 }
 
 // findClusterLeader returns (nodeID, address) for a cluster leader by probing members.
 func findClusterLeader(clusterID int) (int, string, error) {
-    members, ok := config.ClusterMembers[clusterID]
-    if !ok || len(members) == 0 {
-        return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
-    }
-    for _, nid := range members {
-        addr := config.NodeAddresses[nid]
-        c, err := rpc.Dial("tcp", addr)
-        if err != nil { continue }
-        var info datatypes.LeaderInfo
-        _ = c.Call("NodeService.GetLeader", true, &info)
-        c.Close()
-        if info.IsLeader && info.LeaderID != 0 {
-            return info.LeaderID, config.NodeAddresses[info.LeaderID], nil
-        }
-    }
-    return 0, "", fmt.Errorf("no leader for cluster %d", clusterID)
+	members, ok := config.ClusterMembers[clusterID]
+	if !ok || len(members) == 0 {
+		return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
+	}
+	for _, nid := range members {
+		addr := config.NodeAddresses[nid]
+		c, err := rpc.Dial("tcp", addr)
+		if err != nil {
+			continue
+		}
+		var info datatypes.LeaderInfo
+		_ = c.Call("NodeService.GetLeader", true, &info)
+		c.Close()
+		if info.IsLeader && info.LeaderID != 0 {
+			return info.LeaderID, config.NodeAddresses[info.LeaderID], nil
+		}
+	}
+	return 0, "", fmt.Errorf("no leader for cluster %d", clusterID)
 }
 
 func adminGetBalance(addr string, id int) (int, error) {
-    c, err := rpc.Dial("tcp", addr)
-    if err != nil { return 0, err }
-    defer c.Close()
-    var rep datatypes.AdminGetBalanceReply
-    err = c.Call("NodeService.AdminGetBalance", datatypes.AdminGetBalanceArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
-    if err != nil { return 0, err }
-    if !rep.Ok { return 0, fmt.Errorf("admin get failed") }
-    return rep.Balance, nil
+	c, err := rpc.Dial("tcp", addr)
+	if err != nil {
+		return 0, err
+	}
+	defer c.Close()
+	var rep datatypes.AdminGetBalanceReply
+	err = c.Call("NodeService.AdminGetBalance", datatypes.AdminGetBalanceArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+	if err != nil {
+		return 0, err
+	}
+	if !rep.Ok {
+		return 0, fmt.Errorf("admin get failed")
+	}
+	return rep.Balance, nil
 }
 
 func adminSetBalance(addr string, id int, bal int) error {
-    c, err := rpc.Dial("tcp", addr)
-    if err != nil { return err }
-    defer c.Close()
-    var rep datatypes.AdminSetBalanceReply
-    err = c.Call("NodeService.AdminSetBalance", datatypes.AdminSetBalanceArgs{AccountID: fmt.Sprintf("%d", id), Balance: bal}, &rep)
-    if err != nil { return err }
-    if !rep.Ok { return fmt.Errorf("admin set failed") }
-    return nil
+	c, err := rpc.Dial("tcp", addr)
+	if err != nil {
+		return err
+	}
+	defer c.Close()
+	var rep datatypes.AdminSetBalanceReply
+	err = c.Call("NodeService.AdminSetBalance", datatypes.AdminSetBalanceArgs{AccountID: fmt.Sprintf("%d", id), Balance: bal}, &rep)
+	if err != nil {
+		return err
+	}
+	if !rep.Ok {
+		return fmt.Errorf("admin set failed")
+	}
+	return nil
 }
 
 func adminDeleteAccount(addr string, id int) error {
-    c, err := rpc.Dial("tcp", addr)
-    if err != nil { return err }
-    defer c.Close()
-    var rep datatypes.AdminDeleteAccountReply
-    err = c.Call("NodeService.AdminDeleteAccount", datatypes.AdminDeleteAccountArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
-    if err != nil { return err }
-    if !rep.Ok { return fmt.Errorf("admin delete failed") }
-    return nil
+	c, err := rpc.Dial("tcp", addr)
+	if err != nil {
+		return err
+	}
+	defer c.Close()
+	var rep datatypes.AdminDeleteAccountReply
+	err = c.Call("NodeService.AdminDeleteAccount", datatypes.AdminDeleteAccountArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+	if err != nil {
+		return err
+	}
+	if !rep.Ok {
+		return fmt.Errorf("admin delete failed")
+	}
+	return nil
 }
 
 func adminReloadOverridesAllNodes() {
-    for nid := 1; nid <= config.NumNodes; nid++ {
-        addr := config.NodeAddresses[nid]
-        go func(addr string) {
-            if c, err := rpc.Dial("tcp", addr); err == nil {
-                defer c.Close()
-                var rep datatypes.AdminReloadOverridesReply
-                _ = c.Call("NodeService.AdminReloadOverrides", datatypes.AdminReloadOverridesArgs{}, &rep)
-            }
-        }(addr)
-    }
+	for nid := 1; nid <= config.NumNodes; nid++ {
+		addr := config.NodeAddresses[nid]
+		go func(addr string) {
+			if c, err := rpc.Dial("tcp", addr); err == nil {
+				defer c.Close()
+				var rep datatypes.AdminReloadOverridesReply
+				_ = c.Call("NodeService.AdminReloadOverrides", datatypes.AdminReloadOverridesArgs{}, &rep)
+			}
+		}(addr)
+	}
 }
 
 // applyReshardMoves performs the migration for a set of moves.
 func applyReshardMoves(moves []move) {
-    for _, m := range moves {
-        // 1) Get balance from old leader
-        _, oldAddr, err := findClusterLeader(m.OldCID)
-        if err != nil {
-            log.Printf("[Reshard] skip id=%d: old leader err: %v", m.ID, err)
-            continue
-        }
-        bal, err := adminGetBalance(oldAddr, m.ID)
-        if err != nil {
-            log.Printf("[Reshard] skip id=%d: admin get err: %v", m.ID, err)
-            continue
-        }
-        // 2) Fan-out set to destination cluster
-        destNodes := config.ClusterMembers[m.NewCID]
-        destOK := true
-        for _, nid := range destNodes {
-            addr := config.NodeAddresses[nid]
-            if err := adminSetBalance(addr, m.ID, bal); err != nil {
-                log.Printf("[Reshard] abort move id=%d -> cid=%d: set fail on n%d: %v", m.ID, m.NewCID, nid, err)
-                destOK = false
-                break
-            }
-        }
-        if !destOK {
-            // Abort move
-            continue
-        }
-        // 3) Fan-out delete to source cluster (best-effort)
-        srcNodes := config.ClusterMembers[m.OldCID]
-        for _, nid := range srcNodes {
-            addr := config.NodeAddresses[nid]
-            if err := adminDeleteAccount(addr, m.ID); err != nil {
-                log.Printf("[Reshard] WARN delete old id=%d on n%d failed: %v", m.ID, nid, err)
-            }
-        }
-        // 4) Update override map in-process
-        shard.SetAccountClusterOverride(m.ID, m.NewCID)
-    }
-    // Persist and fan-out reload
-    _ = shard.SaveOverridesToFile()
-    adminReloadOverridesAllNodes()
+	for _, m := range moves {
+		// 1) Get balance from old leader
+		_, oldAddr, err := findClusterLeader(m.OldCID)
+		if err != nil {
+			log.Printf("[Reshard] skip id=%d: old leader err: %v", m.ID, err)
+			continue
+		}
+		bal, err := adminGetBalance(oldAddr, m.ID)
+		if err != nil {
+			log.Printf("[Reshard] skip id=%d: admin get err: %v", m.ID, err)
+			continue
+		}
+		// 2) Fan-out set to destination cluster
+		destNodes := config.ClusterMembers[m.NewCID]
+		destOK := true
+		for _, nid := range destNodes {
+			addr := config.NodeAddresses[nid]
+			if err := adminSetBalance(addr, m.ID, bal); err != nil {
+				log.Printf("[Reshard] abort move id=%d -> cid=%d: set fail on n%d: %v", m.ID, m.NewCID, nid, err)
+				destOK = false
+				break
+			}
+		}
+		if !destOK {
+			// Abort move
+			continue
+		}
+		// 3) Fan-out delete to source cluster (best-effort)
+		srcNodes := config.ClusterMembers[m.OldCID]
+		for _, nid := range srcNodes {
+			addr := config.NodeAddresses[nid]
+			if err := adminDeleteAccount(addr, m.ID); err != nil {
+				log.Printf("[Reshard] WARN delete old id=%d on n%d failed: %v", m.ID, nid, err)
+			}
+		}
+		// 4) Update override map in-process
+		shard.SetAccountClusterOverride(m.ID, m.NewCID)
+	}
+	// Persist and fan-out reload
+	_ = shard.SaveOverridesToFile()
+	adminReloadOverridesAllNodes()
 }
 
 // runReshard builds a move list and applies it.
 func runReshard() {
-    log.Printf("[Reshard] computing moves from sample of %d txns", len(txnSample.snapshot()))
-    mv := buildReshardMoves()
-    if len(mv) == 0 {
-        fmt.Println("No moves suggested.")
-        return
-    }
-    for _, m := range mv {
-        fmt.Printf("Move account %d: %d -> %d (score=%d)\n", m.ID, m.OldCID, m.NewCID, m.Score)
-    }
-    applyReshardMoves(mv)
-    fmt.Println("=== RESHARD DONE ===")
+	log.Printf("[Reshard] computing moves from sample of %d txns", len(txnSample.snapshot()))
+	mv := buildReshardMoves()
+	if len(mv) == 0 {
+		fmt.Println("No moves suggested.")
+		return
+	}
+	for _, m := range mv {
+		fmt.Printf("Move account %d: %d -> %d (score=%d)\n", m.ID, m.OldCID, m.NewCID, m.Score)
+	}
+	applyReshardMoves(mv)
+	fmt.Println("=== RESHARD DONE ===")
 }
 
 // ClientWorker is a placeholder goroutine for future async work per client.
@@ -1008,90 +1097,100 @@ func processNextTestSet(reader *bufio.Reader) {
 	perf = PerfStats{}
 	perf.StartWall = time.Now()
 
-    // No global leader updates here; routing is cluster-aware in client.SendTransaction
+	// No global leader updates here; routing is cluster-aware in client.SendTransaction
 
-    // Send transactions in concurrent segments between control commands (LF/F/R)
-    segment := make([]datatypes.Txn, 0)
-    successCount := 0
-    failCount := 0
+	// Send transactions in concurrent segments between control commands (LF/F/R)
+	segment := make([]datatypes.Txn, 0)
+	successCount := 0
+	failCount := 0
 
-    runSegment := func(seg []datatypes.Txn) (int, int) {
-        if len(seg) == 0 { return 0, 0 }
-        sc, fc, segPerf := runSegmentConcurrent(seg)
-        perf.TxnCount += segPerf.TxnCount
-        perf.TotalLatency += segPerf.TotalLatency
-        perf.EndWall = time.Now()
-        return sc, fc
-    }
+	runSegment := func(seg []datatypes.Txn) (int, int) {
+		if len(seg) == 0 {
+			return 0, 0
+		}
+		sc, fc, segPerf := runSegmentConcurrent(seg)
+		perf.TxnCount += segPerf.TxnCount
+		perf.TotalLatency += segPerf.TotalLatency
+		perf.EndWall = time.Now()
+		return sc, fc
+	}
 
-    for i, tx := range currentSet.Txns {
-        log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
-        log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
+	for i, tx := range currentSet.Txns {
+		log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
+		log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
 
-        // Identify control commands as segment boundaries
-        if tx.Sender == lfSentinelSender {
-            sc, fc := runSegment(segment)
-            successCount += sc
-            failCount += fc
-            segment = segment[:0]
-            // Apply LF synchronously
-            newLeader, err := triggerLeaderFailure()
-            if err != nil {
-                failCount++
-            } else {
-                log.Printf("LF succeeded: new leader elected -> Node %d", newLeader)
-            }
-            time.Sleep(2 * time.Second)
-            continue
-        }
+		// Identify control commands as segment boundaries
+		if tx.Sender == lfSentinelSender {
+			sc, fc := runSegment(segment)
+			successCount += sc
+			failCount += fc
+			segment = segment[:0]
+			// Apply LF synchronously
+			newLeader, err := triggerLeaderFailure()
+			if err != nil {
+				failCount++
+			} else {
+				log.Printf("LF succeeded: new leader elected -> Node %d", newLeader)
+			}
+			time.Sleep(2 * time.Second)
+			continue
+		}
 
-        s := strings.TrimSpace(tx.Sender)
-        isF := strings.HasPrefix(strings.ToUpper(s), "F(")
-        isR := strings.HasPrefix(strings.ToUpper(s), "R(")
-        if isF || isR {
-            // Drain previous segment first
-            sc, fc := runSegment(segment)
-            successCount += sc
-            failCount += fc
-            segment = segment[:0]
-            // Apply F/R synchronously (existing logic)
-            inside := s
-            if idx := strings.Index(inside, "("); idx >= 0 { inside = inside[idx+1:] }
-            if idx := strings.Index(inside, ")"); idx >= 0 { inside = inside[:idx] }
-            inside = strings.TrimPrefix(strings.TrimSpace(inside), "n")
-            nid, perr := strconv.Atoi(inside)
-            if perr != nil || nid < 1 || nid > config.NumNodes {
-                log.Printf("ClientDriver: invalid F/R command target=%q", s)
-                continue
-            }
-            isRecover := isR
-            for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-                addr := config.NodeAddresses[nodeID]
-                go func(addr string) {
-                    if c, err := rpc.Dial("tcp", addr); err == nil {
-                        defer c.Close()
-                        var ok bool
-                        _ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
-                    }
-                }(addr)
-            }
-            time.Sleep(200 * time.Millisecond)
-            continue
-        }
+		s := strings.TrimSpace(tx.Sender)
+		isF := strings.HasPrefix(strings.ToUpper(s), "F(")
+		isR := strings.HasPrefix(strings.ToUpper(s), "R(")
+		if isF || isR {
+			// Drain previous segment first
+			sc, fc := runSegment(segment)
+			successCount += sc
+			failCount += fc
+			segment = segment[:0]
+			// Apply F/R synchronously (existing logic)
+			inside := s
+			if idx := strings.Index(inside, "("); idx >= 0 {
+				inside = inside[idx+1:]
+			}
+			if idx := strings.Index(inside, ")"); idx >= 0 {
+				inside = inside[:idx]
+			}
+			inside = strings.TrimPrefix(strings.TrimSpace(inside), "n")
+			nid, perr := strconv.Atoi(inside)
+			if perr != nil || nid < 1 || nid > config.NumNodes {
+				log.Printf("ClientDriver: invalid F/R command target=%q", s)
+				continue
+			}
+			isRecover := isR
+			for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+				addr := config.NodeAddresses[nodeID]
+				go func(addr string) {
+					if c, err := rpc.Dial("tcp", addr); err == nil {
+						defer c.Close()
+						var ok bool
+						_ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
+					}
+				}(addr)
+			}
+			time.Sleep(200 * time.Millisecond)
+			continue
+		}
 
-        // Accumulate normal tx into the current segment
-        // Record attempted keys (for summary after set)
-        if sid, err := strconv.Atoi(tx.Sender); err == nil { modifiedIDs[sid] = true }
-        if rid, err := strconv.Atoi(tx.Receiver); err == nil { modifiedIDs[rid] = true }
-        segment = append(segment, tx)
-    }
+		// Accumulate normal tx into the current segment
+		// Record attempted keys (for summary after set)
+		if sid, err := strconv.Atoi(tx.Sender); err == nil {
+			modifiedIDs[sid] = true
+		}
+		if rid, err := strconv.Atoi(tx.Receiver); err == nil {
+			modifiedIDs[rid] = true
+		}
+		segment = append(segment, tx)
+	}
 
-    // Drain tail segment
-    sc, fc := runSegment(segment)
-    successCount += sc
-    failCount += fc
+	// Drain tail segment
+	sc, fc := runSegment(segment)
+	successCount += sc
+	failCount += fc
 
-    log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
+	log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
 	currentSetIndex++
 	currentSet.SetNumber++
 
@@ -1106,94 +1205,116 @@ func processNextTestSet(reader *bufio.Reader) {
 
 // runSegmentConcurrent sends a batch of txns concurrently with a bounded worker pool.
 func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int, segPerf PerfStats) {
-    if len(seg) == 0 { return 0, 0, PerfStats{} }
-    // Choose a reasonable pool size
-    k := 8
-    if len(seg) < k { k = len(seg) }
-    jobs := make(chan datatypes.Txn, len(seg))
-    var wg sync.WaitGroup
-    var mu sync.Mutex
+	if len(seg) == 0 {
+		return 0, 0, PerfStats{}
+	}
+	// Choose a reasonable pool size
+	k := 8
+	if len(seg) < k {
+		k = len(seg)
+	}
+	jobs := make(chan datatypes.Txn, len(seg))
+	var wg sync.WaitGroup
+	var mu sync.Mutex
 
-    worker := func() {
-        defer wg.Done()
-        for tx := range jobs {
-            // Read-only if Receiver empty or amount 0
-            if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
-                sid, _ := strconv.Atoi(tx.Sender)
-                cid := shard.ClusterOfItem(sid)
-                leaderCand := 1
-                if cid == 2 { leaderCand = 4 } else if cid == 3 { leaderCand = 7 }
-                addr := config.NodeAddresses[leaderCand]
-                t0 := time.Now()
-                if c, err := rpc.Dial("tcp", addr); err == nil {
-                    var r datatypes.GetBalanceReply
-                    _ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
-                    c.Close()
-                }
-                t1 := time.Now()
-                mu.Lock()
-                segPerf.TxnCount++
-                segPerf.TotalLatency += t1.Sub(t0)
-                mu.Unlock()
-                continue
-            }
+	worker := func() {
+		defer wg.Done()
+		for tx := range jobs {
+			// Read-only if Receiver empty or amount 0
+			if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
+				sid, _ := strconv.Atoi(tx.Sender)
+				cid := shard.ClusterOfItem(sid)
+				leaderCand := 1
+				if cid == 2 {
+					leaderCand = 4
+				} else if cid == 3 {
+					leaderCand = 7
+				}
+				addr := config.NodeAddresses[leaderCand]
+				t0 := time.Now()
+				if c, err := rpc.Dial("tcp", addr); err == nil {
+					var r datatypes.GetBalanceReply
+					_ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
+					c.Close()
+				}
+				t1 := time.Now()
+				mu.Lock()
+				segPerf.TxnCount++
+				segPerf.TotalLatency += t1.Sub(t0)
+				mu.Unlock()
+				continue
+			}
 
-            // RW path with retry-on-locked policy (up to 5 attempts, 30ms jitter)
-            c, exists := clients[tx.Sender]
-            if !exists {
-                mu.Lock(); failCount++; mu.Unlock(); continue
-            }
-            // record into TxnSample (RW only)
-            if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
-                if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 { txnSample.record(sid, rid) }
-            }
+			// RW path with retry-on-locked policy (up to 5 attempts, 30ms jitter)
+			c, exists := clients[tx.Sender]
+			if !exists {
+				mu.Lock()
+				failCount++
+				mu.Unlock()
+				continue
+			}
+			// record into TxnSample (RW only)
+			if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
+				if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 {
+					txnSample.record(sid, rid)
+				}
+			}
 
-            start := time.Now()
-            attempts := 0
-            finalSuccess := false
-            for {
-                attempts++
-                reply, err := c.SendTransaction(tx)
-                if err != nil {
-                    // Any RPC error is final per spec
-                    break
-                }
-                if reply.Success {
-                    finalSuccess = true
-                    break
-                }
-                // classify reply
-                msg := strings.ToLower(reply.Message)
-                if strings.Contains(msg, "locked") && attempts < 5 {
-                    time.Sleep(30 * time.Millisecond)
-                    continue
-                }
-                if strings.Contains(msg, "abort") || strings.Contains(msg, "aborted") ||
-                    strings.Contains(msg, "insufficient funds") || strings.Contains(msg, "insufficient active nodes") ||
-                    strings.Contains(msg, "consensus failed") {
-                    // final failure
-                    break
-                }
-                // default: final failure
-                break
-            }
-            mu.Lock()
-            segPerf.TxnCount++
-            segPerf.TotalLatency += time.Since(start)
-            if finalSuccess { successCount++ } else { failCount++ }
-            mu.Unlock()
-        }
-    }
+			start := time.Now()
+			attempts := 0
+			finalSuccess := false
+			for {
+				attempts++
+				reply, err := c.SendTransaction(tx)
+				if err != nil {
+					// Any RPC error is final per spec
+					break
+				}
+				if reply.Success {
+					finalSuccess = true
+					break
+				}
+				// classify reply
+				msg := strings.ToLower(reply.Message)
+				if strings.Contains(msg, "locked") && attempts < 5 {
+					time.Sleep(200 * time.Millisecond)
+					continue
+				}
+				if strings.Contains(msg, "abort") || strings.Contains(msg, "aborted") ||
+					strings.Contains(msg, "insufficient funds") || strings.Contains(msg, "insufficient active nodes") ||
+					strings.Contains(msg, "consensus failed") {
+					// final failure
+					break
+				}
+				// default: final failure
+				break
+			}
+			mu.Lock()
+			segPerf.TxnCount++
+			segPerf.TotalLatency += time.Since(start)
+			if finalSuccess {
+				successCount++
+			} else {
+				failCount++
+			}
+			mu.Unlock()
+		}
+	}
 
-    // Start workers
-    for i := 0; i < k; i++ { wg.Add(1); go worker() }
-    // Feed jobs
-    for _, tx := range seg { jobs <- tx }
-    close(jobs)
-    wg.Wait()
-    segPerf.EndWall = time.Now()
-    segPerf.StartWall = segPerf.EndWall // unused granularity here
-    return
+	// Start workers
+	for i := 0; i < k; i++ {
+		wg.Add(1)
+		go worker()
+	}
+	// Feed jobs
+	for _, tx := range seg {
+		jobs <- tx
+	}
+	close(jobs)
+	wg.Wait()
+	segPerf.EndWall = time.Now()
+	segPerf.StartWall = segPerf.EndWall // unused granularity here
+	return
 }
 
 func maxf(a, b float64) float64 {
