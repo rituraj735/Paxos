@@ -243,43 +243,46 @@ func main() {
 
 	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
-	fmt.Println("Choose an option:")
-	for {
-		if option == 8 {
-			break
-		}
-		fmt.Println("1.Process next transactions set")
-		fmt.Println("2.PrintLog")
-		fmt.Println("3.PrintDB")
-		fmt.Println("4.PrintStatus")
-		fmt.Println("5.PrintView")
-		fmt.Println("6.PrintBalance")
-		fmt.Println("7.PrintReshard")
-		fmt.Println("8.Exit")
-		fmt.Scanln(&option)
-		fmt.Println("You chose option:", option)
-		switch option {
-		case 1:
-			processNextTestSet(filePathReader)
-		case 2:
-			printLogFromNode(filePathReader)
-		case 3:
-			printDBFromNode(filePathReader)
-		case 4:
-			printStatusFromNode(filePathReader)
-		case 5:
-			printViewFromAllNodes()
-		case 6:
-			printBalanceFromCluster(filePathReader)
-		case 7:
-			runReshard()
-		case 8:
-			fmt.Println("Exiting...")
-			return
-		default:
-			fmt.Println("Invalid option. Please try again.")
-		}
-	}
+    fmt.Println("Choose an option:")
+    for {
+        if option == 8 {
+            break
+        }
+        fmt.Println("1.Process next transactions set")
+        fmt.Println("2.PrintLog")
+        fmt.Println("3.PrintDB (modified keys on all nodes)")
+        fmt.Println("4.PrintStatus")
+        fmt.Println("5.PrintView")
+        fmt.Println("6.PrintBalance")
+        fmt.Println("7.PrintReshard")
+        fmt.Println("8.Exit")
+        fmt.Println("9.Performance (throughput & latency)")
+        fmt.Scanln(&option)
+        fmt.Println("You chose option:", option)
+        switch option {
+        case 1:
+            processNextTestSet(filePathReader)
+        case 2:
+            printLogFromNode(filePathReader)
+        case 3:
+            printModifiedBalancesAllNodes()
+        case 4:
+            printStatusFromNode(filePathReader)
+        case 5:
+            printViewFromAllNodes()
+        case 6:
+            printBalanceFromCluster(filePathReader)
+        case 7:
+            runReshard()
+        case 8:
+            fmt.Println("Exiting...")
+            return
+        case 9:
+            printPerformance()
+        default:
+            fmt.Println("Invalid option. Please try again.")
+        }
+    }
 
 }
 
@@ -1772,4 +1775,77 @@ func printBalanceFromCluster(reader *bufio.Reader) {
 	}
 
 	fmt.Println(strings.Join(parts, ", "))
+}
+
+// printModifiedBalancesAllNodes prints, in parallel, the balances of only those
+// data items that were modified in the current test set, across all 9 nodes.
+// Output format: one line per node -> nX : id1=bal1, id2=bal2, ...
+func printModifiedBalancesAllNodes() {
+    // Snapshot and sort modified IDs
+    if len(modifiedIDs) == 0 {
+        fmt.Println("No modified keys recorded in this test case. Run a set first.")
+        return
+    }
+    ids := make([]int, 0, len(modifiedIDs))
+    for id := range modifiedIDs { ids = append(ids, id) }
+    sort.Ints(ids)
+
+    type nodeResult struct {
+        node int
+        line string
+    }
+    resCh := make(chan nodeResult, config.NumNodes)
+    var wg sync.WaitGroup
+
+    for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+        wg.Add(1)
+        go func(nid int) {
+            defer wg.Done()
+            addr := config.NodeAddresses[nid]
+            c, err := rpc.Dial("tcp", addr)
+            if err != nil {
+                resCh <- nodeResult{node: nid, line: fmt.Sprintf("n%d : down/disconnected", nid)}
+                return
+            }
+            defer c.Close()
+            parts := make([]string, 0, len(ids))
+            for _, id := range ids {
+                var rep datatypes.GetBalanceReply
+                _ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", id)}, &rep)
+                parts = append(parts, fmt.Sprintf("%d=%d", id, rep.Balance))
+            }
+            resCh <- nodeResult{node: nid, line: fmt.Sprintf("n%d : %s", nid, strings.Join(parts, ", "))}
+        }(nodeID)
+    }
+
+    go func() { wg.Wait(); close(resCh) }()
+
+    // Collect in map to print in node order (results arrive out-of-order)
+    lines := make(map[int]string)
+    for r := range resCh {
+        lines[r.node] = r.line
+    }
+    for nid := 1; nid <= config.NumNodes; nid++ {
+        if s, ok := lines[nid]; ok {
+            fmt.Println(s)
+        } else {
+            fmt.Printf("n%d : no data\n", nid)
+        }
+    }
+}
+
+// printPerformance reports throughput and average latency captured during
+// the latest Process Set run. Throughput measured wall-clock from perf.StartWall
+// to perf.EndWall; latency is average per operation measured from send to reply.
+func printPerformance() {
+    if perf.StartWall.IsZero() || perf.EndWall.IsZero() || perf.TxnCount == 0 {
+        fmt.Println("No performance data yet. Run a transaction set first.")
+        return
+    }
+    wall := perf.EndWall.Sub(perf.StartWall)
+    tps := float64(perf.TxnCount) / maxf(wall.Seconds(), 0.001)
+    avg := time.Duration(0)
+    if perf.TxnCount > 0 { avg = perf.TotalLatency / time.Duration(perf.TxnCount) }
+    fmt.Printf("Throughput: %.2f ops/s\n", tps)
+    fmt.Printf("Average latency: %v\n", avg)
 }
