@@ -1008,138 +1008,90 @@ func processNextTestSet(reader *bufio.Reader) {
 	perf = PerfStats{}
 	perf.StartWall = time.Now()
 
-	// No global leader updates here; routing is cluster-aware in client.SendTransaction
+    // No global leader updates here; routing is cluster-aware in client.SendTransaction
 
-	//flushBacklog()
-	successCount := 0
-	failCount := 0
-	for i, tx := range currentSet.Txns {
-		log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
-		log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
+    // Send transactions in concurrent segments between control commands (LF/F/R)
+    segment := make([]datatypes.Txn, 0)
+    successCount := 0
+    failCount := 0
 
-		if tx.Sender == lfSentinelSender {
-			//fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
-			newLeader, err := triggerLeaderFailure()
-			if err != nil {
-				//log.Printf("❌ LF failed: %v\n", err)
-				failCount++
-			} else {
-				log.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
-			}
-			// experimenting with sleep time after LF
-			time.Sleep(2 * time.Second)
-			continue
-		}
+    runSegment := func(seg []datatypes.Txn) (int, int) {
+        if len(seg) == 0 { return 0, 0 }
+        sc, fc, segPerf := runSegmentConcurrent(seg)
+        perf.TxnCount += segPerf.TxnCount
+        perf.TotalLatency += segPerf.TotalLatency
+        perf.EndWall = time.Now()
+        return sc, fc
+    }
 
-		// F/R admin commands
-		s := strings.TrimSpace(tx.Sender)
-		if strings.HasPrefix(strings.ToUpper(s), "F(") || strings.HasPrefix(strings.ToUpper(s), "R(") {
-			inside := s
-			if i := strings.Index(inside, "("); i >= 0 {
-				inside = inside[i+1:]
-			}
-			if j := strings.Index(inside, ")"); j >= 0 {
-				inside = inside[:j]
-			}
-			inside = strings.TrimSpace(inside)
-			inside = strings.TrimPrefix(inside, "n")
-			nid, perr := strconv.Atoi(inside)
-			if perr != nil || nid < 1 || nid > config.NumNodes {
-				log.Printf("ClientDriver: invalid F/R command target=%q", s)
-				continue
-			}
-			isRecover := strings.HasPrefix(strings.ToUpper(s), "R(")
-			// Broadcast liveness change to all nodes
-			for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
-				addr := config.NodeAddresses[nodeID]
-				go func(addr string) {
-					if c, err := rpc.Dial("tcp", addr); err == nil {
-						defer c.Close()
-						var ok bool
-						_ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
-					}
-				}(addr)
-			}
-			// allow brief settle
-			time.Sleep(200 * time.Millisecond)
-			continue
-		}
+    for i, tx := range currentSet.Txns {
+        log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
+        log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
 
-		// Read-only if Receiver is empty
-		if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
-			sid, _ := strconv.Atoi(tx.Sender)
-			// pick cluster anchor leader candidate
-			cid := shard.ClusterOfItem(sid)
-			leaderCand := 1
-			if cid == 2 {
-				leaderCand = 4
-			} else if cid == 3 {
-				leaderCand = 7
-			}
-			addr := config.NodeAddresses[leaderCand]
-			t0 := time.Now()
-			if c, err := rpc.Dial("tcp", addr); err == nil {
-				var r datatypes.GetBalanceReply
-				_ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
-				c.Close()
-			}
-			t1 := time.Now()
-			perf.TxnCount++
-			perf.TotalLatency += t1.Sub(t0)
-			perf.EndWall = t1
-			continue
-		}
-
-        // RW transaction path
-        c, exists := clients[tx.Sender]
-        if !exists {
-            log.Printf("Client %s not found\n", tx.Sender)
-            failCount++
+        // Identify control commands as segment boundaries
+        if tx.Sender == lfSentinelSender {
+            sc, fc := runSegment(segment)
+            successCount += sc
+            failCount += fc
+            segment = segment[:0]
+            // Apply LF synchronously
+            newLeader, err := triggerLeaderFailure()
+            if err != nil {
+                failCount++
+            } else {
+                log.Printf("LF succeeded: new leader elected -> Node %d", newLeader)
+            }
+            time.Sleep(2 * time.Second)
             continue
         }
-        // record attempted keys
-        if sid, err := strconv.Atoi(tx.Sender); err == nil {
-            modifiedIDs[sid] = true
-        }
-        if rid, err := strconv.Atoi(tx.Receiver); err == nil {
-            modifiedIDs[rid] = true
-        }
-        // Phase 10: record into TxnSample (RW only)
-        if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
-            if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 {
-                txnSample.record(sid, rid)
+
+        s := strings.TrimSpace(tx.Sender)
+        isF := strings.HasPrefix(strings.ToUpper(s), "F(")
+        isR := strings.HasPrefix(strings.ToUpper(s), "R(")
+        if isF || isR {
+            // Drain previous segment first
+            sc, fc := runSegment(segment)
+            successCount += sc
+            failCount += fc
+            segment = segment[:0]
+            // Apply F/R synchronously (existing logic)
+            inside := s
+            if idx := strings.Index(inside, "("); idx >= 0 { inside = inside[idx+1:] }
+            if idx := strings.Index(inside, ")"); idx >= 0 { inside = inside[:idx] }
+            inside = strings.TrimPrefix(strings.TrimSpace(inside), "n")
+            nid, perr := strconv.Atoi(inside)
+            if perr != nil || nid < 1 || nid > config.NumNodes {
+                log.Printf("ClientDriver: invalid F/R command target=%q", s)
+                continue
             }
+            isRecover := isR
+            for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
+                addr := config.NodeAddresses[nodeID]
+                go func(addr string) {
+                    if c, err := rpc.Dial("tcp", addr); err == nil {
+                        defer c.Close()
+                        var ok bool
+                        _ = c.Call("NodeService.UpdateActiveStatus", datatypes.UpdateNodeArgs{NodeID: nid, IsLive: isRecover}, &ok)
+                    }
+                }(addr)
+            }
+            time.Sleep(200 * time.Millisecond)
+            continue
         }
 
-		t0 := time.Now()
-		reply, err := c.SendTransaction(tx)
-		t1 := time.Now()
-		perf.TxnCount++
-		perf.TotalLatency += t1.Sub(t0)
-		perf.EndWall = t1
-		if err != nil {
+        // Accumulate normal tx into the current segment
+        // Record attempted keys (for summary after set)
+        if sid, err := strconv.Atoi(tx.Sender); err == nil { modifiedIDs[sid] = true }
+        if rid, err := strconv.Atoi(tx.Receiver); err == nil { modifiedIDs[rid] = true }
+        segment = append(segment, tx)
+    }
 
-			// Defer if no leader is currently available or quorum is insufficient
-			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
-				strings.Contains(strings.ToLower(err.Error()), "no leader available") {
-				deferTxn(tx)
-			}
-			failCount++
-		} else if reply.Success {
-			log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
-			successCount++
-		} else {
+    // Drain tail segment
+    sc, fc := runSegment(segment)
+    successCount += sc
+    failCount += fc
 
-			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
-				deferTxn(tx)
-			}
-			failCount++
-		}
-
-		time.Sleep(200 * time.Millisecond)
-
-	}
-	log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
+    log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
 	currentSetIndex++
 	currentSet.SetNumber++
 
@@ -1150,6 +1102,83 @@ func processNextTestSet(reader *bufio.Reader) {
 		avg = perf.TotalLatency / time.Duration(perf.TxnCount)
 	}
 	log.Printf("Performance: txns=%d avgLatency=%v throughput=%.2f/s", perf.TxnCount, avg, float64(perf.TxnCount)/maxf(dur.Seconds(), 0.001))
+}
+
+// runSegmentConcurrent sends a batch of txns concurrently with a bounded worker pool.
+func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int, segPerf PerfStats) {
+    if len(seg) == 0 { return 0, 0, PerfStats{} }
+    // Choose a reasonable pool size
+    k := 8
+    if len(seg) < k { k = len(seg) }
+    jobs := make(chan datatypes.Txn, len(seg))
+    var wg sync.WaitGroup
+    var mu sync.Mutex
+
+    worker := func() {
+        defer wg.Done()
+        for tx := range jobs {
+            // Read-only if Receiver empty or amount 0
+            if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
+                sid, _ := strconv.Atoi(tx.Sender)
+                cid := shard.ClusterOfItem(sid)
+                leaderCand := 1
+                if cid == 2 { leaderCand = 4 } else if cid == 3 { leaderCand = 7 }
+                addr := config.NodeAddresses[leaderCand]
+                t0 := time.Now()
+                if c, err := rpc.Dial("tcp", addr); err == nil {
+                    var r datatypes.GetBalanceReply
+                    _ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
+                    c.Close()
+                }
+                t1 := time.Now()
+                mu.Lock()
+                segPerf.TxnCount++
+                segPerf.TotalLatency += t1.Sub(t0)
+                mu.Unlock()
+                continue
+            }
+
+            // RW path
+            c, exists := clients[tx.Sender]
+            if !exists {
+                mu.Lock(); failCount++; mu.Unlock(); continue
+            }
+            // record into TxnSample (RW only)
+            if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
+                if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 { txnSample.record(sid, rid) }
+            }
+            t0 := time.Now()
+            reply, err := c.SendTransaction(tx)
+            t1 := time.Now()
+            mu.Lock()
+            segPerf.TxnCount++
+            segPerf.TotalLatency += t1.Sub(t0)
+            if err != nil {
+                // Defer if no leader is currently available or quorum is insufficient
+                if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
+                    strings.Contains(strings.ToLower(err.Error()), "no leader available") {
+                    deferTxn(tx)
+                }
+                failCount++
+            } else if reply.Success {
+                successCount++
+            } else {
+                if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") { deferTxn(tx) }
+                failCount++
+            }
+            mu.Unlock()
+        }
+    }
+
+    // Start workers
+    for i := 0; i < k; i++ { wg.Add(1); go worker() }
+    // Feed jobs
+    for _, tx := range seg { jobs <- tx }
+    close(jobs)
+    wg.Wait()
+    segPerf.EndWall = time.Now()
+    segPerf.StartWall = segPerf.EndWall // unused granularity here
+    return
 }
 
 func maxf(a, b float64) float64 {
