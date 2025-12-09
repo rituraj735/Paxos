@@ -1938,12 +1938,23 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 // executeRequestsInOrder walks committed entries sequentially and executes them.
 func (n *Node) executeRequestsInOrder() {
     log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
+    didSync := false
     for seqNum := 1; ; seqNum++ {
-		entry, exists := n.AcceptedLog[seqNum]
-		if !exists {
-			log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d", n.ID, seqNum)
-			break
-		}
+        entry, exists := n.AcceptedLog[seqNum]
+        if !exists {
+            // Attempt a one-time state transfer from the current leader to fill gaps
+            if !didSync {
+                log.Printf("Node %d: gap at seq=%d — requesting state transfer from leader", n.ID, seqNum)
+                if n.tryStateTransferFromLeader() {
+                    didSync = true
+                    // restart scan from beginning to honor ordering
+                    seqNum = 0
+                    continue
+                }
+            }
+            log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d (syncAttempted=%v)", n.ID, seqNum, didSync)
+            break
+        }
 
 		if entry.Status == datatypes.StatusExecuted {
 			continue
@@ -1955,6 +1966,30 @@ func (n *Node) executeRequestsInOrder() {
 			n.executeRequest(seqNum, entry.Request)
 		}
 	}
+}
+
+// tryStateTransferFromLeader fetches a snapshot from the current cluster leader
+// and applies it locally to repair gaps. Returns true if applied.
+func (n *Node) tryStateTransferFromLeader() bool {
+    leaderID, err := n.findClusterLeader(n.ClusterID)
+    if err != nil || leaderID == 0 {
+        return false
+    }
+    // Avoid asking self
+    if leaderID == n.ID {
+        return false
+    }
+    args := datatypes.StateTransferArgs{RequesterID: n.ID}
+    var rep datatypes.StateTransferReply
+    if err := n.callRPC(leaderID, "RequestStateTransfer", args, &rep); err != nil || !rep.Success {
+        return false
+    }
+    var applied bool
+    // Apply snapshot via normal NewView ingest
+    if err := n.HandleNewView(rep.Snapshot, &applied); err != nil {
+        return false
+    }
+    return applied
 }
 
 // triggerExecutor starts the executor if one is not already running.
