@@ -782,15 +782,16 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 		go s.node.StartLeaderElection()
 	}
 
-	if activated {
-		if args.NodeID == selfID {
-			// Phase 7: synchronous crash recovery before returning
-			s.node.RecoverFromCrash()
-		} else if isLeaderActive {
-			go s.node.sendStateSnapshot(args.NodeID)
-		}
-	}
-	return nil
+    if activated {
+        if args.NodeID == selfID {
+            // Phase 7: synchronous crash recovery, then proactively pull state
+            s.node.RecoverFromCrash()
+            go s.node.requestStateSync()
+        } else if isLeaderActive {
+            go s.node.sendStateSnapshot(args.NodeID)
+        }
+    }
+    return nil
 }
 
 // UpdateActiveStatusForBulk applies liveness changes for many nodes at once.
@@ -820,14 +821,15 @@ func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStat
 		go s.node.StartLeaderElection()
 	}
 
-	for _, id := range activatedNodes {
-		if id == selfID {
-			// Phase 7: synchronous crash recovery for self
-			s.node.RecoverFromCrash()
-		} else if isLeaderActive {
-			go s.node.sendStateSnapshot(id)
-		}
-	}
+    for _, id := range activatedNodes {
+        if id == selfID {
+            // Phase 7: synchronous crash recovery for self, then proactively pull state
+            s.node.RecoverFromCrash()
+            go s.node.requestStateSync()
+        } else if isLeaderActive {
+            go s.node.sendStateSnapshot(id)
+        }
+    }
 
 	return nil
 }
@@ -1610,23 +1612,25 @@ func (n *Node) isIntraShardBankTxn(req datatypes.ClientRequest) (bool, int, int,
 
 // HandlePrepare responds to prepare RPCs with promises and prior log state.
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
-	n.mu.Lock()
-	// Do not refresh lastLeaderMsg here; only heartbeats should extend leader recency
+    n.mu.Lock()
+    // Do not refresh lastLeaderMsg here; only heartbeats should extend leader recency
 
-	defer n.mu.Unlock()
+    defer n.mu.Unlock()
 
-	recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
-	if recent && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
-		// Reject with higher ballot hint so candidate can jump ahead
-		higher := n.HighestPromised
-		if n.CurrentBallot.GreaterThan(higher) {
-			higher = n.CurrentBallot
-		}
-		*reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
-		log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
-			n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
-		return nil
-	}
+    // Only consider the last leader "fresh" if that leader is still marked active.
+    recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
+    leaderActive := n.CurrentBallot.NodeID != 0 && n.ActiveNodes[n.CurrentBallot.NodeID]
+    if recent && leaderActive && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
+        // Reject with higher ballot hint so candidate can jump ahead
+        higher := n.HighestPromised
+        if n.CurrentBallot.GreaterThan(higher) {
+            higher = n.CurrentBallot
+        }
+        *reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
+        log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
+            n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
+        return nil
+    }
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
 		n.HighestPromised = args.Ballot
@@ -2496,6 +2500,8 @@ func (n *Node) recoverEntryWithNewBallot(entry datatypes.AcceptLogEntry, ballot 
 		}
 		var applied bool
 		_ = n.HandleCommit(commitMsg, &applied)
+		// Ensure the leader executes recovered commits promptly.
+		n.triggerExecutor()
 	}
 }
 
