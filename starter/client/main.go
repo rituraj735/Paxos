@@ -1138,7 +1138,7 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
                 continue
             }
 
-            // RW path
+            // RW path with retry-on-locked policy (up to 5 attempts, 30ms jitter)
             c, exists := clients[tx.Sender]
             if !exists {
                 mu.Lock(); failCount++; mu.Unlock(); continue
@@ -1147,25 +1147,40 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
             if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
                 if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 { txnSample.record(sid, rid) }
             }
-            t0 := time.Now()
-            reply, err := c.SendTransaction(tx)
-            t1 := time.Now()
+
+            start := time.Now()
+            attempts := 0
+            finalSuccess := false
+            for {
+                attempts++
+                reply, err := c.SendTransaction(tx)
+                if err != nil {
+                    // Any RPC error is final per spec
+                    break
+                }
+                if reply.Success {
+                    finalSuccess = true
+                    break
+                }
+                // classify reply
+                msg := strings.ToLower(reply.Message)
+                if strings.Contains(msg, "locked") && attempts < 5 {
+                    time.Sleep(30 * time.Millisecond)
+                    continue
+                }
+                if strings.Contains(msg, "abort") || strings.Contains(msg, "aborted") ||
+                    strings.Contains(msg, "insufficient funds") || strings.Contains(msg, "insufficient active nodes") ||
+                    strings.Contains(msg, "consensus failed") {
+                    // final failure
+                    break
+                }
+                // default: final failure
+                break
+            }
             mu.Lock()
             segPerf.TxnCount++
-            segPerf.TotalLatency += t1.Sub(t0)
-            if err != nil {
-                // Defer if no leader is currently available or quorum is insufficient
-                if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
-                    strings.Contains(strings.ToLower(err.Error()), "no leader available") {
-                    deferTxn(tx)
-                }
-                failCount++
-            } else if reply.Success {
-                successCount++
-            } else {
-                if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") { deferTxn(tx) }
-                failCount++
-            }
+            segPerf.TotalLatency += time.Since(start)
+            if finalSuccess { successCount++ } else { failCount++ }
             mu.Unlock()
         }
     }
