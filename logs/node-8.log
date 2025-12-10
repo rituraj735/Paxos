@@ -16777,3 +16777,2137 @@
 [Node 8] 2025/12/10 13:47:36.879030 reached findClusterLeader for cluster 3
 [Node 8] 2025/12/10 13:47:36.881745 Node 8: RPC RequestStateTransfer->node 7
 [Node 8] 2025/12/10 13:47:36.886125 Node 8: executeRequestsInOrder stopping at gap seq=101 (syncAttempted=true)
+[Node 8] 2025/12/10 14:03:24.741379 [WAL] clear all entries
+[Node 8] 2025/12/10 14:03:24.772441 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:03:25.039733 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:03:25.039785 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:03:25.039806 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:03:25.039827 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:03:25.039865 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:03:25.039880 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:03:25.039899 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:03:25.039916 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:03:25.039935 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:03:25.039953 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:03:25.039980 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:03:25.107487 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:03:25.107537 Node 8: Promised ballot (1,7)
+[Node 8] 2025/12/10 14:03:25.108146 Node 8: NewView RPC ballot=(1,7) entries=0
+[Node 8] 2025/12/10 14:03:25.108158 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:03:25.108162 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:03:25.108245 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:03:25.108296 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:03:25.108319 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:03:25.108989 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:03:25.109665 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:03:25.541136 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:03:25.541253 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:03:25.545347 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:03:25.545372 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:03:25.545383 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:03:25.545452 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:03:25.545475 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:03:25.545484 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:03:25.547385 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:03:25.548671 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:03:26.042727 Node 8: Accept RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:03:26.042772 Node 8 ACCEPT seq=1 ballot=(2,7) txn=(6001→6002,1)
+[Node 8] 2025/12/10 14:03:26.042789 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:03:26.052492 Node 8: Commit RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:03:26.064184 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:03:26.068463 Node 8: EXECUTING seq=1 (6001→6002,1)
+[Node 8] 2025/12/10 14:03:26.068491 Kind of circular Node 8: executeRequest seq=1 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:03:26.068524 [Database] executing txn (bolt) (6001,6002,1)
+[Node 8] 2025/12/10 14:03:26.093058 [Database] txn success (bolt): 6001 -> 6002 amount 1
+[Node 8] 2025/12/10 14:03:26.100442 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:03:26.104387 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:03:26.107334 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:03:26.107914 Node 8: executeRequestsInOrder stopping at gap seq=2 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:36.650561 [WAL] clear all entries
+[Node 8] 2025/12/10 14:04:36.676389 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:04:36.952893 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:04:36.953005 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:04:36.953037 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:04:36.953057 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:04:36.953074 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:04:36.953085 Node 8: setNodeLiveness node=3 live=false
+[Node 8] 2025/12/10 14:04:36.953094 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:04:36.953105 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:04:36.953114 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:04:36.953124 Node 8: setNodeLiveness node=6 live=false
+[Node 8] 2025/12/10 14:04:36.953149 Node 8: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 8] 2025/12/10 14:04:36.961210 Node 8: Leader timeout (6.008148s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:04:36.961402 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:04:36.961439 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:04:36.961570 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:04:36.961588 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:04:36.963597 Node 8: creating new view from 2 promises
+[Node 8] 2025/12/10 14:04:36.963673 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:04:36.963717 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:04:36.963759 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:04:36.963610 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:04:36.967353 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:36.968412 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:04:36.968459 Node 8: buildStateSnapshot generating from 0 entries
+[Node 8] 2025/12/10 14:04:36.968475 Node 8: snapshot ready entries=0 ballot=(1,8)
+[Node 8] 2025/12/10 14:04:37.164741 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:04:37.364729 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:04:37.456711 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:04:37.456786 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:04:37.461369 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:04:37.564696 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:04:37.999540 Node 8: UpdateActiveStatus node=2 live=false
+[Node 8] 2025/12/10 14:04:37.999637 Node 8: setNodeLiveness node=2 live=false
+[Node 8] 2025/12/10 14:04:38.529408 Node 8: UpdateActiveStatus node=5 live=false
+[Node 8] 2025/12/10 14:04:38.530306 Node 8: setNodeLiveness node=5 live=false
+[Node 8] 2025/12/10 14:04:39.990669 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:04:39.990850 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:04:39.990944 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:04:40.020204 [WAL] clear all entries
+[Node 8] 2025/12/10 14:04:40.044045 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:04:40.320125 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:04:40.320244 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:04:40.320276 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:04:40.320298 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:04:40.320316 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:04:40.320334 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:04:40.320348 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:04:40.320363 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:04:40.320376 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:04:40.320389 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:04:40.320415 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:04:40.327043 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:40.331021 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:04:40.368488 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:04:40.368517 Node 8: Promised ballot (1,7)
+[Node 8] 2025/12/10 14:04:40.369483 Node 8: NewView RPC ballot=(1,7) entries=0
+[Node 8] 2025/12/10 14:04:40.369507 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:04:40.369518 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:04:40.369556 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:40.369573 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:40.369583 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:40.370243 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:04:40.370982 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:40.823012 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:04:40.823113 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:04:40.826270 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:04:40.826346 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:04:40.826381 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:04:40.826449 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:40.826482 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:40.826502 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:40.829744 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:04:40.831304 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:41.324583 Node 8: Accept RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.324679 Node 8 ACCEPT seq=2 ballot=(2,7) txn=(6001→6002,1)
+[Node 8] 2025/12/10 14:04:41.324729 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:04:41.324658 Node 8: Accept RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.324849 Node 8 ACCEPT seq=1 ballot=(2,7) txn=(6003→6004,1)
+[Node 8] 2025/12/10 14:04:41.324880 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:04:41.334845 Node 8: Commit RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.334932 Node 8: Commit RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.335258 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:41.335312 Node 8: EXECUTING seq=1 (6003→6004,1)
+[Node 8] 2025/12/10 14:04:41.335324 Kind of circular Node 8: executeRequest seq=1 (6003→6004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:41.335348 [Database] executing txn (bolt) (6003,6004,1)
+[Node 8] 2025/12/10 14:04:41.352378 [Database] txn success (bolt): 6003 -> 6004 amount 1
+[Node 8] 2025/12/10 14:04:41.352601 Node 8: EXECUTING seq=2 (6001→6002,1)
+[Node 8] 2025/12/10 14:04:41.352622 Kind of circular Node 8: executeRequest seq=2 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:41.352638 [Database] executing txn (bolt) (6001,6002,1)
+[Node 8] 2025/12/10 14:04:41.368362 [Database] txn success (bolt): 6001 -> 6002 amount 1
+[Node 8] 2025/12/10 14:04:41.368649 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:41.368685 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:41.372888 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:04:41.374100 Node 8: UpdateActiveStatus node=9 live=false
+[Node 8] 2025/12/10 14:04:41.376675 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:04:41.377520 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:41.878363 Node 8: Accept RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.878471 Node 8 ACCEPT seq=3 ballot=(2,7) txn=(6005→6006,1)
+[Node 8] 2025/12/10 14:04:41.878516 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:04:41.888344 Node 8: Commit RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:41.888647 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:41.888730 Node 8: EXECUTING seq=3 (6005→6006,1)
+[Node 8] 2025/12/10 14:04:41.888748 Kind of circular Node 8: executeRequest seq=3 (6005→6006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:41.888783 [Database] executing txn (bolt) (6005,6006,1)
+[Node 8] 2025/12/10 14:04:41.903578 [Database] txn success (bolt): 6005 -> 6006 amount 1
+[Node 8] 2025/12/10 14:04:41.903607 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:41.903617 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:41.905113 Node 8: UpdateActiveStatus node=9 live=true
+[Node 8] 2025/12/10 14:04:41.905139 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:04:41.905633 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:04:41.907081 Node 8: executeRequestsInOrder stopping at gap seq=4 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:42.406246 Node 8: Accept RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:42.406346 Node 8 ACCEPT seq=4 ballot=(2,7) txn=(6009→6010,1)
+[Node 8] 2025/12/10 14:04:42.406365 Node 8: Accepted seq 4
+[Node 8] 2025/12/10 14:04:42.406368 Node 8: Accept RPC seq=5 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:42.406409 Node 8 ACCEPT seq=5 ballot=(2,7) txn=(6007→6008,1)
+[Node 8] 2025/12/10 14:04:42.406416 Node 8: Accepted seq 5
+[Node 8] 2025/12/10 14:04:42.417664 Node 8: Commit RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:42.417701 Node 8: Commit RPC seq=5 ballot=(2,7)
+[Node 8] 2025/12/10 14:04:42.417708 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:42.417745 Node 8: EXECUTING seq=4 (6009→6010,1)
+[Node 8] 2025/12/10 14:04:42.417753 Kind of circular Node 8: executeRequest seq=4 (6009→6010,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:42.417769 [Database] executing txn (bolt) (6009,6010,1)
+[Node 8] 2025/12/10 14:04:42.436163 [Database] txn success (bolt): 6009 -> 6010 amount 1
+[Node 8] 2025/12/10 14:04:42.436364 Node 8: EXECUTING seq=5 (6007→6008,1)
+[Node 8] 2025/12/10 14:04:42.436379 Kind of circular Node 8: executeRequest seq=5 (6007→6008,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:42.436388 [Database] executing txn (bolt) (6007,6008,1)
+[Node 8] 2025/12/10 14:04:42.452084 [Database] txn success (bolt): 6007 -> 6008 amount 1
+[Node 8] 2025/12/10 14:04:42.452109 Node 8: gap at seq=6 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:42.452118 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:42.453153 Node 8: UpdateActiveStatus node=7 live=false
+[Node 8] 2025/12/10 14:04:42.456144 Node 8: setNodeLiveness node=7 live=false
+[Node 8] 2025/12/10 14:04:42.456254 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:04:42.456646 Node 8: Starting leader election with ballot (3,8)
+[Node 8] 2025/12/10 14:04:42.456700 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:04:42.456719 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:04:42.457315 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:42.457339 Node 8: Prepare RPC from ballot (3,9)
+[Node 8] 2025/12/10 14:04:42.459255 Node 8: Promised ballot (3,9)
+[Node 8] 2025/12/10 14:04:42.459313 Node 8: ignoring stale election completion (attempt=(3,8) highestPromised=(3,9) current=(3,8))
+[Node 8] 2025/12/10 14:04:42.460002 Node 8: NewView RPC ballot=(3,9) entries=5
+[Node 8] 2025/12/10 14:04:42.460024 Node 8: applyCommittedEntries up to seq=5
+[Node 8] 2025/12/10 14:04:42.460036 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:04:42.460045 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:04:42.460057 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:04:42.460060 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:04:42.460074 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:04:42.460062 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:04:42.460131 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:04:42.461467 Node 8: executeRequestsInOrder stopping at gap seq=6 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:42.957951 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:42.957974 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:42.958847 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:42.958874 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:42.965672 Node 8: Accept RPC seq=6 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:42.965708 Node 8 ACCEPT seq=6 ballot=(3,9) txn=(6013→6014,1)
+[Node 8] 2025/12/10 14:04:42.965721 Node 8: Accepted seq 6
+[Node 8] 2025/12/10 14:04:42.965673 Node 8: Accept RPC seq=7 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:42.965775 Node 8 ACCEPT seq=7 ballot=(3,9) txn=(6011→6012,1)
+[Node 8] 2025/12/10 14:04:42.965786 Node 8: Accepted seq 7
+[Node 8] 2025/12/10 14:04:42.976839 Node 8: Commit RPC seq=6 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:42.976850 Node 8: Commit RPC seq=7 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:42.977050 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:42.977092 Node 8: EXECUTING seq=6 (6013→6014,1)
+[Node 8] 2025/12/10 14:04:42.977108 Kind of circular Node 8: executeRequest seq=6 (6013→6014,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:42.977139 [Database] executing txn (bolt) (6013,6014,1)
+[Node 8] 2025/12/10 14:04:42.991996 [Database] txn success (bolt): 6013 -> 6014 amount 1
+[Node 8] 2025/12/10 14:04:42.992105 Node 8: EXECUTING seq=7 (6011→6012,1)
+[Node 8] 2025/12/10 14:04:42.992117 Kind of circular Node 8: executeRequest seq=7 (6011→6012,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:04:42.992128 [Database] executing txn (bolt) (6011,6012,1)
+[Node 8] 2025/12/10 14:04:43.008015 [Database] txn success (bolt): 6011 -> 6012 amount 1
+[Node 8] 2025/12/10 14:04:43.008036 Node 8: gap at seq=8 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:43.008052 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:43.009956 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:43.010840 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:04:43.011836 Node 8: executeRequestsInOrder stopping at gap seq=8 (syncAttempted=true)
+[Node 8] 2025/12/10 14:04:45.484802 Node 8: Commit RPC seq=4 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:45.485082 Node 8: Commit RPC seq=2 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:45.485626 Node 8: Commit RPC seq=5 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:45.485648 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:04:45.485864 Node 8: gap at seq=8 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:04:45.486031 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:04:45.485771 Node 8: Commit RPC seq=3 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:45.486587 Node 8: Commit RPC seq=1 ballot=(3,9)
+[Node 8] 2025/12/10 14:04:45.489586 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:45.491536 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:04:45.492512 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:04:45.493561 Node 8: executeRequestsInOrder stopping at gap seq=8 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:14.306154 [WAL] clear all entries
+[Node 8] 2025/12/10 14:09:14.321404 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:09:14.605053 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:09:14.605126 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:09:14.605153 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:09:14.605173 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:09:14.605192 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:09:14.605210 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:09:14.605228 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:09:14.605244 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:09:14.605260 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:09:14.605277 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:09:14.605307 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:09:14.610245 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:14.614424 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:09:14.616146 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:09:14.616166 Node 8: Promised ballot (1,7)
+[Node 8] 2025/12/10 14:09:14.617149 Node 8: NewView RPC ballot=(1,7) entries=0
+[Node 8] 2025/12/10 14:09:14.617177 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:14.617185 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:14.617223 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:14.617257 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:14.617284 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:14.618128 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:14.619233 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:15.108697 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:09:15.108809 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:09:15.115064 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:09:15.115106 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:15.115129 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:15.115170 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:15.115191 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:15.115203 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:15.116680 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:15.117680 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:15.606898 Node 8: Accept RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:09:15.606922 Node 8 ACCEPT seq=1 ballot=(2,7) txn=(6001→6002,1)
+[Node 8] 2025/12/10 14:09:15.606934 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:09:15.616343 Node 8: Commit RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:09:15.623518 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:15.627785 Node 8: EXECUTING seq=1 (6001→6002,1)
+[Node 8] 2025/12/10 14:09:15.630500 Kind of circular Node 8: executeRequest seq=1 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:15.630530 [Database] executing txn (bolt) (6001,6002,1)
+[Node 8] 2025/12/10 14:09:15.660259 [Database] txn success (bolt): 6001 -> 6002 amount 1
+[Node 8] 2025/12/10 14:09:15.660476 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:15.660485 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:15.663565 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:15.664627 Node 8: executeRequestsInOrder stopping at gap seq=2 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:17.336327 [WAL] clear all entries
+[Node 8] 2025/12/10 14:09:17.362651 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:09:17.641861 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:09:17.641944 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:09:17.641969 Node 8: setNodeLiveness node=6 live=false
+[Node 8] 2025/12/10 14:09:17.641985 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:09:17.641998 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:09:17.642017 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:09:17.642031 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:09:17.642046 Node 8: setNodeLiveness node=3 live=false
+[Node 8] 2025/12/10 14:09:17.642059 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:09:17.642071 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:09:17.642102 Node 8: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 8] 2025/12/10 14:09:17.789887 Node 8: Leader timeout (6.147867s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:09:17.790066 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:09:17.790213 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:09:17.790426 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:09:17.790427 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:09:17.793570 Node 8: creating new view from 2 promises
+[Node 8] 2025/12/10 14:09:17.793682 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:09:17.793735 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:09:17.793799 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:09:17.793604 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:09:17.837184 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:09:17.837204 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:09:17.837798 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:09:17.994680 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:09:18.142698 Node 8: Prepare RPC from ballot (3,7)
+[Node 8] 2025/12/10 14:09:18.142748 Node 8: Promised ballot (3,7)
+[Node 8] 2025/12/10 14:09:18.144096 Node 8: NewView RPC ballot=(3,7) entries=0
+[Node 8] 2025/12/10 14:09:18.144132 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:18.144147 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:18.144191 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:18.144203 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:18.144214 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:18.145413 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:18.146388 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:18.684852 Node 8: UpdateActiveStatus node=2 live=false
+[Node 8] 2025/12/10 14:09:18.684876 Node 8: setNodeLiveness node=2 live=false
+[Node 8] 2025/12/10 14:09:19.218467 Node 8: UpdateActiveStatus node=5 live=false
+[Node 8] 2025/12/10 14:09:19.218517 Node 8: setNodeLiveness node=5 live=false
+[Node 8] 2025/12/10 14:09:20.820388 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:09:20.820614 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:09:20.820850 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:09:20.908775 [WAL] clear all entries
+[Node 8] 2025/12/10 14:09:20.930910 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:09:21.211257 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:09:21.211422 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:09:21.211486 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:09:21.211510 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:09:21.211521 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:09:21.211533 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:09:21.211542 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:09:21.211551 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:09:21.211559 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:09:21.211566 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:09:21.211586 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:09:21.215591 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:21.218910 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:09:21.222271 Node 8: Leader timeout (6.010705s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:09:21.222305 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:09:21.222314 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:09:21.222349 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:09:21.222349 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:09:21.223209 Node 8: creating new view from 3 promises
+[Node 8] 2025/12/10 14:09:21.223225 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:09:21.223233 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:09:21.223250 Node 8: RPC NewView->node 9
+[Node 8] 2025/12/10 14:09:21.223253 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:09:21.223250 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:09:21.224759 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:21.225328 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:09:21.225343 Node 8: buildStateSnapshot generating from 0 entries
+[Node 8] 2025/12/10 14:09:21.225351 Node 8: snapshot ready entries=0 ballot=(1,8)
+[Node 8] 2025/12/10 14:09:21.256118 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:09:21.256144 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:09:21.257088 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:09:21.257108 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:21.257116 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:21.257146 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:21.257166 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:21.257174 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:21.257754 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:21.258434 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:21.712117 Node 8: Prepare RPC from ballot (3,7)
+[Node 8] 2025/12/10 14:09:21.712156 Node 8: Promised ballot (3,7)
+[Node 8] 2025/12/10 14:09:21.714747 Node 8: NewView RPC ballot=(3,7) entries=0
+[Node 8] 2025/12/10 14:09:21.714774 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:21.714784 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:21.714832 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:21.714843 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:21.714852 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:21.718355 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:21.719678 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:22.211913 Node 8: Accept RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.211931 Node 8 ACCEPT seq=1 ballot=(3,7) txn=(6003→6004,1)
+[Node 8] 2025/12/10 14:09:22.211939 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:09:22.211970 Node 8: Accept RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.212006 Node 8 ACCEPT seq=2 ballot=(3,7) txn=(6001→6002,1)
+[Node 8] 2025/12/10 14:09:22.212016 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:09:22.222988 Node 8: Commit RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.223019 Node 8: Commit RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.223090 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:22.223119 Node 8: EXECUTING seq=1 (6003→6004,1)
+[Node 8] 2025/12/10 14:09:22.223136 Kind of circular Node 8: executeRequest seq=1 (6003→6004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:22.223158 [Database] executing txn (bolt) (6003,6004,1)
+[Node 8] 2025/12/10 14:09:22.240562 [Database] txn success (bolt): 6003 -> 6004 amount 1
+[Node 8] 2025/12/10 14:09:22.240808 Node 8: EXECUTING seq=2 (6001→6002,1)
+[Node 8] 2025/12/10 14:09:22.244742 Kind of circular Node 8: executeRequest seq=2 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:22.248824 [Database] executing txn (bolt) (6001,6002,1)
+[Node 8] 2025/12/10 14:09:22.259954 Node 8: UpdateActiveStatus node=9 live=false
+[Node 8] 2025/12/10 14:09:22.261691 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:09:22.265488 [Database] txn success (bolt): 6001 -> 6002 amount 1
+[Node 8] 2025/12/10 14:09:22.265554 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:22.265566 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:22.266266 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:22.266841 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:22.762015 Node 8: Accept RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.762060 Node 8 ACCEPT seq=3 ballot=(3,7) txn=(6005→6006,1)
+[Node 8] 2025/12/10 14:09:22.762072 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:09:22.773620 Node 8: Commit RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:22.773816 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:22.773838 Node 8: EXECUTING seq=3 (6005→6006,1)
+[Node 8] 2025/12/10 14:09:22.773849 Kind of circular Node 8: executeRequest seq=3 (6005→6006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:22.773877 [Database] executing txn (bolt) (6005,6006,1)
+[Node 8] 2025/12/10 14:09:22.789115 [Database] txn success (bolt): 6005 -> 6006 amount 1
+[Node 8] 2025/12/10 14:09:22.789136 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:22.789144 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:22.790417 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:22.790694 Node 8: UpdateActiveStatus node=9 live=true
+[Node 8] 2025/12/10 14:09:22.790721 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:09:22.792084 Node 8: executeRequestsInOrder stopping at gap seq=4 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:23.292484 Node 8: Accept RPC seq=4 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:23.292570 Node 8 ACCEPT seq=4 ballot=(3,7) txn=(6009→6010,1)
+[Node 8] 2025/12/10 14:09:23.292552 Node 8: Accept RPC seq=5 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:23.292589 Node 8: Accepted seq 4
+[Node 8] 2025/12/10 14:09:23.292666 Node 8 ACCEPT seq=5 ballot=(3,7) txn=(6007→6008,1)
+[Node 8] 2025/12/10 14:09:23.292713 Node 8: Accepted seq 5
+[Node 8] 2025/12/10 14:09:23.303889 Node 8: Commit RPC seq=4 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:23.304001 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:23.304030 Node 8: EXECUTING seq=4 (6009→6010,1)
+[Node 8] 2025/12/10 14:09:23.304047 Kind of circular Node 8: executeRequest seq=4 (6009→6010,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:23.304071 [Database] executing txn (bolt) (6009,6010,1)
+[Node 8] 2025/12/10 14:09:23.303901 Node 8: Commit RPC seq=5 ballot=(3,7)
+[Node 8] 2025/12/10 14:09:23.319270 [Database] txn success (bolt): 6009 -> 6010 amount 1
+[Node 8] 2025/12/10 14:09:23.319635 Node 8: EXECUTING seq=5 (6007→6008,1)
+[Node 8] 2025/12/10 14:09:23.319653 Kind of circular Node 8: executeRequest seq=5 (6007→6008,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:23.319670 [Database] executing txn (bolt) (6007,6008,1)
+[Node 8] 2025/12/10 14:09:23.334213 [Database] txn success (bolt): 6007 -> 6008 amount 1
+[Node 8] 2025/12/10 14:09:23.334561 Node 8: gap at seq=6 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:23.334577 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:23.336381 Node 8: UpdateActiveStatus node=7 live=false
+[Node 8] 2025/12/10 14:09:23.338402 Node 8: setNodeLiveness node=7 live=false
+[Node 8] 2025/12/10 14:09:23.338477 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:09:23.338496 Node 8: Starting leader election with ballot (4,8)
+[Node 8] 2025/12/10 14:09:23.338554 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:09:23.338569 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:09:23.338589 Node 8: skipping RPC RequestStateTransfer to inactive node 7
+[Node 8] 2025/12/10 14:09:23.338605 Node 8: executeRequestsInOrder stopping at gap seq=6 (syncAttempted=false)
+[Node 8] 2025/12/10 14:09:23.339898 Node 8: Prepare RPC from ballot (4,9)
+[Node 8] 2025/12/10 14:09:23.339922 Node 8: Promised ballot (4,9)
+[Node 8] 2025/12/10 14:09:23.340172 Node 8: ignoring stale election completion (attempt=(4,8) highestPromised=(4,9) current=(4,8))
+[Node 8] 2025/12/10 14:09:23.340764 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.341027 Node 8: NewView RPC ballot=(4,9) entries=5
+[Node 8] 2025/12/10 14:09:23.341053 Node 8: applyCommittedEntries up to seq=5
+[Node 8] 2025/12/10 14:09:23.341067 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:23.341078 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:09:23.341093 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:23.341103 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:09:23.341092 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:09:23.341123 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:09:23.341104 Node 8: gap at seq=6 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:23.341176 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:23.341087 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:09:23.342275 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.342744 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:09:23.343330 Node 8: executeRequestsInOrder stopping at gap seq=6 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:23.839128 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.839735 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.841604 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.841712 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.846346 Node 8: Accept RPC seq=7 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:23.846394 Node 8 ACCEPT seq=7 ballot=(4,9) txn=(6011→6012,1)
+[Node 8] 2025/12/10 14:09:23.846407 Node 8: Accepted seq 7
+[Node 8] 2025/12/10 14:09:23.846446 Node 8: Accept RPC seq=6 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:23.846473 Node 8 ACCEPT seq=6 ballot=(4,9) txn=(6013→6014,1)
+[Node 8] 2025/12/10 14:09:23.846484 Node 8: Accepted seq 6
+[Node 8] 2025/12/10 14:09:23.857153 Node 8: Commit RPC seq=7 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:23.857172 Node 8: Commit RPC seq=6 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:23.857220 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:23.857399 Node 8: EXECUTING seq=6 (6013→6014,1)
+[Node 8] 2025/12/10 14:09:23.857417 Kind of circular Node 8: executeRequest seq=6 (6013→6014,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:23.860778 [Database] executing txn (bolt) (6013,6014,1)
+[Node 8] 2025/12/10 14:09:23.877629 [Database] txn success (bolt): 6013 -> 6014 amount 1
+[Node 8] 2025/12/10 14:09:23.877832 Node 8: EXECUTING seq=7 (6011→6012,1)
+[Node 8] 2025/12/10 14:09:23.877858 Kind of circular Node 8: executeRequest seq=7 (6011→6012,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:09:23.877872 [Database] executing txn (bolt) (6011,6012,1)
+[Node 8] 2025/12/10 14:09:23.888546 [Database] txn success (bolt): 6011 -> 6012 amount 1
+[Node 8] 2025/12/10 14:09:23.888567 Node 8: gap at seq=8 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:23.888575 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:23.889988 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:23.890611 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:09:23.891207 Node 8: executeRequestsInOrder stopping at gap seq=8 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:24.247848 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:09:24.247960 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:09:24.247984 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:09:26.363052 Node 8: Commit RPC seq=4 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:26.363247 Node 8: Commit RPC seq=5 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:26.363261 Node 8: Commit RPC seq=2 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:26.363159 Node 8: Commit RPC seq=1 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:26.363472 Node 8: Commit RPC seq=3 ballot=(4,9)
+[Node 8] 2025/12/10 14:09:26.363265 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:26.363743 Node 8: gap at seq=8 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:26.363781 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:26.365605 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:26.367847 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:26.369248 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:09:26.370380 Node 8: executeRequestsInOrder stopping at gap seq=8 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:53.344818 [WAL] clear all entries
+[Node 8] 2025/12/10 14:09:53.372701 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:09:53.644394 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:09:53.644468 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:09:53.644512 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:09:53.644543 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:09:53.644577 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:09:53.644599 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:09:53.644640 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:09:53.644658 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:09:53.644701 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:09:53.644734 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:09:53.644856 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:09:53.646602 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:53.648374 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:09:53.812938 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:09:53.812969 Node 8: Ignoring prepare from Node 7 (fresh leader 9, ballot (4,9))
+[Node 8] 2025/12/10 14:09:53.813055 Node 8: Prepare RPC from ballot (1,9)
+[Node 8] 2025/12/10 14:09:53.813072 Node 8: Ignoring prepare from Node 9 (fresh leader 9, ballot (4,9))
+[Node 8] 2025/12/10 14:09:53.814271 Node 8: NewView RPC ballot=(1,9) entries=0
+[Node 8] 2025/12/10 14:09:53.814306 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:53.814321 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:53.814362 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:53.814383 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:53.814391 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:53.816273 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:53.816274 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:53.817221 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:09:53.817958 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:09:53.952841 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:09:54.144764 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:09:54.144783 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:09:54.145561 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:09:54.145611 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:09:54.145615 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:09:54.145640 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:09:54.145648 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:09:54.145656 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:09:54.146412 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:09:54.147079 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:14.835104 [WAL] clear all entries
+[Node 8] 2025/12/10 14:10:14.868715 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:10:15.139632 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:10:15.139699 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:10:15.139732 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:10:15.139755 Node 8: setNodeLiveness node=3 live=false
+[Node 8] 2025/12/10 14:10:15.139776 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:10:15.139798 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:10:15.139820 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:10:15.139842 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:10:15.139868 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:10:15.139892 Node 8: setNodeLiveness node=6 live=false
+[Node 8] 2025/12/10 14:10:15.139928 Node 8: Bulk active status update -> map[1:true 2:true 3:false 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 8] 2025/12/10 14:10:15.273725 Node 8: Leader timeout (6.133899s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:10:15.273913 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:10:15.273983 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:10:15.274276 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:10:15.274355 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:10:15.276906 Node 8: creating new view from 2 promises
+[Node 8] 2025/12/10 14:10:15.276985 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:10:15.277021 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:10:15.277057 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:10:15.277212 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:10:15.282851 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:10:15.283962 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:10:15.283991 Node 8: buildStateSnapshot generating from 0 entries
+[Node 8] 2025/12/10 14:10:15.284004 Node 8: snapshot ready entries=0 ballot=(1,8)
+[Node 8] 2025/12/10 14:10:15.478280 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:10:15.637060 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:10:15.637083 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:10:15.637937 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:10:15.678134 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:10:16.139745 Node 8: Accept RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.139771 Node 8 ACCEPT seq=1 ballot=(2,7) txn=(6002→1002,1)
+[Node 8] 2025/12/10 14:10:16.139779 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:10:16.151086 Node 8: Commit RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.159381 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:16.163653 Node 8: EXECUTING seq=1 (6002→1002,1)
+[Node 8] 2025/12/10 14:10:16.163666 Kind of circular Node 8: executeRequest seq=1 (6002→1002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:16.163688 the phase value is PREPARE
+[Node 8] 2025/12/10 14:10:16.163739 [WAL] append(in-tx) key=txn-6002-1765393816136917000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:16.163748 [WAL] debit P(meta) tx=txn-6002-1765393816136917000 s=6002 10->9 destCID=1 r=1002
+[Node 8] 2025/12/10 14:10:16.178142 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:16.182397 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:16.183414 Node 8: Accept RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.186267 Node 8 ACCEPT seq=2 ballot=(2,7) txn=(3002→6001,1)
+[Node 8] 2025/12/10 14:10:16.186284 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:10:16.186380 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:16.187050 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:16.201339 Node 8: Commit RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.208623 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:16.211493 Node 8: EXECUTING seq=2 (3002→6001,1)
+[Node 8] 2025/12/10 14:10:16.209212 Node 8: Accept RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.215263 Node 8 ACCEPT seq=3 ballot=(2,7) txn=(6002→1002,1)
+[Node 8] 2025/12/10 14:10:16.215269 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:10:16.215302 Kind of circular Node 8: executeRequest seq=2 (3002→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:16.215353 [WAL] append(in-tx) key=txn-3002-1765393816136893000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:16.215373 [WAL] credit P tx=txn-3002-1765393816136893000 id=6001 10->11
+[Node 8] 2025/12/10 14:10:16.228171 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:16.228391 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:16.229038 Node 8: Commit RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.232334 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:16.255580 Node 8: EXECUTING seq=3 (6002→1002,1)
+[Node 8] 2025/12/10 14:10:16.258386 Kind of circular Node 8: executeRequest seq=3 (6002→1002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:16.262377 the phase value is COMMIT
+[Node 8] 2025/12/10 14:10:16.277920 Node 8: Accept RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.281431 Node 8 ACCEPT seq=4 ballot=(2,7) txn=(3002→6001,1)
+[Node 8] 2025/12/10 14:10:16.284482 Node 8: Accepted seq 4
+[Node 8] 2025/12/10 14:10:16.284332 [WAL] apply commit tx=txn-6002-1765393816136917000 items=1
+[Node 8] 2025/12/10 14:10:16.294230 Node 8: executeRequestsInOrder stopping at gap seq=5 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:16.310188 Node 8: Commit RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:16.316666 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:16.320506 Node 8: EXECUTING seq=4 (3002→6001,1)
+[Node 8] 2025/12/10 14:10:16.328402 Kind of circular Node 8: executeRequest seq=4 (3002→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:16.349353 [WAL] apply commit tx=txn-3002-1765393816136893000 items=1
+[Node 8] 2025/12/10 14:10:16.368234 [WAL] clear tx=txn-3002-1765393816136893000
+[Node 8] 2025/12/10 14:10:16.387173 Node 8: gap at seq=5 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:16.387561 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:16.391556 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:16.398654 Node 8: executeRequestsInOrder stopping at gap seq=5 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:18.301669 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:10:18.301846 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:10:18.301953 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:10:34.474762 [WAL] clear all entries
+[Node 8] 2025/12/10 14:10:34.489879 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:10:34.776550 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:10:34.776637 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:10:34.776667 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:10:34.776688 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:10:34.776707 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:10:34.776725 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:10:34.776743 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:10:34.776759 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:10:34.776777 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:10:34.776794 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:10:34.776826 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:10:34.780855 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:10:34.784904 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:10:34.801741 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:10:34.801766 Node 8: Promised ballot (1,7)
+[Node 8] 2025/12/10 14:10:34.802718 Node 8: NewView RPC ballot=(1,7) entries=0
+[Node 8] 2025/12/10 14:10:34.802740 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:10:34.802749 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:10:34.802777 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:34.802791 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:34.802797 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:34.803790 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:34.804584 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:35.280529 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:10:35.280628 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:10:35.286428 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:10:35.286458 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:10:35.286467 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:10:35.286500 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:35.286511 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:35.286518 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:35.288478 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:35.289844 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:35.883485 Node 8: Accept RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:35.886711 Node 8 ACCEPT seq=1 ballot=(2,7) txn=(6→6001,1)
+[Node 8] 2025/12/10 14:10:35.886722 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:10:35.890841 Node 8: Commit RPC seq=1 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:35.893676 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:35.893686 Node 8: EXECUTING seq=1 (6→6001,1)
+[Node 8] 2025/12/10 14:10:35.893696 Kind of circular Node 8: executeRequest seq=1 (6→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:35.893827 [WAL] append(in-tx) key=txn-6-1765393835777319000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:35.893838 [WAL] credit P tx=txn-6-1765393835777319000 id=6001 10->11
+[Node 8] 2025/12/10 14:10:35.911780 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:35.912049 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:35.920252 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:35.939312 Node 8: executeRequestsInOrder stopping at gap seq=2 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:35.990447 Node 8: Accept RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:35.993935 Node 8 ACCEPT seq=2 ballot=(2,7) txn=(6→6001,1)
+[Node 8] 2025/12/10 14:10:35.997964 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:10:36.012588 Node 8: Commit RPC seq=2 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:36.016005 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:36.016018 Node 8: EXECUTING seq=2 (6→6001,1)
+[Node 8] 2025/12/10 14:10:36.016031 Kind of circular Node 8: executeRequest seq=2 (6→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:36.037790 [WAL] apply commit tx=txn-6-1765393835777319000 items=1
+[Node 8] 2025/12/10 14:10:36.059744 [WAL] clear tx=txn-6-1765393835777319000
+[Node 8] 2025/12/10 14:10:36.076720 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:36.076820 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:36.084848 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:36.089721 Node 8: UpdateActiveStatus node=3 live=false
+[Node 8] 2025/12/10 14:10:36.091204 Node 8: setNodeLiveness node=3 live=false
+[Node 8] 2025/12/10 14:10:36.091589 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:36.624706 Node 8: Accept RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:36.628072 Node 8 ACCEPT seq=3 ballot=(2,7) txn=(3007→6002,1)
+[Node 8] 2025/12/10 14:10:36.631987 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:10:36.651996 Node 8: Commit RPC seq=3 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:36.655060 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:36.659041 Node 8: EXECUTING seq=3 (3007→6002,1)
+[Node 8] 2025/12/10 14:10:36.659056 Kind of circular Node 8: executeRequest seq=3 (3007→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:36.666202 [WAL] append(in-tx) key=txn-3007-1765393836590296000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:36.670163 [WAL] credit P tx=txn-3007-1765393836590296000 id=6002 10->11
+[Node 8] 2025/12/10 14:10:36.685778 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:36.689295 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:36.692438 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:36.710417 Node 8: executeRequestsInOrder stopping at gap seq=4 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:36.744617 Node 8: Accept RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:36.747931 Node 8 ACCEPT seq=4 ballot=(2,7) txn=(3007→6002,1)
+[Node 8] 2025/12/10 14:10:36.751949 Node 8: Accepted seq 4
+[Node 8] 2025/12/10 14:10:36.772927 Node 8: Commit RPC seq=4 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:36.776072 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:36.776080 Node 8: EXECUTING seq=4 (3007→6002,1)
+[Node 8] 2025/12/10 14:10:36.776087 Kind of circular Node 8: executeRequest seq=4 (3007→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:36.793752 [WAL] apply commit tx=txn-3007-1765393836590296000 items=1
+[Node 8] 2025/12/10 14:10:36.813863 [WAL] clear tx=txn-3007-1765393836590296000
+[Node 8] 2025/12/10 14:10:36.837849 Node 8: gap at seq=5 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:36.838181 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:36.842412 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:36.869310 Node 8: executeRequestsInOrder stopping at gap seq=5 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:36.889299 Node 8: UpdateActiveStatus node=6 live=false
+[Node 8] 2025/12/10 14:10:36.891964 Node 8: setNodeLiveness node=6 live=false
+[Node 8] 2025/12/10 14:10:37.396267 Node 8: Accept RPC seq=7 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.396360 Node 8 ACCEPT seq=7 ballot=(2,7) txn=(6003→6004,1)
+[Node 8] 2025/12/10 14:10:37.396389 Node 8: Accepted seq 7
+[Node 8] 2025/12/10 14:10:37.396580 Node 8: Accept RPC seq=5 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.396640 Node 8 ACCEPT seq=5 ballot=(2,7) txn=(6005→6006,1)
+[Node 8] 2025/12/10 14:10:37.396671 Node 8: Accepted seq 5
+[Node 8] 2025/12/10 14:10:37.396917 Node 8: Accept RPC seq=6 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.396972 Node 8 ACCEPT seq=6 ballot=(2,7) txn=(6007→8,1)
+[Node 8] 2025/12/10 14:10:37.397000 Node 8: Accepted seq 6
+[Node 8] 2025/12/10 14:10:37.404519 Node 8: Commit RPC seq=5 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.404800 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:37.404856 Node 8: EXECUTING seq=5 (6005→6006,1)
+[Node 8] 2025/12/10 14:10:37.404877 Kind of circular Node 8: executeRequest seq=5 (6005→6006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:10:37.404918 [Database] executing txn (bolt) (6005,6006,1)
+[Node 8] 2025/12/10 14:10:37.405077 Node 8: Commit RPC seq=6 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.405779 Node 8: Commit RPC seq=7 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.423009 [Database] txn success (bolt): 6005 -> 6006 amount 1
+[Node 8] 2025/12/10 14:10:37.423372 Node 8: EXECUTING seq=6 (6007→8,1)
+[Node 8] 2025/12/10 14:10:37.427286 Kind of circular Node 8: executeRequest seq=6 (6007→8,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:37.431267 the phase value is PREPARE
+[Node 8] 2025/12/10 14:10:37.435674 [WAL] append(in-tx) key=txn-6007-1765393837389855000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:37.435692 [WAL] debit P(meta) tx=txn-6007-1765393837389855000 s=6007 10->9 destCID=1 r=8
+[Node 8] 2025/12/10 14:10:37.455071 Node 8: EXECUTING seq=7 (6003→6004,1)
+[Node 8] 2025/12/10 14:10:37.455087 Kind of circular Node 8: executeRequest seq=7 (6003→6004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:10:37.455098 [Database] executing txn (bolt) (6003,6004,1)
+[Node 8] 2025/12/10 14:10:37.463045 [Database] txn success (bolt): 6003 -> 6004 amount 1
+[Node 8] 2025/12/10 14:10:37.463064 Node 8: gap at seq=8 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:37.463074 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:37.464236 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:37.468630 Node 8: executeRequestsInOrder stopping at gap seq=8 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:37.473389 Node 8: Accept RPC seq=8 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.476060 Node 8 ACCEPT seq=8 ballot=(2,7) txn=(6007→8,1)
+[Node 8] 2025/12/10 14:10:37.476077 Node 8: Accepted seq 8
+[Node 8] 2025/12/10 14:10:37.483955 Node 8: Commit RPC seq=8 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:37.486132 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:37.486216 Node 8: EXECUTING seq=8 (6007→8,1)
+[Node 8] 2025/12/10 14:10:37.486236 Kind of circular Node 8: executeRequest seq=8 (6007→8,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:37.486273 the phase value is COMMIT
+[Node 8] 2025/12/10 14:10:37.506040 [WAL] apply commit tx=txn-6007-1765393837389855000 items=1
+[Node 8] 2025/12/10 14:10:37.525976 Node 8: gap at seq=9 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:37.525989 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:37.526720 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:37.527436 Node 8: executeRequestsInOrder stopping at gap seq=9 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:37.584410 Node 8: UpdateActiveStatus node=9 live=false
+[Node 8] 2025/12/10 14:10:37.587179 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:10:38.086956 Node 8: Accept RPC seq=9 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:38.087003 Node 8 ACCEPT seq=9 ballot=(2,7) txn=(6008→3008,1)
+[Node 8] 2025/12/10 14:10:38.087042 Node 8: Accepted seq 9
+[Node 8] 2025/12/10 14:10:38.099299 Node 8: Commit RPC seq=9 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:38.102570 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:38.102685 Node 8: EXECUTING seq=9 (6008→3008,1)
+[Node 8] 2025/12/10 14:10:38.102697 Kind of circular Node 8: executeRequest seq=9 (6008→3008,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:38.102714 the phase value is PREPARE
+[Node 8] 2025/12/10 14:10:38.102774 [WAL] append(in-tx) key=txn-6008-1765393838083621000-P items=1 phase=P
+[Node 8] 2025/12/10 14:10:38.102786 [WAL] debit P(meta) tx=txn-6008-1765393838083621000 s=6008 10->9 destCID=2 r=3008
+[Node 8] 2025/12/10 14:10:38.122325 Node 8: gap at seq=10 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:38.122362 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:38.123248 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:38.123990 Node 8: executeRequestsInOrder stopping at gap seq=10 (syncAttempted=true)
+[Node 8] 2025/12/10 14:10:38.142388 Node 8: Accept RPC seq=10 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:38.145502 Node 8 ACCEPT seq=10 ballot=(2,7) txn=(6008→3008,1)
+[Node 8] 2025/12/10 14:10:38.145512 Node 8: Accepted seq 10
+[Node 8] 2025/12/10 14:10:38.153215 Node 8: Commit RPC seq=10 ballot=(2,7)
+[Node 8] 2025/12/10 14:10:38.156528 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:10:38.156559 Node 8: EXECUTING seq=10 (6008→3008,1)
+[Node 8] 2025/12/10 14:10:38.156573 Kind of circular Node 8: executeRequest seq=10 (6008→3008,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:10:38.156819 the phase value is COMMIT
+[Node 8] 2025/12/10 14:10:38.172611 [WAL] apply commit tx=txn-6008-1765393838083621000 items=1
+[Node 8] 2025/12/10 14:10:38.185586 Node 8: gap at seq=11 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:10:38.185650 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:10:38.186685 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:10:38.187723 Node 8: executeRequestsInOrder stopping at gap seq=11 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:03.651453 [WAL] clear all entries
+[Node 8] 2025/12/10 14:11:03.680219 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:11:03.954537 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:11:03.954594 Node 8: setNodeLiveness node=6 live=false
+[Node 8] 2025/12/10 14:11:03.954614 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:11:03.954636 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:11:03.954655 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:11:03.954673 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:11:03.954689 Node 8: setNodeLiveness node=9 live=false
+[Node 8] 2025/12/10 14:11:03.954704 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:11:03.954722 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:11:03.954739 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:11:03.954774 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:false 7:true 8:true 9:false]
+[Node 8] 2025/12/10 14:11:04.067925 Node 8: Leader timeout (6.113248s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:04.068233 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:04.068330 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:11:04.068600 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:11:04.068716 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:04.072092 Node 8: creating new view from 2 promises
+[Node 8] 2025/12/10 14:11:04.072204 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:11:04.072264 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:11:04.072331 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:11:04.072171 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:11:04.111242 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:11:04.111276 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:11:04.112366 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:11:04.272845 Node 8: skipping RPC HandleHeartbeat to inactive node 9
+[Node 8] 2025/12/10 14:11:04.455007 Node 8: Prepare RPC from ballot (3,7)
+[Node 8] 2025/12/10 14:11:04.455125 Node 8: Promised ballot (3,7)
+[Node 8] 2025/12/10 14:11:04.459904 Node 8: NewView RPC ballot=(3,7) entries=0
+[Node 8] 2025/12/10 14:11:04.459932 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:11:04.459940 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:11:04.459972 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:04.459982 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:04.459988 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:04.461575 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:04.463843 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:04.978696 Node 8: UpdateActiveStatus node=4 live=false
+[Node 8] 2025/12/10 14:11:04.980503 Node 8: setNodeLiveness node=4 live=false
+[Node 8] 2025/12/10 14:11:05.527562 Node 8: Accept RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:05.530675 Node 8 ACCEPT seq=1 ballot=(3,7) txn=(4→6001,1)
+[Node 8] 2025/12/10 14:11:05.530686 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:11:05.542172 Node 8: Commit RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:05.544667 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:05.548665 Node 8: EXECUTING seq=1 (4→6001,1)
+[Node 8] 2025/12/10 14:11:05.552760 Kind of circular Node 8: executeRequest seq=1 (4→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:11:05.556769 [WAL] append(in-tx) key=txn-4-1765393865478239000-P items=1 phase=P
+[Node 8] 2025/12/10 14:11:05.556781 [WAL] credit P tx=txn-4-1765393865478239000 id=6001 10->11
+[Node 8] 2025/12/10 14:11:05.567509 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:05.567541 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:05.568497 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:05.569359 Node 8: executeRequestsInOrder stopping at gap seq=2 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:05.606837 Node 8: Accept RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:05.609503 Node 8 ACCEPT seq=2 ballot=(3,7) txn=(4→6001,1)
+[Node 8] 2025/12/10 14:11:05.609519 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:11:05.614026 Node 8: Commit RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:05.616579 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:05.616598 Node 8: EXECUTING seq=2 (4→6001,1)
+[Node 8] 2025/12/10 14:11:05.616611 Kind of circular Node 8: executeRequest seq=2 (4→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:11:05.630636 [WAL] apply commit tx=txn-4-1765393865478239000 items=1
+[Node 8] 2025/12/10 14:11:05.646576 [WAL] clear tx=txn-4-1765393865478239000
+[Node 8] 2025/12/10 14:11:05.656379 Node 8: UpdateActiveStatus node=7 live=false
+[Node 8] 2025/12/10 14:11:05.658651 Node 8: setNodeLiveness node=7 live=false
+[Node 8] 2025/12/10 14:11:05.658846 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:05.658858 Node 8: Starting leader election with ballot (4,8)
+[Node 8] 2025/12/10 14:11:05.658534 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:05.658894 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:05.658953 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:05.658970 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:05.658982 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:05.663461 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:05.664298 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=false)
+[Node 8] 2025/12/10 14:11:06.161664 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:06.184558 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:06.217086 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:06.465605 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:06.602688 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:06.961416 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:07.098595 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:11:07.098768 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:11:07.098865 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:11:07.102046 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:07.300011 Node 8: Leader timeout (7.641188s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:07.300201 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:07.300270 Node 8: Starting leader election with ballot (5,8)
+[Node 8] 2025/12/10 14:11:07.300427 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:07.300427 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:07.300600 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:07.462481 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:07.598542 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:07.960179 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:08.101316 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:08.462368 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:08.597885 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:08.966377 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:09.095413 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:09.309268 Node 8: Leader timeout (9.650445s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:09.309481 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:09.309565 Node 8: Starting leader election with ballot (6,8)
+[Node 8] 2025/12/10 14:11:09.309761 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:09.309833 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:09.309931 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:09.457911 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:09.597695 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:09.969242 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:10.096433 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:10.460675 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:10.597180 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:10.959860 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:11.103400 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:11.318234 Node 8: Leader timeout (11.659412s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:11.318504 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:11.318587 Node 8: Starting leader election with ballot (7,8)
+[Node 8] 2025/12/10 14:11:11.318762 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:11.318862 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:11.318947 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:11.460275 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:11.599157 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:11.965895 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:12.102541 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:12.469040 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:12.594157 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:12.965650 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:13.104238 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:13.328401 Node 8: Leader timeout (13.669581s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:13.328590 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:13.328680 Node 8: Starting leader election with ballot (8,8)
+[Node 8] 2025/12/10 14:11:13.328877 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:13.328925 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:13.329131 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:13.465876 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:13.597163 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:13.965921 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:14.104731 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:14.466535 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:14.603959 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:14.961516 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:15.103491 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:15.340052 Node 8: Leader timeout (15.681232s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:15.340339 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:15.340525 Node 8: Starting leader election with ballot (9,8)
+[Node 8] 2025/12/10 14:11:15.340695 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:15.340695 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:15.340876 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:15.463371 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:15.597448 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:15.960298 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:16.098440 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:16.468653 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:16.603526 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:16.963711 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:17.096553 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:17.350340 Node 8: Leader timeout (17.691521s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:17.350454 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:17.350494 Node 8: Starting leader election with ballot (10,8)
+[Node 8] 2025/12/10 14:11:17.350543 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:17.350543 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:17.350572 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:17.469446 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:17.604957 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:17.960860 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:18.096038 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:18.468324 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:18.602765 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:18.962509 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:19.100945 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:19.360286 Node 8: Leader timeout (19.701468s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:19.360352 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:19.360370 Node 8: Starting leader election with ballot (11,8)
+[Node 8] 2025/12/10 14:11:19.360403 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:19.360409 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:19.360427 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:19.465120 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:19.597619 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:19.960814 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:20.096496 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:20.460645 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:20.596897 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:20.959944 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:21.095758 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:21.370179 Node 8: Leader timeout (21.711360s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:21.370365 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:21.370443 Node 8: Starting leader election with ballot (12,8)
+[Node 8] 2025/12/10 14:11:21.370700 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:21.370762 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:21.370905 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:21.461487 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:21.598647 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:21.960185 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:22.097849 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:22.461794 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:22.595825 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:22.963120 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:23.098109 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:23.380468 Node 8: Leader timeout (23.721650s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:23.380666 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:23.380741 Node 8: Starting leader election with ballot (13,8)
+[Node 8] 2025/12/10 14:11:23.380975 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:23.381028 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:23.381217 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:23.469109 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:23.596278 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:23.963973 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:24.099745 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:24.463749 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:24.599894 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:24.967824 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:25.098611 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:25.390668 Node 8: Leader timeout (25.731851s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:25.390877 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:25.390970 Node 8: Starting leader election with ballot (14,8)
+[Node 8] 2025/12/10 14:11:25.391219 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:25.391223 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:25.391460 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:25.468459 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:25.602738 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:25.960351 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:26.096251 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:26.468698 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:26.597279 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:26.963251 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:27.096170 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:27.401369 Node 8: Leader timeout (27.742553s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:27.401522 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:27.401547 Node 8: Starting leader election with ballot (15,8)
+[Node 8] 2025/12/10 14:11:27.401630 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:27.401630 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:27.401688 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:27.459988 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:27.595886 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:27.966546 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:28.099952 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:28.460365 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:28.603215 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:28.966863 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:29.097311 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:29.410622 Node 8: Leader timeout (29.751807s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:29.410858 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:29.410952 Node 8: Starting leader election with ballot (16,8)
+[Node 8] 2025/12/10 14:11:29.411126 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:29.411148 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:29.411296 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:29.466569 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:29.605796 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:29.967017 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:30.102964 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:30.466800 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:30.603642 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:30.960453 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:31.100382 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:31.420645 Node 8: Leader timeout (31.761831s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:31.420822 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:31.420870 Node 8: Starting leader election with ballot (17,8)
+[Node 8] 2025/12/10 14:11:31.421015 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:31.421065 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:31.421141 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:31.468577 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:31.603771 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:31.961517 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:32.103298 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:32.464210 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:32.598520 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:32.962838 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:33.100405 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:33.430440 Node 8: Leader timeout (33.771627s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:33.430638 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:33.430703 Node 8: Starting leader election with ballot (18,8)
+[Node 8] 2025/12/10 14:11:33.430883 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:33.430906 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:33.431050 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:33.464205 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:33.600934 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:33.959633 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:34.103737 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:34.464040 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:34.598959 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:34.966771 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:35.099522 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:35.440837 Node 8: Leader timeout (35.782026s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:35.440930 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:35.440954 Node 8: Starting leader election with ballot (19,8)
+[Node 8] 2025/12/10 14:11:35.441026 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:35.441026 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:35.441081 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:35.460835 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:35.597965 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:35.960572 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:36.095534 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:36.460159 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:36.600131 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:36.966927 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:37.096211 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:37.450881 Node 8: Leader timeout (37.792069s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:37.451016 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:37.451043 Node 8: Starting leader election with ballot (20,8)
+[Node 8] 2025/12/10 14:11:37.451125 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:37.451150 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:37.451221 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:37.464419 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:37.595693 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:37.963128 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:38.101371 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:38.458573 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:38.598524 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:38.967528 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:39.100916 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:39.460462 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:39.460559 Node 8: Leader timeout (39.801750s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:39.460579 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:39.460587 Node 8: Starting leader election with ballot (21,8)
+[Node 8] 2025/12/10 14:11:39.460611 Node 8: skipping RPC Prepare to inactive node 9
+[Node 8] 2025/12/10 14:11:39.460610 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:39.460627 Node 8: leader election failed (promises=1 need=2)
+[Node 8] 2025/12/10 14:11:39.595657 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:39.966597 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:40.102068 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:40.466978 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:40.598591 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:40.960576 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.097294 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.465862 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.466935 [WAL] clear all entries
+[Node 8] 2025/12/10 14:11:41.511992 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:11:41.767907 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:11:41.767961 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:11:41.767978 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:11:41.767990 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:11:41.768001 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:11:41.768011 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:11:41.768019 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:11:41.768029 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:11:41.768037 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:11:41.768046 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:11:41.768068 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:11:41.772265 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.772753 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.775676 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:11:41.775684 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:11:41.870319 Node 8: Leader timeout (6.102316s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:11:41.870354 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:41.870364 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:11:41.870398 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:11:41.870407 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:11:41.871656 Node 8: creating new view from 3 promises
+[Node 8] 2025/12/10 14:11:41.871679 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:11:41.871691 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:11:41.871667 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:11:41.871710 Node 8: RPC NewView->node 9
+[Node 8] 2025/12/10 14:11:41.871721 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:11:41.874021 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:41.874852 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:11:41.874872 Node 8: buildStateSnapshot generating from 0 entries
+[Node 8] 2025/12/10 14:11:41.874881 Node 8: snapshot ready entries=0 ballot=(1,8)
+[Node 8] 2025/12/10 14:11:41.900453 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:11:41.900486 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:11:41.901428 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:11:41.901460 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:11:41.901471 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:11:41.901518 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:41.901596 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:41.901618 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:41.902424 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:41.903266 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:42.268127 Node 8: Prepare RPC from ballot (3,7)
+[Node 8] 2025/12/10 14:11:42.271103 Node 8: Promised ballot (3,7)
+[Node 8] 2025/12/10 14:11:42.272289 Node 8: NewView RPC ballot=(3,7) entries=0
+[Node 8] 2025/12/10 14:11:42.272307 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:11:42.272318 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:11:42.272343 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:42.272356 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:42.272366 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:42.273156 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:42.273789 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:42.792846 Node 8: UpdateActiveStatus node=1 live=false
+[Node 8] 2025/12/10 14:11:42.795584 Node 8: setNodeLiveness node=1 live=false
+[Node 8] 2025/12/10 14:11:43.478156 Node 8: UpdateActiveStatus node=4 live=false
+[Node 8] 2025/12/10 14:11:43.480922 Node 8: setNodeLiveness node=4 live=false
+[Node 8] 2025/12/10 14:11:43.983525 Node 8: Accept RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:43.983629 Node 8 ACCEPT seq=1 ballot=(3,7) txn=(6005→6006,1)
+[Node 8] 2025/12/10 14:11:43.983668 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:11:43.993066 Node 8: Commit RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:43.993168 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:43.993200 Node 8: EXECUTING seq=1 (6005→6006,1)
+[Node 8] 2025/12/10 14:11:43.993217 Kind of circular Node 8: executeRequest seq=1 (6005→6006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:11:43.993240 [Database] executing txn (bolt) (6005,6006,1)
+[Node 8] 2025/12/10 14:11:44.012340 [Database] txn success (bolt): 6005 -> 6006 amount 1
+[Node 8] 2025/12/10 14:11:44.012632 Node 8: gap at seq=2 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:44.012647 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:44.015862 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:44.023935 Node 8: executeRequestsInOrder stopping at gap seq=2 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:44.029038 Node 8: Accept RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:44.029057 Node 8 ACCEPT seq=2 ballot=(3,7) txn=(3004→6001,1)
+[Node 8] 2025/12/10 14:11:44.029064 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:11:44.039671 Node 8: Commit RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:44.039748 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:44.043276 Node 8: EXECUTING seq=2 (3004→6001,1)
+[Node 8] 2025/12/10 14:11:44.043288 Kind of circular Node 8: executeRequest seq=2 (3004→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=PREPARE) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:11:44.043359 [WAL] append(in-tx) key=txn-3004-1765393903978477000-P items=1 phase=P
+[Node 8] 2025/12/10 14:11:44.043390 [WAL] credit P tx=txn-3004-1765393903978477000 id=6001 10->11
+[Node 8] 2025/12/10 14:11:44.063274 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:44.063293 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:44.064297 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:11:44.065059 Node 8: executeRequestsInOrder stopping at gap seq=3 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:44.101115 Node 8: Accept RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:44.101139 Node 8 ACCEPT seq=3 ballot=(3,7) txn=(3004→6001,1)
+[Node 8] 2025/12/10 14:11:44.101146 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:11:44.108206 Node 8: Commit RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:11:44.111261 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:44.111274 Node 8: EXECUTING seq=3 (3004→6001,1)
+[Node 8] 2025/12/10 14:11:44.111285 Kind of circular Node 8: executeRequest seq=3 (3004→6001,1) 2PCPhase=%!d(datatypes.TwoPCPhase=COMMIT) IsCross=true IsNoOp=false
+[Node 8] 2025/12/10 14:11:44.126337 [WAL] apply commit tx=txn-3004-1765393903978477000 items=1
+[Node 8] 2025/12/10 14:11:44.145295 [WAL] clear tx=txn-3004-1765393903978477000
+[Node 8] 2025/12/10 14:11:44.163027 Node 8: UpdateActiveStatus node=7 live=false
+[Node 8] 2025/12/10 14:11:44.169721 Node 8: setNodeLiveness node=7 live=false
+[Node 8] 2025/12/10 14:11:44.165242 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:44.173295 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:44.173414 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:11:44.173476 Node 8: Starting leader election with ballot (4,8)
+[Node 8] 2025/12/10 14:11:44.173534 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:11:44.173539 Node 8: skipping RPC Prepare to inactive node 7
+[Node 8] 2025/12/10 14:11:44.174518 Node 8: Prepare RPC from ballot (4,9)
+[Node 8] 2025/12/10 14:11:44.177239 Node 8: Promised ballot (4,9)
+[Node 8] 2025/12/10 14:11:44.177499 Node 8: ignoring stale election completion (attempt=(4,8) highestPromised=(4,9) current=(4,8))
+[Node 8] 2025/12/10 14:11:44.178132 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:44.178226 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:44.178252 Node 8: NewView RPC ballot=(4,9) entries=3
+[Node 8] 2025/12/10 14:11:44.178267 Node 8: applyCommittedEntries up to seq=3
+[Node 8] 2025/12/10 14:11:44.178277 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:11:44.178299 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:11:44.178361 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:11:44.178402 Node 8: RPC AcceptedFromNewView->node 9
+[Node 8] 2025/12/10 14:11:44.179404 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:11:44.180181 Node 8: executeRequestsInOrder stopping at gap seq=4 (syncAttempted=true)
+[Node 8] 2025/12/10 14:11:44.667604 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:44.898380 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:11:44.898420 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:11:44.898443 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:11:47.203077 Node 8: Commit RPC seq=2 ballot=(4,9)
+[Node 8] 2025/12/10 14:11:47.203187 Node 8: Commit RPC seq=3 ballot=(4,9)
+[Node 8] 2025/12/10 14:11:47.203308 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:11:47.203393 Node 8: gap at seq=4 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:11:47.203445 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:11:47.203077 Node 8: Commit RPC seq=1 ballot=(4,9)
+[Node 8] 2025/12/10 14:11:47.206049 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:47.208423 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:11:47.209748 Node 8: RPC RequestStateTransfer->node 9
+[Node 8] 2025/12/10 14:11:47.211094 Node 8: executeRequestsInOrder stopping at gap seq=4 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:09.519864 [WAL] clear all entries
+[Node 8] 2025/12/10 14:12:09.540600 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:12:09.818323 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:12:09.818364 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:12:09.818384 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:12:09.818409 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:12:09.818418 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:12:09.818434 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:12:09.818463 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:12:09.818502 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:12:09.818524 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:12:09.818542 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:12:09.818572 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:12:09.820366 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:12:09.822554 Node 8: RequestStateTransfer from node 7
+[Node 8] 2025/12/10 14:12:09.838123 Node 8: Prepare RPC from ballot (1,7)
+[Node 8] 2025/12/10 14:12:09.838149 Node 8: Promised ballot (1,7)
+[Node 8] 2025/12/10 14:12:09.838836 Node 8: NewView RPC ballot=(1,7) entries=0
+[Node 8] 2025/12/10 14:12:09.838854 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:12:09.838860 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:12:09.838887 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:09.838895 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:09.838907 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:09.839445 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:09.839995 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:10.321313 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:12:10.321363 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:12:10.323569 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:12:10.323598 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:12:10.323608 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:12:10.323642 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:10.323654 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:10.323662 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:10.326457 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:10.328115 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:41.085310 [WAL] clear all entries
+[Node 8] 2025/12/10 14:12:41.107162 [Database] reset balances for 6001..9000 to 10
+[Node 8] 2025/12/10 14:12:41.386976 Node 8: Bulk active update request (9 entries)
+[Node 8] 2025/12/10 14:12:41.387139 Node 8: setNodeLiveness node=9 live=true
+[Node 8] 2025/12/10 14:12:41.387176 Node 8: setNodeLiveness node=2 live=true
+[Node 8] 2025/12/10 14:12:41.387200 Node 8: setNodeLiveness node=4 live=true
+[Node 8] 2025/12/10 14:12:41.387222 Node 8: setNodeLiveness node=6 live=true
+[Node 8] 2025/12/10 14:12:41.387240 Node 8: setNodeLiveness node=7 live=true
+[Node 8] 2025/12/10 14:12:41.387258 Node 8: setNodeLiveness node=5 live=true
+[Node 8] 2025/12/10 14:12:41.387274 Node 8: setNodeLiveness node=8 live=true
+[Node 8] 2025/12/10 14:12:41.387289 Node 8: setNodeLiveness node=1 live=true
+[Node 8] 2025/12/10 14:12:41.387305 Node 8: setNodeLiveness node=3 live=true
+[Node 8] 2025/12/10 14:12:41.387342 Node 8: Bulk active status update -> map[1:true 2:true 3:true 4:true 5:true 6:true 7:true 8:true 9:true]
+[Node 8] 2025/12/10 14:12:41.526638 Node 8: Leader timeout (6.139315s), no leader msgs, starting election
+[Node 8] 2025/12/10 14:12:41.526804 Node 8: StartLeaderElection invoked (leader=false active=true)
+[Node 8] 2025/12/10 14:12:41.526859 Node 8: Starting leader election with ballot (1,8)
+[Node 8] 2025/12/10 14:12:41.527031 Node 8: RPC Prepare->node 7
+[Node 8] 2025/12/10 14:12:41.527044 Node 8: RPC Prepare->node 9
+[Node 8] 2025/12/10 14:12:41.529569 Node 8: creating new view from 3 promises
+[Node 8] 2025/12/10 14:12:41.529662 Node 8: new view constructed with 0 entries (maxSeq=0)
+[Node 8] 2025/12/10 14:12:41.529713 Node 8: broadcasting NewView ballot=(1,8) entries=0
+[Node 8] 2025/12/10 14:12:41.529766 Node 8: RPC NewView->node 9
+[Node 8] 2025/12/10 14:12:41.529590 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:12:41.529798 Node 8: RPC NewView->node 7
+[Node 8] 2025/12/10 14:12:41.535428 Node 8: GetLeader RPC invoked
+[Node 8] 2025/12/10 14:12:41.536589 Node 8: RequestStateTransfer from node 9
+[Node 8] 2025/12/10 14:12:41.536674 Node 8: buildStateSnapshot generating from 0 entries
+[Node 8] 2025/12/10 14:12:41.536691 Node 8: snapshot ready entries=0 ballot=(1,8)
+[Node 8] 2025/12/10 14:12:41.548773 Node 8: Prepare RPC from ballot (2,7)
+[Node 8] 2025/12/10 14:12:41.548797 Node 8: Promised ballot (2,7)
+[Node 8] 2025/12/10 14:12:41.549613 Node 8: NewView RPC ballot=(2,7) entries=0
+[Node 8] 2025/12/10 14:12:41.892131 Node 8: Prepare RPC from ballot (3,7)
+[Node 8] 2025/12/10 14:12:41.892219 Node 8: Promised ballot (3,7)
+[Node 8] 2025/12/10 14:12:41.896088 Node 8: NewView RPC ballot=(3,7) entries=0
+[Node 8] 2025/12/10 14:12:41.896120 Node 8: applyCommittedEntries up to seq=0
+[Node 8] 2025/12/10 14:12:41.896130 Triggering executor from NewView on Node 8 inside HandleNewView line 1859
+[Node 8] 2025/12/10 14:12:41.896173 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:41.896186 Node 8: gap at seq=1 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:41.896194 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:41.897384 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:41.898612 Node 8: executeRequestsInOrder stopping at gap seq=1 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:44.550120 Node 8: leader election success with ballot (1,8)
+[Node 8] 2025/12/10 14:12:44.561354 Node 8: Became leader after election, successful
+[Node 8] 2025/12/10 14:12:44.561372 Node 8: heartbeat loop started
+[Node 8] 2025/12/10 14:12:46.513998 Node 8: Accept RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.517212 Node 8 ACCEPT seq=1 ballot=(3,7) txn=(6001→6002,1)
+[Node 8] 2025/12/10 14:12:46.521208 Node 8: Accepted seq 1
+[Node 8] 2025/12/10 14:12:46.531669 Node 8: Commit RPC seq=1 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.535394 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:46.539243 Node 8: EXECUTING seq=1 (6001→6002,1)
+[Node 8] 2025/12/10 14:12:46.547222 Kind of circular Node 8: executeRequest seq=1 (6001→6002,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.547237 [Database] executing txn (bolt) (6001,6002,1)
+[Node 8] 2025/12/10 14:12:46.547738 Node 8: Accept RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.551225 Node 8 ACCEPT seq=2 ballot=(3,7) txn=(6003→6004,1)
+[Node 8] 2025/12/10 14:12:46.555383 Node 8: Accepted seq 2
+[Node 8] 2025/12/10 14:12:46.561043 [Database] txn success (bolt): 6001 -> 6002 amount 1
+[Node 8] 2025/12/10 14:12:46.561165 Node 8: gap at seq=3 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:46.561170 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:46.564400 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:46.578897 Node 8: Commit RPC seq=2 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.594389 Node 8: EXECUTING seq=2 (6003→6004,1)
+[Node 8] 2025/12/10 14:12:46.594398 Kind of circular Node 8: executeRequest seq=2 (6003→6004,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.594404 [Database] executing txn (bolt) (6003,6004,1)
+[Node 8] 2025/12/10 14:12:46.595007 Node 8: Accept RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.597314 Node 8 ACCEPT seq=3 ballot=(3,7) txn=(6007→6008,1)
+[Node 8] 2025/12/10 14:12:46.597325 Node 8: Accepted seq 3
+[Node 8] 2025/12/10 14:12:46.595029 Node 8: Accept RPC seq=5 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.595057 Node 8: Accept RPC seq=4 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.603278 Node 8 ACCEPT seq=5 ballot=(3,7) txn=(6009→6010,1)
+[Node 8] 2025/12/10 14:12:46.607309 Node 8: Accepted seq 5
+[Node 8] 2025/12/10 14:12:46.607374 Node 8 ACCEPT seq=4 ballot=(3,7) txn=(6005→6006,1)
+[Node 8] 2025/12/10 14:12:46.607396 Node 8: Accepted seq 4
+[Node 8] 2025/12/10 14:12:46.611054 [Database] txn success (bolt): 6003 -> 6004 amount 1
+[Node 8] 2025/12/10 14:12:46.611361 Node 8: executeRequestsInOrder stopping at gap seq=6 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:46.611774 Node 8: Commit RPC seq=3 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.617336 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:46.620328 Node 8: EXECUTING seq=3 (6007→6008,1)
+[Node 8] 2025/12/10 14:12:46.624371 Kind of circular Node 8: executeRequest seq=3 (6007→6008,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.620807 Node 8: Commit RPC seq=4 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.624857 Node 8: Commit RPC seq=5 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.627413 [Database] executing txn (bolt) (6007,6008,1)
+[Node 8] 2025/12/10 14:12:46.643997 [Database] txn success (bolt): 6007 -> 6008 amount 1
+[Node 8] 2025/12/10 14:12:46.644301 Node 8: EXECUTING seq=4 (6005→6006,1)
+[Node 8] 2025/12/10 14:12:46.644308 Kind of circular Node 8: executeRequest seq=4 (6005→6006,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.644331 [Database] executing txn (bolt) (6005,6006,1)
+[Node 8] 2025/12/10 14:12:46.644948 Node 8: Accept RPC seq=6 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.650337 Node 8 ACCEPT seq=6 ballot=(3,7) txn=(6011→6012,1)
+[Node 8] 2025/12/10 14:12:46.654280 Node 8: Accepted seq 6
+[Node 8] 2025/12/10 14:12:46.664982 [Database] txn success (bolt): 6005 -> 6006 amount 1
+[Node 8] 2025/12/10 14:12:46.665360 Node 8: EXECUTING seq=5 (6009→6010,1)
+[Node 8] 2025/12/10 14:12:46.665385 Kind of circular Node 8: executeRequest seq=5 (6009→6010,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.665395 [Database] executing txn (bolt) (6009,6010,1)
+[Node 8] 2025/12/10 14:12:46.674239 Node 8: Commit RPC seq=6 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.674254 Node 8: Accept RPC seq=8 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.678305 Node 8 ACCEPT seq=8 ballot=(3,7) txn=(6015→6016,1)
+[Node 8] 2025/12/10 14:12:46.674323 Node 8: Accept RPC seq=7 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.678321 Node 8: Accepted seq 8
+[Node 8] 2025/12/10 14:12:46.678410 Node 8 ACCEPT seq=7 ballot=(3,7) txn=(6013→6014,1)
+[Node 8] 2025/12/10 14:12:46.678419 Node 8: Accepted seq 7
+[Node 8] 2025/12/10 14:12:46.679134 Node 8: Accept RPC seq=9 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.682332 Node 8 ACCEPT seq=9 ballot=(3,7) txn=(6017→6018,1)
+[Node 8] 2025/12/10 14:12:46.682339 Node 8: Accepted seq 9
+[Node 8] 2025/12/10 14:12:46.679196 Node 8: Commit RPC seq=7 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.682023 [Database] txn success (bolt): 6009 -> 6010 amount 1
+[Node 8] 2025/12/10 14:12:46.688354 Node 8: EXECUTING seq=6 (6011→6012,1)
+[Node 8] 2025/12/10 14:12:46.688361 Kind of circular Node 8: executeRequest seq=6 (6011→6012,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.688369 [Database] executing txn (bolt) (6011,6012,1)
+[Node 8] 2025/12/10 14:12:46.696021 Node 8: Commit RPC seq=8 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.696022 Node 8: Accept RPC seq=10 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.703230 Node 8 ACCEPT seq=10 ballot=(3,7) txn=(6019→6020,1)
+[Node 8] 2025/12/10 14:12:46.696068 Node 8: Commit RPC seq=9 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.706196 [Database] txn success (bolt): 6011 -> 6012 amount 1
+[Node 8] 2025/12/10 14:12:46.706299 Node 8: Accepted seq 10
+[Node 8] 2025/12/10 14:12:46.706333 Node 8: EXECUTING seq=7 (6013→6014,1)
+[Node 8] 2025/12/10 14:12:46.706342 Kind of circular Node 8: executeRequest seq=7 (6013→6014,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.706348 [Database] executing txn (bolt) (6013,6014,1)
+[Node 8] 2025/12/10 14:12:46.706884 Node 8: Accept RPC seq=11 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.714411 Node 8 ACCEPT seq=11 ballot=(3,7) txn=(6021→6022,1)
+[Node 8] 2025/12/10 14:12:46.706909 Node 8: Commit RPC seq=10 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.718177 Node 8: Accepted seq 11
+[Node 8] 2025/12/10 14:12:46.721133 [Database] txn success (bolt): 6013 -> 6014 amount 1
+[Node 8] 2025/12/10 14:12:46.721371 Node 8: EXECUTING seq=8 (6015→6016,1)
+[Node 8] 2025/12/10 14:12:46.725294 Kind of circular Node 8: executeRequest seq=8 (6015→6016,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.729306 [Database] executing txn (bolt) (6015,6016,1)
+[Node 8] 2025/12/10 14:12:46.733856 Node 8: Accept RPC seq=12 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.737288 Node 8 ACCEPT seq=12 ballot=(3,7) txn=(6023→6024,1)
+[Node 8] 2025/12/10 14:12:46.741223 Node 8: Accepted seq 12
+[Node 8] 2025/12/10 14:12:46.749020 [Database] txn success (bolt): 6015 -> 6016 amount 1
+[Node 8] 2025/12/10 14:12:46.749213 Node 8: EXECUTING seq=9 (6017→6018,1)
+[Node 8] 2025/12/10 14:12:46.749221 Kind of circular Node 8: executeRequest seq=9 (6017→6018,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.749322 [Database] executing txn (bolt) (6017,6018,1)
+[Node 8] 2025/12/10 14:12:46.749886 Node 8: Accept RPC seq=14 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.753319 Node 8 ACCEPT seq=14 ballot=(3,7) txn=(6027→6028,1)
+[Node 8] 2025/12/10 14:12:46.749940 Node 8: Accept RPC seq=13 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.757267 Node 8: Accepted seq 14
+[Node 8] 2025/12/10 14:12:46.765305 Node 8 ACCEPT seq=13 ballot=(3,7) txn=(6025→6026,1)
+[Node 8] 2025/12/10 14:12:46.769063 Node 8: Accepted seq 13
+[Node 8] 2025/12/10 14:12:46.768959 [Database] txn success (bolt): 6017 -> 6018 amount 1
+[Node 8] 2025/12/10 14:12:46.769095 Node 8: EXECUTING seq=10 (6019→6020,1)
+[Node 8] 2025/12/10 14:12:46.769100 Kind of circular Node 8: executeRequest seq=10 (6019→6020,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.769110 [Database] executing txn (bolt) (6019,6020,1)
+[Node 8] 2025/12/10 14:12:46.769704 Node 8: Accept RPC seq=15 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.773236 Node 8 ACCEPT seq=15 ballot=(3,7) txn=(6029→6030,1)
+[Node 8] 2025/12/10 14:12:46.769706 Node 8: Commit RPC seq=13 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.769749 Node 8: Commit RPC seq=11 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.777192 Node 8: Accepted seq 15
+[Node 8] 2025/12/10 14:12:46.777688 Node 8: Commit RPC seq=12 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.782008 Node 8: Commit RPC seq=14 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.784205 [Database] txn success (bolt): 6019 -> 6020 amount 1
+[Node 8] 2025/12/10 14:12:46.784491 Node 8: EXECUTING seq=13 (6025→6026,1)
+[Node 8] 2025/12/10 14:12:46.784520 Kind of circular Node 8: executeRequest seq=13 (6025→6026,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.784532 [Database] executing txn (bolt) (6025,6026,1)
+[Node 8] 2025/12/10 14:12:46.802084 [Database] txn success (bolt): 6025 -> 6026 amount 1
+[Node 8] 2025/12/10 14:12:46.802346 Node 8: EXECUTING seq=14 (6027→6028,1)
+[Node 8] 2025/12/10 14:12:46.802354 Kind of circular Node 8: executeRequest seq=14 (6027→6028,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.802360 [Database] executing txn (bolt) (6027,6028,1)
+[Node 8] 2025/12/10 14:12:46.803236 Node 8: Accept RPC seq=16 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.805345 Node 8 ACCEPT seq=16 ballot=(3,7) txn=(6031→6032,1)
+[Node 8] 2025/12/10 14:12:46.803250 Node 8: Commit RPC seq=15 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.803263 Node 8: Accept RPC seq=17 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.809456 Node 8: Accepted seq 16
+[Node 8] 2025/12/10 14:12:46.813217 Node 8 ACCEPT seq=17 ballot=(3,7) txn=(6033→6034,1)
+[Node 8] 2025/12/10 14:12:46.813224 Node 8: Accepted seq 17
+[Node 8] 2025/12/10 14:12:46.819166 [Database] txn success (bolt): 6027 -> 6028 amount 1
+[Node 8] 2025/12/10 14:12:46.819180 Node 8: EXECUTING seq=15 (6029→6030,1)
+[Node 8] 2025/12/10 14:12:46.819187 Kind of circular Node 8: executeRequest seq=15 (6029→6030,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.819194 [Database] executing txn (bolt) (6029,6030,1)
+[Node 8] 2025/12/10 14:12:46.827883 Node 8: Accept RPC seq=18 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.830235 Node 8 ACCEPT seq=18 ballot=(3,7) txn=(6035→6036,1)
+[Node 8] 2025/12/10 14:12:46.830246 Node 8: Accepted seq 18
+[Node 8] 2025/12/10 14:12:46.830870 Node 8: Commit RPC seq=17 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.831020 Node 8: Commit RPC seq=16 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.834046 [Database] txn success (bolt): 6029 -> 6030 amount 1
+[Node 8] 2025/12/10 14:12:46.834249 Node 8: EXECUTING seq=16 (6031→6032,1)
+[Node 8] 2025/12/10 14:12:46.834256 Kind of circular Node 8: executeRequest seq=16 (6031→6032,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.834263 [Database] executing txn (bolt) (6031,6032,1)
+[Node 8] 2025/12/10 14:12:46.841251 Node 8: Accept RPC seq=19 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.844382 Node 8 ACCEPT seq=19 ballot=(3,7) txn=(6037→6038,1)
+[Node 8] 2025/12/10 14:12:46.848198 Node 8: Accepted seq 19
+[Node 8] 2025/12/10 14:12:46.848946 Node 8: Commit RPC seq=18 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.851197 [Database] txn success (bolt): 6031 -> 6032 amount 1
+[Node 8] 2025/12/10 14:12:46.851570 Node 8: EXECUTING seq=17 (6033→6034,1)
+[Node 8] 2025/12/10 14:12:46.851575 Kind of circular Node 8: executeRequest seq=17 (6033→6034,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.851581 [Database] executing txn (bolt) (6033,6034,1)
+[Node 8] 2025/12/10 14:12:46.852192 Node 8: Accept RPC seq=20 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.854398 Node 8 ACCEPT seq=20 ballot=(3,7) txn=(6039→6040,1)
+[Node 8] 2025/12/10 14:12:46.858388 Node 8: Accepted seq 20
+[Node 8] 2025/12/10 14:12:46.862915 Node 8: Accept RPC seq=21 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.865443 Node 8 ACCEPT seq=21 ballot=(3,7) txn=(6041→6042,1)
+[Node 8] 2025/12/10 14:12:46.862934 Node 8: Commit RPC seq=19 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.865202 [Database] txn success (bolt): 6033 -> 6034 amount 1
+[Node 8] 2025/12/10 14:12:46.865478 Node 8: Accepted seq 21
+[Node 8] 2025/12/10 14:12:46.865502 Node 8: EXECUTING seq=18 (6035→6036,1)
+[Node 8] 2025/12/10 14:12:46.873271 Kind of circular Node 8: executeRequest seq=18 (6035→6036,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.873282 [Database] executing txn (bolt) (6035,6036,1)
+[Node 8] 2025/12/10 14:12:46.880824 Node 8: Commit RPC seq=21 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.884922 Node 8: Commit RPC seq=20 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.888093 [Database] txn success (bolt): 6035 -> 6036 amount 1
+[Node 8] 2025/12/10 14:12:46.892238 Node 8: EXECUTING seq=19 (6037→6038,1)
+[Node 8] 2025/12/10 14:12:46.892249 Kind of circular Node 8: executeRequest seq=19 (6037→6038,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.892259 [Database] executing txn (bolt) (6037,6038,1)
+[Node 8] 2025/12/10 14:12:46.896775 Node 8: Accept RPC seq=22 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.900375 Node 8 ACCEPT seq=22 ballot=(3,7) txn=(6043→6044,1)
+[Node 8] 2025/12/10 14:12:46.903385 Node 8: Accepted seq 22
+[Node 8] 2025/12/10 14:12:46.907119 [Database] txn success (bolt): 6037 -> 6038 amount 1
+[Node 8] 2025/12/10 14:12:46.907385 Node 8: EXECUTING seq=20 (6039→6040,1)
+[Node 8] 2025/12/10 14:12:46.907394 Kind of circular Node 8: executeRequest seq=20 (6039→6040,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.907400 [Database] executing txn (bolt) (6039,6040,1)
+[Node 8] 2025/12/10 14:12:46.923020 [Database] txn success (bolt): 6039 -> 6040 amount 1
+[Node 8] 2025/12/10 14:12:46.923348 Node 8: EXECUTING seq=21 (6041→6042,1)
+[Node 8] 2025/12/10 14:12:46.923357 Kind of circular Node 8: executeRequest seq=21 (6041→6042,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.923365 [Database] executing txn (bolt) (6041,6042,1)
+[Node 8] 2025/12/10 14:12:46.924284 Node 8: Commit RPC seq=22 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.939071 [Database] txn success (bolt): 6041 -> 6042 amount 1
+[Node 8] 2025/12/10 14:12:46.939193 Node 8: EXECUTING seq=22 (6043→6044,1)
+[Node 8] 2025/12/10 14:12:46.939206 Kind of circular Node 8: executeRequest seq=22 (6043→6044,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.939464 [Database] executing txn (bolt) (6043,6044,1)
+[Node 8] 2025/12/10 14:12:46.940264 Node 8: Accept RPC seq=23 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.951151 Node 8 ACCEPT seq=23 ballot=(3,7) txn=(6045→6046,1)
+[Node 8] 2025/12/10 14:12:46.954137 Node 8: Accepted seq 23
+[Node 8] 2025/12/10 14:12:46.962735 Node 8: Commit RPC seq=23 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.965172 [Database] txn success (bolt): 6043 -> 6044 amount 1
+[Node 8] 2025/12/10 14:12:46.965180 Node 8: EXECUTING seq=23 (6045→6046,1)
+[Node 8] 2025/12/10 14:12:46.965184 Kind of circular Node 8: executeRequest seq=23 (6045→6046,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:46.965188 [Database] executing txn (bolt) (6045,6046,1)
+[Node 8] 2025/12/10 14:12:46.980962 [Database] txn success (bolt): 6045 -> 6046 amount 1
+[Node 8] 2025/12/10 14:12:46.981158 Node 8: gap at seq=24 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:46.981219 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:46.989316 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:46.994351 Node 8: Accept RPC seq=26 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.997314 Node 8 ACCEPT seq=26 ballot=(3,7) txn=(6051→6052,1)
+[Node 8] 2025/12/10 14:12:46.994360 Node 8: Accept RPC seq=24 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:46.994391 Node 8: Accept RPC seq=25 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.001114 Node 8: Accepted seq 26
+[Node 8] 2025/12/10 14:12:47.005333 Node 8 ACCEPT seq=25 ballot=(3,7) txn=(6047→6048,1)
+[Node 8] 2025/12/10 14:12:47.005344 Node 8: Accepted seq 25
+[Node 8] 2025/12/10 14:12:47.005353 Node 8 ACCEPT seq=24 ballot=(3,7) txn=(6049→6050,1)
+[Node 8] 2025/12/10 14:12:47.005369 Node 8: Accepted seq 24
+[Node 8] 2025/12/10 14:12:47.005656 Node 8: EXECUTING seq=11 (6021→6022,1)
+[Node 8] 2025/12/10 14:12:47.009189 Kind of circular Node 8: executeRequest seq=11 (6021→6022,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.009219 [Database] executing txn (bolt) (6021,6022,1)
+[Node 8] 2025/12/10 14:12:47.009524 Node 8: Commit RPC seq=24 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.021220 Node 8: Commit RPC seq=26 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.021260 Node 8: Commit RPC seq=25 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.028026 [Database] txn success (bolt): 6021 -> 6022 amount 1
+[Node 8] 2025/12/10 14:12:47.028344 Node 8: EXECUTING seq=12 (6023→6024,1)
+[Node 8] 2025/12/10 14:12:47.032354 Kind of circular Node 8: executeRequest seq=12 (6023→6024,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.028926 Node 8: Accept RPC seq=27 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.040392 Node 8 ACCEPT seq=27 ballot=(3,7) txn=(6053→6054,1)
+[Node 8] 2025/12/10 14:12:47.040398 Node 8: Accepted seq 27
+[Node 8] 2025/12/10 14:12:47.036233 [Database] executing txn (bolt) (6023,6024,1)
+[Node 8] 2025/12/10 14:12:47.041044 Node 8: Accept RPC seq=29 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.044346 Node 8 ACCEPT seq=29 ballot=(3,7) txn=(6057→6058,1)
+[Node 8] 2025/12/10 14:12:47.041086 Node 8: Accept RPC seq=28 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.048378 Node 8: Accepted seq 29
+[Node 8] 2025/12/10 14:12:47.056094 [Database] txn success (bolt): 6023 -> 6024 amount 1
+[Node 8] 2025/12/10 14:12:47.056382 Node 8 ACCEPT seq=28 ballot=(3,7) txn=(6055→6056,1)
+[Node 8] 2025/12/10 14:12:47.056390 Node 8: Accepted seq 28
+[Node 8] 2025/12/10 14:12:47.056412 Node 8: EXECUTING seq=24 (6049→6050,1)
+[Node 8] 2025/12/10 14:12:47.056421 Kind of circular Node 8: executeRequest seq=24 (6049→6050,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.056428 [Database] executing txn (bolt) (6049,6050,1)
+[Node 8] 2025/12/10 14:12:47.057017 Node 8: Accept RPC seq=30 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.060147 Node 8 ACCEPT seq=30 ballot=(3,7) txn=(6059→6060,1)
+[Node 8] 2025/12/10 14:12:47.057031 Node 8: Commit RPC seq=27 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.064330 Node 8: Accepted seq 30
+[Node 8] 2025/12/10 14:12:47.071954 [Database] txn success (bolt): 6049 -> 6050 amount 1
+[Node 8] 2025/12/10 14:12:47.072155 Node 8: EXECUTING seq=25 (6047→6048,1)
+[Node 8] 2025/12/10 14:12:47.072161 Kind of circular Node 8: executeRequest seq=25 (6047→6048,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.072166 [Database] executing txn (bolt) (6047,6048,1)
+[Node 8] 2025/12/10 14:12:47.072622 Node 8: Commit RPC seq=29 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.072635 Node 8: Commit RPC seq=28 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.088125 [Database] txn success (bolt): 6047 -> 6048 amount 1
+[Node 8] 2025/12/10 14:12:47.088174 Node 8: EXECUTING seq=26 (6051→6052,1)
+[Node 8] 2025/12/10 14:12:47.088195 Kind of circular Node 8: executeRequest seq=26 (6051→6052,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.088214 [Database] executing txn (bolt) (6051,6052,1)
+[Node 8] 2025/12/10 14:12:47.088796 Node 8: Commit RPC seq=30 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.094712 Node 8: Accept RPC seq=31 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.101141 Node 8 ACCEPT seq=31 ballot=(3,7) txn=(6061→6062,1)
+[Node 8] 2025/12/10 14:12:47.104171 Node 8: Accepted seq 31
+[Node 8] 2025/12/10 14:12:47.104028 [Database] txn success (bolt): 6051 -> 6052 amount 1
+[Node 8] 2025/12/10 14:12:47.104228 Node 8: EXECUTING seq=27 (6053→6054,1)
+[Node 8] 2025/12/10 14:12:47.104232 Kind of circular Node 8: executeRequest seq=27 (6053→6054,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.104238 [Database] executing txn (bolt) (6053,6054,1)
+[Node 8] 2025/12/10 14:12:47.121972 [Database] txn success (bolt): 6053 -> 6054 amount 1
+[Node 8] 2025/12/10 14:12:47.125212 Node 8: EXECUTING seq=28 (6055→6056,1)
+[Node 8] 2025/12/10 14:12:47.125227 Kind of circular Node 8: executeRequest seq=28 (6055→6056,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.125235 [Database] executing txn (bolt) (6055,6056,1)
+[Node 8] 2025/12/10 14:12:47.131935 Node 8: Commit RPC seq=31 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.143855 Node 8: Accept RPC seq=32 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.147054 Node 8 ACCEPT seq=32 ballot=(3,7) txn=(6063→6064,1)
+[Node 8] 2025/12/10 14:12:47.147060 Node 8: Accepted seq 32
+[Node 8] 2025/12/10 14:12:47.146981 [Database] txn success (bolt): 6055 -> 6056 amount 1
+[Node 8] 2025/12/10 14:12:47.147091 Node 8: EXECUTING seq=29 (6057→6058,1)
+[Node 8] 2025/12/10 14:12:47.147095 Kind of circular Node 8: executeRequest seq=29 (6057→6058,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.147099 [Database] executing txn (bolt) (6057,6058,1)
+[Node 8] 2025/12/10 14:12:47.147965 Node 8: Commit RPC seq=32 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.148057 Node 8: Accept RPC seq=33 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.157082 Node 8 ACCEPT seq=33 ballot=(3,7) txn=(6065→6066,1)
+[Node 8] 2025/12/10 14:12:47.161132 Node 8: Accepted seq 33
+[Node 8] 2025/12/10 14:12:47.164933 [Database] txn success (bolt): 6057 -> 6058 amount 1
+[Node 8] 2025/12/10 14:12:47.165056 Node 8: EXECUTING seq=30 (6059→6060,1)
+[Node 8] 2025/12/10 14:12:47.165066 Kind of circular Node 8: executeRequest seq=30 (6059→6060,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.165078 [Database] executing txn (bolt) (6059,6060,1)
+[Node 8] 2025/12/10 14:12:47.165537 Node 8: Commit RPC seq=33 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.184068 [Database] txn success (bolt): 6059 -> 6060 amount 1
+[Node 8] 2025/12/10 14:12:47.184397 Node 8: EXECUTING seq=31 (6061→6062,1)
+[Node 8] 2025/12/10 14:12:47.184405 Kind of circular Node 8: executeRequest seq=31 (6061→6062,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.184411 [Database] executing txn (bolt) (6061,6062,1)
+[Node 8] 2025/12/10 14:12:47.185094 Node 8: Accept RPC seq=34 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.187401 Node 8 ACCEPT seq=34 ballot=(3,7) txn=(6067→6068,1)
+[Node 8] 2025/12/10 14:12:47.191303 Node 8: Accepted seq 34
+[Node 8] 2025/12/10 14:12:47.198031 [Database] txn success (bolt): 6061 -> 6062 amount 1
+[Node 8] 2025/12/10 14:12:47.198280 Node 8: EXECUTING seq=32 (6063→6064,1)
+[Node 8] 2025/12/10 14:12:47.202360 Kind of circular Node 8: executeRequest seq=32 (6063→6064,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.206335 [Database] executing txn (bolt) (6063,6064,1)
+[Node 8] 2025/12/10 14:12:47.202771 Node 8: Accept RPC seq=35 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.210178 Node 8 ACCEPT seq=35 ballot=(3,7) txn=(6069→6070,1)
+[Node 8] 2025/12/10 14:12:47.210185 Node 8: Accepted seq 35
+[Node 8] 2025/12/10 14:12:47.210611 Node 8: Commit RPC seq=34 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.226631 Node 8: Commit RPC seq=35 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.230045 [Database] txn success (bolt): 6063 -> 6064 amount 1
+[Node 8] 2025/12/10 14:12:47.234037 Node 8: EXECUTING seq=33 (6065→6066,1)
+[Node 8] 2025/12/10 14:12:47.238279 Kind of circular Node 8: executeRequest seq=33 (6065→6066,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.238286 [Database] executing txn (bolt) (6065,6066,1)
+[Node 8] 2025/12/10 14:12:47.258062 [Database] txn success (bolt): 6065 -> 6066 amount 1
+[Node 8] 2025/12/10 14:12:47.258338 Node 8: EXECUTING seq=34 (6067→6068,1)
+[Node 8] 2025/12/10 14:12:47.262230 Kind of circular Node 8: executeRequest seq=34 (6067→6068,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.262243 [Database] executing txn (bolt) (6067,6068,1)
+[Node 8] 2025/12/10 14:12:47.262842 Node 8: Accept RPC seq=36 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.266345 Node 8 ACCEPT seq=36 ballot=(3,7) txn=(6071→6072,1)
+[Node 8] 2025/12/10 14:12:47.262869 Node 8: Accept RPC seq=37 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.270265 Node 8: Accepted seq 36
+[Node 8] 2025/12/10 14:12:47.278287 Node 8 ACCEPT seq=37 ballot=(3,7) txn=(6073→6074,1)
+[Node 8] 2025/12/10 14:12:47.278299 Node 8: Accepted seq 37
+[Node 8] 2025/12/10 14:12:47.282057 [Database] txn success (bolt): 6067 -> 6068 amount 1
+[Node 8] 2025/12/10 14:12:47.286317 Node 8: EXECUTING seq=35 (6069→6070,1)
+[Node 8] 2025/12/10 14:12:47.282922 Node 8: Accept RPC seq=38 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.294274 Node 8 ACCEPT seq=38 ballot=(3,7) txn=(6075→6076,1)
+[Node 8] 2025/12/10 14:12:47.290348 Kind of circular Node 8: executeRequest seq=35 (6069→6070,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.291143 Node 8: Commit RPC seq=36 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.294297 Node 8: Accepted seq 38
+[Node 8] 2025/12/10 14:12:47.294330 [Database] executing txn (bolt) (6069,6070,1)
+[Node 8] 2025/12/10 14:12:47.294820 Node 8: Commit RPC seq=37 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.294873 Node 8: Accept RPC seq=39 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.302284 Node 8 ACCEPT seq=39 ballot=(3,7) txn=(6077→6078,1)
+[Node 8] 2025/12/10 14:12:47.306106 Node 8: Accepted seq 39
+[Node 8] 2025/12/10 14:12:47.302907 Node 8: Commit RPC seq=38 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.313941 [Database] txn success (bolt): 6069 -> 6070 amount 1
+[Node 8] 2025/12/10 14:12:47.318520 Node 8: EXECUTING seq=36 (6071→6072,1)
+[Node 8] 2025/12/10 14:12:47.322091 Kind of circular Node 8: executeRequest seq=36 (6071→6072,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.326177 [Database] executing txn (bolt) (6071,6072,1)
+[Node 8] 2025/12/10 14:12:47.322497 Node 8: Accept RPC seq=40 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.326243 Node 8 ACCEPT seq=40 ballot=(3,7) txn=(6079→6080,1)
+[Node 8] 2025/12/10 14:12:47.326257 Node 8: Accepted seq 40
+[Node 8] 2025/12/10 14:12:47.326695 Node 8: Commit RPC seq=39 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.342030 [Database] txn success (bolt): 6071 -> 6072 amount 1
+[Node 8] 2025/12/10 14:12:47.342342 Node 8: EXECUTING seq=37 (6073→6074,1)
+[Node 8] 2025/12/10 14:12:47.342362 Kind of circular Node 8: executeRequest seq=37 (6073→6074,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.342373 [Database] executing txn (bolt) (6073,6074,1)
+[Node 8] 2025/12/10 14:12:47.342869 Node 8: Commit RPC seq=40 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.359006 Node 8: Accept RPC seq=41 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.366399 Node 8 ACCEPT seq=41 ballot=(3,7) txn=(6081→6082,1)
+[Node 8] 2025/12/10 14:12:47.362116 [Database] txn success (bolt): 6073 -> 6074 amount 1
+[Node 8] 2025/12/10 14:12:47.370347 Node 8: Accepted seq 41
+[Node 8] 2025/12/10 14:12:47.374346 Node 8: EXECUTING seq=38 (6075→6076,1)
+[Node 8] 2025/12/10 14:12:47.374369 Kind of circular Node 8: executeRequest seq=38 (6075→6076,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.374387 [Database] executing txn (bolt) (6075,6076,1)
+[Node 8] 2025/12/10 14:12:47.375011 Node 8: Accept RPC seq=42 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.378302 Node 8 ACCEPT seq=42 ballot=(3,7) txn=(6083→6084,1)
+[Node 8] 2025/12/10 14:12:47.378314 Node 8: Accepted seq 42
+[Node 8] 2025/12/10 14:12:47.378850 Node 8: Commit RPC seq=41 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.393994 [Database] txn success (bolt): 6075 -> 6076 amount 1
+[Node 8] 2025/12/10 14:12:47.394192 Node 8: EXECUTING seq=39 (6077→6078,1)
+[Node 8] 2025/12/10 14:12:47.394202 Kind of circular Node 8: executeRequest seq=39 (6077→6078,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.394212 [Database] executing txn (bolt) (6077,6078,1)
+[Node 8] 2025/12/10 14:12:47.394825 Node 8: Accept RPC seq=43 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.398234 Node 8 ACCEPT seq=43 ballot=(3,7) txn=(6085→6086,1)
+[Node 8] 2025/12/10 14:12:47.402173 Node 8: Accepted seq 43
+[Node 8] 2025/12/10 14:12:47.411003 Node 8: Commit RPC seq=42 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.413980 [Database] txn success (bolt): 6077 -> 6078 amount 1
+[Node 8] 2025/12/10 14:12:47.418224 Node 8: EXECUTING seq=40 (6079→6080,1)
+[Node 8] 2025/12/10 14:12:47.422205 Kind of circular Node 8: executeRequest seq=40 (6079→6080,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.426277 [Database] executing txn (bolt) (6079,6080,1)
+[Node 8] 2025/12/10 14:12:47.422472 Node 8: Commit RPC seq=43 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.442012 [Database] txn success (bolt): 6079 -> 6080 amount 1
+[Node 8] 2025/12/10 14:12:47.442137 Node 8: EXECUTING seq=41 (6081→6082,1)
+[Node 8] 2025/12/10 14:12:47.442143 Kind of circular Node 8: executeRequest seq=41 (6081→6082,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.442149 [Database] executing txn (bolt) (6081,6082,1)
+[Node 8] 2025/12/10 14:12:47.443163 Node 8: Accept RPC seq=44 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.446099 Node 8 ACCEPT seq=44 ballot=(3,7) txn=(6087→6088,1)
+[Node 8] 2025/12/10 14:12:47.443232 Node 8: Accept RPC seq=45 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.450197 Node 8: Accepted seq 44
+[Node 8] 2025/12/10 14:12:47.450537 Node 8 ACCEPT seq=45 ballot=(3,7) txn=(6089→6090,1)
+[Node 8] 2025/12/10 14:12:47.454322 Node 8: Accepted seq 45
+[Node 8] 2025/12/10 14:12:47.454998 Node 8: Commit RPC seq=44 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.455037 Node 8: Accept RPC seq=46 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.462197 Node 8 ACCEPT seq=46 ballot=(3,7) txn=(6091→6092,1)
+[Node 8] 2025/12/10 14:12:47.457981 [Database] txn success (bolt): 6081 -> 6082 amount 1
+[Node 8] 2025/12/10 14:12:47.466255 Node 8: Accepted seq 46
+[Node 8] 2025/12/10 14:12:47.466277 Node 8: EXECUTING seq=42 (6083→6084,1)
+[Node 8] 2025/12/10 14:12:47.470315 Kind of circular Node 8: executeRequest seq=42 (6083→6084,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.470325 [Database] executing txn (bolt) (6083,6084,1)
+[Node 8] 2025/12/10 14:12:47.466896 Node 8: Commit RPC seq=45 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.486933 Node 8: Commit RPC seq=46 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.489989 [Database] txn success (bolt): 6083 -> 6084 amount 1
+[Node 8] 2025/12/10 14:12:47.494120 Node 8: EXECUTING seq=43 (6085→6086,1)
+[Node 8] 2025/12/10 14:12:47.502160 Kind of circular Node 8: executeRequest seq=43 (6085→6086,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.502172 [Database] executing txn (bolt) (6085,6086,1)
+[Node 8] 2025/12/10 14:12:47.502805 Node 8: Accept RPC seq=47 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.510189 Node 8 ACCEPT seq=47 ballot=(3,7) txn=(6093→6094,1)
+[Node 8] 2025/12/10 14:12:47.514353 Node 8: Accepted seq 47
+[Node 8] 2025/12/10 14:12:47.518988 Node 8: Accept RPC seq=48 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.522428 Node 8 ACCEPT seq=48 ballot=(3,7) txn=(6095→6096,1)
+[Node 8] 2025/12/10 14:12:47.522437 Node 8: Accepted seq 48
+[Node 8] 2025/12/10 14:12:47.522072 [Database] txn success (bolt): 6085 -> 6086 amount 1
+[Node 8] 2025/12/10 14:12:47.522464 Node 8: EXECUTING seq=44 (6087→6088,1)
+[Node 8] 2025/12/10 14:12:47.522469 Kind of circular Node 8: executeRequest seq=44 (6087→6088,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.522476 [Database] executing txn (bolt) (6087,6088,1)
+[Node 8] 2025/12/10 14:12:47.531047 Node 8: Accept RPC seq=49 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.534305 Node 8 ACCEPT seq=49 ballot=(3,7) txn=(6097→6098,1)
+[Node 8] 2025/12/10 14:12:47.534313 Node 8: Accepted seq 49
+[Node 8] 2025/12/10 14:12:47.535173 Node 8: Commit RPC seq=47 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.535208 Node 8: Commit RPC seq=48 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.538064 [Database] txn success (bolt): 6087 -> 6088 amount 1
+[Node 8] 2025/12/10 14:12:47.538576 Node 8: EXECUTING seq=45 (6089→6090,1)
+[Node 8] 2025/12/10 14:12:47.538652 Kind of circular Node 8: executeRequest seq=45 (6089→6090,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.542398 [Database] executing txn (bolt) (6089,6090,1)
+[Node 8] 2025/12/10 14:12:47.558287 Node 8: Accept RPC seq=50 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.565242 Node 8 ACCEPT seq=50 ballot=(3,7) txn=(6099→6100,1)
+[Node 8] 2025/12/10 14:12:47.558378 Node 8: Commit RPC seq=49 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.565060 [Database] txn success (bolt): 6089 -> 6090 amount 1
+[Node 8] 2025/12/10 14:12:47.565318 Node 8: Accepted seq 50
+[Node 8] 2025/12/10 14:12:47.565379 Node 8: EXECUTING seq=46 (6091→6092,1)
+[Node 8] 2025/12/10 14:12:47.565397 Kind of circular Node 8: executeRequest seq=46 (6091→6092,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.565410 [Database] executing txn (bolt) (6091,6092,1)
+[Node 8] 2025/12/10 14:12:47.573829 Node 8: Accept RPC seq=51 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.577294 Node 8 ACCEPT seq=51 ballot=(3,7) txn=(6101→6102,1)
+[Node 8] 2025/12/10 14:12:47.577313 Node 8: Accepted seq 51
+[Node 8] 2025/12/10 14:12:47.578002 Node 8: Commit RPC seq=50 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.580148 [Database] txn success (bolt): 6091 -> 6092 amount 1
+[Node 8] 2025/12/10 14:12:47.584393 Node 8: EXECUTING seq=47 (6093→6094,1)
+[Node 8] 2025/12/10 14:12:47.584399 Kind of circular Node 8: executeRequest seq=47 (6093→6094,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.584408 [Database] executing txn (bolt) (6093,6094,1)
+[Node 8] 2025/12/10 14:12:47.585296 Node 8: Commit RPC seq=51 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.585333 Node 8: Accept RPC seq=52 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.588139 Node 8 ACCEPT seq=52 ballot=(3,7) txn=(6103→6104,1)
+[Node 8] 2025/12/10 14:12:47.588144 Node 8: Accepted seq 52
+[Node 8] 2025/12/10 14:12:47.600950 [Database] txn success (bolt): 6093 -> 6094 amount 1
+[Node 8] 2025/12/10 14:12:47.601046 Node 8: EXECUTING seq=48 (6095→6096,1)
+[Node 8] 2025/12/10 14:12:47.601053 Kind of circular Node 8: executeRequest seq=48 (6095→6096,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.601059 [Database] executing txn (bolt) (6095,6096,1)
+[Node 8] 2025/12/10 14:12:47.601681 Node 8: Commit RPC seq=52 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.611985 [Database] txn success (bolt): 6095 -> 6096 amount 1
+[Node 8] 2025/12/10 14:12:47.612132 Node 8: EXECUTING seq=49 (6097→6098,1)
+[Node 8] 2025/12/10 14:12:47.612139 Kind of circular Node 8: executeRequest seq=49 (6097→6098,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.612145 [Database] executing txn (bolt) (6097,6098,1)
+[Node 8] 2025/12/10 14:12:47.616707 Node 8: Accept RPC seq=53 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.620188 Node 8 ACCEPT seq=53 ballot=(3,7) txn=(6105→6106,1)
+[Node 8] 2025/12/10 14:12:47.620194 Node 8: Accepted seq 53
+[Node 8] 2025/12/10 14:12:47.623729 Node 8: Commit RPC seq=53 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.627878 Node 8: Accept RPC seq=54 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.631280 Node 8 ACCEPT seq=54 ballot=(3,7) txn=(6107→6108,1)
+[Node 8] 2025/12/10 14:12:47.635287 Node 8: Accepted seq 54
+[Node 8] 2025/12/10 14:12:47.631007 [Database] txn success (bolt): 6097 -> 6098 amount 1
+[Node 8] 2025/12/10 14:12:47.643311 Node 8: EXECUTING seq=50 (6099→6100,1)
+[Node 8] 2025/12/10 14:12:47.643318 Kind of circular Node 8: executeRequest seq=50 (6099→6100,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.643324 [Database] executing txn (bolt) (6099,6100,1)
+[Node 8] 2025/12/10 14:12:47.644006 Node 8: Accept RPC seq=55 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.647126 Node 8 ACCEPT seq=55 ballot=(3,7) txn=(6109→6110,1)
+[Node 8] 2025/12/10 14:12:47.651312 Node 8: Accepted seq 55
+[Node 8] 2025/12/10 14:12:47.652004 Node 8: Commit RPC seq=54 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.659005 [Database] txn success (bolt): 6099 -> 6100 amount 1
+[Node 8] 2025/12/10 14:12:47.659215 Node 8: EXECUTING seq=51 (6101→6102,1)
+[Node 8] 2025/12/10 14:12:47.659230 Kind of circular Node 8: executeRequest seq=51 (6101→6102,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.659238 [Database] executing txn (bolt) (6101,6102,1)
+[Node 8] 2025/12/10 14:12:47.659898 Node 8: Accept RPC seq=56 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.663532 Node 8 ACCEPT seq=56 ballot=(3,7) txn=(6111→6112,1)
+[Node 8] 2025/12/10 14:12:47.659899 Node 8: Commit RPC seq=55 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.667216 Node 8: Accepted seq 56
+[Node 8] 2025/12/10 14:12:47.674989 [Database] txn success (bolt): 6101 -> 6102 amount 1
+[Node 8] 2025/12/10 14:12:47.675218 Node 8: EXECUTING seq=52 (6103→6104,1)
+[Node 8] 2025/12/10 14:12:47.675224 Kind of circular Node 8: executeRequest seq=52 (6103→6104,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.675230 [Database] executing txn (bolt) (6103,6104,1)
+[Node 8] 2025/12/10 14:12:47.691970 Node 8: Commit RPC seq=56 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.695054 [Database] txn success (bolt): 6103 -> 6104 amount 1
+[Node 8] 2025/12/10 14:12:47.695398 Node 8: EXECUTING seq=53 (6105→6106,1)
+[Node 8] 2025/12/10 14:12:47.695404 Kind of circular Node 8: executeRequest seq=53 (6105→6106,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.699275 [Database] executing txn (bolt) (6105,6106,1)
+[Node 8] 2025/12/10 14:12:47.711044 Node 8: Accept RPC seq=58 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.714172 Node 8 ACCEPT seq=58 ballot=(3,7) txn=(6115→6116,1)
+[Node 8] 2025/12/10 14:12:47.711059 Node 8: Accept RPC seq=57 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.718251 Node 8: Accepted seq 58
+[Node 8] 2025/12/10 14:12:47.725159 Node 8 ACCEPT seq=57 ballot=(3,7) txn=(6113→6114,1)
+[Node 8] 2025/12/10 14:12:47.725174 Node 8: Accepted seq 57
+[Node 8] 2025/12/10 14:12:47.718775 Node 8: Commit RPC seq=57 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.721115 [Database] txn success (bolt): 6105 -> 6106 amount 1
+[Node 8] 2025/12/10 14:12:47.725218 Node 8: EXECUTING seq=54 (6107→6108,1)
+[Node 8] 2025/12/10 14:12:47.725224 Kind of circular Node 8: executeRequest seq=54 (6107→6108,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.725230 [Database] executing txn (bolt) (6107,6108,1)
+[Node 8] 2025/12/10 14:12:47.725791 Node 8: Accept RPC seq=59 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.729286 Node 8 ACCEPT seq=59 ballot=(3,7) txn=(6117→6118,1)
+[Node 8] 2025/12/10 14:12:47.733176 Node 8: Accepted seq 59
+[Node 8] 2025/12/10 14:12:47.741094 [Database] txn success (bolt): 6107 -> 6108 amount 1
+[Node 8] 2025/12/10 14:12:47.741204 Node 8: EXECUTING seq=55 (6109→6110,1)
+[Node 8] 2025/12/10 14:12:47.741230 Kind of circular Node 8: executeRequest seq=55 (6109→6110,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.741255 [Database] executing txn (bolt) (6109,6110,1)
+[Node 8] 2025/12/10 14:12:47.741872 Node 8: Commit RPC seq=58 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.757554 Node 8: Commit RPC seq=59 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.761029 [Database] txn success (bolt): 6109 -> 6110 amount 1
+[Node 8] 2025/12/10 14:12:47.761209 Node 8: EXECUTING seq=56 (6111→6112,1)
+[Node 8] 2025/12/10 14:12:47.761213 Kind of circular Node 8: executeRequest seq=56 (6111→6112,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.761221 [Database] executing txn (bolt) (6111,6112,1)
+[Node 8] 2025/12/10 14:12:47.761834 Node 8: Accept RPC seq=60 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.765289 Node 8 ACCEPT seq=60 ballot=(3,7) txn=(6119→6120,1)
+[Node 8] 2025/12/10 14:12:47.769416 Node 8: Accepted seq 60
+[Node 8] 2025/12/10 14:12:47.775985 [Database] txn success (bolt): 6111 -> 6112 amount 1
+[Node 8] 2025/12/10 14:12:47.776171 Node 8: EXECUTING seq=57 (6113→6114,1)
+[Node 8] 2025/12/10 14:12:47.776178 Kind of circular Node 8: executeRequest seq=57 (6113→6114,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.776187 [Database] executing txn (bolt) (6113,6114,1)
+[Node 8] 2025/12/10 14:12:47.780573 Node 8: Accept RPC seq=61 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.784223 Node 8 ACCEPT seq=61 ballot=(3,7) txn=(6121→6122,1)
+[Node 8] 2025/12/10 14:12:47.784233 Node 8: Accepted seq 61
+[Node 8] 2025/12/10 14:12:47.792912 Node 8: Commit RPC seq=61 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.792924 Node 8: Commit RPC seq=60 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.796073 [Database] txn success (bolt): 6113 -> 6114 amount 1
+[Node 8] 2025/12/10 14:12:47.804272 Node 8: EXECUTING seq=58 (6115→6116,1)
+[Node 8] 2025/12/10 14:12:47.808271 Kind of circular Node 8: executeRequest seq=58 (6115→6116,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.808285 [Database] executing txn (bolt) (6115,6116,1)
+[Node 8] 2025/12/10 14:12:47.808945 Node 8: Accept RPC seq=62 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.812423 Node 8 ACCEPT seq=62 ballot=(3,7) txn=(6123→6124,1)
+[Node 8] 2025/12/10 14:12:47.816241 Node 8: Accepted seq 62
+[Node 8] 2025/12/10 14:12:47.824043 [Database] txn success (bolt): 6115 -> 6116 amount 1
+[Node 8] 2025/12/10 14:12:47.824281 Node 8: EXECUTING seq=59 (6117→6118,1)
+[Node 8] 2025/12/10 14:12:47.824289 Kind of circular Node 8: executeRequest seq=59 (6117→6118,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.824297 [Database] executing txn (bolt) (6117,6118,1)
+[Node 8] 2025/12/10 14:12:47.833554 Node 8: Commit RPC seq=62 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.845068 Node 8: Accept RPC seq=63 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.848178 Node 8 ACCEPT seq=63 ballot=(3,7) txn=(6125→6126,1)
+[Node 8] 2025/12/10 14:12:47.848186 Node 8: Accepted seq 63
+[Node 8] 2025/12/10 14:12:47.848011 [Database] txn success (bolt): 6117 -> 6118 amount 1
+[Node 8] 2025/12/10 14:12:47.848213 Node 8: EXECUTING seq=60 (6119→6120,1)
+[Node 8] 2025/12/10 14:12:47.848218 Kind of circular Node 8: executeRequest seq=60 (6119→6120,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.848223 [Database] executing txn (bolt) (6119,6120,1)
+[Node 8] 2025/12/10 14:12:47.865282 Node 8: Accept RPC seq=64 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.867418 Node 8 ACCEPT seq=64 ballot=(3,7) txn=(6127→6128,1)
+[Node 8] 2025/12/10 14:12:47.865316 Node 8: Commit RPC seq=63 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.867107 [Database] txn success (bolt): 6119 -> 6120 amount 1
+[Node 8] 2025/12/10 14:12:47.871504 Node 8: Accepted seq 64
+[Node 8] 2025/12/10 14:12:47.875462 Node 8: EXECUTING seq=61 (6121→6122,1)
+[Node 8] 2025/12/10 14:12:47.875533 Kind of circular Node 8: executeRequest seq=61 (6121→6122,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.875579 [Database] executing txn (bolt) (6121,6122,1)
+[Node 8] 2025/12/10 14:12:47.876172 Node 8: Accept RPC seq=65 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.881262 Node 8 ACCEPT seq=65 ballot=(3,7) txn=(6129→6130,1)
+[Node 8] 2025/12/10 14:12:47.884354 Node 8: Accepted seq 65
+[Node 8] 2025/12/10 14:12:47.889488 Node 8: Commit RPC seq=64 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.898010 [Database] txn success (bolt): 6121 -> 6122 amount 1
+[Node 8] 2025/12/10 14:12:47.898229 Node 8: EXECUTING seq=62 (6123→6124,1)
+[Node 8] 2025/12/10 14:12:47.898244 Kind of circular Node 8: executeRequest seq=62 (6123→6124,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.898253 [Database] executing txn (bolt) (6123,6124,1)
+[Node 8] 2025/12/10 14:12:47.899188 Node 8: Commit RPC seq=65 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.901758 Node 8: Accept RPC seq=66 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.908163 Node 8 ACCEPT seq=66 ballot=(3,7) txn=(6131→6132,1)
+[Node 8] 2025/12/10 14:12:47.908178 Node 8: Accepted seq 66
+[Node 8] 2025/12/10 14:12:47.908735 Node 8: Accept RPC seq=67 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.912123 Node 8 ACCEPT seq=67 ballot=(3,7) txn=(6133→6134,1)
+[Node 8] 2025/12/10 14:12:47.912132 Node 8: Accepted seq 67
+[Node 8] 2025/12/10 14:12:47.911993 [Database] txn success (bolt): 6123 -> 6124 amount 1
+[Node 8] 2025/12/10 14:12:47.912161 Node 8: EXECUTING seq=63 (6125→6126,1)
+[Node 8] 2025/12/10 14:12:47.912168 Kind of circular Node 8: executeRequest seq=63 (6125→6126,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.912175 [Database] executing txn (bolt) (6125,6126,1)
+[Node 8] 2025/12/10 14:12:47.928042 [Database] txn success (bolt): 6125 -> 6126 amount 1
+[Node 8] 2025/12/10 14:12:47.928242 Node 8: EXECUTING seq=64 (6127→6128,1)
+[Node 8] 2025/12/10 14:12:47.928251 Kind of circular Node 8: executeRequest seq=64 (6127→6128,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.928258 [Database] executing txn (bolt) (6127,6128,1)
+[Node 8] 2025/12/10 14:12:47.928920 Node 8: Commit RPC seq=66 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.928920 Node 8: Commit RPC seq=67 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.938623 Node 8: Accept RPC seq=68 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.942281 Node 8 ACCEPT seq=68 ballot=(3,7) txn=(6135→6136,1)
+[Node 8] 2025/12/10 14:12:47.946098 Node 8: Accepted seq 68
+[Node 8] 2025/12/10 14:12:47.945999 [Database] txn success (bolt): 6127 -> 6128 amount 1
+[Node 8] 2025/12/10 14:12:47.946138 Node 8: EXECUTING seq=65 (6129→6130,1)
+[Node 8] 2025/12/10 14:12:47.946144 Kind of circular Node 8: executeRequest seq=65 (6129→6130,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.946150 [Database] executing txn (bolt) (6129,6130,1)
+[Node 8] 2025/12/10 14:12:47.957851 Node 8: Commit RPC seq=68 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.963139 [Database] txn success (bolt): 6129 -> 6130 amount 1
+[Node 8] 2025/12/10 14:12:47.963449 Node 8: EXECUTING seq=66 (6131→6132,1)
+[Node 8] 2025/12/10 14:12:47.963453 Kind of circular Node 8: executeRequest seq=66 (6131→6132,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.963458 [Database] executing txn (bolt) (6131,6132,1)
+[Node 8] 2025/12/10 14:12:47.963965 Node 8: Accept RPC seq=69 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.966234 Node 8 ACCEPT seq=69 ballot=(3,7) txn=(6137→6138,1)
+[Node 8] 2025/12/10 14:12:47.970082 Node 8: Accepted seq 69
+[Node 8] 2025/12/10 14:12:47.978036 [Database] txn success (bolt): 6131 -> 6132 amount 1
+[Node 8] 2025/12/10 14:12:47.978252 Node 8: EXECUTING seq=67 (6133→6134,1)
+[Node 8] 2025/12/10 14:12:47.978261 Kind of circular Node 8: executeRequest seq=67 (6133→6134,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.978269 [Database] executing txn (bolt) (6133,6134,1)
+[Node 8] 2025/12/10 14:12:47.978696 Node 8: Accept RPC seq=70 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.982124 Node 8 ACCEPT seq=70 ballot=(3,7) txn=(6139→6140,1)
+[Node 8] 2025/12/10 14:12:47.986245 Node 8: Accepted seq 70
+[Node 8] 2025/12/10 14:12:47.994024 [Database] txn success (bolt): 6133 -> 6134 amount 1
+[Node 8] 2025/12/10 14:12:47.994151 Node 8: EXECUTING seq=68 (6135→6136,1)
+[Node 8] 2025/12/10 14:12:47.998216 Kind of circular Node 8: executeRequest seq=68 (6135→6136,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:47.998228 [Database] executing txn (bolt) (6135,6136,1)
+[Node 8] 2025/12/10 14:12:47.994612 Node 8: Commit RPC seq=69 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:47.998889 Node 8: Commit RPC seq=70 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.018112 [Database] txn success (bolt): 6135 -> 6136 amount 1
+[Node 8] 2025/12/10 14:12:48.018244 Node 8: EXECUTING seq=69 (6137→6138,1)
+[Node 8] 2025/12/10 14:12:48.018251 Kind of circular Node 8: executeRequest seq=69 (6137→6138,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.018258 [Database] executing txn (bolt) (6137,6138,1)
+[Node 8] 2025/12/10 14:12:48.018833 Node 8: Accept RPC seq=71 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.024196 Node 8 ACCEPT seq=71 ballot=(3,7) txn=(6141→6142,1)
+[Node 8] 2025/12/10 14:12:48.028242 Node 8: Accepted seq 71
+[Node 8] 2025/12/10 14:12:48.036776 Node 8: Commit RPC seq=71 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.040010 [Database] txn success (bolt): 6137 -> 6138 amount 1
+[Node 8] 2025/12/10 14:12:48.044183 Node 8: EXECUTING seq=70 (6139→6140,1)
+[Node 8] 2025/12/10 14:12:48.048277 Kind of circular Node 8: executeRequest seq=70 (6139→6140,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.048295 [Database] executing txn (bolt) (6139,6140,1)
+[Node 8] 2025/12/10 14:12:48.056639 Node 8: Accept RPC seq=72 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.060326 Node 8 ACCEPT seq=72 ballot=(3,7) txn=(6143→6144,1)
+[Node 8] 2025/12/10 14:12:48.056653 Node 8: Accept RPC seq=73 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.064212 Node 8: Accepted seq 72
+[Node 8] 2025/12/10 14:12:48.071965 [Database] txn success (bolt): 6139 -> 6140 amount 1
+[Node 8] 2025/12/10 14:12:48.072142 Node 8 ACCEPT seq=73 ballot=(3,7) txn=(6145→6146,1)
+[Node 8] 2025/12/10 14:12:48.072168 Node 8: Accepted seq 73
+[Node 8] 2025/12/10 14:12:48.072201 Node 8: EXECUTING seq=71 (6141→6142,1)
+[Node 8] 2025/12/10 14:12:48.072211 Kind of circular Node 8: executeRequest seq=71 (6141→6142,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.072219 [Database] executing txn (bolt) (6141,6142,1)
+[Node 8] 2025/12/10 14:12:48.078837 Node 8: Accept RPC seq=74 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.082357 Node 8 ACCEPT seq=74 ballot=(3,7) txn=(6147→6148,1)
+[Node 8] 2025/12/10 14:12:48.086363 Node 8: Accepted seq 74
+[Node 8] 2025/12/10 14:12:48.091000 Node 8: Commit RPC seq=72 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.091018 Node 8: Commit RPC seq=73 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.093966 [Database] txn success (bolt): 6141 -> 6142 amount 1
+[Node 8] 2025/12/10 14:12:48.098348 Node 8: EXECUTING seq=72 (6143→6144,1)
+[Node 8] 2025/12/10 14:12:48.098353 Kind of circular Node 8: executeRequest seq=72 (6143→6144,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.098374 [Database] executing txn (bolt) (6143,6144,1)
+[Node 8] 2025/12/10 14:12:48.098776 Node 8: Commit RPC seq=74 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.110885 Node 8: Accept RPC seq=75 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.118322 Node 8 ACCEPT seq=75 ballot=(3,7) txn=(6149→6150,1)
+[Node 8] 2025/12/10 14:12:48.121291 Node 8: Accepted seq 75
+[Node 8] 2025/12/10 14:12:48.121137 [Database] txn success (bolt): 6143 -> 6144 amount 1
+[Node 8] 2025/12/10 14:12:48.125273 Node 8: EXECUTING seq=73 (6145→6146,1)
+[Node 8] 2025/12/10 14:12:48.125284 Kind of circular Node 8: executeRequest seq=73 (6145→6146,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.125290 [Database] executing txn (bolt) (6145,6146,1)
+[Node 8] 2025/12/10 14:12:48.125854 Node 8: Accept RPC seq=76 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.129347 Node 8 ACCEPT seq=76 ballot=(3,7) txn=(6151→6152,1)
+[Node 8] 2025/12/10 14:12:48.129354 Node 8: Accepted seq 76
+[Node 8] 2025/12/10 14:12:48.134145 Node 8: Commit RPC seq=75 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.141094 [Database] txn success (bolt): 6145 -> 6146 amount 1
+[Node 8] 2025/12/10 14:12:48.141368 Node 8: EXECUTING seq=74 (6147→6148,1)
+[Node 8] 2025/12/10 14:12:48.141381 Kind of circular Node 8: executeRequest seq=74 (6147→6148,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.141387 [Database] executing txn (bolt) (6147,6148,1)
+[Node 8] 2025/12/10 14:12:48.145222 Node 8: Commit RPC seq=76 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.145330 Node 8: Accept RPC seq=77 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.153268 Node 8 ACCEPT seq=77 ballot=(3,7) txn=(6153→6154,1)
+[Node 8] 2025/12/10 14:12:48.153306 Node 8: Accepted seq 77
+[Node 8] 2025/12/10 14:12:48.161054 [Database] txn success (bolt): 6147 -> 6148 amount 1
+[Node 8] 2025/12/10 14:12:48.161444 Node 8: EXECUTING seq=75 (6149→6150,1)
+[Node 8] 2025/12/10 14:12:48.165279 Kind of circular Node 8: executeRequest seq=75 (6149→6150,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.169278 [Database] executing txn (bolt) (6149,6150,1)
+[Node 8] 2025/12/10 14:12:48.174228 Node 8: Commit RPC seq=77 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.189061 [Database] txn success (bolt): 6149 -> 6150 amount 1
+[Node 8] 2025/12/10 14:12:48.189292 Node 8: EXECUTING seq=76 (6151→6152,1)
+[Node 8] 2025/12/10 14:12:48.189310 Kind of circular Node 8: executeRequest seq=76 (6151→6152,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.189317 [Database] executing txn (bolt) (6151,6152,1)
+[Node 8] 2025/12/10 14:12:48.190145 Node 8: Accept RPC seq=78 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.193585 Node 8 ACCEPT seq=78 ballot=(3,7) txn=(6155→6156,1)
+[Node 8] 2025/12/10 14:12:48.197197 Node 8: Accepted seq 78
+[Node 8] 2025/12/10 14:12:48.211076 [Database] txn success (bolt): 6151 -> 6152 amount 1
+[Node 8] 2025/12/10 14:12:48.211328 Node 8: EXECUTING seq=77 (6153→6154,1)
+[Node 8] 2025/12/10 14:12:48.215334 Kind of circular Node 8: executeRequest seq=77 (6153→6154,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.212040 Node 8: Commit RPC seq=78 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.219356 [Database] executing txn (bolt) (6153,6154,1)
+[Node 8] 2025/12/10 14:12:48.224210 Node 8: Accept RPC seq=79 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.227338 Node 8 ACCEPT seq=79 ballot=(3,7) txn=(6157→6158,1)
+[Node 8] 2025/12/10 14:12:48.224247 Node 8: Accept RPC seq=80 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.231201 Node 8: Accepted seq 79
+[Node 8] 2025/12/10 14:12:48.239227 Node 8 ACCEPT seq=80 ballot=(3,7) txn=(6159→6160,1)
+[Node 8] 2025/12/10 14:12:48.239235 Node 8: Accepted seq 80
+[Node 8] 2025/12/10 14:12:48.243095 [Database] txn success (bolt): 6153 -> 6154 amount 1
+[Node 8] 2025/12/10 14:12:48.243354 Node 8: EXECUTING seq=78 (6155→6156,1)
+[Node 8] 2025/12/10 14:12:48.247198 Kind of circular Node 8: executeRequest seq=78 (6155→6156,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.243969 Node 8: Accept RPC seq=81 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.255393 Node 8 ACCEPT seq=81 ballot=(3,7) txn=(6161→6162,1)
+[Node 8] 2025/12/10 14:12:48.255402 Node 8: Accepted seq 81
+[Node 8] 2025/12/10 14:12:48.251368 [Database] executing txn (bolt) (6155,6156,1)
+[Node 8] 2025/12/10 14:12:48.252259 Node 8: Commit RPC seq=79 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.256174 Node 8: Commit RPC seq=80 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.271166 [Database] txn success (bolt): 6155 -> 6156 amount 1
+[Node 8] 2025/12/10 14:12:48.271382 Node 8: EXECUTING seq=79 (6157→6158,1)
+[Node 8] 2025/12/10 14:12:48.271460 Kind of circular Node 8: executeRequest seq=79 (6157→6158,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.271468 [Database] executing txn (bolt) (6157,6158,1)
+[Node 8] 2025/12/10 14:12:48.272227 Node 8: Accept RPC seq=82 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.275352 Node 8 ACCEPT seq=82 ballot=(3,7) txn=(6163→6164,1)
+[Node 8] 2025/12/10 14:12:48.272319 Node 8: Commit RPC seq=81 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.279245 Node 8: Accepted seq 82
+[Node 8] 2025/12/10 14:12:48.287064 [Database] txn success (bolt): 6157 -> 6158 amount 1
+[Node 8] 2025/12/10 14:12:48.287358 Node 8: EXECUTING seq=80 (6159→6160,1)
+[Node 8] 2025/12/10 14:12:48.287364 Kind of circular Node 8: executeRequest seq=80 (6159→6160,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.287373 [Database] executing txn (bolt) (6159,6160,1)
+[Node 8] 2025/12/10 14:12:48.288083 Node 8: Accept RPC seq=83 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.291502 Node 8 ACCEPT seq=83 ballot=(3,7) txn=(6165→6166,1)
+[Node 8] 2025/12/10 14:12:48.295321 Node 8: Accepted seq 83
+[Node 8] 2025/12/10 14:12:48.303116 [Database] txn success (bolt): 6159 -> 6160 amount 1
+[Node 8] 2025/12/10 14:12:48.303377 Node 8: EXECUTING seq=81 (6161→6162,1)
+[Node 8] 2025/12/10 14:12:48.303395 Kind of circular Node 8: executeRequest seq=81 (6161→6162,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.303405 [Database] executing txn (bolt) (6161,6162,1)
+[Node 8] 2025/12/10 14:12:48.304471 Node 8: Commit RPC seq=83 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.304513 Node 8: Commit RPC seq=82 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.323112 [Database] txn success (bolt): 6161 -> 6162 amount 1
+[Node 8] 2025/12/10 14:12:48.323358 Node 8: EXECUTING seq=82 (6163→6164,1)
+[Node 8] 2025/12/10 14:12:48.327301 Kind of circular Node 8: executeRequest seq=82 (6163→6164,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.324028 Node 8: Accept RPC seq=84 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.335331 Node 8 ACCEPT seq=84 ballot=(3,7) txn=(6167→6168,1)
+[Node 8] 2025/12/10 14:12:48.335341 Node 8: Accepted seq 84
+[Node 8] 2025/12/10 14:12:48.331135 [Database] executing txn (bolt) (6163,6164,1)
+[Node 8] 2025/12/10 14:12:48.346006 Node 8: Accept RPC seq=85 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.349461 Node 8 ACCEPT seq=85 ballot=(3,7) txn=(6169→6170,1)
+[Node 8] 2025/12/10 14:12:48.352392 Node 8: Accepted seq 85
+[Node 8] 2025/12/10 14:12:48.352118 [Database] txn success (bolt): 6163 -> 6164 amount 1
+[Node 8] 2025/12/10 14:12:48.352480 Node 8: EXECUTING seq=83 (6165→6166,1)
+[Node 8] 2025/12/10 14:12:48.352509 Kind of circular Node 8: executeRequest seq=83 (6165→6166,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.352535 [Database] executing txn (bolt) (6165,6166,1)
+[Node 8] 2025/12/10 14:12:48.353165 Node 8: Commit RPC seq=84 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.367571 Node 8: Accept RPC seq=86 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.371567 Node 8 ACCEPT seq=86 ballot=(3,7) txn=(6171→6172,1)
+[Node 8] 2025/12/10 14:12:48.374448 Node 8: Accepted seq 86
+[Node 8] 2025/12/10 14:12:48.371188 [Database] txn success (bolt): 6165 -> 6166 amount 1
+[Node 8] 2025/12/10 14:12:48.383291 Node 8: EXECUTING seq=84 (6167→6168,1)
+[Node 8] 2025/12/10 14:12:48.383308 Kind of circular Node 8: executeRequest seq=84 (6167→6168,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.383336 [Database] executing txn (bolt) (6167,6168,1)
+[Node 8] 2025/12/10 14:12:48.379202 Node 8: Commit RPC seq=85 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.384115 Node 8: Commit RPC seq=86 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.398085 [Database] txn success (bolt): 6167 -> 6168 amount 1
+[Node 8] 2025/12/10 14:12:48.398484 Node 8: EXECUTING seq=85 (6169→6170,1)
+[Node 8] 2025/12/10 14:12:48.398493 Kind of circular Node 8: executeRequest seq=85 (6169→6170,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.398500 [Database] executing txn (bolt) (6169,6170,1)
+[Node 8] 2025/12/10 14:12:48.399273 Node 8: Accept RPC seq=87 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.401365 Node 8 ACCEPT seq=87 ballot=(3,7) txn=(6173→6174,1)
+[Node 8] 2025/12/10 14:12:48.405148 Node 8: Accepted seq 87
+[Node 8] 2025/12/10 14:12:48.413049 [Database] txn success (bolt): 6169 -> 6170 amount 1
+[Node 8] 2025/12/10 14:12:48.413240 Node 8: EXECUTING seq=86 (6171→6172,1)
+[Node 8] 2025/12/10 14:12:48.413246 Kind of circular Node 8: executeRequest seq=86 (6171→6172,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.413251 [Database] executing txn (bolt) (6171,6172,1)
+[Node 8] 2025/12/10 14:12:48.425952 Node 8: Commit RPC seq=87 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.433077 [Database] txn success (bolt): 6171 -> 6172 amount 1
+[Node 8] 2025/12/10 14:12:48.433296 Node 8: EXECUTING seq=87 (6173→6174,1)
+[Node 8] 2025/12/10 14:12:48.433305 Kind of circular Node 8: executeRequest seq=87 (6173→6174,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.433311 [Database] executing txn (bolt) (6173,6174,1)
+[Node 8] 2025/12/10 14:12:48.433876 Node 8: Accept RPC seq=88 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.441275 Node 8 ACCEPT seq=88 ballot=(3,7) txn=(6177→6178,1)
+[Node 8] 2025/12/10 14:12:48.437588 Node 8: Accept RPC seq=89 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.444305 Node 8: Accepted seq 88
+[Node 8] 2025/12/10 14:12:48.448360 Node 8 ACCEPT seq=89 ballot=(3,7) txn=(6175→6176,1)
+[Node 8] 2025/12/10 14:12:48.448368 Node 8: Accepted seq 89
+[Node 8] 2025/12/10 14:12:48.448038 [Database] txn success (bolt): 6173 -> 6174 amount 1
+[Node 8] 2025/12/10 14:12:48.448404 Node 8: executeRequestsInOrder stopping at gap seq=90 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:48.453123 Node 8: Commit RPC seq=88 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.453149 Node 8: Accept RPC seq=90 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.460278 Node 8 ACCEPT seq=90 ballot=(3,7) txn=(6179→6180,1)
+[Node 8] 2025/12/10 14:12:48.456431 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:48.460845 Node 8: Commit RPC seq=89 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.464278 Node 8: Accepted seq 90
+[Node 8] 2025/12/10 14:12:48.464349 Node 8: EXECUTING seq=88 (6177→6178,1)
+[Node 8] 2025/12/10 14:12:48.464381 Kind of circular Node 8: executeRequest seq=88 (6177→6178,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.464406 [Database] executing txn (bolt) (6177,6178,1)
+[Node 8] 2025/12/10 14:12:48.464970 Node 8: Accept RPC seq=91 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.470426 Node 8 ACCEPT seq=91 ballot=(3,7) txn=(6181→6182,1)
+[Node 8] 2025/12/10 14:12:48.470434 Node 8: Accepted seq 91
+[Node 8] 2025/12/10 14:12:48.478944 Node 8: Commit RPC seq=90 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.486053 [Database] txn success (bolt): 6177 -> 6178 amount 1
+[Node 8] 2025/12/10 14:12:48.486317 Node 8: EXECUTING seq=89 (6175→6176,1)
+[Node 8] 2025/12/10 14:12:48.486325 Kind of circular Node 8: executeRequest seq=89 (6175→6176,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.486332 [Database] executing txn (bolt) (6175,6176,1)
+[Node 8] 2025/12/10 14:12:48.494578 Node 8: Commit RPC seq=91 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.502083 Node 8: Accept RPC seq=92 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.505314 Node 8 ACCEPT seq=92 ballot=(3,7) txn=(6183→6184,1)
+[Node 8] 2025/12/10 14:12:48.509453 Node 8: Accepted seq 92
+[Node 8] 2025/12/10 14:12:48.505094 [Database] txn success (bolt): 6175 -> 6176 amount 1
+[Node 8] 2025/12/10 14:12:48.517328 Node 8: EXECUTING seq=90 (6179→6180,1)
+[Node 8] 2025/12/10 14:12:48.517336 Kind of circular Node 8: executeRequest seq=90 (6179→6180,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.517345 [Database] executing txn (bolt) (6179,6180,1)
+[Node 8] 2025/12/10 14:12:48.529952 Node 8: Accept RPC seq=93 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.533367 Node 8 ACCEPT seq=93 ballot=(3,7) txn=(6185→6186,1)
+[Node 8] 2025/12/10 14:12:48.537326 Node 8: Accepted seq 93
+[Node 8] 2025/12/10 14:12:48.533023 [Database] txn success (bolt): 6179 -> 6180 amount 1
+[Node 8] 2025/12/10 14:12:48.541448 Node 8: EXECUTING seq=91 (6181→6182,1)
+[Node 8] 2025/12/10 14:12:48.541461 Kind of circular Node 8: executeRequest seq=91 (6181→6182,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.541475 [Database] executing txn (bolt) (6181,6182,1)
+[Node 8] 2025/12/10 14:12:48.549224 Node 8: Commit RPC seq=92 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.549543 Node 8: Accept RPC seq=94 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.553396 Node 8 ACCEPT seq=94 ballot=(3,7) txn=(6187→6188,1)
+[Node 8] 2025/12/10 14:12:48.557303 Node 8: Accepted seq 94
+[Node 8] 2025/12/10 14:12:48.557008 [Database] txn success (bolt): 6181 -> 6182 amount 1
+[Node 8] 2025/12/10 14:12:48.557357 Node 8: EXECUTING seq=92 (6183→6184,1)
+[Node 8] 2025/12/10 14:12:48.557365 Kind of circular Node 8: executeRequest seq=92 (6183→6184,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.557371 [Database] executing txn (bolt) (6183,6184,1)
+[Node 8] 2025/12/10 14:12:48.558103 Node 8: Commit RPC seq=93 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.573056 [Database] txn success (bolt): 6183 -> 6184 amount 1
+[Node 8] 2025/12/10 14:12:48.573355 Node 8: EXECUTING seq=93 (6185→6186,1)
+[Node 8] 2025/12/10 14:12:48.573363 Kind of circular Node 8: executeRequest seq=93 (6185→6186,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.573371 [Database] executing txn (bolt) (6185,6186,1)
+[Node 8] 2025/12/10 14:12:48.589061 [Database] txn success (bolt): 6185 -> 6186 amount 1
+[Node 8] 2025/12/10 14:12:48.589275 Node 8: gap at seq=95 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:48.589283 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:48.590179 Node 8: Commit RPC seq=94 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.590178 Node 8: Accept RPC seq=95 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.593430 Node 8 ACCEPT seq=95 ballot=(3,7) txn=(6189→6190,1)
+[Node 8] 2025/12/10 14:12:48.593436 Node 8: Accepted seq 95
+[Node 8] 2025/12/10 14:12:48.593516 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:48.606098 Node 8: Commit RPC seq=95 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.612909 Node 8: EXECUTING seq=94 (6187→6188,1)
+[Node 8] 2025/12/10 14:12:48.616044 Kind of circular Node 8: executeRequest seq=94 (6187→6188,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.616057 [Database] executing txn (bolt) (6187,6188,1)
+[Node 8] 2025/12/10 14:12:48.616791 Node 8: Accept RPC seq=96 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.620278 Node 8 ACCEPT seq=96 ballot=(3,7) txn=(6195→6196,1)
+[Node 8] 2025/12/10 14:12:48.624406 Node 8: Accepted seq 96
+[Node 8] 2025/12/10 14:12:48.620677 Node 8: Accept RPC seq=97 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.632445 Node 8 ACCEPT seq=97 ballot=(3,7) txn=(6193→6194,1)
+[Node 8] 2025/12/10 14:12:48.632457 Node 8: Accepted seq 97
+[Node 8] 2025/12/10 14:12:48.632111 [Database] txn success (bolt): 6187 -> 6188 amount 1
+[Node 8] 2025/12/10 14:12:48.632508 Node 8: EXECUTING seq=95 (6189→6190,1)
+[Node 8] 2025/12/10 14:12:48.632513 Kind of circular Node 8: executeRequest seq=95 (6189→6190,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.632519 [Database] executing txn (bolt) (6189,6190,1)
+[Node 8] 2025/12/10 14:12:48.633497 Node 8: Accept RPC seq=98 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.638148 Node 8 ACCEPT seq=98 ballot=(3,7) txn=(6191→6192,1)
+[Node 8] 2025/12/10 14:12:48.641275 Node 8: Accepted seq 98
+[Node 8] 2025/12/10 14:12:48.648967 [Database] txn success (bolt): 6189 -> 6190 amount 1
+[Node 8] 2025/12/10 14:12:48.649092 Node 8: executeRequestsInOrder stopping at gap seq=99 (syncAttempted=true)
+[Node 8] 2025/12/10 14:12:48.653681 Node 8: Accept RPC seq=99 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.657333 Node 8 ACCEPT seq=99 ballot=(3,7) txn=(6197→6198,1)
+[Node 8] 2025/12/10 14:12:48.653762 Node 8: Commit RPC seq=97 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.653769 Node 8: Commit RPC seq=98 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.653794 Node 8: Commit RPC seq=96 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.657896 Node 8: Accept RPC seq=100 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.661210 Node 8: Accepted seq 99
+[Node 8] 2025/12/10 14:12:48.665287 Node 8 ACCEPT seq=100 ballot=(3,7) txn=(6199→6200,1)
+[Node 8] 2025/12/10 14:12:48.665294 Node 8: Accepted seq 100
+[Node 8] 2025/12/10 14:12:48.665319 Node 8: executeRequestsInOrder triggered
+[Node 8] 2025/12/10 14:12:48.665332 Node 8: EXECUTING seq=96 (6195→6196,1)
+[Node 8] 2025/12/10 14:12:48.665350 Kind of circular Node 8: executeRequest seq=96 (6195→6196,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.665363 [Database] executing txn (bolt) (6195,6196,1)
+[Node 8] 2025/12/10 14:12:48.675892 Node 8: Commit RPC seq=99 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.683042 [Database] txn success (bolt): 6195 -> 6196 amount 1
+[Node 8] 2025/12/10 14:12:48.683285 Node 8: EXECUTING seq=97 (6193→6194,1)
+[Node 8] 2025/12/10 14:12:48.687254 Kind of circular Node 8: executeRequest seq=97 (6193→6194,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.683800 Node 8: Commit RPC seq=100 ballot=(3,7)
+[Node 8] 2025/12/10 14:12:48.687263 [Database] executing txn (bolt) (6193,6194,1)
+[Node 8] 2025/12/10 14:12:48.707103 [Database] txn success (bolt): 6193 -> 6194 amount 1
+[Node 8] 2025/12/10 14:12:48.707338 Node 8: EXECUTING seq=98 (6191→6192,1)
+[Node 8] 2025/12/10 14:12:48.707347 Kind of circular Node 8: executeRequest seq=98 (6191→6192,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.707355 [Database] executing txn (bolt) (6191,6192,1)
+[Node 8] 2025/12/10 14:12:48.723063 [Database] txn success (bolt): 6191 -> 6192 amount 1
+[Node 8] 2025/12/10 14:12:48.723311 Node 8: EXECUTING seq=99 (6197→6198,1)
+[Node 8] 2025/12/10 14:12:48.727272 Kind of circular Node 8: executeRequest seq=99 (6197→6198,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.731301 [Database] executing txn (bolt) (6197,6198,1)
+[Node 8] 2025/12/10 14:12:48.751035 [Database] txn success (bolt): 6197 -> 6198 amount 1
+[Node 8] 2025/12/10 14:12:48.751232 Node 8: EXECUTING seq=100 (6199→6200,1)
+[Node 8] 2025/12/10 14:12:48.751241 Kind of circular Node 8: executeRequest seq=100 (6199→6200,1) 2PCPhase=%!d(datatypes.TwoPCPhase=) IsCross=false IsNoOp=false
+[Node 8] 2025/12/10 14:12:48.751247 [Database] executing txn (bolt) (6199,6200,1)
+[Node 8] 2025/12/10 14:12:48.766061 [Database] txn success (bolt): 6199 -> 6200 amount 1
+[Node 8] 2025/12/10 14:12:48.766286 Node 8: gap at seq=101 — requesting state transfer from leader
+[Node 8] 2025/12/10 14:12:48.770240 reached findClusterLeader for cluster 3
+[Node 8] 2025/12/10 14:12:48.778444 Node 8: RPC RequestStateTransfer->node 7
+[Node 8] 2025/12/10 14:12:48.786672 Node 8: executeRequestsInOrder stopping at gap seq=101 (syncAttempted=true)

@@ -1089,6 +1089,78 @@ func adminDeleteAccount(addr string, id int) error {
 	return nil
 }
 
+// readROWithLeaderFallback probes the sender's cluster members to find the
+// current leader and reads balance from it. If the leader is unreachable or
+// not reported, it falls back to other active members. It prints the result
+// to stdout for visibility.
+func readROWithLeaderFallback(senderID int) (nodeID int, balance int, fromLeader bool, err error) {
+	cid := shard.ClusterOfItem(senderID)
+	members, ok := config.ClusterMembers[cid]
+	if !ok || len(members) == 0 {
+		return 0, 0, false, fmt.Errorf("no members for cluster %d", cid)
+	}
+
+	// Discover leader among cluster members
+	leaderID := 0
+	for _, nid := range members {
+		addr := config.NodeAddresses[nid]
+		cli, derr := rpc.Dial("tcp", addr)
+		if derr != nil {
+			continue
+		}
+		var info datatypes.LeaderInfo
+		_ = cli.Call("NodeService.GetLeader", true, &info)
+		cli.Close()
+		if info.IsLeader && info.LeaderID != 0 {
+			leaderID = info.LeaderID
+			break
+		}
+	}
+
+	// Helper to perform a bounded GetBalance RPC
+	tryGet := func(nid int) (int, error) {
+		addr := config.NodeAddresses[nid]
+		cli, derr := rpc.Dial("tcp", addr)
+		if derr != nil {
+			return 0, derr
+		}
+		defer cli.Close()
+		args := datatypes.GetBalanceArgs{AccountID: fmt.Sprintf("%d", senderID)}
+		var rep datatypes.GetBalanceReply
+		done := make(chan error, 1)
+		go func() { done <- cli.Call("NodeService.GetBalance", args, &rep) }()
+		select {
+		case err2 := <-done:
+			if err2 != nil {
+				return 0, err2
+			}
+			return rep.Balance, nil
+		case <-time.After(time.Duration(config.ClientTimeout) * time.Millisecond):
+			return 0, fmt.Errorf("timeout")
+		}
+	}
+
+	// Try leader first if discovered
+	if leaderID != 0 {
+		if bal, e := tryGet(leaderID); e == nil {
+			log.Printf("RO %d: n%d (leader=true) balance=%d\n", senderID, leaderID, bal)
+			return leaderID, bal, true, nil
+		}
+	}
+	// Fallback to other members
+	for _, nid := range members {
+		if nid == leaderID {
+			continue
+		}
+		if bal, e := tryGet(nid); e == nil {
+			log.Printf("RO %d: n%d (leader=false) balance=%d\n", senderID, nid, bal)
+			return nid, bal, false, nil
+		}
+	}
+	log.Printf("RO %d: no reachable node in cluster %d\n", senderID, cid)
+	return 0, 0, false, fmt.Errorf("no reachable node")
+}
+
 func adminReloadOverridesAllNodes() {
 	for nid := 1; nid <= config.NumNodes; nid++ {
 		addr := config.NodeAddresses[nid]
@@ -1595,20 +1667,8 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 			// Read-only if Receiver empty or amount 0
 			if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
 				sid, _ := strconv.Atoi(tx.Sender)
-				cid := shard.ClusterOfItem(sid)
-				leaderCand := 1
-				if cid == 2 {
-					leaderCand = 4
-				} else if cid == 3 {
-					leaderCand = 7
-				}
-				addr := config.NodeAddresses[leaderCand]
 				t0 := time.Now()
-				if c, err := rpc.Dial("tcp", addr); err == nil {
-					var r datatypes.GetBalanceReply
-					_ = c.Call("NodeService.GetBalance", datatypes.GetBalanceArgs{AccountID: tx.Sender}, &r)
-					c.Close()
-				}
+				_, _, _, _ = readROWithLeaderFallback(sid)
 				t1 := time.Now()
 				mu.Lock()
 				segPerf.TxnCount++
