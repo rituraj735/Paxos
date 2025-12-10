@@ -1111,7 +1111,10 @@ func applyReshardMoves(moves []move) {
 			log.Printf("[Reshard] skip id=%d: old leader err: %v", m.ID, err)
 			continue
 		}
-		bal, err := adminGetBalance(oldAddr, m.ID)
+		_bal, err := adminGetBalance(oldAddr, m.ID)
+		log.Printf("Old shard balance for id=%d: %d", m.ID, _bal)
+		bal := config.InitialBalance
+
 		if err != nil {
 			log.Printf("[Reshard] skip id=%d: admin get err: %v", m.ID, err)
 			continue
