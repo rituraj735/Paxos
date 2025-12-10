@@ -71,10 +71,10 @@ type Node struct {
 	TxnStates map[string]*TxnState
 
 	// Phase 7: pending 2PC decision acknowledgments (coordinator retries)
-    Pending2PCAcks map[string]*PendingDecision
+	Pending2PCAcks map[string]*PendingDecision
 
-    // ensure only one background executor runs at a time on a node
-    execRunning bool
+	// ensure only one background executor runs at a time on a node
+	execRunning bool
 }
 
 // PendingDecision tracks an unacked decision that coordinator must retry.
@@ -784,11 +784,13 @@ func (s *NodeService) UpdateActiveStatus(args datatypes.UpdateNodeArgs, reply *b
 
     if activated {
         if args.NodeID == selfID {
-            // Phase 7: synchronous crash recovery, then proactively pull state
+            // Phase 7: synchronous crash recovery, then synchronous initial pull to align view
             s.node.RecoverFromCrash()
-            go s.node.requestStateSync()
+            s.node.requestStateSync()
         } else if isLeaderActive {
+            // Leader assists: push snapshot and replay commits to the reactivated follower
             go s.node.sendStateSnapshot(args.NodeID)
+            go s.node.sendCommitReplay(args.NodeID)
         }
     }
     return nil
@@ -823,11 +825,12 @@ func (s *NodeService) UpdateActiveStatusForBulk(args datatypes.UpdateClusterStat
 
     for _, id := range activatedNodes {
         if id == selfID {
-            // Phase 7: synchronous crash recovery for self, then proactively pull state
+            // Phase 7: synchronous crash recovery for self, then synchronous initial pull
             s.node.RecoverFromCrash()
-            go s.node.requestStateSync()
+            s.node.requestStateSync()
         } else if isLeaderActive {
             go s.node.sendStateSnapshot(id)
+            go s.node.sendCommitReplay(id)
         }
     }
 
@@ -1256,21 +1259,21 @@ func (n *Node) ProcessClientRequest(request datatypes.ClientRequest) datatypes.R
 
 // detectCrossShardBankTxn returns true if a BANK_TXN touches different shards.
 func (n *Node) detectCrossShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int, int) {
-    // Treat as potential write txn based on payload, not MessageType
-    if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
-        return false, 0, 0, 0, 0
-    }
-    sID, err1 := strconv.Atoi(req.Transaction.Sender)
-    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
-    if err1 != nil || err2 != nil {
-        return false, 0, 0, 0, 0
-    }
-    cs := shard.ClusterOfItem(sID)
-    cr := shard.ClusterOfItem(rID)
-    if cs == 0 || cr == 0 || cs == cr {
-        return false, sID, rID, cs, cr
-    }
-    return true, sID, rID, cs, cr
+	// Treat as potential write txn based on payload, not MessageType
+	if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
+		return false, 0, 0, 0, 0
+	}
+	sID, err1 := strconv.Atoi(req.Transaction.Sender)
+	rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+	if err1 != nil || err2 != nil {
+		return false, 0, 0, 0, 0
+	}
+	cs := shard.ClusterOfItem(sID)
+	cr := shard.ClusterOfItem(rID)
+	if cs == 0 || cr == 0 || cs == cr {
+		return false, sID, rID, cs, cr
+	}
+	return true, sID, rID, cs, cr
 }
 
 // handleCrossShardCoordinator runs the coordinator half of a 2PC for a cross-shard BANK_TXN.
@@ -1593,44 +1596,44 @@ func (n *Node) proposeAndWait(req datatypes.ClientRequest) (int, bool) {
 // isIntraShardBankTxn checks if this request is a Project 3 bank txn where
 // both accounts are in the same shard. Returns (true, sID, rID, clusterID).
 func (n *Node) isIntraShardBankTxn(req datatypes.ClientRequest) (bool, int, int, int) {
-    // Treat as potential write txn based on payload, not MessageType
-    if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
-        return false, 0, 0, 0
-    }
-    sID, err1 := strconv.Atoi(req.Transaction.Sender)
-    rID, err2 := strconv.Atoi(req.Transaction.Receiver)
-    if err1 != nil || err2 != nil {
-        return false, 0, 0, 0
-    }
-    cs := shard.ClusterOfItem(sID)
-    cr := shard.ClusterOfItem(rID)
-    if cs == 0 || cr == 0 || cs != cr {
-        return false, sID, rID, 0
-    }
-    return true, sID, rID, cs
+	// Treat as potential write txn based on payload, not MessageType
+	if req.IsNoOp || strings.TrimSpace(req.Transaction.Receiver) == "" || req.Transaction.Amount <= 0 {
+		return false, 0, 0, 0
+	}
+	sID, err1 := strconv.Atoi(req.Transaction.Sender)
+	rID, err2 := strconv.Atoi(req.Transaction.Receiver)
+	if err1 != nil || err2 != nil {
+		return false, 0, 0, 0
+	}
+	cs := shard.ClusterOfItem(sID)
+	cr := shard.ClusterOfItem(rID)
+	if cs == 0 || cr == 0 || cs != cr {
+		return false, sID, rID, 0
+	}
+	return true, sID, rID, cs
 }
 
 // HandlePrepare responds to prepare RPCs with promises and prior log state.
 func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.PromiseMsg) error {
-    n.mu.Lock()
-    // Do not refresh lastLeaderMsg here; only heartbeats should extend leader recency
+	n.mu.Lock()
+	// Do not refresh lastLeaderMsg here; only heartbeats should extend leader recency
 
-    defer n.mu.Unlock()
+	defer n.mu.Unlock()
 
-    // Only consider the last leader "fresh" if that leader is still marked active.
-    recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
-    leaderActive := n.CurrentBallot.NodeID != 0 && n.ActiveNodes[n.CurrentBallot.NodeID]
-    if recent && leaderActive && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
-        // Reject with higher ballot hint so candidate can jump ahead
-        higher := n.HighestPromised
-        if n.CurrentBallot.GreaterThan(higher) {
-            higher = n.CurrentBallot
-        }
-        *reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
-        log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
-            n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
-        return nil
-    }
+	// Only consider the last leader "fresh" if that leader is still marked active.
+	recent := time.Since(n.lastLeaderMsg) <= time.Duration(config.LeaderTimeout)*time.Millisecond
+	leaderActive := n.CurrentBallot.NodeID != 0 && n.ActiveNodes[n.CurrentBallot.NodeID]
+	if recent && leaderActive && n.CurrentBallot.NodeID != 0 && args.Ballot.LessThan(n.CurrentBallot) {
+		// Reject with higher ballot hint so candidate can jump ahead
+		higher := n.HighestPromised
+		if n.CurrentBallot.GreaterThan(higher) {
+			higher = n.CurrentBallot
+		}
+		*reply = datatypes.PromiseMsg{Ballot: higher, Success: false}
+		log.Printf("Node %d: Ignoring prepare from Node %d (fresh leader %d, ballot %s)",
+			n.ID, args.Ballot.NodeID, n.CurrentBallot.NodeID, n.CurrentBallot)
+		return nil
+	}
 
 	if args.Ballot.GreaterThan(n.HighestPromised) {
 		n.HighestPromised = args.Ballot
@@ -1666,11 +1669,11 @@ func (n *Node) HandlePrepare(args datatypes.PrepareMsg, reply *datatypes.Promise
 
 // HandleAccept stores a leader's proposal when the ballot is acceptable.
 func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedMsg) error {
-    n.mu.Lock()
-    // Refresh leader recency on Accept to avoid follower timeouts during
-    // active proposal flow from the current leader.
-    n.lastLeaderMsg = time.Now()
-    defer n.mu.Unlock()
+	n.mu.Lock()
+	// Refresh leader recency on Accept to avoid follower timeouts during
+	// active proposal flow from the current leader.
+	n.lastLeaderMsg = time.Now()
+	defer n.mu.Unlock()
 
 	// If this node is marked inactive, ignore accept requests
 	if !n.ActiveNodes[n.ID] {
@@ -1726,10 +1729,10 @@ func (n *Node) HandleAccept(args datatypes.AcceptMsg, reply *datatypes.AcceptedM
 
 // HandleCommit marks an entry committed and triggers execution ordering.
 func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
-    n.mu.Lock()
-    // Refresh leader recency on Commit to avoid follower timeouts during
-    // active commit flow from the current leader.
-    n.lastLeaderMsg = time.Now()
+	n.mu.Lock()
+	// Refresh leader recency on Commit to avoid follower timeouts during
+	// active commit flow from the current leader.
+	n.lastLeaderMsg = time.Now()
 
 	// If this node is marked inactive, ignore commit to keep it unchanged
 	if !n.ActiveNodes[n.ID] {
@@ -1773,15 +1776,15 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 
 	//log.Printf("Node %d: COMMITTED seq=%d (%s→%s, %d)",n.ID,args.SeqNum,args.Request.Transaction.Sender,args.Request.Transaction.Receiver,args.Request.Transaction.Amount)
 
-    // Determine outside-lock follow-up
-    followerShouldExec := args.Ballot.NodeID != n.ID
-    n.mu.Unlock()
+	// Determine outside-lock follow-up
+	followerShouldExec := args.Ballot.NodeID != n.ID
+	n.mu.Unlock()
 
-    // Followers drive execution via a single-flight background executor.
-    // The leader already executes inline in the fast path after broadcasting commit.
-    if followerShouldExec {
-        n.triggerExecutor()
-    }
+	// Followers drive execution via a single-flight background executor.
+	// The leader already executes inline in the fast path after broadcasting commit.
+	if followerShouldExec {
+		n.triggerExecutor()
+	}
 
 	*reply = true
 	return nil
@@ -1791,9 +1794,38 @@ func (n *Node) HandleCommit(args datatypes.CommitMsg, reply *bool) error {
 func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
     // Phase 1: minimal updates under lock
     n.mu.Lock()
+    // Reject snapshots that originate from a leader outside this node's cluster
+    // to prevent cross-cluster state contamination during reactivation or churn.
+    if members, ok := config.ClusterMembers[n.ClusterID]; ok {
+        inCluster := false
+        for _, id := range members {
+            if id == args.Ballot.NodeID {
+                inCluster = true
+                break
+            }
+        }
+        if !inCluster {
+            n.mu.Unlock()
+            *reply = false
+            return nil
+        }
+    }
     if args.Ballot.LessThan(n.HighestPromised) {
         n.mu.Unlock()
         *reply = false
+        return nil
+    }
+    // If AcceptLog is empty but local logs are non-empty, accept header (ballot)
+    // updates but do not overwrite logs.
+    if len(args.AcceptLog) == 0 && len(n.AcceptedLog) > 0 {
+        n.lastProcessedView = args.Ballot
+        n.lastLeaderMsg = time.Now()
+        n.HighestPromised = args.Ballot
+        n.CurrentBallot = args.Ballot
+        n.IsLeader = args.Ballot.NodeID == n.ID
+        n.NewViewMsgs = append(n.NewViewMsgs, args)
+        n.mu.Unlock()
+        *reply = true
         return nil
     }
     if args.Ballot.Number == n.lastProcessedView.Number && args.Ballot.NodeID == n.lastProcessedView.NodeID {
@@ -1801,79 +1833,86 @@ func (n *Node) HandleNewView(args datatypes.NewViewMsg, reply *bool) error {
         *reply = true
         return nil
     }
-    n.lastProcessedView = args.Ballot
-    n.lastLeaderMsg = time.Now()
-    n.HighestPromised = args.Ballot
-    n.CurrentBallot = args.Ballot
-    n.IsLeader = args.Ballot.NodeID == n.ID
-    n.NewViewMsgs = append(n.NewViewMsgs, args)
+	n.lastProcessedView = args.Ballot
+	n.lastLeaderMsg = time.Now()
+	n.HighestPromised = args.Ballot
+	n.CurrentBallot = args.Ballot
+	n.IsLeader = args.Ballot.NodeID == n.ID
+	n.NewViewMsgs = append(n.NewViewMsgs, args)
 
-    // Snapshot previous accepted for status preservation
-    prevAcceptedCopy := make(map[int]datatypes.LogEntry, len(n.AcceptedLog))
-    for seq, e := range n.AcceptedLog {
-        prevAcceptedCopy[seq] = e
-    }
-    n.mu.Unlock()
+	// Snapshot previous accepted for status preservation
+	prevAcceptedCopy := make(map[int]datatypes.LogEntry, len(n.AcceptedLog))
+	for seq, e := range n.AcceptedLog {
+		prevAcceptedCopy[seq] = e
+	}
+	n.mu.Unlock()
 
-    // Phase 2: build new logs outside lock
-    newAcceptedLog := make(map[int]datatypes.LogEntry, len(args.AcceptLog))
-    newRequestLog := make([]datatypes.LogEntry, 0, len(args.AcceptLog))
-    maxSeq := 0
-    for _, entry := range args.AcceptLog {
-        if entry.SeqNum > maxSeq { maxSeq = entry.SeqNum }
-        status := entry.Status
-        if prev, ok := prevAcceptedCopy[entry.SeqNum]; ok {
-            status = maxStatus(status, prev.Status)
-        }
-        logEntry := datatypes.LogEntry{Ballot: entry.AcceptNum, SeqNum: entry.SeqNum, Request: entry.Request, Status: status}
-        newAcceptedLog[entry.SeqNum] = logEntry
-        newRequestLog = append(newRequestLog, logEntry)
-    }
-    sort.Slice(newRequestLog, func(i, j int) bool { return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum })
+	// Phase 2: build new logs outside lock
+	newAcceptedLog := make(map[int]datatypes.LogEntry, len(args.AcceptLog))
+	newRequestLog := make([]datatypes.LogEntry, 0, len(args.AcceptLog))
+	maxSeq := 0
+	for _, entry := range args.AcceptLog {
+		if entry.SeqNum > maxSeq {
+			maxSeq = entry.SeqNum
+		}
+		status := entry.Status
+		if prev, ok := prevAcceptedCopy[entry.SeqNum]; ok {
+			status = maxStatus(status, prev.Status)
+		}
+		logEntry := datatypes.LogEntry{Ballot: entry.AcceptNum, SeqNum: entry.SeqNum, Request: entry.Request, Status: status}
+		newAcceptedLog[entry.SeqNum] = logEntry
+		newRequestLog = append(newRequestLog, logEntry)
+	}
+	sort.Slice(newRequestLog, func(i, j int) bool { return newRequestLog[i].SeqNum < newRequestLog[j].SeqNum })
 
-    // Phase 3: swap new logs under short lock
-    n.mu.Lock()
-    n.AcceptedLog = newAcceptedLog
-    n.RequestLog = newRequestLog
-    n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
-    if maxSeq == 0 { n.NextSeqNum = 1 } else { n.NextSeqNum = maxSeq + 1 }
-    n.mu.Unlock()
+	// Phase 3: swap new logs under short lock
+	n.mu.Lock()
+	n.AcceptedLog = newAcceptedLog
+	n.RequestLog = newRequestLog
+	n.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+	if maxSeq == 0 {
+		n.NextSeqNum = 1
+	} else {
+		n.NextSeqNum = maxSeq + 1
+	}
+	n.mu.Unlock()
 
-    // Phase 4: apply committed entries and send acks outside lock
-    n.applyCommittedEntries(prevAcceptedCopy, maxSeq)
-    if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
-        for _, entry := range args.AcceptLog {
-            go func(e datatypes.AcceptLogEntry) {
-                var acceptedReply datatypes.AcceptedMsg
-                acceptedMsg := datatypes.AcceptedMsg{Ballot: args.Ballot, SeqNum: e.SeqNum, Request: e.Request, NodeID: n.ID}
-                _ = n.callRPC(args.Ballot.NodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
-            }(entry)
-        }
-    }
-    n.triggerExecutor()
-    *reply = true
-    return nil
+	// Phase 4: apply committed entries and send acks outside lock
+	n.applyCommittedEntries(prevAcceptedCopy, maxSeq)
+	if len(args.AcceptLog) > 0 && args.Ballot.NodeID != n.ID {
+		for _, entry := range args.AcceptLog {
+			go func(e datatypes.AcceptLogEntry) {
+				var acceptedReply datatypes.AcceptedMsg
+				acceptedMsg := datatypes.AcceptedMsg{Ballot: args.Ballot, SeqNum: e.SeqNum, Request: e.Request, NodeID: n.ID}
+				_ = n.callRPC(args.Ballot.NodeID, "AcceptedFromNewView", acceptedMsg, &acceptedReply)
+			}(entry)
+		}
+	}
+	log.Printf("Triggering executor from NewView on Node %d inside HandleNewView line 1859", n.ID)
+	n.triggerExecutor()
+	*reply = true
+	return nil
 }
 
 // executeRequest applies a request or marks a no-op executed.
 func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool, string) {
-    log.Printf("Kind of circular Node %d: executeRequest seq=%d (%s→%s,%d) 2PCPhase=%d IsCross=%v IsNoOp=%v", n.ID, seqNum, request.Transaction.Sender, request.Transaction.Receiver, request.Transaction.Amount, request.TwoPCPhase, request.IsCross, request.IsNoOp)
-    if request.IsNoOp {
-        // Mark executed under lock to avoid concurrent map access
-        n.markExecuted(seqNum)
-        return true, "no-op executed"
-    }
+	log.Printf("Kind of circular Node %d: executeRequest seq=%d (%s→%s,%d) 2PCPhase=%d IsCross=%v IsNoOp=%v", n.ID, seqNum, request.Transaction.Sender, request.Transaction.Receiver, request.Transaction.Amount, request.TwoPCPhase, request.IsCross, request.IsNoOp)
+	if request.IsNoOp {
+		// Mark executed under lock to avoid concurrent map access
+		n.markExecuted(seqNum)
+		return true, "no-op executed"
+	}
 
 	// Phase 6: 2PC execution paths (coordinator or participant)
-    if request.IsCross && request.TwoPCPhase != datatypes.TwoPCPhaseNone {
-        // Read current txn state under read lock (may be populated by RPC handlers)
-        n.mu.RLock()
-        st, ok := n.TxnStates[request.TxnID]
-        n.mu.RUnlock()
-        if !ok {
-            // Infer minimal txn state from the request so followers/new leaders can execute the log
-            sID, errS := strconv.Atoi(request.Transaction.Sender)
-            rID, errR := strconv.Atoi(request.Transaction.Receiver)
+	if request.IsCross && request.TwoPCPhase != datatypes.TwoPCPhaseNone {
+		// Read current txn state under read lock (may be populated by RPC handlers)
+		n.mu.RLock()
+		st, ok := n.TxnStates[request.TxnID]
+		n.mu.RUnlock()
+		if !ok {
+			// Infer minimal txn state from the request so followers/new leaders can execute the log
+			sID, errS := strconv.Atoi(request.Transaction.Sender)
+			rID, errR := strconv.Atoi(request.Transaction.Receiver)
 			if errS != nil || errR != nil {
 				log.Printf("Node %d [2PC]: bad account ids in request for txn=%s", n.ID, request.TxnID)
 				return false, "bad-ids"
@@ -1915,9 +1954,9 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 		return false, "unknown-txn-role"
 	}
 
-    // Try applying the transaction (outside mutex), then mark executed under lock
-    success, message := n.Database.ExecuteTransaction(request.Transaction)
-    n.markExecuted(seqNum)
+	// Try applying the transaction (outside mutex), then mark executed under lock
+	success, message := n.Database.ExecuteTransaction(request.Transaction)
+	n.markExecuted(seqNum)
 
 	// if success {
 	// 	log.Printf("Node %d: EXECUTED seq=%d SUCCESS (%s→%s,%d)",n.ID, seqNum,request.Transaction.Sender,request.Transaction.Receiver,request.Transaction.Amount)
@@ -1930,80 +1969,80 @@ func (n *Node) executeRequest(seqNum int, request datatypes.ClientRequest) (bool
 
 // executeRequestsInOrder walks committed entries sequentially and executes them.
 func (n *Node) executeRequestsInOrder() {
-    log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
-    didSync := false
-    for seqNum := 1; ; seqNum++ {
-        // Safe snapshot read of the entry
-        n.mu.RLock()
-        entry, exists := n.AcceptedLog[seqNum]
-        n.mu.RUnlock()
-        if !exists {
-            // Attempt a one-time state transfer from the current leader to fill gaps
-            if !didSync {
-                log.Printf("Node %d: gap at seq=%d — requesting state transfer from leader", n.ID, seqNum)
-                if n.tryStateTransferFromLeader() {
-                    didSync = true
-                    // restart scan from beginning to honor ordering
-                    seqNum = 0
-                    continue
-                }
-            }
-            log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d (syncAttempted=%v)", n.ID, seqNum, didSync)
-            break
-        }
+	log.Printf("Node %d: executeRequestsInOrder triggered", n.ID)
+	didSync := false
+	for seqNum := 1; ; seqNum++ {
+		// Safe snapshot read of the entry
+		n.mu.RLock()
+		entry, exists := n.AcceptedLog[seqNum]
+		n.mu.RUnlock()
+		if !exists {
+			// Attempt a one-time state transfer from the current leader to fill gaps
+			if !didSync {
+				log.Printf("Node %d: gap at seq=%d — requesting state transfer from leader", n.ID, seqNum)
+				if n.tryStateTransferFromLeader() {
+					didSync = true
+					// restart scan from beginning to honor ordering
+					seqNum = 0
+					continue
+				}
+			}
+			log.Printf("Node %d: executeRequestsInOrder stopping at gap seq=%d (syncAttempted=%v)", n.ID, seqNum, didSync)
+			break
+		}
 
-        if entry.Status == datatypes.StatusExecuted {
-            continue
-        }
+		if entry.Status == datatypes.StatusExecuted {
+			continue
+		}
 
-        if entry.Status == datatypes.StatusCommitted {
-            log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)", n.ID, seqNum, entry.Request.Transaction.Sender, entry.Request.Transaction.Receiver, entry.Request.Transaction.Amount)
-            n.executeRequest(seqNum, entry.Request)
-        }
-    }
+		if entry.Status == datatypes.StatusCommitted {
+			log.Printf("Node %d: EXECUTING seq=%d (%s→%s,%d)", n.ID, seqNum, entry.Request.Transaction.Sender, entry.Request.Transaction.Receiver, entry.Request.Transaction.Amount)
+			n.executeRequest(seqNum, entry.Request)
+		}
+	}
 }
 
 // tryStateTransferFromLeader fetches a snapshot from the current cluster leader
 // and applies it locally to repair gaps. Returns true if applied.
 func (n *Node) tryStateTransferFromLeader() bool {
-    leaderID, err := n.findClusterLeader(n.ClusterID)
-    if err != nil || leaderID == 0 {
-        return false
-    }
-    // Avoid asking self
-    if leaderID == n.ID {
-        return false
-    }
-    args := datatypes.StateTransferArgs{RequesterID: n.ID}
-    var rep datatypes.StateTransferReply
-    if err := n.callRPC(leaderID, "RequestStateTransfer", args, &rep); err != nil || !rep.Success {
-        return false
-    }
-    var applied bool
-    // Apply snapshot via normal NewView ingest
-    if err := n.HandleNewView(rep.Snapshot, &applied); err != nil {
-        return false
-    }
-    return applied
+	leaderID, err := n.findClusterLeader(n.ClusterID)
+	if err != nil || leaderID == 0 {
+		return false
+	}
+	// Avoid asking self
+	if leaderID == n.ID {
+		return false
+	}
+	args := datatypes.StateTransferArgs{RequesterID: n.ID}
+	var rep datatypes.StateTransferReply
+	if err := n.callRPC(leaderID, "RequestStateTransfer", args, &rep); err != nil || !rep.Success {
+		return false
+	}
+	var applied bool
+	// Apply snapshot via normal NewView ingest
+	if err := n.HandleNewView(rep.Snapshot, &applied); err != nil {
+		return false
+	}
+	return applied
 }
 
 // triggerExecutor starts the executor if one is not already running.
 func (n *Node) triggerExecutor() {
-    n.mu.Lock()
-    if n.execRunning {
-        n.mu.Unlock()
-        return
-    }
-    n.execRunning = true
-    n.mu.Unlock()
-    go func() {
-        defer func() {
-            n.mu.Lock()
-            n.execRunning = false
-            n.mu.Unlock()
-        }()
-        n.executeRequestsInOrder()
-    }()
+	n.mu.Lock()
+	if n.execRunning {
+		n.mu.Unlock()
+		return
+	}
+	n.execRunning = true
+	n.mu.Unlock()
+	go func() {
+		defer func() {
+			n.mu.Lock()
+			n.execRunning = false
+			n.mu.Unlock()
+		}()
+		n.executeRequestsInOrder()
+	}()
 }
 
 // markExecuted sets status=Executed for the given sequence number in both
@@ -2114,40 +2153,40 @@ func (n *Node) execute2PCParticipant(seqNum int, req datatypes.ClientRequest, st
 
 // applyCommittedEntries replays committed entries, preserving executed ones.
 func (n *Node) applyCommittedEntries(prevAccepted map[int]datatypes.LogEntry, maxSeq int) {
-    log.Printf("Node %d: applyCommittedEntries up to seq=%d", n.ID, maxSeq)
-    for seqNum := 1; seqNum <= maxSeq; seqNum++ {
-        // Safe snapshot read of the entry
-        n.mu.RLock()
-        entry, exists := n.AcceptedLog[seqNum]
-        n.mu.RUnlock()
-        if !exists {
-            continue
-        }
+	log.Printf("Node %d: applyCommittedEntries up to seq=%d", n.ID, maxSeq)
+	for seqNum := 1; seqNum <= maxSeq; seqNum++ {
+		// Safe snapshot read of the entry
+		n.mu.RLock()
+		entry, exists := n.AcceptedLog[seqNum]
+		n.mu.RUnlock()
+		if !exists {
+			continue
+		}
 
-        if entry.Status == datatypes.StatusCommitted || entry.Status == datatypes.StatusExecuted {
-            if prevEntry, ok := prevAccepted[seqNum]; ok && prevEntry.Status == datatypes.StatusExecuted {
-                if entry.Status == datatypes.StatusCommitted {
-                    // Upgrade to Executed under lock
-                    n.mu.Lock()
-                    cur := n.AcceptedLog[seqNum]
-                    if cur.Status == datatypes.StatusCommitted {
-                        cur.Status = datatypes.StatusExecuted
-                        n.AcceptedLog[seqNum] = cur
-                        for i := range n.RequestLog {
-                            if n.RequestLog[i].SeqNum == seqNum {
-                                n.RequestLog[i].Status = datatypes.StatusExecuted
-                                break
-                            }
-                        }
-                    }
-                    n.mu.Unlock()
-                }
-                continue
-            }
+		if entry.Status == datatypes.StatusCommitted || entry.Status == datatypes.StatusExecuted {
+			if prevEntry, ok := prevAccepted[seqNum]; ok && prevEntry.Status == datatypes.StatusExecuted {
+				if entry.Status == datatypes.StatusCommitted {
+					// Upgrade to Executed under lock
+					n.mu.Lock()
+					cur := n.AcceptedLog[seqNum]
+					if cur.Status == datatypes.StatusCommitted {
+						cur.Status = datatypes.StatusExecuted
+						n.AcceptedLog[seqNum] = cur
+						for i := range n.RequestLog {
+							if n.RequestLog[i].SeqNum == seqNum {
+								n.RequestLog[i].Status = datatypes.StatusExecuted
+								break
+							}
+						}
+					}
+					n.mu.Unlock()
+				}
+				continue
+			}
 
-            n.executeRequest(seqNum, entry.Request)
-        }
-    }
+			n.executeRequest(seqNum, entry.Request)
+		}
+	}
 }
 
 // StartLeaderElection initiates Paxos phase-1 to try becoming leader.
@@ -2236,35 +2275,35 @@ func (n *Node) StartLeaderElection() bool {
 	n.mu.Lock()
 	requiredMajority := n.clusterMajorityLocked()
 	n.mu.Unlock()
-    if promiseCount >= requiredMajority {
-        n.mu.Lock()
-        if !n.ActiveNodes[n.ID] {
-            n.mu.Unlock()
-            return false
-        }
-        // Ignore stale election completions: if during this attempt we have
-        // already promised a higher ballot, or have already become leader with
-        // an equal/higher ballot, abort this completion.
-        if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
-            log.Printf("Node %d: ignoring stale election completion (attempt=%s highestPromised=%s current=%s)",
-                n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
-            n.mu.Unlock()
-            return false
-        }
-        n.IsLeader = true
-        n.acceptedFromNewViewCount = 0
-        n.ackFromNewView = make(map[int]bool)
+	if promiseCount >= requiredMajority {
+		n.mu.Lock()
+		if !n.ActiveNodes[n.ID] {
+			n.mu.Unlock()
+			return false
+		}
+		// Ignore stale election completions: if during this attempt we have
+		// already promised a higher ballot, or have already become leader with
+		// an equal/higher ballot, abort this completion.
+		if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
+			log.Printf("Node %d: ignoring stale election completion (attempt=%s highestPromised=%s current=%s)",
+				n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
+			n.mu.Unlock()
+			return false
+		}
+		n.IsLeader = true
+		n.acceptedFromNewViewCount = 0
+		n.ackFromNewView = make(map[int]bool)
 
-			// New leader epoch: clear any locks from previous ballots to avoid stale locks
-			n.clearAllLocksLocked("became leader with new ballot")
+		// New leader epoch: clear any locks from previous ballots to avoid stale locks
+		n.clearAllLocksLocked("became leader with new ballot")
 
-        n.CurrentBallot = ballot
-        // Refresh leader timers to avoid immediate timeout-triggered re-elections
-        n.lastLeaderMsg = time.Now()
-        n.electionCoolDown = time.Now()
-        go n.sendHeartbeats()
-        go n.runDecisionRetryLoop()
-			//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
+		n.CurrentBallot = ballot
+		// Refresh leader timers to avoid immediate timeout-triggered re-elections
+		n.lastLeaderMsg = time.Now()
+		n.electionCoolDown = time.Now()
+		go n.sendHeartbeats()
+		go n.runDecisionRetryLoop()
+		//log.Printf("Node %d: Became leader with ballot %s (promises: %d)\n",n.ID, ballot, promiseCount)
 
 		acceptLog := n.createNewViewFromPromises(promises)
 
@@ -2378,20 +2417,20 @@ func (n *Node) ForceLeader() bool {
 		maj := n.clusterMajorityLocked()
 		n.mu.RUnlock()
 		if len(promises) >= maj {
-        // Become leader and perform New-View
-        n.mu.Lock()
-        if !n.ActiveNodes[n.ID] {
-            n.mu.Unlock()
-            return false
-        }
-        // Ignore stale completion if a higher promise/leader is already present
-        if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
-            log.Printf("Node %d: ignoring stale force-leader completion (attempt=%s highestPromised=%s current=%s)",
-                n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
-            n.mu.Unlock()
-            return false
-        }
-        n.IsLeader = true
+			// Become leader and perform New-View
+			n.mu.Lock()
+			if !n.ActiveNodes[n.ID] {
+				n.mu.Unlock()
+				return false
+			}
+			// Ignore stale completion if a higher promise/leader is already present
+			if n.HighestPromised.GreaterThan(ballot) || (n.IsLeader && n.CurrentBallot.GreaterThanOrEqual(ballot)) {
+				log.Printf("Node %d: ignoring stale force-leader completion (attempt=%s highestPromised=%s current=%s)",
+					n.ID, ballot.String(), n.HighestPromised.String(), n.CurrentBallot.String())
+				n.mu.Unlock()
+				return false
+			}
+			n.IsLeader = true
 			n.clearAllLocksLocked("force leader with new ballot")
 			n.CurrentBallot = ballot
 			// Refresh leader timers to avoid immediate timeout-triggered re-elections
@@ -2549,7 +2588,10 @@ func (n *Node) createNewViewFromPromises(promises map[int]datatypes.PromiseMsg) 
 			continue
 		}
 
-		if seq <= maxCommitted {
+		// Fill missing slots with NO-OPs up to the highest observed sequence to
+		// ensure a contiguous prefix after a leader change. This prevents the
+		// executor from stalling on gaps like seq=3 when later slots already exist.
+		if seq <= maxSeq {
 			noOpRequest := datatypes.ClientRequest{
 				ClientID:  fmt.Sprintf("no-op-%d", seq),
 				Timestamp: time.Now().UnixNano(),
@@ -2680,6 +2722,11 @@ func (n *Node) buildStateSnapshot() datatypes.NewViewMsg {
 		AcceptLog: acceptLog,
 	}
 	log.Printf("Node %d: snapshot ready entries=%d ballot=%s", n.ID, len(acceptLog), snapshot.Ballot.String())
+	//Can you print acceptlog here for debugging
+	for _, entry := range acceptLog {
+		log.Printf("Node %d: snapshot entry seq=%d ballot=%s request=%s status=%v",
+			n.ID, entry.SeqNum, entry.AcceptNum.String(), entry.Request.String(), entry.Status)
+	}
 	return snapshot
 }
 
@@ -2896,107 +2943,188 @@ func (n *Node) RecoverFromCrash() {
 
 // sendStateSnapshot pushes the latest snapshot to a specific follower.
 func (n *Node) sendStateSnapshot(targetID int) {
-	if targetID == n.ID {
-		return
-	}
+    if targetID == n.ID {
+        return
+    }
 
-	snapshot := n.buildStateSnapshot()
-	log.Printf("Node %d: sending snapshot entries=%d to node %d", n.ID, len(snapshot.AcceptLog), targetID)
-	var reply bool
-	if err := n.callRPC(targetID, "NewView", snapshot, &reply); err != nil {
-		log.Printf("Node %d: state snapshot to %d failed: %v", n.ID, targetID, err)
-	}
+    // Avoid pushing empty snapshots which can regress receivers during churn
+    n.mu.RLock()
+    empty := len(n.AcceptedLog) == 0
+    n.mu.RUnlock()
+    if empty {
+        log.Printf("Node %d: skip sending snapshot to %d (no entries)", n.ID, targetID)
+        return
+    }
+
+    snapshot := n.buildStateSnapshot()
+    log.Printf("Node %d: sending snapshot entries=%d to node %d", n.ID, len(snapshot.AcceptLog), targetID)
+    var reply bool
+    if err := n.callRPC(targetID, "NewView", snapshot, &reply); err != nil {
+        log.Printf("Node %d: state snapshot to %d failed: %v", n.ID, targetID, err)
+    }
+}
+
+// sendCommitReplay replays committed entries to a specific follower to ensure
+// it installs the contiguous committed prefix, independent of snapshot races.
+func (n *Node) sendCommitReplay(targetID int) {
+    if targetID == n.ID {
+        return
+    }
+    // Only assist peers in our cluster
+    inCluster := false
+    for _, pid := range n.clusterPeerIDs() {
+        if pid == targetID { inCluster = true; break }
+    }
+    if !inCluster {
+        return
+    }
+    // Take a consistent snapshot of committed/executed entries
+    n.mu.RLock()
+    if !n.ActiveNodes[n.ID] || !n.IsLeader {
+        n.mu.RUnlock()
+        return
+    }
+    seqs := make([]int, 0, len(n.AcceptedLog))
+    for seq := range n.AcceptedLog { seqs = append(seqs, seq) }
+    sort.Ints(seqs)
+    ballot := n.CurrentBallot
+    // Copy entries to minimize time under lock
+    entries := make([]datatypes.LogEntry, 0, len(seqs))
+    for _, s := range seqs {
+        e := n.AcceptedLog[s]
+        if e.Status == datatypes.StatusCommitted || e.Status == datatypes.StatusExecuted {
+            entries = append(entries, e)
+        }
+    }
+    n.mu.RUnlock()
+
+    // Replay commits to the target
+    for _, e := range entries {
+        n.mu.RLock()
+        active := n.ActiveNodes[targetID]
+        n.mu.RUnlock()
+        if !active { return }
+        commitMsg := datatypes.CommitMsg{Ballot: ballot, SeqNum: e.SeqNum, Request: e.Request}
+        var applied bool
+        _ = n.callRPC(targetID, "Commit", commitMsg, &applied)
+    }
 }
 
 // requestStateSync asks the leader for a snapshot to catch up after downtime.
 func (n *Node) requestStateSync() {
-	log.Printf("Node %d: initiating state sync attempts", n.ID)
-	for attempt := 0; attempt < 5; attempt++ {
-		n.mu.RLock()
-		leaderID := n.CurrentBallot.NodeID
-		isLeader := n.IsLeader && n.ActiveNodes[n.ID]
-		leaderActive := leaderID != 0 && n.ActiveNodes[leaderID]
-		n.mu.RUnlock()
+    log.Printf("Node %d: initiating state sync attempts", n.ID)
+    for attempt := 0; attempt < 5; attempt++ {
+        // Snapshot leader/peers under a short read lock
+        n.mu.RLock()
+        isLeader := n.IsLeader && n.ActiveNodes[n.ID]
+        clusterPeers := n.clusterPeerIDs()
+        active := make([]int, 0, len(clusterPeers))
+        for _, pid := range clusterPeers {
+            if n.ActiveNodes[pid] {
+                active = append(active, pid)
+            }
+        }
+        n.mu.RUnlock()
 
-		if isLeader {
-			log.Printf("Node %d: aborting state sync because self is leader", n.ID)
-			return
-		}
+        if isLeader {
+            log.Printf("Node %d: aborting state sync because self is leader", n.ID)
+            return
+        }
 
-		if !leaderActive || leaderID == n.ID {
-			log.Printf("Node %d: state sync attempt %d waiting for active leader", n.ID, attempt+1)
-			time.Sleep(300 * time.Millisecond)
-			continue
-		}
+        // Discover current leader by probing active peers
+        leaderID := 0
+        for _, pid := range active {
+            var li datatypes.LeaderInfo
+            if err := n.callRPC(pid, "GetLeader", true, &li); err == nil {
+                if li.IsLeader && li.LeaderID != 0 {
+                    leaderID = li.LeaderID
+                    break
+                }
+            }
+        }
 
-		args := datatypes.StateTransferArgs{RequesterID: n.ID}
-		var reply datatypes.StateTransferReply
-		if err := n.callRPC(leaderID, "RequestStateTransfer", args, &reply); err != nil || !reply.Success {
-			log.Printf("Node %d: state transfer request attempt %d failed: %v success=%v", n.ID, attempt+1, err, reply.Success)
-			time.Sleep(300 * time.Millisecond)
-			continue
-		}
+        // Build candidate list: discovered leader first, then any other active peers
+        candidates := make([]int, 0, len(active))
+        if leaderID != 0 {
+            candidates = append(candidates, leaderID)
+        }
+        for _, pid := range active {
+            if pid != leaderID {
+                candidates = append(candidates, pid)
+            }
+        }
 
-		var applied bool
-		if err := n.HandleNewView(reply.Snapshot, &applied); err != nil || !applied {
-			log.Printf("Node %d: apply snapshot attempt %d failed: %v applied=%v", n.ID, attempt+1, err, applied)
-			time.Sleep(300 * time.Millisecond)
-			continue
-		}
+        synced := false
+        for _, pid := range candidates {
+            args := datatypes.StateTransferArgs{RequesterID: n.ID}
+            var reply datatypes.StateTransferReply
+            if err := n.callRPC(pid, "RequestStateTransfer", args, &reply); err != nil || !reply.Success {
+                continue
+            }
+            var applied bool
+            if err := n.HandleNewView(reply.Snapshot, &applied); err == nil && applied {
+                log.Printf("Node %d: state sync completed via node %d", n.ID, pid)
+                synced = true
+                break
+            }
+        }
+        if synced {
+            return
+        }
 
-		log.Printf("Node %d: state sync completed", n.ID)
-		return
-	}
+        log.Printf("Node %d: state sync attempt %d had no usable leader/peers; retrying", n.ID, attempt+1)
+        time.Sleep(300 * time.Millisecond)
+    }
 
-	//log.Printf("Node %d: failed to synchronize state after retries", n.ID)
-	log.Printf("Node %d: failed to synchronize state after retries", n.ID)
+    //log.Printf("Node %d: failed to synchronize state after retries", n.ID)
+    log.Printf("Node %d: failed to synchronize state after retries", n.ID)
 }
 
 // PrintLog dumps the node's request log via RPC.
 func (s *NodeService) PrintLog(_ bool, reply *string) error {
-    log.Printf("Node %d: PrintLog RPC invoked", s.node.ID)
-    s.node.mu.RLock()
-    defer s.node.mu.RUnlock()
+	log.Printf("Node %d: PrintLog RPC invoked", s.node.ID)
+	s.node.mu.RLock()
+	defer s.node.mu.RUnlock()
 
-    var b strings.Builder
-    b.WriteString(fmt.Sprintf("===== Node %d Log =====\n", s.node.ID))
-    for _, e := range s.node.RequestLog {
-        // Basic fields
-        seq := e.SeqNum
-        bn, bi := e.Ballot.Number, e.Ballot.NodeID
-        sID, rID, amt := e.Request.Transaction.Sender, e.Request.Transaction.Receiver, e.Request.Transaction.Amount
-        stat := e.Status
+	var b strings.Builder
+	b.WriteString(fmt.Sprintf("===== Node %d Log =====\n", s.node.ID))
+	for _, e := range s.node.RequestLog {
+		// Basic fields
+		seq := e.SeqNum
+		bn, bi := e.Ballot.Number, e.Ballot.NodeID
+		sID, rID, amt := e.Request.Transaction.Sender, e.Request.Transaction.Receiver, e.Request.Transaction.Amount
+		stat := e.Status
 
-        // 2PC/context fields
-        phase := string(e.Request.TwoPCPhase)
-        isCross := e.Request.IsCross
-        tid := e.Request.TxnID
-        isNoOp := e.Request.IsNoOp
+		// 2PC/context fields
+		phase := string(e.Request.TwoPCPhase)
+		isCross := e.Request.IsCross
+		tid := e.Request.TxnID
+		isNoOp := e.Request.IsNoOp
 
-        // Cluster hints
-        sInt, _ := strconv.Atoi(sID)
-        rInt, _ := strconv.Atoi(rID)
-        sCID := shard.ClusterOfItem(sInt)
-        rCID := shard.ClusterOfItem(rInt)
+		// Cluster hints
+		sInt, _ := strconv.Atoi(sID)
+		rInt, _ := strconv.Atoi(rID)
+		sCID := shard.ClusterOfItem(sInt)
+		rCID := shard.ClusterOfItem(rInt)
 
-        if isNoOp {
-            fmt.Fprintf(&b, "Seq %d | Ballot (%d,%d) | NO-OP | Status %s\n", seq, bn, bi, stat)
-            continue
-        }
+		if isNoOp {
+			fmt.Fprintf(&b, "Seq %d | Ballot (%d,%d) | NO-OP | Status %s\n", seq, bn, bi, stat)
+			continue
+		}
 
-        // Compose line with extended info; include 2PC details when present
-        if tid != "" || phase != "" || isCross {
-            fmt.Fprintf(&b,
-                "Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | 2PC{txn=%s phase=%s cross=%v} | Clusters %d->%d\n",
-                seq, bn, bi, sID, rID, amt, stat, tid, phase, isCross, sCID, rCID)
-        } else {
-            fmt.Fprintf(&b,
-                "Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | Clusters %d->%d\n",
-                seq, bn, bi, sID, rID, amt, stat, sCID, rCID)
-        }
-    }
-    *reply = b.String()
-    return nil
+		// Compose line with extended info; include 2PC details when present
+		if tid != "" || phase != "" || isCross {
+			fmt.Fprintf(&b,
+				"Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | 2PC{txn=%s phase=%s cross=%v} | Clusters %d->%d\n",
+				seq, bn, bi, sID, rID, amt, stat, tid, phase, isCross, sCID, rCID)
+		} else {
+			fmt.Fprintf(&b,
+				"Seq %d | Ballot (%d,%d) | Txn %s -> %s amt=%d | Status %s | Clusters %d->%d\n",
+				seq, bn, bi, sID, rID, amt, stat, sCID, rCID)
+		}
+	}
+	*reply = b.String()
+	return nil
 }
 
 // PrintStatus reports the consensus status of a sequence number.
@@ -3074,9 +3202,9 @@ func (ns *NodeService) PrintDB(args datatypes.PrintDBArgs, reply *datatypes.Prin
 
 // GetBalance returns the current balance for a specific account ID on this node.
 func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatypes.GetBalanceReply) error {
-    log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
-    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
-    return nil
+	log.Printf("Node %d: GetBalance RPC account=%s", ns.node.ID, args.AccountID)
+	reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+	return nil
 }
 
 // =====================
@@ -3085,41 +3213,41 @@ func (ns *NodeService) GetBalance(args datatypes.GetBalanceArgs, reply *datatype
 
 // AdminGetBalance returns raw balance (works on any node).
 func (ns *NodeService) AdminGetBalance(args datatypes.AdminGetBalanceArgs, reply *datatypes.AdminGetBalanceReply) error {
-    reply.Balance = ns.node.Database.GetBalance(args.AccountID)
-    reply.Ok = true
-    return nil
+	reply.Balance = ns.node.Database.GetBalance(args.AccountID)
+	reply.Ok = true
+	return nil
 }
 
 // AdminSetBalance writes a balance directly (offline use only; any node).
 func (ns *NodeService) AdminSetBalance(args datatypes.AdminSetBalanceArgs, reply *datatypes.AdminSetBalanceReply) error {
-    if err := ns.node.Database.SetBalance(args.AccountID, args.Balance); err != nil {
-        reply.Ok = false
-        return nil
-    }
-    reply.Ok = true
-    return nil
+	if err := ns.node.Database.SetBalance(args.AccountID, args.Balance); err != nil {
+		reply.Ok = false
+		return nil
+	}
+	reply.Ok = true
+	return nil
 }
 
 // AdminDeleteAccount removes an account key directly.
 func (ns *NodeService) AdminDeleteAccount(args datatypes.AdminDeleteAccountArgs, reply *datatypes.AdminDeleteAccountReply) error {
-    if err := ns.node.Database.DeleteAccount(args.AccountID); err != nil {
-        reply.Ok = false
-        return nil
-    }
-    reply.Ok = true
-    return nil
+	if err := ns.node.Database.DeleteAccount(args.AccountID); err != nil {
+		reply.Ok = false
+		return nil
+	}
+	reply.Ok = true
+	return nil
 }
 
 // AdminReloadOverrides reloads shard overrides from disk.
 func (ns *NodeService) AdminReloadOverrides(_ datatypes.AdminReloadOverridesArgs, reply *datatypes.AdminReloadOverridesReply) error {
-    if err := shard.LoadOverridesFromFile(); err != nil {
-        log.Printf("Node %d: AdminReloadOverrides load error: %v", ns.node.ID, err)
-        // Still return Ok to keep flow non-fatal.
-        reply.Ok = false
-        return nil
-    }
-    reply.Ok = true
-    return nil
+	if err := shard.LoadOverridesFromFile(); err != nil {
+		log.Printf("Node %d: AdminReloadOverrides load error: %v", ns.node.ID, err)
+		// Still return Ok to keep flow non-fatal.
+		reply.Ok = false
+		return nil
+	}
+	reply.Ok = true
+	return nil
 }
 
 // TriggerElection starts a leader election on this node if active.
@@ -3163,39 +3291,39 @@ func (s *NodeService) GetBalancesFor(args datatypes.GetBalancesForArgs, reply *d
 
 // FlushState clears per-set observability and resets DB balances if requested.
 func (s *NodeService) FlushState(args datatypes.FlushStateArgs, reply *datatypes.FlushStateReply) error {
-    s.node.mu.Lock()
-    // Always clear view messages for fresh observability per set
-    s.node.NewViewMsgs = nil
+	s.node.mu.Lock()
+	// Always clear view messages for fresh observability per set
+	s.node.NewViewMsgs = nil
 
-    if args.ResetConsensus {
-        // Clear consensus logs and state while preserving topology/liveness
-        s.node.AcceptedLog = make(map[int]datatypes.LogEntry)
-        s.node.RequestLog = nil
-        s.node.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
-        s.node.NextSeqNum = 1
-        s.node.LastReply = make(map[string]datatypes.ReplyMsg)
-        s.node.HighestPromised = datatypes.BallotNumber{Number: 0, NodeID: 0}
-        s.node.CurrentBallot = datatypes.BallotNumber{Number: 0, NodeID: 0}
-        s.node.IsLeader = false
-        s.node.ackFromNewView = make(map[int]bool)
-        s.node.acceptedFromNewViewCount = 0
-        s.node.Locks = make(map[int]LockInfo)
-        s.node.TxnStates = make(map[string]*TxnState)
-        s.node.Pending2PCAcks = make(map[string]*PendingDecision)
-        // Prevent immediate re-election before the driver primes leaders
-        s.node.lastLeaderMsg = time.Now()
-        s.node.electionCoolDown = time.Now()
-    }
+	if args.ResetConsensus {
+		// Clear consensus logs and state while preserving topology/liveness
+		s.node.AcceptedLog = make(map[int]datatypes.LogEntry)
+		s.node.RequestLog = nil
+		s.node.pendingAccepts = make(map[int]map[int]datatypes.AcceptedMsg)
+		s.node.NextSeqNum = 1
+		s.node.LastReply = make(map[string]datatypes.ReplyMsg)
+		s.node.HighestPromised = datatypes.BallotNumber{Number: 0, NodeID: 0}
+		s.node.CurrentBallot = datatypes.BallotNumber{Number: 0, NodeID: 0}
+		s.node.IsLeader = false
+		s.node.ackFromNewView = make(map[int]bool)
+		s.node.acceptedFromNewViewCount = 0
+		s.node.Locks = make(map[int]LockInfo)
+		s.node.TxnStates = make(map[string]*TxnState)
+		s.node.Pending2PCAcks = make(map[string]*PendingDecision)
+		// Prevent immediate re-election before the driver primes leaders
+		s.node.lastLeaderMsg = time.Now()
+		s.node.electionCoolDown = time.Now()
+	}
 
-    s.node.mu.Unlock()
+	s.node.mu.Unlock()
 
-    if args.ResetWAL {
-        _ = s.node.Database.ClearAllWAL()
-    }
-    if args.ResetDB {
-        rng := config.ClusterRanges[s.node.ClusterID]
-        _ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
-    }
-    *reply = datatypes.FlushStateReply{Ok: true}
-    return nil
+	if args.ResetWAL {
+		_ = s.node.Database.ClearAllWAL()
+	}
+	if args.ResetDB {
+		rng := config.ClusterRanges[s.node.ClusterID]
+		_ = s.node.Database.ResetBalances(rng.Min, rng.Max, config.InitialBalance)
+	}
+	*reply = datatypes.FlushStateReply{Ok: true}
+	return nil
 }

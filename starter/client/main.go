@@ -1541,7 +1541,8 @@ func processNextTestSet(reader *bufio.Reader) {
 					}
 				}(addr)
 			}
-			time.Sleep(200 * time.Millisecond)
+			// Barrier: allow commit fan-out and leader/view settle before next control
+			time.Sleep(500 * time.Millisecond)
 			continue
 		}
 
