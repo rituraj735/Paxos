@@ -1,7 +1,3 @@
-// =======================================
-// File: starter/client/main.go
-// Description: CLI driver that parses CSV test sets, orchestrates liveness changes, and submits txns.
-// =======================================
 package main
 
 import (
@@ -41,7 +37,6 @@ var clientsMu sync.Mutex
 
 var backlog []datatypes.Txn
 
-// Phase 8: track modified IDs per set and performance stats
 var modifiedIDs map[int]bool
 
 type PerfStats struct {
@@ -52,10 +47,6 @@ type PerfStats struct {
 }
 
 var perf PerfStats
-
-// ========================
-// Phase 10: TxnSample ring buffer (RW only)
-// ========================
 
 type txnPair struct{ S, R int }
 
@@ -98,13 +89,11 @@ func (ts *TxnSample) snapshot() []txnPair {
 
 var txnSample = newTxnSample(1000)
 
-// deferTxn queues a txn for later when quorum is unavailable.
 func deferTxn(tx datatypes.Txn) {
 	log.Printf("ClientDriver: deferring txn %s", tx.String())
 	backlog = append(backlog, tx)
 }
 
-// flushBacklog retries deferred transactions against the cluster.
 func flushBacklog() {
 	if len(backlog) == 0 {
 		return
@@ -134,7 +123,6 @@ func flushBacklog() {
 	}
 }
 
-// main boots the CLI, reads CSV input, and drives the menu loop.
 func main() {
 	logDir := "logs"
 	if err := os.MkdirAll(logDir, 0o755); err != nil {
@@ -150,10 +138,8 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	log.SetPrefix("[Client] ")
 
-	// Load shard overrides at startup (non-fatal)
 	_ = shard.LoadOverridesFromFile()
 
-	// Flags for Phase 9 benchmark mode
 	bench := flag.Bool("bench", false, "run benchmark mode and exit")
 	modeFlag := flag.String("mode", "rw", "benchmark mode: rw or ro (time-based mode)")
 	durationFlag := flag.Int("duration", 30, "benchmark duration in seconds (used if -txns is 0)")
@@ -165,7 +151,6 @@ func main() {
 	seedFlag := flag.Int64("seed", 1, "RNG seed")
 	sourceCIDFlag := flag.Int("sourceCID", 1, "cluster to choose senders from [1..3]")
 
-	// Fixed-ops benchmark flags
 	txnsFlag := flag.Int("txns", 0, "run a fixed total number of operations; overrides -duration when >0")
 	rwPctFlag := flag.Int("rwPct", 100, "percentage of operations that are read-write [0..100] (fixed-ops mode)")
 	crossPctFlag := flag.Int("crossPct", 0, "percentage of cross-shard among read-write [0..100] (fixed-ops mode)")
@@ -178,36 +163,34 @@ func main() {
 	var option int
 	var fileName string
 
-	// Initializing 10 clients
 	clients = make(map[string]*client.Client)
 	for _, clientID := range config.ClientIDs {
 		clients[clientID] = client.NewClient(clientID, config.NodeAddresses)
 	}
 
-	time.Sleep(1 * time.Second) //Just waiting for clients to initialize and come up
+	time.Sleep(1 * time.Second)
 	fmt.Println("All 10 clients are ready")
 
-	// If -bench is set, run benchmark flow and exit
 	if *bench {
-		// Optional presets per assignment
+
 		if *presetFlag == 1 {
 			*txnsFlag = 200
 			*rwPctFlag = 80
 			*crossPctFlag = 10
-			*hotProbFlag = 0.0 // uniform
+			*hotProbFlag = 0.0
 			*modeFlag = "rw"
 		} else if *presetFlag == 2 {
 			*txnsFlag = 2000
 			*rwPctFlag = 80
 			*crossPctFlag = 20
-			*hotProbFlag = 0.95 // highly skewed
+			*hotProbFlag = 0.95
 			*hotKFlag = 100
 			*modeFlag = "rw"
 		} else if *presetFlag == 3 {
 			*txnsFlag = 30000
 			*rwPctFlag = 100
 			*crossPctFlag = 0
-			*hotProbFlag = 0.0 // uniform
+			*hotProbFlag = 0.0
 			*modeFlag = "rw"
 		}
 
@@ -237,7 +220,6 @@ func main() {
 		return
 	}
 
-	// Reading CSV file path from user (interactive mode)
 	fmt.Println("Please enter the test file path to start: ")
 	filePathReader := bufio.NewReader(os.Stdin)
 	filePath, err := filePathReader.ReadString('\n')
@@ -251,7 +233,6 @@ func main() {
 	}
 	log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
 
-	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
 	fmt.Println("Choose an option:")
 	for {
@@ -296,10 +277,6 @@ func main() {
 
 }
 
-// ========================
-// Phase 9: Benchmark Mode
-// ========================
-
 type benchWorkerStats struct {
 	totalOps     int64
 	successOps   int64
@@ -309,7 +286,7 @@ type benchWorkerStats struct {
 }
 
 func runBenchmark(mode string, durationSec int, workers int, amount int, crossRatio float64, hotK int, hotProb float64, seed int64, sourceCID int) error {
-	// Validate flags
+
 	if mode != "rw" && mode != "ro" {
 		return fmt.Errorf("invalid -mode: %s", mode)
 	}
@@ -335,7 +312,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		sourceCID = 1
 	}
 
-	// 1) Flush state on all nodes
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		addr := config.NodeAddresses[nodeID]
 		go func(addr string) {
@@ -348,7 +324,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 	}
 	time.Sleep(300 * time.Millisecond)
 
-	// 2) Prime leaders on cluster anchors (1,4,7)
 	for _, nid := range []int{1, 4, 7} {
 		addr := config.NodeAddresses[nid]
 		go func(addr string) {
@@ -361,7 +336,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 	}
 	time.Sleep(500 * time.Millisecond)
 
-	// 3) Prepare ranges and helpers
 	clusterRanges := config.ClusterRanges
 	pickInRange := func(rng *rand.Rand, lo, hi int) int {
 		if hi < lo {
@@ -379,7 +353,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		return x
 	}
 
-	// leader cache per cluster
 	var cacheMu sync.Mutex
 	leaderCache := make(map[int]int)
 
@@ -388,7 +361,7 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		if !ok || len(members) == 0 {
 			return 0, "", fmt.Errorf("no members for cluster %d", clusterID)
 		}
-		// choose a candidate: cached or the first member
+
 		cacheMu.Lock()
 		cand := leaderCache[clusterID]
 		cacheMu.Unlock()
@@ -419,7 +392,7 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 			cacheMu.Unlock()
 			return lid, config.NodeAddresses[lid], nil
 		}
-		// try a different random member once
+
 		alt := cand
 		for tries := 0; tries < 5 && alt == cand; tries++ {
 			alt = members[rng.Intn(len(members))]
@@ -433,7 +406,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		return 0, "", fmt.Errorf("leader discovery failed for cluster %d", clusterID)
 	}
 
-	// sender sampler for sourceCID
 	senderSampler := func(rng *rand.Rand) int {
 		rngDef, ok := clusterRanges[sourceCID]
 		if !ok {
@@ -445,10 +417,10 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		size := rngDef.Max - rngDef.Min + 1
 		hk := clamp(hotK, 1, size)
 		if rng.Float64() < hotProb {
-			// hot set
+
 			return pickInRange(rng, rngDef.Min, rngDef.Min+hk-1)
 		}
-		// cold set
+
 		coldLo := rngDef.Min + hk
 		if coldLo > rngDef.Max {
 			coldLo = rngDef.Min
@@ -456,12 +428,11 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		return pickInRange(rng, coldLo, rngDef.Max)
 	}
 
-	// receiver sampler based on sender and cross/intra choice
 	receiverSampler := func(rng *rand.Rand, senderID int) (int, int) {
 		sCID := shard.ClusterOfItem(senderID)
 		targetCID := sCID
 		if mode == "rw" && rng.Float64() < crossRatio {
-			// pick a different cluster uniformly
+
 			options := []int{}
 			for cid := 1; cid <= config.NumClusters; cid++ {
 				if cid != sCID {
@@ -489,7 +460,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		return pickInRange(rng, coldLo, rngDef.Max), targetCID
 	}
 
-	// worker function
 	doRW := func(rng *rand.Rand, wid int, end time.Time) benchWorkerStats {
 		st := benchWorkerStats{}
 		seq := int64(0)
@@ -538,17 +508,17 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 				st.errorOps++
 				continue
 			}
-			// classify reply
+
 			msg := strings.ToLower(rep.Reply.Message)
 			if rep.Reply.Success {
 				st.successOps++
 			} else if strings.Contains(msg, "locked") || strings.Contains(msg, "insufficient") || strings.Contains(msg, "abort") {
-				// contentions/logic
+
 				st.abortOps++
 			} else if strings.Contains(msg, "insufficient active nodes") || strings.Contains(msg, "not leader") || strings.Contains(msg, "consensus") {
 				st.errorOps++
 			} else {
-				// default to error if unexpected
+
 				st.errorOps++
 			}
 		}
@@ -582,14 +552,13 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 			if callErr != nil {
 				st.errorOps++
 			} else {
-				// success read
+
 				st.successOps++
 			}
 		}
 		return st
 	}
 
-	// 4) run workers
 	end := time.Now().Add(time.Duration(durationSec) * time.Second)
 	startWall := time.Now()
 	var wg sync.WaitGroup
@@ -610,7 +579,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 	wg.Wait()
 	endWall := time.Now()
 
-	// 5) aggregate
 	var agg benchWorkerStats
 	for i := 0; i < workers; i++ {
 		agg.totalOps += stats[i].totalOps
@@ -629,7 +597,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 		avgLatMs = (float64(agg.totalLatency.Milliseconds())) / float64(agg.totalOps)
 	}
 
-	// 6) report
 	fmt.Printf("mode=%s dur=%d clients=%d cross=%.2f hotProb=%.2f\n", mode, durationSec, workers, crossRatio, hotProb)
 	fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n",
 		agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
@@ -637,10 +604,6 @@ func runBenchmark(mode string, durationSec int, workers int, amount int, crossRa
 	return nil
 }
 
-// runBenchmarkByOps executes a fixed total number of operations across workers.
-// It supports a mix of read-write and read-only ops via rwPct, and applies
-// cross-shard selection for RW ops via crossPct. Distribution skew is controlled
-// with hotK/hotProb similar to time-based benchmark.
 func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPct int, hotK int, hotProb float64, seed int64, sourceCID int) error {
 	if totalOps <= 0 {
 		return fmt.Errorf("txns must be > 0")
@@ -669,7 +632,6 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 
 	crossRatio := float64(crossPct) / 100.0
 
-	// 1) Flush state on all nodes
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		addr := config.NodeAddresses[nodeID]
 		go func(addr string) {
@@ -682,7 +644,6 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 	}
 	time.Sleep(300 * time.Millisecond)
 
-	// 2) Prime leaders on cluster anchors (1,4,7)
 	for _, nid := range []int{1, 4, 7} {
 		addr := config.NodeAddresses[nid]
 		go func(addr string) {
@@ -695,7 +656,6 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 	}
 	time.Sleep(500 * time.Millisecond)
 
-	// 3) Helpers for ID sampling and leader discovery
 	clusterRanges := config.ClusterRanges
 	pickInRange := func(rng *rand.Rand, lo, hi int) int {
 		if hi < lo {
@@ -785,7 +745,7 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 		sCID := shard.ClusterOfItem(senderID)
 		targetCID := sCID
 		if rng.Float64() < crossRatio {
-			// choose a different target cluster uniformly
+
 			options := []int{}
 			for cid := 1; cid <= config.NumClusters; cid++ {
 				if cid != sCID {
@@ -813,7 +773,6 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 		return pickInRange(rng, coldLo, rngDef.Max), targetCID
 	}
 
-	// 4) run workers for fixed ops
 	var done int64
 	var wg sync.WaitGroup
 	stats := make([]benchWorkerStats, workers)
@@ -833,9 +792,8 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 					break
 				}
 
-				// Decide RW vs RO per op
 				if rng.Intn(100) < rwPct {
-					// RW op
+
 					sid := senderSampler(rng)
 					rid, _ := receiverSamplerRW(rng, sid)
 					sCID := shard.ClusterOfItem(sid)
@@ -845,7 +803,7 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 						st.errorOps++
 						continue
 					}
-					// record for resharding heuristic
+
 					txnSample.record(sid, rid)
 					req := datatypes.ClientRequest{
 						MessageType: "REQUEST",
@@ -891,7 +849,7 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 						st.errorOps++
 					}
 				} else {
-					// RO op
+
 					sid := senderSampler(rng)
 					sCID := shard.ClusterOfItem(sid)
 					_, addr, err := getClusterLeader(sCID, rng)
@@ -927,7 +885,6 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 	wg.Wait()
 	endWall := time.Now()
 
-	// 5) aggregate
 	var agg benchWorkerStats
 	for i := 0; i < workers; i++ {
 		agg.totalOps += stats[i].totalOps
@@ -946,30 +903,23 @@ func runBenchmarkByOps(totalOps int, workers int, amount int, rwPct int, crossPc
 		avgLatMs = float64(agg.totalLatency.Milliseconds()) / float64(agg.totalOps)
 	}
 
-	// 6) report
 	fmt.Printf("mode=fixed-ops txns=%d clients=%d rwPct=%d crossPct=%d hotProb=%.2f\n", totalOps, workers, rwPct, crossPct, hotProb)
 	fmt.Printf("ops=%d tps=%.1f success=%d abort=%d error=%d avgLat=%.1fms\n", agg.totalOps, tps, agg.successOps, agg.abortOps, agg.errorOps, avgLatMs)
 
 	return nil
 }
 
-// ========================
-// Phase 10: Resharding
-// ========================
-
 type move struct {
 	ID, OldCID, NewCID int
 	Score              int
 }
 
-// buildReshardMoves computes candidate moves using the TxnSample heuristic.
 func buildReshardMoves() []move {
 	pairs := txnSample.snapshot()
-	// counts[account][cluster] -> frequency
+
 	counts := make(map[int]map[int]int)
 	totals := make(map[int]int)
 
-	// For each transaction, attribute interactions to both participants
 	for _, p := range pairs {
 		sPeerCID := shard.ClusterOfItem(p.R)
 		rPeerCID := shard.ClusterOfItem(p.S)
@@ -991,7 +941,7 @@ func buildReshardMoves() []move {
 
 	moves := make([]move, 0)
 	for id, per := range counts {
-		// pick best cluster by frequency
+
 		bestCID, bestScore := 0, 0
 		for cid, c := range per {
 			if c > bestScore {
@@ -1007,16 +957,15 @@ func buildReshardMoves() []move {
 		}
 		moves = append(moves, move{ID: id, OldCID: oldCID, NewCID: bestCID, Score: totals[id]})
 	}
-	// sort by Score desc
+
 	sort.Slice(moves, func(i, j int) bool { return moves[i].Score > moves[j].Score })
-	// cap at config.ReshardTopK
+
 	if len(moves) > config.ReshardTopK {
 		moves = moves[:config.ReshardTopK]
 	}
 	return moves
 }
 
-// findClusterLeader returns (nodeID, address) for a cluster leader by probing members.
 func findClusterLeader(clusterID int) (int, string, error) {
 	members, ok := config.ClusterMembers[clusterID]
 	if !ok || len(members) == 0 {
@@ -1089,10 +1038,6 @@ func adminDeleteAccount(addr string, id int) error {
 	return nil
 }
 
-// readROWithLeaderFallback probes the sender's cluster members to find the
-// current leader and reads balance from it. If the leader is unreachable or
-// not reported, it falls back to other active members. It prints the result
-// to stdout for visibility.
 func readROWithLeaderFallback(senderID int) (nodeID int, balance int, fromLeader bool, err error) {
 	cid := shard.ClusterOfItem(senderID)
 	members, ok := config.ClusterMembers[cid]
@@ -1100,7 +1045,6 @@ func readROWithLeaderFallback(senderID int) (nodeID int, balance int, fromLeader
 		return 0, 0, false, fmt.Errorf("no members for cluster %d", cid)
 	}
 
-	// Discover leader among cluster members
 	leaderID := 0
 	for _, nid := range members {
 		addr := config.NodeAddresses[nid]
@@ -1117,7 +1061,6 @@ func readROWithLeaderFallback(senderID int) (nodeID int, balance int, fromLeader
 		}
 	}
 
-	// Helper to perform a bounded GetBalance RPC
 	tryGet := func(nid int) (int, error) {
 		addr := config.NodeAddresses[nid]
 		cli, derr := rpc.Dial("tcp", addr)
@@ -1140,14 +1083,13 @@ func readROWithLeaderFallback(senderID int) (nodeID int, balance int, fromLeader
 		}
 	}
 
-	// Try leader first if discovered
 	if leaderID != 0 {
 		if bal, e := tryGet(leaderID); e == nil {
 			log.Printf("RO %d: n%d (leader=true) balance=%d\n", senderID, leaderID, bal)
 			return leaderID, bal, true, nil
 		}
 	}
-	// Fallback to other members
+
 	for _, nid := range members {
 		if nid == leaderID {
 			continue
@@ -1174,10 +1116,9 @@ func adminReloadOverridesAllNodes() {
 	}
 }
 
-// applyReshardMoves performs the migration for a set of moves.
 func applyReshardMoves(moves []move) {
 	for _, m := range moves {
-		// 1) Get balance from old leader
+
 		_, oldAddr, err := findClusterLeader(m.OldCID)
 		if err != nil {
 			log.Printf("[Reshard] skip id=%d: old leader err: %v", m.ID, err)
@@ -1191,7 +1132,7 @@ func applyReshardMoves(moves []move) {
 			log.Printf("[Reshard] skip id=%d: admin get err: %v", m.ID, err)
 			continue
 		}
-		// 2) Fan-out set to destination cluster
+
 		destNodes := config.ClusterMembers[m.NewCID]
 		destOK := true
 		for _, nid := range destNodes {
@@ -1203,10 +1144,10 @@ func applyReshardMoves(moves []move) {
 			}
 		}
 		if !destOK {
-			// Abort move
+
 			continue
 		}
-		// 3) Fan-out delete to source cluster (best-effort)
+
 		srcNodes := config.ClusterMembers[m.OldCID]
 		for _, nid := range srcNodes {
 			addr := config.NodeAddresses[nid]
@@ -1214,15 +1155,14 @@ func applyReshardMoves(moves []move) {
 				log.Printf("[Reshard] WARN delete old id=%d on n%d failed: %v", m.ID, nid, err)
 			}
 		}
-		// 4) Update override map in-process
+
 		shard.SetAccountClusterOverride(m.ID, m.NewCID)
 	}
-	// Persist and fan-out reload
+
 	_ = shard.SaveOverridesToFile()
 	adminReloadOverridesAllNodes()
 }
 
-// runReshard builds a move list and applies it.
 func runReshard() {
 	log.Printf("[Reshard] computing moves from sample of %d txns", len(txnSample.snapshot()))
 	mv := buildReshardMoves()
@@ -1237,9 +1177,8 @@ func runReshard() {
 	fmt.Println("=== RESHARD DONE ===")
 }
 
-// ClientWorker is a placeholder goroutine for future async work per client.
 func ClientWorker(clientID int, inputChan <-chan string) {
-	//log.Printf("Client %d started and listening for commands...\n", clientID)
+
 	log.Printf("ClientWorker %d: started", clientID)
 
 	for txn := range inputChan {
@@ -1248,7 +1187,6 @@ func ClientWorker(clientID int, inputChan <-chan string) {
 	}
 }
 
-// ParseTxnSetsFromCSV ingests the CSV test plan into structured sets.
 func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 	log.Printf("ClientDriver: parsing CSV file %s", filePath)
 	file, err := os.Open(filePath)
@@ -1266,7 +1204,6 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 	sets := make([]TxnSet, 0)
 	currentSet := TxnSet{Txns: make([]datatypes.Txn, 0)}
 
-	// Each CSV record is read row wise
 	for i, record := range records {
 		if i == 0 {
 			continue
@@ -1300,7 +1237,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 			continue
 		}
 
-		txnParts := strings.Split(txnStr, ",") // Splits A,B,3 into [A B 3]
+		txnParts := strings.Split(txnStr, ",")
 
 		if len(txnParts) == 3 {
 			amount, _ := strconv.Atoi(strings.TrimSpace(txnParts[2]))
@@ -1311,7 +1248,7 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 			}
 			currentSet.Txns = append(currentSet.Txns, txn)
 		} else if len(txnParts) == 1 {
-			// Treat single (s) as read-only for sender s
+
 			sender := strings.TrimSpace(txnParts[0])
 			if sender != "" {
 				txn := datatypes.Txn{Sender: sender, Receiver: "", Amount: 0}
@@ -1342,7 +1279,6 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 
 const lfSentinelSender = "__LF__"
 
-// triggerLeaderFailure disables the current leader and waits for a new one.
 func triggerLeaderFailure() (int, error) {
 	log.Printf("ClientDriver: triggerLeaderFailure invoked")
 	currentLeader, err := findCurrentLeader()
@@ -1370,7 +1306,6 @@ func triggerLeaderFailure() (int, error) {
 	return newLeader, nil
 }
 
-// findCurrentLeader queries nodes to determine the prevailing leader.
 func findCurrentLeader() (int, error) {
 	log.Printf("ClientDriver: findCurrentLeader scanning nodes")
 
@@ -1400,7 +1335,6 @@ func findCurrentLeader() (int, error) {
 	return 0, fmt.Errorf("no leader information available from active nodes")
 }
 
-// disableLeaderAcrossCluster asks every node to mark the leader inactive.
 func disableLeaderAcrossCluster(leaderID int) error {
 	var firstErr error
 	log.Printf("ClientDriver: disabling leader %d cluster-wide", leaderID)
@@ -1430,7 +1364,6 @@ func disableLeaderAcrossCluster(leaderID int) error {
 	return firstErr
 }
 
-// waitForNewLeader polls until a different leader is observed or timeout.
 func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	deadline := time.Now().Add(timeout)
 	log.Printf("ClientDriver: waiting for new leader (old=%d timeout=%s)", oldLeader, timeout)
@@ -1458,7 +1391,6 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	return 0, fmt.Errorf("timed out waiting for new leader: still seeing Node %d as leader", lastObserved)
 }
 
-// waitForStableLeader blocks until a node reports IsLeader==true or timeout.
 func waitForStableLeader(timeout time.Duration) (int, error) {
 	deadline := time.Now().Add(timeout)
 	var lastErr error
@@ -1476,7 +1408,6 @@ func waitForStableLeader(timeout time.Duration) (int, error) {
 	return 0, lastErr
 }
 
-// processNextTestSet enforces liveness pattern then executes the set's txns.
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
 		log.Printf("ClientDriver: no remaining transaction sets")
@@ -1486,7 +1417,7 @@ func processNextTestSet(reader *bufio.Reader) {
 
 	currentSet := sets[currentSetIndex]
 	log.Printf("ClientDriver: processing set %d with %d txns", currentSet.SetNumber, len(currentSet.Txns))
-	// Flush per-set state and reset DB balances across nodes
+
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address := config.NodeAddresses[nodeID]
 		go func(addr string) {
@@ -1499,7 +1430,6 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 	time.Sleep(300 * time.Millisecond)
 
-	// Apply initial liveness via bulk update on each node
 	active := make(map[int]bool)
 	for id := 1; id <= config.NumNodes; id++ {
 		active[id] = false
@@ -1519,7 +1449,6 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 	time.Sleep(500 * time.Millisecond)
 
-	// Prime leaders on n1,n4,n7 if they are live using ForceLeader (runs Phase-1 safely)
 	for _, nid := range []int{1, 4, 7} {
 		if !active[nid] {
 			continue
@@ -1535,14 +1464,10 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 	time.Sleep(500 * time.Millisecond)
 
-	// Init per-set tracking
 	modifiedIDs = make(map[int]bool)
 	perf = PerfStats{}
 	perf.StartWall = time.Now()
 
-	// No global leader updates here; routing is cluster-aware in client.SendTransaction
-
-	// Send transactions in concurrent segments between control commands (LF/F/R)
 	segment := make([]datatypes.Txn, 0)
 	successCount := 0
 	failCount := 0
@@ -1562,13 +1487,12 @@ func processNextTestSet(reader *bufio.Reader) {
 		log.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
 		log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
 
-		// Identify control commands as segment boundaries
 		if tx.Sender == lfSentinelSender {
 			sc, fc := runSegment(segment)
 			successCount += sc
 			failCount += fc
 			segment = segment[:0]
-			// Apply LF synchronously
+
 			newLeader, err := triggerLeaderFailure()
 			if err != nil {
 				failCount++
@@ -1583,12 +1507,12 @@ func processNextTestSet(reader *bufio.Reader) {
 		isF := strings.HasPrefix(strings.ToUpper(s), "F(")
 		isR := strings.HasPrefix(strings.ToUpper(s), "R(")
 		if isF || isR {
-			// Drain previous segment first
+
 			sc, fc := runSegment(segment)
 			successCount += sc
 			failCount += fc
 			segment = segment[:0]
-			// Apply F/R synchronously (existing logic)
+
 			inside := s
 			if idx := strings.Index(inside, "("); idx >= 0 {
 				inside = inside[idx+1:]
@@ -1613,13 +1537,11 @@ func processNextTestSet(reader *bufio.Reader) {
 					}
 				}(addr)
 			}
-			// Barrier: allow commit fan-out and leader/view settle before next control
+
 			time.Sleep(500 * time.Millisecond)
 			continue
 		}
 
-		// Accumulate normal tx into the current segment
-		// Record attempted keys (for summary after set)
 		if sid, err := strconv.Atoi(tx.Sender); err == nil {
 			modifiedIDs[sid] = true
 		}
@@ -1629,7 +1551,6 @@ func processNextTestSet(reader *bufio.Reader) {
 		segment = append(segment, tx)
 	}
 
-	// Drain tail segment
 	sc, fc := runSegment(segment)
 	successCount += sc
 	failCount += fc
@@ -1638,7 +1559,6 @@ func processNextTestSet(reader *bufio.Reader) {
 	currentSetIndex++
 	currentSet.SetNumber++
 
-	// Post-set quick summary
 	avg := time.Duration(0)
 	dur := perf.EndWall.Sub(perf.StartWall)
 	if perf.TxnCount > 0 {
@@ -1647,12 +1567,11 @@ func processNextTestSet(reader *bufio.Reader) {
 	log.Printf("Performance: txns=%d avgLatency=%v throughput=%.2f/s", perf.TxnCount, avg, float64(perf.TxnCount)/maxf(dur.Seconds(), 0.001))
 }
 
-// runSegmentConcurrent sends a batch of txns concurrently with a bounded worker pool.
 func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int, segPerf PerfStats) {
 	if len(seg) == 0 {
 		return 0, 0, PerfStats{}
 	}
-	// Choose a reasonable pool size
+
 	k := 8
 	if len(seg) < k {
 		k = len(seg)
@@ -1664,7 +1583,7 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 	worker := func() {
 		defer wg.Done()
 		for tx := range jobs {
-			// Read-only if Receiver empty or amount 0
+
 			if strings.TrimSpace(tx.Receiver) == "" || tx.Amount == 0 {
 				sid, _ := strconv.Atoi(tx.Sender)
 				t0 := time.Now()
@@ -1685,7 +1604,7 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 				mu.Unlock()
 				continue
 			}
-			// record into TxnSample (RW only)
+
 			if sid, err1 := strconv.Atoi(tx.Sender); err1 == nil {
 				if rid, err2 := strconv.Atoi(tx.Receiver); err2 == nil && tx.Amount > 0 {
 					txnSample.record(sid, rid)
@@ -1699,14 +1618,14 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 				attempts++
 				reply, err := c.SendTransaction(tx)
 				if err != nil {
-					// Any RPC error is final per spec
+
 					break
 				}
 				if reply.Success {
 					finalSuccess = true
 					break
 				}
-				// classify reply
+
 				msg := strings.ToLower(reply.Message)
 				if strings.Contains(msg, "locked") && attempts < 5 {
 					time.Sleep(300 * time.Millisecond)
@@ -1715,10 +1634,10 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 				if strings.Contains(msg, "abort") || strings.Contains(msg, "aborted") ||
 					strings.Contains(msg, "insufficient funds") || strings.Contains(msg, "insufficient active nodes") ||
 					strings.Contains(msg, "consensus failed") {
-					// final failure
+
 					break
 				}
-				// default: final failure
+
 				break
 			}
 			mu.Lock()
@@ -1733,19 +1652,18 @@ func runSegmentConcurrent(seg []datatypes.Txn) (successCount int, failCount int,
 		}
 	}
 
-	// Start workers
 	for i := 0; i < k; i++ {
 		wg.Add(1)
 		go worker()
 	}
-	// Feed jobs
+
 	for _, tx := range seg {
 		jobs <- tx
 	}
 	close(jobs)
 	wg.Wait()
 	segPerf.EndWall = time.Now()
-	segPerf.StartWall = segPerf.EndWall // unused granularity here
+	segPerf.StartWall = segPerf.EndWall
 	return
 }
 
@@ -1756,7 +1674,6 @@ func maxf(a, b float64) float64 {
 	return b
 }
 
-// printLogFromNode calls the PrintLog RPC on a chosen node.
 func printLogFromNode(reader *bufio.Reader) {
 	log.Printf("ClientDriver: PrintLog command selected")
 	fmt.Print("Enter node ID (1-5): ")
@@ -1790,7 +1707,6 @@ func printLogFromNode(reader *bufio.Reader) {
 	fmt.Println(reply)
 }
 
-// printDBFromNode fetches the DB contents from a node.
 func printDBFromNode(reader *bufio.Reader) {
 	log.Printf("ClientDriver: PrintDB command selected")
 	fmt.Print("Enter node ID (1-5): ")
@@ -1821,7 +1737,6 @@ func printDBFromNode(reader *bufio.Reader) {
 
 }
 
-// printStatusFromNode prints consensus status for one seq across nodes.
 func printStatusFromNode(reader *bufio.Reader) {
 	log.Printf("ClientDriver: PrintStatus command selected")
 
@@ -1860,7 +1775,6 @@ func printStatusFromNode(reader *bufio.Reader) {
 	}
 }
 
-// printViewFromAllNodes invokes PrintView on every node for diagnostics.
 func printViewFromAllNodes() {
 	fmt.Println("===== Printing NEW-VIEW messages from all nodes =====")
 	log.Printf("ClientDriver: PrintViewAll command selected")
@@ -1889,8 +1803,6 @@ func printViewFromAllNodes() {
 	fmt.Println("==============================================")
 }
 
-// printBalanceFromCluster prompts for a client ID and prints balances on all
-// three nodes in the owning cluster in the format: nX : bal, nY : bal, nZ : bal
 func printBalanceFromCluster(reader *bufio.Reader) {
 	fmt.Print("Enter client ID: ")
 	line, _ := reader.ReadString('\n')
@@ -1930,11 +1842,8 @@ func printBalanceFromCluster(reader *bufio.Reader) {
 	fmt.Println(strings.Join(parts, ", "))
 }
 
-// printModifiedBalancesAllNodes prints, in parallel, the balances of only those
-// data items that were modified in the current test set, across all 9 nodes.
-// Output format: one line per node -> nX : id1=bal1, id2=bal2, ...
 func printModifiedBalancesAllNodes() {
-	// Snapshot and sort modified IDs
+
 	if len(modifiedIDs) == 0 {
 		fmt.Println("No modified keys recorded in this test case. Run a set first.")
 		return
@@ -1975,7 +1884,6 @@ func printModifiedBalancesAllNodes() {
 
 	go func() { wg.Wait(); close(resCh) }()
 
-	// Collect in map to print in node order (results arrive out-of-order)
 	lines := make(map[int]string)
 	for r := range resCh {
 		lines[r.node] = r.line
@@ -1989,9 +1897,6 @@ func printModifiedBalancesAllNodes() {
 	}
 }
 
-// printPerformance reports throughput and average latency captured during
-// the latest Process Set run. Throughput measured wall-clock from perf.StartWall
-// to perf.EndWall; latency is average per operation measured from send to reply.
 func printPerformance() {
 	if perf.StartWall.IsZero() || perf.EndWall.IsZero() || perf.TxnCount == 0 {
 		fmt.Println("No performance data yet. Run a transaction set first.")

@@ -1,7 +1,3 @@
-// =======================================
-// File: starter/testclient/testclient.go
-// Description: Simple CLI to query a node for a single account balance via RPC.
-// =======================================
 package main
 
 import (
@@ -62,7 +58,6 @@ func main() {
 	}
 	defer client.Close()
 
-	// If user provided a sequence number, query PrintStatus and exit
 	if *seq > 0 {
 		var status string
 		if err := client.Call("NodeService.PrintStatus", *seq, &status); err != nil {

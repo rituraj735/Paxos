@@ -1,36 +1,26 @@
-// =======================================
-// File: config/config.go
-// Description: Cluster-wide constants such as replica counts, ports, timeouts, and IDs.
-// =======================================
 package config
 
 import "strconv"
 
 const (
-	// Topology
 	NumNodes    = 9
 	NumClusters = 3
 	ClusterSize = 3
 
-	// Accounts
 	MinAccountID   = 1
-	MaxAccountID   = 9000 // changed for testclient.go
+	MaxAccountID   = 9000
 	InitialBalance = 10
 
-	// Paxos/Client timings (unchanged defaults)
 	MajoritySize  = 3
 	ClientTimeout = 4000
 	LeaderTimeout = 3000
 	PrepareDelay  = 500
 
-	// Networking
 	BaseNodePort   = 8001
 	BaseClientPort = 9001
 
-	// Data handling
 	WipeDataOnBoot = true
 
-	// Resharding demo cap
 	ReshardTopK = 10
 )
 
@@ -46,32 +36,27 @@ var NodeAddresses = map[int]string{
 	9: "localhost:8009",
 }
 
-// ClientIDs: pre-populate logical client IDs for full range [MinAccountID..MaxAccountID].
 var ClientIDs []string
 
 func init() {
-    total := MaxAccountID - MinAccountID + 1
-    if total < 0 {
-        total = 0
-    }
-    ClientIDs = make([]string, 0, total)
-    for i := MinAccountID; i <= MaxAccountID; i++ {
-        ClientIDs = append(ClientIDs, strconv.Itoa(i))
-    }
+	total := MaxAccountID - MinAccountID + 1
+	if total < 0 {
+		total = 0
+	}
+	ClientIDs = make([]string, 0, total)
+	for i := MinAccountID; i <= MaxAccountID; i++ {
+		ClientIDs = append(ClientIDs, strconv.Itoa(i))
+	}
 }
 
-// Logical cluster composition (metadata only in Phase 1)
 var ClusterMembers = map[int][]int{
 	1: {1, 2, 3},
 	2: {4, 5, 6},
 	3: {7, 8, 9},
 }
 
-// Range defines a half-closed numeric range [Min, Max].
 type Range struct{ Min, Max int }
 
-// ClusterRanges defines which account ID ranges belong to which cluster.
-// Single source of truth for sharding in Phase 3+.
 var ClusterRanges = map[int]Range{
 	1: {Min: 1, Max: 3000},
 	2: {Min: 3001, Max: 6000},
