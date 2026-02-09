@@ -1,3 +1,7 @@
+// =======================================
+// File: config/config.go
+// Description: Cluster-wide constants such as replica counts, ports, timeouts, and IDs.
+// =======================================
 package config
 
 const (

@@ -1,0 +1,1594 @@
+[Node 5] 2025/11/24 20:47:34.990936 Node 5: initializing at localhost:8005 with 5 peers
+[Node 5] 2025/11/24 20:47:34.991022 [Database] initializing new in-memory store
+[Node 5] 2025/11/24 20:47:34.991032 [Database] client A initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991038 [Database] client B initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991041 [Database] client C initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991044 [Database] client D initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991046 [Database] client E initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991049 [Database] client F initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991038 Node 5: leader timeout monitor running
+[Node 5] 2025/11/24 20:47:34.991051 [Database] client G initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991087 [Database] client H initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991095 [Database] client I initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991099 [Database] client J initialized with balance 10
+[Node 5] 2025/11/24 20:47:34.991104 Node 5: initialization complete (maj=3)
+[Node 5] 2025/11/24 20:47:34.991156 Node 5: starting RPC server at localhost:8005
+[Node 5] 2025/11/24 20:54:52.024599 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 20:54:52.024716 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 20:54:52.024767 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 20:54:52.024848 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 20:54:52.024822 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 20:54:52.024953 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 20:54:52.024829 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 20:54:52.025073 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 20:54:52.024874 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 20:54:52.025130 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 20:54:52.327697 Node 5: Accept RPC seq=1 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.327804 Node 5 ACCEPT seq=1 ballot=(2,1) txn=(A→J,3)
+[Node 5] 2025/11/24 20:54:52.327853 Node 5: Accepted seq 1
+[Node 5] 2025/11/24 20:54:52.336283 Node 5: Commit RPC seq=1 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.336374 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 20:54:52.336413 [Database] executing txn (A,J,3)
+[Node 5] 2025/11/24 20:54:52.336434 [Database] txn success: A -> J amount 3
+[Node 5] 2025/11/24 20:54:52.336451 Node 5: executeRequestsInOrder stopping at gap seq=2
+[Node 5] 2025/11/24 20:54:52.539667 Node 5: Accept RPC seq=2 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.539728 Node 5 ACCEPT seq=2 ballot=(2,1) txn=(C→D,1)
+[Node 5] 2025/11/24 20:54:52.539750 Node 5: Accepted seq 2
+[Node 5] 2025/11/24 20:54:52.550018 Node 5: Commit RPC seq=2 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.550090 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 20:54:52.550111 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 20:54:52.550136 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 20:54:52.550151 Node 5: executeRequestsInOrder stopping at gap seq=3
+[Node 5] 2025/11/24 20:54:52.756705 Node 5: Accept RPC seq=3 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.756793 Node 5 ACCEPT seq=3 ballot=(2,1) txn=(B→E,4)
+[Node 5] 2025/11/24 20:54:52.756824 Node 5: Accepted seq 3
+[Node 5] 2025/11/24 20:54:52.763630 Node 5: Commit RPC seq=3 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.763698 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 20:54:52.763736 [Database] executing txn (B,E,4)
+[Node 5] 2025/11/24 20:54:52.763746 [Database] txn success: B -> E amount 4
+[Node 5] 2025/11/24 20:54:52.763754 Node 5: executeRequestsInOrder stopping at gap seq=4
+[Node 5] 2025/11/24 20:54:52.965863 Node 5: Accept RPC seq=4 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.965928 Node 5 ACCEPT seq=4 ballot=(2,1) txn=(F→G,2)
+[Node 5] 2025/11/24 20:54:52.965940 Node 5: Accepted seq 4
+[Node 5] 2025/11/24 20:54:52.977157 Node 5: Commit RPC seq=4 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:52.977204 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 20:54:52.977215 [Database] executing txn (F,G,2)
+[Node 5] 2025/11/24 20:54:52.977218 [Database] txn success: F -> G amount 2
+[Node 5] 2025/11/24 20:54:52.977222 Node 5: executeRequestsInOrder stopping at gap seq=5
+[Node 5] 2025/11/24 20:54:53.179707 Node 5: Accept RPC seq=5 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:53.179742 Node 5 ACCEPT seq=5 ballot=(2,1) txn=(H→I,2)
+[Node 5] 2025/11/24 20:54:53.179749 Node 5: Accepted seq 5
+[Node 5] 2025/11/24 20:54:53.190750 Node 5: Commit RPC seq=5 ballot=(2,1)
+[Node 5] 2025/11/24 20:54:53.190775 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 20:54:53.190784 [Database] executing txn (H,I,2)
+[Node 5] 2025/11/24 20:54:53.190796 [Database] txn success: H -> I amount 2
+[Node 5] 2025/11/24 20:54:53.190807 Node 5: executeRequestsInOrder stopping at gap seq=6
+[Node 5] 2025/11/24 20:58:18.166760 Node 5: PrintView RPC invoked
+[Node 5] 2025/11/24 21:17:24.457007 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 21:17:24.457184 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 21:17:24.457502 Node 5: UpdateActiveStatus node=5 live=false
+[Node 5] 2025/11/24 21:17:24.457563 Node 5: setNodeLiveness node=5 live=false
+[Node 5] 2025/11/24 21:17:24.457822 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:17:24.457866 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:17:24.458087 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:17:24.458113 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:17:24.458223 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:17:24.458268 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:17:27.200579 Node 5: Leader timeout (3.095273s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:27.200835 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:29.209614 Node 5: Leader timeout (5.104303s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:29.209813 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:31.219124 Node 5: Leader timeout (7.113812s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:31.219316 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:33.229720 Node 5: Leader timeout (9.124403s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:33.229909 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:35.239819 Node 5: Leader timeout (11.134499s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:35.240005 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:37.250945 Node 5: Leader timeout (13.145617s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:37.251573 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:39.262296 Node 5: Leader timeout (15.156966s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:39.262445 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:41.272169 Node 5: Leader timeout (17.166834s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:41.272363 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:43.282720 Node 5: Leader timeout (19.177380s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:43.283006 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:45.291535 Node 5: Leader timeout (21.186190s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:45.291710 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:47.302109 Node 5: Leader timeout (23.196760s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:47.302435 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:49.312064 Node 5: Leader timeout (25.206709s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:49.312341 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:51.323092 Node 5: Leader timeout (27.217732s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:51.323332 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:53.331951 Node 5: Leader timeout (29.226587s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:53.332142 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:55.342663 Node 5: Leader timeout (31.237295s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:55.342857 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:57.353292 Node 5: Leader timeout (33.247918s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:57.353643 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:17:59.363721 Node 5: Leader timeout (35.258346s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:17:59.363769 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:01.271298 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:18:01.271342 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:18:01.271315 Node 5: UpdateActiveStatus node=4 live=false
+[Node 5] 2025/11/24 21:18:01.271396 Node 5: setNodeLiveness node=4 live=false
+[Node 5] 2025/11/24 21:18:01.271633 Node 5: UpdateActiveStatus node=2 live=false
+[Node 5] 2025/11/24 21:18:01.271658 Node 5: setNodeLiveness node=2 live=false
+[Node 5] 2025/11/24 21:18:01.271790 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:18:01.271818 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:18:01.272707 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:18:01.272785 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:18:01.272842 Node 5: initiating state sync attempts
+[Node 5] 2025/11/24 21:18:01.272887 Node 5: RPC RequestStateTransfer->node 1
+[Node 5] 2025/11/24 21:18:01.273800 Node 5: NewView RPC ballot=(2,1) entries=7
+[Node 5] 2025/11/24 21:18:01.273822 Node 5: applyCommittedEntries up to seq=7
+[Node 5] 2025/11/24 21:18:01.273832 [Database] executing txn (B,I,2)
+[Node 5] 2025/11/24 21:18:01.273842 [Database] txn success: B -> I amount 2
+[Node 5] 2025/11/24 21:18:01.273849 [Database] executing txn (J,C,4)
+[Node 5] 2025/11/24 21:18:01.273854 [Database] txn success: J -> C amount 4
+[Node 5] 2025/11/24 21:18:01.273882 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:18:01.273893 Node 5: executeRequestsInOrder stopping at gap seq=8
+[Node 5] 2025/11/24 21:18:01.273922 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.274021 Node 5: state sync completed
+[Node 5] 2025/11/24 21:18:01.274020 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.273943 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.273947 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.273951 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.273949 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.273939 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:18:01.578013 Node 5: Accept RPC seq=8 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:01.578125 Node 5 ACCEPT seq=8 ballot=(2,1) txn=(B→F,3)
+[Node 5] 2025/11/24 21:18:01.578172 Node 5: Accepted seq 8
+[Node 5] 2025/11/24 21:18:01.587732 Node 5: Commit RPC seq=8 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:01.587798 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:18:01.587817 [Database] executing txn (B,F,3)
+[Node 5] 2025/11/24 21:18:01.587826 [Database] txn success: B -> F amount 3
+[Node 5] 2025/11/24 21:18:01.587834 Node 5: executeRequestsInOrder stopping at gap seq=9
+[Node 5] 2025/11/24 21:18:01.793334 Node 5: Accept RPC seq=9 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:01.793465 Node 5 ACCEPT seq=9 ballot=(2,1) txn=(C→A,2)
+[Node 5] 2025/11/24 21:18:01.793558 Node 5: Accepted seq 9
+[Node 5] 2025/11/24 21:18:01.803260 Node 5: Commit RPC seq=9 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:01.803353 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:18:01.803374 [Database] executing txn (C,A,2)
+[Node 5] 2025/11/24 21:18:01.803384 [Database] txn success: C -> A amount 2
+[Node 5] 2025/11/24 21:18:01.803394 Node 5: executeRequestsInOrder stopping at gap seq=10
+[Node 5] 2025/11/24 21:18:04.930992 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:18:04.931024 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:18:04.931118 Node 5: UpdateActiveStatus node=4 live=false
+[Node 5] 2025/11/24 21:18:04.931129 Node 5: setNodeLiveness node=4 live=false
+[Node 5] 2025/11/24 21:18:04.931129 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:18:04.931145 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:18:04.931174 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:18:04.931181 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:18:04.931194 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:18:04.931200 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:18:05.238287 Node 5: Accept RPC seq=10 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:05.238363 Node 5 ACCEPT seq=10 ballot=(2,1) txn=(B→F,3)
+[Node 5] 2025/11/24 21:18:05.238401 Node 5: Accepted seq 10
+[Node 5] 2025/11/24 21:18:05.248180 Node 5: Commit RPC seq=10 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:05.248234 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:18:05.248255 [Database] executing txn (B,F,3)
+[Node 5] 2025/11/24 21:18:05.248266 [Database] txn failed: sender B insufficient balance 1 (amt 3)
+[Node 5] 2025/11/24 21:18:05.248305 Node 5: executeRequestsInOrder stopping at gap seq=11
+[Node 5] 2025/11/24 21:18:05.452863 Node 5: Accept RPC seq=11 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:05.452966 Node 5 ACCEPT seq=11 ballot=(2,1) txn=(A→H,3)
+[Node 5] 2025/11/24 21:18:05.453076 Node 5: Accepted seq 11
+[Node 5] 2025/11/24 21:18:05.463308 Node 5: Commit RPC seq=11 ballot=(2,1)
+[Node 5] 2025/11/24 21:18:05.463363 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:18:05.463379 [Database] executing txn (A,H,3)
+[Node 5] 2025/11/24 21:18:05.463389 [Database] txn success: A -> H amount 3
+[Node 5] 2025/11/24 21:18:05.463397 Node 5: executeRequestsInOrder stopping at gap seq=12
+[Node 5] 2025/11/24 21:18:09.330196 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:18:09.330263 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:18:09.330435 Node 5: UpdateActiveStatus node=5 live=false
+[Node 5] 2025/11/24 21:18:09.330500 Node 5: setNodeLiveness node=5 live=false
+[Node 5] 2025/11/24 21:18:09.330657 Node 5: UpdateActiveStatus node=4 live=false
+[Node 5] 2025/11/24 21:18:09.330719 Node 5: setNodeLiveness node=4 live=false
+[Node 5] 2025/11/24 21:18:09.330974 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:18:09.331018 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:18:09.331007 Node 5: UpdateActiveStatus node=3 live=false
+[Node 5] 2025/11/24 21:18:09.331180 Node 5: setNodeLiveness node=3 live=false
+[Node 5] 2025/11/24 21:18:12.223879 Node 5: Leader timeout (3.117938s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:12.224407 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:14.234478 Node 5: Leader timeout (5.128534s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:14.234649 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:16.245330 Node 5: Leader timeout (7.139379s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:16.245792 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:18.255753 Node 5: Leader timeout (9.149798s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:18.255915 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:20.266718 Node 5: Leader timeout (11.160758s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:20.266891 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:22.275925 Node 5: Leader timeout (13.169959s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:22.276146 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:24.284270 Node 5: Leader timeout (15.178302s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:24.284452 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:26.293964 Node 5: Leader timeout (17.187989s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:26.294181 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:28.303560 Node 5: Leader timeout (19.197583s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:28.303776 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:30.312660 Node 5: Leader timeout (21.206678s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:30.312837 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:32.322609 Node 5: Leader timeout (23.216623s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:32.322682 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:34.333040 Node 5: Leader timeout (25.227049s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:34.333158 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:36.343398 Node 5: Leader timeout (27.237400s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:36.343486 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:38.354021 Node 5: Leader timeout (29.248022s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:38.354064 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:40.363253 Node 5: Leader timeout (31.257245s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:40.363434 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:42.373625 Node 5: Leader timeout (33.267614s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:42.373720 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:44.383050 Node 5: Leader timeout (35.277034s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:44.383222 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:46.393961 Node 5: Leader timeout (37.287940s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:46.394119 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:48.404862 Node 5: Leader timeout (39.298837s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:48.405049 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:50.414262 Node 5: Leader timeout (41.308234s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:50.414336 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:52.424060 Node 5: Leader timeout (43.318026s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:52.424135 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:54.433882 Node 5: Leader timeout (45.327843s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:54.434058 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:56.444379 Node 5: Leader timeout (47.338334s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:56.444528 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:18:58.454403 Node 5: Leader timeout (49.348356s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:18:58.454446 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:00.464480 Node 5: Leader timeout (51.358425s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:00.464594 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:02.474478 Node 5: Leader timeout (53.368419s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:02.474580 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:04.484824 Node 5: Leader timeout (55.378761s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:04.484964 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:06.495481 Node 5: Leader timeout (57.389414s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:06.495516 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:08.505538 Node 5: Leader timeout (59.399465s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:08.505734 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:10.516541 Node 5: Leader timeout (61.410464s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:10.516696 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:12.527060 Node 5: Leader timeout (63.420979s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:12.527096 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:14.534889 Node 5: Leader timeout (65.428803s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:14.534953 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:16.544343 Node 5: Leader timeout (67.438252s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:16.544509 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:18.554781 Node 5: Leader timeout (69.448684s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:18.554960 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:20.565818 Node 5: Leader timeout (71.459716s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:20.565902 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:22.575528 Node 5: Leader timeout (73.469422s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:22.575726 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:24.584901 Node 5: Leader timeout (75.478790s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:24.585090 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:26.594263 Node 5: Leader timeout (77.488146s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:26.594574 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:28.603525 Node 5: Leader timeout (79.497404s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:28.603763 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:30.614970 Node 5: Leader timeout (81.508847s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:30.615029 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:32.625357 Node 5: Leader timeout (83.519227s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:32.625532 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:34.634757 Node 5: Leader timeout (85.528622s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:34.634958 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:36.643678 Node 5: Leader timeout (87.537540s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:36.643751 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:38.653861 Node 5: Leader timeout (89.547716s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:38.654079 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:40.663871 Node 5: Leader timeout (91.557724s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:40.663921 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:42.673800 Node 5: Leader timeout (93.567647s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:42.674198 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:44.683177 Node 5: Leader timeout (95.577018s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:44.683396 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:46.693221 Node 5: Leader timeout (97.587057s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:46.693385 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:48.703518 Node 5: Leader timeout (99.597350s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:48.703676 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:50.713442 Node 5: Leader timeout (101.607271s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:50.713490 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:52.723129 Node 5: Leader timeout (103.616952s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:52.723396 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:54.734146 Node 5: Leader timeout (105.627965s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:54.734320 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:56.744862 Node 5: Leader timeout (107.638674s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:56.745075 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:19:58.754639 Node 5: Leader timeout (109.648448s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:19:58.754815 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:00.764780 Node 5: Leader timeout (111.658582s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:00.764950 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:02.775710 Node 5: Leader timeout (113.669503s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:02.775932 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:04.786031 Node 5: Leader timeout (115.679825s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:04.786262 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:06.796936 Node 5: Leader timeout (117.690720s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:06.797164 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:08.805993 Node 5: Leader timeout (119.699778s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:08.806217 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:10.816849 Node 5: Leader timeout (121.710628s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:10.816997 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:12.827719 Node 5: Leader timeout (123.721494s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:12.827971 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:14.838713 Node 5: Leader timeout (125.732483s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:14.838881 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:16.849615 Node 5: Leader timeout (127.743381s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:16.849720 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:18.860482 Node 5: Leader timeout (129.754244s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:18.860633 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:20.869826 Node 5: Leader timeout (131.763582s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:20.869971 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:22.880227 Node 5: Leader timeout (133.773976s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:22.880466 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:24.889611 Node 5: Leader timeout (135.783357s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:24.889792 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:26.900120 Node 5: Leader timeout (137.793862s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:26.900311 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:28.909241 Node 5: Leader timeout (139.802976s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:28.909579 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:30.918828 Node 5: Leader timeout (141.812560s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:30.919154 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:32.928146 Node 5: Leader timeout (143.821872s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:32.928355 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:34.938500 Node 5: Leader timeout (145.832223s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:34.938707 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:36.948818 Node 5: Leader timeout (147.842535s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:36.949136 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:38.958593 Node 5: Leader timeout (149.852306s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:38.958832 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:40.967671 Node 5: Leader timeout (151.861378s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:40.967859 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:42.976856 Node 5: Leader timeout (153.870559s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:42.977049 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:44.986162 Node 5: Leader timeout (155.879863s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:44.986217 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:46.995868 Node 5: Leader timeout (157.889563s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:46.996103 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:49.005991 Node 5: Leader timeout (159.899681s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:49.006256 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:51.016198 Node 5: Leader timeout (161.909883s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:51.016278 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:53.026242 Node 5: Leader timeout (163.919921s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:53.026361 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:55.035509 Node 5: Leader timeout (165.929185s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:55.035613 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:57.046144 Node 5: Leader timeout (167.939814s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:57.046346 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:20:59.055251 Node 5: Leader timeout (169.948918s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:20:59.055543 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:21:01.065016 Node 5: Leader timeout (171.958677s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:21:01.065189 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:21:01.336842 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:21:01.336947 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:21:01.337118 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:21:01.337165 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:21:01.337309 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 21:21:01.337350 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 21:21:01.337480 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:21:01.337515 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:21:01.339969 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:21:01.340018 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:21:01.340059 Node 5: initiating state sync attempts
+[Node 5] 2025/11/24 21:21:01.340076 Node 5: RPC RequestStateTransfer->node 1
+[Node 5] 2025/11/24 21:21:01.341481 Node 5: NewView RPC ballot=(2,1) entries=11
+[Node 5] 2025/11/24 21:21:01.341653 Node 5: state sync completed
+[Node 5] 2025/11/24 21:21:01.639893 Node 5: Accept RPC seq=12 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.639978 Node 5 ACCEPT seq=12 ballot=(2,1) txn=(C→B,1)
+[Node 5] 2025/11/24 21:21:01.640009 Node 5: Accepted seq 12
+[Node 5] 2025/11/24 21:21:01.650950 Node 5: Commit RPC seq=12 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.651026 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:01.651050 [Database] executing txn (C,B,1)
+[Node 5] 2025/11/24 21:21:01.651060 [Database] txn success: C -> B amount 1
+[Node 5] 2025/11/24 21:21:01.651068 Node 5: executeRequestsInOrder stopping at gap seq=13
+[Node 5] 2025/11/24 21:21:01.652269 Node 5: Accept RPC seq=13 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.652291 Node 5 ACCEPT seq=13 ballot=(2,1) txn=(D→F,2)
+[Node 5] 2025/11/24 21:21:01.652302 Node 5: Accepted seq 13
+[Node 5] 2025/11/24 21:21:01.663628 Node 5: Commit RPC seq=13 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.663674 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:01.663687 [Database] executing txn (D,F,2)
+[Node 5] 2025/11/24 21:21:01.663696 [Database] txn success: D -> F amount 2
+[Node 5] 2025/11/24 21:21:01.663703 Node 5: executeRequestsInOrder stopping at gap seq=14
+[Node 5] 2025/11/24 21:21:01.664676 Node 5: Accept RPC seq=14 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.664700 Node 5 ACCEPT seq=14 ballot=(2,1) txn=(A→B,4)
+[Node 5] 2025/11/24 21:21:01.664708 Node 5: Accepted seq 14
+[Node 5] 2025/11/24 21:21:01.676092 Node 5: Commit RPC seq=14 ballot=(2,1)
+[Node 5] 2025/11/24 21:21:01.676125 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:01.676137 [Database] executing txn (A,B,4)
+[Node 5] 2025/11/24 21:21:01.676143 [Database] txn success: A -> B amount 4
+[Node 5] 2025/11/24 21:21:01.676149 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:01.884415 Node 5: Prepare RPC from ballot (3,2)
+[Node 5] 2025/11/24 21:21:01.884491 Node 5: Promised ballot (3,2)
+[Node 5] 2025/11/24 21:21:01.886857 Node 5: Prepare RPC from ballot (3,3)
+[Node 5] 2025/11/24 21:21:01.886908 Node 5: Promised ballot (3,3)
+[Node 5] 2025/11/24 21:21:01.887076 Node 5: NewView RPC ballot=(3,2) entries=14
+[Node 5] 2025/11/24 21:21:01.887408 Node 5: Prepare RPC from ballot (4,4)
+[Node 5] 2025/11/24 21:21:01.887437 Node 5: Promised ballot (4,4)
+[Node 5] 2025/11/24 21:21:01.887468 Node 5: UpdateActiveStatus node=1 live=false
+[Node 5] 2025/11/24 21:21:01.887530 Node 5: setNodeLiveness node=1 live=false
+[Node 5] 2025/11/24 21:21:01.887589 Node 5: StartLeaderElection invoked (leader=false active=true)
+[Node 5] 2025/11/24 21:21:01.887605 Node 5: Starting leader election with ballot (5,5)
+[Node 5] 2025/11/24 21:21:01.887657 Node 5: RPC Prepare->node 2
+[Node 5] 2025/11/24 21:21:01.887697 Node 5: RPC Prepare->node 4
+[Node 5] 2025/11/24 21:21:01.887725 Node 5: RPC Prepare->node 3
+[Node 5] 2025/11/24 21:21:01.887724 Node 5: skipping RPC Prepare to inactive node 1
+[Node 5] 2025/11/24 21:21:01.889390 Node 5: creating new view from 4 promises
+[Node 5] 2025/11/24 21:21:01.889427 Node 5: applyCommittedEntries up to seq=14
+[Node 5] 2025/11/24 21:21:01.889419 Node 5: heartbeat loop started
+[Node 5] 2025/11/24 21:21:01.889439 Node 5: NewView RPC ballot=(3,3) entries=14
+[Node 5] 2025/11/24 21:21:01.889481 Node 5: new view constructed with 14 entries (maxSeq=14)
+[Node 5] 2025/11/24 21:21:01.889504 Node 5: broadcasting NewView ballot=(5,5) entries=14
+[Node 5] 2025/11/24 21:21:01.889527 Node 5: RPC NewView->node 4
+[Node 5] 2025/11/24 21:21:01.889560 Node 5: RPC NewView->node 2
+[Node 5] 2025/11/24 21:21:01.889587 Node 5: RPC NewView->node 3
+[Node 5] 2025/11/24 21:21:01.889859 Node 5: NewView RPC ballot=(4,4) entries=14
+[Node 5] 2025/11/24 21:21:01.889889 Node 5: applyCommittedEntries up to seq=14
+[Node 5] 2025/11/24 21:21:01.889922 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:01.889937 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:01.889938 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889949 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889969 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889987 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889999 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.890009 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.890011 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889935 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889945 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.890052 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.890014 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.890019 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889927 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.889931 Node 5: RPC AcceptedFromNewView->node 4
+[Node 5] 2025/11/24 21:21:01.891552 Node 5: AcceptedFromNewView from node 3 seq=3
+[Node 5] 2025/11/24 21:21:01.891691 Node 5: AcceptedFromNewView from node 4 seq=9
+[Node 5] 2025/11/24 21:21:01.891889 Node 5: AcceptedFromNewView from node 3 seq=1
+[Node 5] 2025/11/24 21:21:01.891957 Node 5: AcceptedFromNewView from node 4 seq=8
+[Node 5] 2025/11/24 21:21:01.892015 Node 5: AcceptedFromNewView from node 3 seq=12
+[Node 5] 2025/11/24 21:21:01.892078 Node 5: AcceptedFromNewView from node 4 seq=1
+[Node 5] 2025/11/24 21:21:01.892018 Node 5: AcceptedFromNewView from node 3 seq=6
+[Node 5] 2025/11/24 21:21:01.892042 Node 5: AcceptedFromNewView from node 3 seq=8
+[Node 5] 2025/11/24 21:21:01.892138 Node 5: AcceptedFromNewView from node 3 seq=11
+[Node 5] 2025/11/24 21:21:01.892140 Node 5: AcceptedFromNewView from node 4 seq=2
+[Node 5] 2025/11/24 21:21:01.892043 Node 5: AcceptedFromNewView from node 3 seq=7
+[Node 5] 2025/11/24 21:21:01.892145 Node 5: AcceptedFromNewView from node 3 seq=5
+[Node 5] 2025/11/24 21:21:01.892173 Node 5: AcceptedFromNewView from node 3 seq=9
+[Node 5] 2025/11/24 21:21:01.892284 Node 5: AcceptedFromNewView from node 2 seq=14
+[Node 5] 2025/11/24 21:21:01.892309 Node 5: AcceptedFromNewView from node 3 seq=4
+[Node 5] 2025/11/24 21:21:01.892341 Node 5: AcceptedFromNewView from node 3 seq=10
+[Node 5] 2025/11/24 21:21:01.892371 Node 5: AcceptedFromNewView from node 3 seq=2
+[Node 5] 2025/11/24 21:21:01.892387 Node 5: AcceptedFromNewView from node 4 seq=3
+[Node 5] 2025/11/24 21:21:01.892389 Node 5: AcceptedFromNewView from node 4 seq=4
+[Node 5] 2025/11/24 21:21:01.892429 Node 5: AcceptedFromNewView from node 2 seq=1
+[Node 5] 2025/11/24 21:21:01.892439 Node 5: AcceptedFromNewView from node 4 seq=5
+[Node 5] 2025/11/24 21:21:01.892500 Node 5: AcceptedFromNewView from node 2 seq=8
+[Node 5] 2025/11/24 21:21:01.892795 Node 5: AcceptedFromNewView from node 2 seq=5
+[Node 5] 2025/11/24 21:21:01.893053 Node 5: AcceptedFromNewView from node 2 seq=4
+[Node 5] 2025/11/24 21:21:01.893068 Node 5: AcceptedFromNewView from node 2 seq=12
+[Node 5] 2025/11/24 21:21:01.893095 Node 5: AcceptedFromNewView from node 2 seq=7
+[Node 5] 2025/11/24 21:21:01.893072 Node 5: AcceptedFromNewView from node 4 seq=12
+[Node 5] 2025/11/24 21:21:01.893057 Node 5: AcceptedFromNewView from node 2 seq=13
+[Node 5] 2025/11/24 21:21:01.893249 Node 5: AcceptedFromNewView from node 4 seq=7
+[Node 5] 2025/11/24 21:21:01.893056 Node 5: AcceptedFromNewView from node 2 seq=10
+[Node 5] 2025/11/24 21:21:01.893338 Node 5: AcceptedFromNewView from node 2 seq=11
+[Node 5] 2025/11/24 21:21:01.893251 Node 5: AcceptedFromNewView from node 4 seq=6
+[Node 5] 2025/11/24 21:21:01.893789 Node 5: AcceptedFromNewView from node 3 seq=14
+[Node 5] 2025/11/24 21:21:01.893810 Node 5: AcceptedFromNewView from node 2 seq=9
+[Node 5] 2025/11/24 21:21:01.893824 Node 5: AcceptedFromNewView from node 4 seq=13
+[Node 5] 2025/11/24 21:21:01.893817 Node 5: AcceptedFromNewView from node 4 seq=10
+[Node 5] 2025/11/24 21:21:01.893794 Node 5: AcceptedFromNewView from node 2 seq=6
+[Node 5] 2025/11/24 21:21:01.893867 Node 5: AcceptedFromNewView from node 2 seq=3
+[Node 5] 2025/11/24 21:21:01.893893 Node 5: AcceptedFromNewView from node 4 seq=14
+[Node 5] 2025/11/24 21:21:01.893914 Node 5: AcceptedFromNewView from node 2 seq=2
+[Node 5] 2025/11/24 21:21:01.893946 Node 5: AcceptedFromNewView from node 4 seq=11
+[Node 5] 2025/11/24 21:21:01.894043 Node 5: AcceptedFromNewView from node 3 seq=13
+[Node 5] 2025/11/24 21:21:02.199631 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:02.504117 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:02.812814 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:03.124280 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:03.432220 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:03.743859 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:04.055378 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:04.368014 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:04.678616 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:21:04.908317 Node 5: Accept RPC seq=1 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.909535 Node 5: Prepare RPC from ballot (6,2)
+[Node 5] 2025/11/24 21:21:04.909719 Node 5: Promised ballot (6,2)
+[Node 5] 2025/11/24 21:21:04.912832 Node 5: Accept RPC seq=2 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.912848 Node 5: NewView RPC ballot=(6,2) entries=14
+[Node 5] 2025/11/24 21:21:04.912968 Node 5: applyCommittedEntries up to seq=14
+[Node 5] 2025/11/24 21:21:04.913018 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913036 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:04.913201 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:04.913045 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913054 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913060 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913063 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913067 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913069 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913074 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913077 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913080 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913082 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913085 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913087 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.913090 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:21:04.914251 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.914529 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.914677 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.916812 Node 5: Accept RPC seq=3 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.916855 Node 5: Accept RPC seq=1 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.917300 Node 5: Accept RPC seq=1 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.918381 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.918400 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.918420 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.919265 Node 5: Commit RPC seq=3 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.919294 Node 5: ignoring stale commit seq=3 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.919272 Node 5: Commit RPC seq=5 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.919319 Node 5: ignoring stale commit seq=5 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.919357 Node 5: Commit RPC seq=4 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.919381 Node 5: ignoring stale commit seq=4 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.919481 Node 5: Accept RPC seq=2 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.919545 Node 5: Accept RPC seq=6 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.919777 Node 5: Accept RPC seq=2 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.920533 Node 5: Accept RPC seq=3 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.921338 Node 5: Commit RPC seq=6 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.921355 Node 5: ignoring stale commit seq=6 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.921378 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.921389 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.921404 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.921890 Node 5: Commit RPC seq=9 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.921909 Node 5: ignoring stale commit seq=9 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.921890 Node 5: Commit RPC seq=7 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.921942 Node 5: ignoring stale commit seq=7 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.922351 Node 5: Commit RPC seq=8 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.922406 Node 5: ignoring stale commit seq=8 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923007 Node 5: Commit RPC seq=12 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.923022 Node 5: ignoring stale commit seq=12 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923103 Node 5: Accept RPC seq=3 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.923124 Node 5: Commit RPC seq=10 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.923144 Node 5: ignoring stale commit seq=10 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923147 Node 5: Commit RPC seq=11 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.923133 Node 5: Accept RPC seq=4 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.923162 Node 5: Commit RPC seq=14 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.923161 Node 5: ignoring stale commit seq=11 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923215 Node 5: ignoring stale commit seq=14 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923216 Node 5: Commit RPC seq=13 ballot=(3,2)
+[Node 5] 2025/11/24 21:21:04.923251 Node 5: ignoring stale commit seq=13 ballot=(3,2) (promise=(6,2))
+[Node 5] 2025/11/24 21:21:04.923280 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.923284 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.923291 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.923935 Node 5: Accept RPC seq=4 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.923936 Node 5: Accept RPC seq=5 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.924259 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.924281 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.924294 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.924823 Node 5: Accept RPC seq=6 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.924859 Node 5: Accept RPC seq=5 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.925098 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.925119 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.925135 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.925673 Node 5: Accept RPC seq=7 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.925732 Node 5: Accept RPC seq=6 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.925956 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.925969 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.925985 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.926548 Node 5: Accept RPC seq=8 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.926559 Node 5: Accept RPC seq=7 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.926779 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.926781 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.926802 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.927401 Node 5: Accept RPC seq=9 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.927468 Node 5: Accept RPC seq=8 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.927610 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.927617 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.927621 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.928238 Node 5: Accept RPC seq=9 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.928511 Node 5: Accept RPC seq=10 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.928551 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.928561 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.928576 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.929116 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.929134 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.929134 Node 5: Accept RPC seq=11 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.929189 Node 5: Accept RPC seq=10 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.929144 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.929742 Node 5: Accept RPC seq=12 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.929754 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.929751 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.929767 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.929815 Node 5: Accept RPC seq=11 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.930320 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.930322 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.930325 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.930392 Node 5: Accept RPC seq=12 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.930441 Node 5: Accept RPC seq=13 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.930877 Node 5: RPC Accept->node 4
+[Node 5] 2025/11/24 21:21:04.930886 Node 5: RPC Accept->node 2
+[Node 5] 2025/11/24 21:21:04.930894 Node 5: RPC Accept->node 3
+[Node 5] 2025/11/24 21:21:04.931030 Node 5: Accept RPC seq=14 ballot=(4,4)
+[Node 5] 2025/11/24 21:21:04.931051 Node 5: Accept RPC seq=13 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:04.931420 Node 5: leader election success with ballot (5,5)
+[Node 5] 2025/11/24 21:21:04.931604 Node 5: Accept RPC seq=14 ballot=(3,3)
+[Node 5] 2025/11/24 21:21:05.012907 Node 5: Commit RPC seq=1 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.012930 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.012936 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.012969 Node 5: Commit RPC seq=9 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.012985 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.012993 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.012992 Node 5: Commit RPC seq=6 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013005 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013010 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013072 Node 5: Commit RPC seq=5 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013083 Node 5: Commit RPC seq=3 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013092 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013109 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013108 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013124 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013295 Node 5: Commit RPC seq=2 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013313 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013321 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013323 Node 5: Commit RPC seq=7 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013341 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013347 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013748 Node 5: Commit RPC seq=12 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013766 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013774 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013844 Node 5: Commit RPC seq=11 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013858 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013863 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013883 Node 5: Commit RPC seq=13 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013897 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013908 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013906 Node 5: Commit RPC seq=4 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013921 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013931 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013902 Node 5: Commit RPC seq=8 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013952 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013959 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013960 Node 5: Commit RPC seq=14 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.013974 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.013985 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:05.013998 Node 5: Commit RPC seq=10 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:05.014012 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:05.014017 Node 5: executeRequestsInOrder stopping at gap seq=15
+[Node 5] 2025/11/24 21:21:06.986692 Node 5: Accept RPC seq=15 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:06.987175 Node 5 ACCEPT seq=15 ballot=(6,2) txn=(I→D,2)
+[Node 5] 2025/11/24 21:21:06.987291 Node 5: Accepted seq 15
+[Node 5] 2025/11/24 21:21:06.997114 Node 5: Commit RPC seq=15 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:06.997182 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:06.997219 [Database] executing txn (I,D,2)
+[Node 5] 2025/11/24 21:21:06.997234 [Database] txn success: I -> D amount 2
+[Node 5] 2025/11/24 21:21:06.997249 Node 5: executeRequestsInOrder stopping at gap seq=16
+[Node 5] 2025/11/24 21:21:07.201911 Node 5: Accept RPC seq=16 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:07.201976 Node 5 ACCEPT seq=16 ballot=(6,2) txn=(E→J,2)
+[Node 5] 2025/11/24 21:21:07.201998 Node 5: Accepted seq 16
+[Node 5] 2025/11/24 21:21:07.212478 Node 5: Commit RPC seq=16 ballot=(6,2)
+[Node 5] 2025/11/24 21:21:07.212555 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:21:07.212611 [Database] executing txn (E,J,2)
+[Node 5] 2025/11/24 21:21:07.212624 [Database] txn success: E -> J amount 2
+[Node 5] 2025/11/24 21:21:07.212634 Node 5: executeRequestsInOrder stopping at gap seq=17
+[Node 5] 2025/11/24 21:24:00.383433 Node 5: PrintDB RPC invoked
+[Node 5] 2025/11/24 21:24:00.384312 [Database] printing DB for node 5 (10 accounts)
+[Node 5] 2025/11/24 21:24:19.718961 Node 5: PrintView RPC invoked
+[Node 5] 2025/11/24 21:28:25.868271 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:28:25.868370 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:28:25.868522 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:28:25.868566 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:28:25.868701 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:28:25.868726 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:28:25.869923 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 21:28:25.870044 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 21:28:25.870209 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:28:25.870230 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:28:26.175892 Node 5: Accept RPC seq=17 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.175942 Node 5 ACCEPT seq=17 ballot=(6,2) txn=(F→A,2)
+[Node 5] 2025/11/24 21:28:26.175956 Node 5: Accepted seq 17
+[Node 5] 2025/11/24 21:28:26.186600 Node 5: Commit RPC seq=17 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.186702 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:26.186746 [Database] executing txn (F,A,2)
+[Node 5] 2025/11/24 21:28:26.186771 [Database] txn success: F -> A amount 2
+[Node 5] 2025/11/24 21:28:26.186788 Node 5: executeRequestsInOrder stopping at gap seq=18
+[Node 5] 2025/11/24 21:28:26.391441 Node 5: Accept RPC seq=18 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.391515 Node 5 ACCEPT seq=18 ballot=(6,2) txn=(G→H,1)
+[Node 5] 2025/11/24 21:28:26.391546 Node 5: Accepted seq 18
+[Node 5] 2025/11/24 21:28:26.401910 Node 5: Commit RPC seq=18 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.401987 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:26.402011 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:28:26.402026 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:28:26.402032 Node 5: executeRequestsInOrder stopping at gap seq=19
+[Node 5] 2025/11/24 21:28:26.606780 Node 5: Accept RPC seq=19 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.606863 Node 5 ACCEPT seq=19 ballot=(6,2) txn=(J→A,2)
+[Node 5] 2025/11/24 21:28:26.606892 Node 5: Accepted seq 19
+[Node 5] 2025/11/24 21:28:26.617576 Node 5: Commit RPC seq=19 ballot=(6,2)
+[Node 5] 2025/11/24 21:28:26.617679 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:26.617741 [Database] executing txn (J,A,2)
+[Node 5] 2025/11/24 21:28:26.617763 [Database] txn success: J -> A amount 2
+[Node 5] 2025/11/24 21:28:26.617776 Node 5: executeRequestsInOrder stopping at gap seq=20
+[Node 5] 2025/11/24 21:28:27.637463 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:28:27.637485 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:28:27.637536 Node 5: UpdateActiveStatus node=4 live=false
+[Node 5] 2025/11/24 21:28:27.637547 Node 5: setNodeLiveness node=4 live=false
+[Node 5] 2025/11/24 21:28:27.637588 Node 5: UpdateActiveStatus node=5 live=false
+[Node 5] 2025/11/24 21:28:27.637596 Node 5: setNodeLiveness node=5 live=false
+[Node 5] 2025/11/24 21:28:27.637631 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:28:27.637637 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:28:27.637740 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:28:27.637752 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:28:28.806805 Node 5: UpdateActiveStatus node=2 live=false
+[Node 5] 2025/11/24 21:28:28.806823 Node 5: setNodeLiveness node=2 live=false
+[Node 5] 2025/11/24 21:28:28.806849 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:28.841751 Node 5: Leader timeout (6.034921s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:28.841809 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:29.118541 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:29.428163 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:29.738675 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:30.048613 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:30.357229 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:30.667989 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:30.850992 Node 5: Leader timeout (8.044147s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:30.851219 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:30.980108 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:31.287799 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:31.592546 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:31.896869 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:32.205483 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:32.514745 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:32.824040 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:32.861699 Node 5: Leader timeout (10.054842s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:32.861849 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:33.134901 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:33.445545 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:33.756461 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:34.067185 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:34.378034 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:34.690624 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:34.870929 Node 5: Leader timeout (12.064061s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:34.871077 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:35.002067 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:35.307447 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:35.619126 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:35.929691 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:36.241110 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:36.547221 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:36.856906 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:36.883305 Node 5: Leader timeout (14.076425s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:36.883348 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:38.865758 Node 5: HandleClientRequest type=REQUEST client=F ts=1764037718858672000
+[Node 5] 2025/11/24 21:28:38.865858 Node 5: ProcessClientRequest client=F ts=1764037718858672000 no-op=false
+[Node 5] 2025/11/24 21:28:38.893252 Node 5: Leader timeout (16.086359s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:38.893359 Node 5: StartLeaderElection invoked (leader=false active=false)
+[Node 5] 2025/11/24 21:28:39.081855 Node 5: HandleClientRequest type=REQUEST client=J ts=1764037719070747000
+[Node 5] 2025/11/24 21:28:39.081897 Node 5: ProcessClientRequest client=J ts=1764037719070747000 no-op=false
+[Node 5] 2025/11/24 21:28:40.404919 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:28:40.404958 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:28:40.405566 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:28:40.405595 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:28:40.405685 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:28:40.405703 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:28:40.405741 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 21:28:40.406136 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 21:28:40.406114 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:28:40.406253 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:28:40.406283 Node 5: initiating state sync attempts
+[Node 5] 2025/11/24 21:28:40.406305 Node 5: state sync attempt 1 waiting for active leader
+[Node 5] 2025/11/24 21:28:40.420927 Node 5: Prepare RPC from ballot (7,2)
+[Node 5] 2025/11/24 21:28:40.420973 Node 5: Promised ballot (7,2)
+[Node 5] 2025/11/24 21:28:40.422192 Node 5: NewView RPC ballot=(7,2) entries=23
+[Node 5] 2025/11/24 21:28:40.422220 Node 5: applyCommittedEntries up to seq=23
+[Node 5] 2025/11/24 21:28:40.422229 [Database] executing txn (E,A,3)
+[Node 5] 2025/11/24 21:28:40.422237 [Database] txn success: E -> A amount 3
+[Node 5] 2025/11/24 21:28:40.422243 [Database] executing txn (I,B,2)
+[Node 5] 2025/11/24 21:28:40.422252 [Database] txn success: I -> B amount 2
+[Node 5] 2025/11/24 21:28:40.422265 [Database] executing txn (C,D,2)
+[Node 5] 2025/11/24 21:28:40.422298 [Database] txn success: C -> D amount 2
+[Node 5] 2025/11/24 21:28:40.422311 [Database] executing txn (G,H,2)
+[Node 5] 2025/11/24 21:28:40.422332 [Database] txn success: G -> H amount 2
+[Node 5] 2025/11/24 21:28:40.422374 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422396 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422408 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422425 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422416 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422443 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422486 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422421 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422388 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422393 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422447 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422450 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422452 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422452 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422455 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422457 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422459 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422461 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422461 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422464 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422464 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422466 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422468 Node 5: RPC AcceptedFromNewView->node 2
+[Node 5] 2025/11/24 21:28:40.422378 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:40.422720 Node 5: executeRequestsInOrder stopping at gap seq=24
+[Node 5] 2025/11/24 21:28:40.706713 Node 5: RPC RequestStateTransfer->node 2
+[Node 5] 2025/11/24 21:28:40.712035 Node 5: state sync completed
+[Node 5] 2025/11/24 21:28:40.716364 Node 5: Accept RPC seq=24 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.716438 Node 5 ACCEPT seq=24 ballot=(7,2) txn=(F→A,2)
+[Node 5] 2025/11/24 21:28:40.716450 Node 5: Accepted seq 24
+[Node 5] 2025/11/24 21:28:40.726619 Node 5: Commit RPC seq=24 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.726685 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:40.726716 [Database] executing txn (F,A,2)
+[Node 5] 2025/11/24 21:28:40.726725 [Database] txn success: F -> A amount 2
+[Node 5] 2025/11/24 21:28:40.726730 Node 5: executeRequestsInOrder stopping at gap seq=25
+[Node 5] 2025/11/24 21:28:40.727637 Node 5: Accept RPC seq=25 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.727659 Node 5 ACCEPT seq=25 ballot=(7,2) txn=(J→B,1)
+[Node 5] 2025/11/24 21:28:40.727666 Node 5: Accepted seq 25
+[Node 5] 2025/11/24 21:28:40.739365 Node 5: Commit RPC seq=25 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.739407 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:40.739427 [Database] executing txn (J,B,1)
+[Node 5] 2025/11/24 21:28:40.739451 [Database] txn success: J -> B amount 1
+[Node 5] 2025/11/24 21:28:40.739466 Node 5: executeRequestsInOrder stopping at gap seq=26
+[Node 5] 2025/11/24 21:28:40.740172 Node 5: Accept RPC seq=26 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.740200 Node 5 ACCEPT seq=26 ballot=(7,2) txn=(C→H,3)
+[Node 5] 2025/11/24 21:28:40.740206 Node 5: Accepted seq 26
+[Node 5] 2025/11/24 21:28:40.751521 Node 5: Commit RPC seq=26 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:40.751584 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:40.751596 [Database] executing txn (C,H,3)
+[Node 5] 2025/11/24 21:28:40.751602 [Database] txn success: C -> H amount 3
+[Node 5] 2025/11/24 21:28:40.751609 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:40.963606 Node 5: Prepare RPC from ballot (8,4)
+[Node 5] 2025/11/24 21:28:40.963678 Node 5: Promised ballot (8,4)
+[Node 5] 2025/11/24 21:28:40.963608 Node 5: UpdateActiveStatus node=2 live=false
+[Node 5] 2025/11/24 21:28:40.963736 Node 5: setNodeLiveness node=2 live=false
+[Node 5] 2025/11/24 21:28:40.963785 Node 5: StartLeaderElection invoked (leader=false active=true)
+[Node 5] 2025/11/24 21:28:40.963796 Node 5: Starting leader election with ballot (9,5)
+[Node 5] 2025/11/24 21:28:40.963829 Node 5: RPC Prepare->node 4
+[Node 5] 2025/11/24 21:28:40.963832 Node 5: skipping RPC Prepare to inactive node 2
+[Node 5] 2025/11/24 21:28:40.963836 Node 5: RPC Prepare->node 3
+[Node 5] 2025/11/24 21:28:40.963840 Node 5: RPC Prepare->node 1
+[Node 5] 2025/11/24 21:28:40.964884 Node 5: leader election failed (promises=2 need=3)
+[Node 5] 2025/11/24 21:28:41.104674 Node 5: Leader timeout (6.140926s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:41.104750 Node 5: StartLeaderElection invoked (leader=false active=true)
+[Node 5] 2025/11/24 21:28:41.104818 Node 5: Starting leader election with ballot (10,5)
+[Node 5] 2025/11/24 21:28:41.104975 Node 5: skipping RPC Prepare to inactive node 2
+[Node 5] 2025/11/24 21:28:41.105022 Node 5: RPC Prepare->node 4
+[Node 5] 2025/11/24 21:28:41.105059 Node 5: RPC Prepare->node 1
+[Node 5] 2025/11/24 21:28:41.105115 Node 5: RPC Prepare->node 3
+[Node 5] 2025/11/24 21:28:41.106960 Node 5: leader election failed (promises=2 need=3)
+[Node 5] 2025/11/24 21:28:41.154491 Node 5: Prepare RPC from ballot (11,4)
+[Node 5] 2025/11/24 21:28:41.154613 Node 5: Promised ballot (11,4)
+[Node 5] 2025/11/24 21:28:41.274228 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:41.578392 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:41.890949 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:42.196001 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:42.503631 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:42.812709 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:43.116145 Node 5: Leader timeout (8.152381s), no leader msgs, starting election
+[Node 5] 2025/11/24 21:28:43.116325 Node 5: StartLeaderElection invoked (leader=false active=true)
+[Node 5] 2025/11/24 21:28:43.116390 Node 5: Starting leader election with ballot (12,5)
+[Node 5] 2025/11/24 21:28:43.116579 Node 5: skipping RPC Prepare to inactive node 2
+[Node 5] 2025/11/24 21:28:43.116591 Node 5: RPC Prepare->node 1
+[Node 5] 2025/11/24 21:28:43.116600 Node 5: RPC Prepare->node 3
+[Node 5] 2025/11/24 21:28:43.116609 Node 5: RPC Prepare->node 4
+[Node 5] 2025/11/24 21:28:43.120084 Node 5: leader election failed (promises=2 need=3)
+[Node 5] 2025/11/24 21:28:43.122475 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:43.166971 Node 5: Prepare RPC from ballot (13,4)
+[Node 5] 2025/11/24 21:28:43.167005 Node 5: Promised ballot (13,4)
+[Node 5] 2025/11/24 21:28:43.432033 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:43.452336 Node 5: Commit RPC seq=16 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.452368 Node 5: ignoring stale commit seq=16 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.452384 Node 5: Commit RPC seq=11 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.452413 Node 5: ignoring stale commit seq=11 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.452474 Node 5: Commit RPC seq=14 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.452498 Node 5: ignoring stale commit seq=14 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.452451 Node 5: Commit RPC seq=17 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.452577 Node 5: ignoring stale commit seq=17 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.452659 Node 5: Commit RPC seq=1 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.452696 Node 5: ignoring stale commit seq=1 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.453472 Node 5: Commit RPC seq=10 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.453495 Node 5: ignoring stale commit seq=10 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.454423 Node 5: Commit RPC seq=2 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.454449 Node 5: ignoring stale commit seq=2 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.454584 Node 5: Commit RPC seq=7 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.454987 Node 5: ignoring stale commit seq=7 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.454984 Node 5: Commit RPC seq=13 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455018 Node 5: Commit RPC seq=6 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455027 Node 5: ignoring stale commit seq=13 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.454946 Node 5: Commit RPC seq=20 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455058 Node 5: ignoring stale commit seq=6 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455088 Node 5: ignoring stale commit seq=20 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455178 Node 5: Commit RPC seq=22 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455197 Node 5: ignoring stale commit seq=22 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455605 Node 5: Commit RPC seq=23 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455626 Node 5: ignoring stale commit seq=23 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455681 Node 5: Commit RPC seq=12 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455700 Node 5: ignoring stale commit seq=12 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455699 Node 5: Commit RPC seq=18 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455731 Node 5: ignoring stale commit seq=18 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455806 Node 5: Commit RPC seq=19 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455826 Node 5: ignoring stale commit seq=19 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455822 Node 5: Commit RPC seq=5 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455837 Node 5: Commit RPC seq=9 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455844 Node 5: ignoring stale commit seq=5 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455824 Node 5: Commit RPC seq=8 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455897 Node 5: ignoring stale commit seq=9 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455907 Node 5: Commit RPC seq=3 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455928 Node 5: ignoring stale commit seq=3 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455931 Node 5: Commit RPC seq=21 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455936 Node 5: Commit RPC seq=4 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455944 Node 5: Commit RPC seq=15 ballot=(7,2)
+[Node 5] 2025/11/24 21:28:43.455949 Node 5: ignoring stale commit seq=8 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.455994 Node 5: ignoring stale commit seq=21 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.456016 Node 5: ignoring stale commit seq=4 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.456070 Node 5: ignoring stale commit seq=15 ballot=(7,2) (promise=(13,4))
+[Node 5] 2025/11/24 21:28:43.737123 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:44.046488 Node 5: GetLeader RPC invoked
+[Node 5] 2025/11/24 21:28:44.050598 Node 5: Prepare RPC from ballot (16,3)
+[Node 5] 2025/11/24 21:28:44.050661 Node 5: Promised ballot (16,3)
+[Node 5] 2025/11/24 21:28:44.051605 Node 5: Prepare RPC from ballot (16,1)
+[Node 5] 2025/11/24 21:28:44.052090 Node 5: NewView RPC ballot=(16,3) entries=26
+[Node 5] 2025/11/24 21:28:44.052121 Node 5: applyCommittedEntries up to seq=26
+[Node 5] 2025/11/24 21:28:44.052173 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052199 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052226 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052238 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052272 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052282 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052297 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052323 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052243 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052247 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052250 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052231 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052254 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052257 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052260 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052262 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052263 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052290 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052295 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052303 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052307 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052316 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052318 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052190 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.052549 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.052336 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052343 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.052252 Node 5: RPC AcceptedFromNewView->node 3
+[Node 5] 2025/11/24 21:28:44.154939 Node 5: Commit RPC seq=8 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.155191 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.155224 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.155339 Node 5: Commit RPC seq=7 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.155405 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.155428 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.157568 Node 5: Commit RPC seq=6 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.157656 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.157691 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.157867 Node 5: Commit RPC seq=3 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.158228 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.158259 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.158360 Node 5: Commit RPC seq=5 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.158445 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.158472 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.158567 Node 5: Commit RPC seq=4 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.158633 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.158662 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.161030 Node 5: Commit RPC seq=1 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.161110 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.161122 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.161214 Node 5: Commit RPC seq=13 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.161236 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.161245 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.161320 Node 5: Commit RPC seq=2 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.161341 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.161350 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.161420 Node 5: Commit RPC seq=12 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.161444 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.161452 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.162475 Node 5: Commit RPC seq=20 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.162544 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.162562 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.163679 Node 5: Commit RPC seq=23 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.163735 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.163757 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.163945 Node 5: Commit RPC seq=14 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164008 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164021 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164117 Node 5: Commit RPC seq=10 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164167 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164188 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164558 Node 5: Commit RPC seq=11 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164596 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164608 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164652 Node 5: Commit RPC seq=9 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164687 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164697 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164699 Node 5: Commit RPC seq=25 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164724 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164723 Node 5: Commit RPC seq=17 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.164733 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164822 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.164843 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.164996 Node 5: Commit RPC seq=22 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.165024 Node 5: Commit RPC seq=19 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.165030 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.165054 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.165267 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.165061 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.165540 Node 5: Commit RPC seq=18 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.165563 Node 5: Commit RPC seq=21 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.165608 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.165627 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.165579 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.165650 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.166378 Node 5: Commit RPC seq=24 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.166407 Node 5: Commit RPC seq=16 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.166426 Node 5: Commit RPC seq=15 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.166432 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.166476 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.166437 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.166488 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.166468 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.166498 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:44.166505 Node 5: Commit RPC seq=26 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:44.166545 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:44.166566 Node 5: executeRequestsInOrder stopping at gap seq=27
+[Node 5] 2025/11/24 21:28:46.360097 Node 5: Accept RPC seq=27 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:46.360220 Node 5 ACCEPT seq=27 ballot=(16,3) txn=(E→D,1)
+[Node 5] 2025/11/24 21:28:46.360272 Node 5: Accepted seq 27
+[Node 5] 2025/11/24 21:28:46.370813 Node 5: Commit RPC seq=27 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:46.370877 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:46.370899 [Database] executing txn (E,D,1)
+[Node 5] 2025/11/24 21:28:46.370909 [Database] txn success: E -> D amount 1
+[Node 5] 2025/11/24 21:28:46.370919 Node 5: executeRequestsInOrder stopping at gap seq=28
+[Node 5] 2025/11/24 21:28:46.572299 Node 5: Accept RPC seq=28 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:46.572312 Node 5 ACCEPT seq=28 ballot=(16,3) txn=(G→I,2)
+[Node 5] 2025/11/24 21:28:46.572316 Node 5: Accepted seq 28
+[Node 5] 2025/11/24 21:28:46.582646 Node 5: Commit RPC seq=28 ballot=(16,3)
+[Node 5] 2025/11/24 21:28:46.582693 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:46.582710 [Database] executing txn (G,I,2)
+[Node 5] 2025/11/24 21:28:46.582718 [Database] txn success: G -> I amount 2
+[Node 5] 2025/11/24 21:28:46.582722 Node 5: executeRequestsInOrder stopping at gap seq=29
+[Node 5] 2025/11/24 21:28:46.792485 Node 5: Prepare RPC from ballot (17,1)
+[Node 5] 2025/11/24 21:28:46.792610 Node 5: Promised ballot (17,1)
+[Node 5] 2025/11/24 21:28:46.794099 Node 5: NewView RPC ballot=(17,1) entries=28
+[Node 5] 2025/11/24 21:28:46.794187 Node 5: applyCommittedEntries up to seq=28
+[Node 5] 2025/11/24 21:28:46.794251 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794281 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794320 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794334 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794258 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:46.794390 Node 5: executeRequestsInOrder stopping at gap seq=29
+[Node 5] 2025/11/24 21:28:46.794285 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794345 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794269 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794274 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794278 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794281 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794288 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794291 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794294 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794296 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794300 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794303 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794305 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794307 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794310 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794317 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794348 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794353 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794354 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794357 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794361 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794364 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794371 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.794362 Node 5: RPC AcceptedFromNewView->node 1
+[Node 5] 2025/11/24 21:28:46.798236 Node 5: UpdateActiveStatus node=3 live=false
+[Node 5] 2025/11/24 21:28:46.798258 Node 5: setNodeLiveness node=3 live=false
+[Node 5] 2025/11/24 21:28:49.106656 Node 5: Accept RPC seq=29 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.106785 Node 5 ACCEPT seq=29 ballot=(17,1) txn=(A→J,1)
+[Node 5] 2025/11/24 21:28:49.106820 Node 5: Accepted seq 29
+[Node 5] 2025/11/24 21:28:49.116267 Node 5: Commit RPC seq=29 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.116353 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.116395 [Database] executing txn (A,J,1)
+[Node 5] 2025/11/24 21:28:49.116408 [Database] txn success: A -> J amount 1
+[Node 5] 2025/11/24 21:28:49.116417 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.824989 Node 5: Commit RPC seq=8 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.825159 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.825229 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.824995 Node 5: Commit RPC seq=27 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.825343 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.825386 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.828103 Node 5: Commit RPC seq=5 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.828595 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.828670 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.829073 Node 5: Commit RPC seq=13 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.829246 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.829307 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.829435 Node 5: Commit RPC seq=12 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.829508 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.829538 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.829630 Node 5: Commit RPC seq=2 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.829721 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.829765 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.829724 Node 5: Commit RPC seq=3 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.831153 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.831185 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.829810 Node 5: Commit RPC seq=4 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.831221 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.831234 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.831338 Node 5: Commit RPC seq=14 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.831383 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.831411 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.832471 Node 5: Commit RPC seq=7 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.832564 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.832581 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833017 Node 5: Commit RPC seq=17 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833092 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833110 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833319 Node 5: Commit RPC seq=16 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833360 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833379 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833389 Node 5: Commit RPC seq=21 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833450 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833469 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833396 Node 5: Commit RPC seq=15 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833491 Node 5: Commit RPC seq=24 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833513 Node 5: Commit RPC seq=18 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833536 Node 5: Commit RPC seq=6 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833545 Node 5: Commit RPC seq=25 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833600 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833612 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833512 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833667 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833626 Node 5: Commit RPC seq=28 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833728 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.833751 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.833819 Node 5: Commit RPC seq=23 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833547 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834794 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834088 Node 5: Commit RPC seq=26 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.834828 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834837 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834120 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834849 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834156 Node 5: Commit RPC seq=19 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.834872 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834883 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834209 Node 5: Commit RPC seq=9 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.834897 Node 5: Commit RPC seq=1 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.834911 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834967 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834975 Node 5: Commit RPC seq=10 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.834232 Node 5: Commit RPC seq=22 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.835059 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835091 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.835070 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835110 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834265 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835121 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834210 Node 5: Commit RPC seq=20 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.835137 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.834941 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835169 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.834986 Node 5: Commit RPC seq=11 ballot=(17,1)
+[Node 5] 2025/11/24 21:28:49.833554 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835205 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.835195 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:28:49.835223 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:28:49.835157 Node 5: executeRequestsInOrder stopping at gap seq=30
+[Node 5] 2025/11/24 21:30:24.730296 Node 5: PrintDB RPC invoked
+[Node 5] 2025/11/24 21:30:24.730412 [Database] printing DB for node 5 (10 accounts)
+[Node 5] 2025/11/24 21:31:02.151953 Node 5: UpdateActiveStatus node=2 live=true
+[Node 5] 2025/11/24 21:31:02.152014 Node 5: setNodeLiveness node=2 live=true
+[Node 5] 2025/11/24 21:31:02.152124 Node 5: UpdateActiveStatus node=4 live=true
+[Node 5] 2025/11/24 21:31:02.152144 Node 5: setNodeLiveness node=4 live=true
+[Node 5] 2025/11/24 21:31:02.152186 Node 5: UpdateActiveStatus node=3 live=true
+[Node 5] 2025/11/24 21:31:02.152262 Node 5: setNodeLiveness node=3 live=true
+[Node 5] 2025/11/24 21:31:02.152186 Node 5: UpdateActiveStatus node=5 live=true
+[Node 5] 2025/11/24 21:31:02.152326 Node 5: setNodeLiveness node=5 live=true
+[Node 5] 2025/11/24 21:31:02.152212 Node 5: UpdateActiveStatus node=1 live=true
+[Node 5] 2025/11/24 21:31:02.152388 Node 5: setNodeLiveness node=1 live=true
+[Node 5] 2025/11/24 21:31:02.459363 Node 5: Accept RPC seq=30 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.459483 Node 5 ACCEPT seq=30 ballot=(17,1) txn=(A→B,1)
+[Node 5] 2025/11/24 21:31:02.459518 Node 5: Accepted seq 30
+[Node 5] 2025/11/24 21:31:02.468693 Node 5: Commit RPC seq=30 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.468792 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:02.468823 [Database] executing txn (A,B,1)
+[Node 5] 2025/11/24 21:31:02.468837 [Database] txn success: A -> B amount 1
+[Node 5] 2025/11/24 21:31:02.468846 Node 5: executeRequestsInOrder stopping at gap seq=31
+[Node 5] 2025/11/24 21:31:02.670368 Node 5: Accept RPC seq=31 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.670456 Node 5 ACCEPT seq=31 ballot=(17,1) txn=(D→E,1)
+[Node 5] 2025/11/24 21:31:02.670541 Node 5: Accepted seq 31
+[Node 5] 2025/11/24 21:31:02.681055 Node 5: Commit RPC seq=31 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.681107 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:02.681135 [Database] executing txn (D,E,1)
+[Node 5] 2025/11/24 21:31:02.681151 [Database] txn success: D -> E amount 1
+[Node 5] 2025/11/24 21:31:02.681160 Node 5: executeRequestsInOrder stopping at gap seq=32
+[Node 5] 2025/11/24 21:31:02.885821 Node 5: Accept RPC seq=32 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.885904 Node 5 ACCEPT seq=32 ballot=(17,1) txn=(I→J,1)
+[Node 5] 2025/11/24 21:31:02.885947 Node 5: Accepted seq 32
+[Node 5] 2025/11/24 21:31:02.898358 Node 5: Commit RPC seq=32 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:02.898479 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:02.898509 [Database] executing txn (I,J,1)
+[Node 5] 2025/11/24 21:31:02.898560 [Database] txn success: I -> J amount 1
+[Node 5] 2025/11/24 21:31:02.898578 Node 5: executeRequestsInOrder stopping at gap seq=33
+[Node 5] 2025/11/24 21:31:03.103998 Node 5: Accept RPC seq=33 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.104133 Node 5 ACCEPT seq=33 ballot=(17,1) txn=(J→A,1)
+[Node 5] 2025/11/24 21:31:03.104169 Node 5: Accepted seq 33
+[Node 5] 2025/11/24 21:31:03.114544 Node 5: Commit RPC seq=33 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.114632 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:03.114675 [Database] executing txn (J,A,1)
+[Node 5] 2025/11/24 21:31:03.114722 [Database] txn success: J -> A amount 1
+[Node 5] 2025/11/24 21:31:03.114744 Node 5: executeRequestsInOrder stopping at gap seq=34
+[Node 5] 2025/11/24 21:31:03.316633 Node 5: Accept RPC seq=34 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.316664 Node 5 ACCEPT seq=34 ballot=(17,1) txn=(B→C,1)
+[Node 5] 2025/11/24 21:31:03.316673 Node 5: Accepted seq 34
+[Node 5] 2025/11/24 21:31:03.327993 Node 5: Commit RPC seq=34 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.328051 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:03.328086 [Database] executing txn (B,C,1)
+[Node 5] 2025/11/24 21:31:03.328094 [Database] txn success: B -> C amount 1
+[Node 5] 2025/11/24 21:31:03.328116 Node 5: executeRequestsInOrder stopping at gap seq=35
+[Node 5] 2025/11/24 21:31:03.534107 Node 5: Accept RPC seq=35 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.534225 Node 5 ACCEPT seq=35 ballot=(17,1) txn=(F→G,1)
+[Node 5] 2025/11/24 21:31:03.534259 Node 5: Accepted seq 35
+[Node 5] 2025/11/24 21:31:03.543393 Node 5: Commit RPC seq=35 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.543556 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:03.543598 [Database] executing txn (F,G,1)
+[Node 5] 2025/11/24 21:31:03.543626 [Database] txn success: F -> G amount 1
+[Node 5] 2025/11/24 21:31:03.543644 Node 5: executeRequestsInOrder stopping at gap seq=36
+[Node 5] 2025/11/24 21:31:03.748450 Node 5: Accept RPC seq=36 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.748596 Node 5 ACCEPT seq=36 ballot=(17,1) txn=(H→I,1)
+[Node 5] 2025/11/24 21:31:03.748643 Node 5: Accepted seq 36
+[Node 5] 2025/11/24 21:31:03.760319 Node 5: Commit RPC seq=36 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.760473 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:03.760530 [Database] executing txn (H,I,1)
+[Node 5] 2025/11/24 21:31:03.760560 [Database] txn success: H -> I amount 1
+[Node 5] 2025/11/24 21:31:03.760584 Node 5: executeRequestsInOrder stopping at gap seq=37
+[Node 5] 2025/11/24 21:31:03.965404 Node 5: Accept RPC seq=37 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.965480 Node 5 ACCEPT seq=37 ballot=(17,1) txn=(E→F,1)
+[Node 5] 2025/11/24 21:31:03.965513 Node 5: Accepted seq 37
+[Node 5] 2025/11/24 21:31:03.975456 Node 5: Commit RPC seq=37 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:03.975536 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:03.975561 [Database] executing txn (E,F,1)
+[Node 5] 2025/11/24 21:31:03.975591 [Database] txn success: E -> F amount 1
+[Node 5] 2025/11/24 21:31:03.975610 Node 5: executeRequestsInOrder stopping at gap seq=38
+[Node 5] 2025/11/24 21:31:04.179765 Node 5: Accept RPC seq=38 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.179995 Node 5 ACCEPT seq=38 ballot=(17,1) txn=(G→H,1)
+[Node 5] 2025/11/24 21:31:04.180049 Node 5: Accepted seq 38
+[Node 5] 2025/11/24 21:31:04.190445 Node 5: Commit RPC seq=38 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.190591 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:04.190648 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:31:04.190670 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:31:04.190688 Node 5: executeRequestsInOrder stopping at gap seq=39
+[Node 5] 2025/11/24 21:31:04.394656 Node 5: Accept RPC seq=39 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.394778 Node 5 ACCEPT seq=39 ballot=(17,1) txn=(C→D,1)
+[Node 5] 2025/11/24 21:31:04.394823 Node 5: Accepted seq 39
+[Node 5] 2025/11/24 21:31:04.405802 Node 5: Commit RPC seq=39 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.405882 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:04.405927 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 21:31:04.405950 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 21:31:04.405978 Node 5: executeRequestsInOrder stopping at gap seq=40
+[Node 5] 2025/11/24 21:31:04.610543 Node 5: Accept RPC seq=40 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.610632 Node 5 ACCEPT seq=40 ballot=(17,1) txn=(A→B,1)
+[Node 5] 2025/11/24 21:31:04.610675 Node 5: Accepted seq 40
+[Node 5] 2025/11/24 21:31:04.622584 Node 5: Commit RPC seq=40 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.622671 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:04.622699 [Database] executing txn (A,B,1)
+[Node 5] 2025/11/24 21:31:04.622710 [Database] txn success: A -> B amount 1
+[Node 5] 2025/11/24 21:31:04.622719 Node 5: executeRequestsInOrder stopping at gap seq=41
+[Node 5] 2025/11/24 21:31:04.827131 Node 5: Accept RPC seq=41 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.827264 Node 5 ACCEPT seq=41 ballot=(17,1) txn=(D→E,1)
+[Node 5] 2025/11/24 21:31:04.827301 Node 5: Accepted seq 41
+[Node 5] 2025/11/24 21:31:04.836789 Node 5: Commit RPC seq=41 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:04.836841 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:04.836861 [Database] executing txn (D,E,1)
+[Node 5] 2025/11/24 21:31:04.836874 [Database] txn success: D -> E amount 1
+[Node 5] 2025/11/24 21:31:04.836885 Node 5: executeRequestsInOrder stopping at gap seq=42
+[Node 5] 2025/11/24 21:31:05.041581 Node 5: Accept RPC seq=42 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.041696 Node 5 ACCEPT seq=42 ballot=(17,1) txn=(I→J,1)
+[Node 5] 2025/11/24 21:31:05.041735 Node 5: Accepted seq 42
+[Node 5] 2025/11/24 21:31:05.051734 Node 5: Commit RPC seq=42 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.051871 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:05.051957 [Database] executing txn (I,J,1)
+[Node 5] 2025/11/24 21:31:05.051983 [Database] txn success: I -> J amount 1
+[Node 5] 2025/11/24 21:31:05.051998 Node 5: executeRequestsInOrder stopping at gap seq=43
+[Node 5] 2025/11/24 21:31:05.255218 Node 5: Accept RPC seq=43 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.255281 Node 5 ACCEPT seq=43 ballot=(17,1) txn=(J→A,1)
+[Node 5] 2025/11/24 21:31:05.255311 Node 5: Accepted seq 43
+[Node 5] 2025/11/24 21:31:05.267296 Node 5: Commit RPC seq=43 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.267526 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:05.267562 [Database] executing txn (J,A,1)
+[Node 5] 2025/11/24 21:31:05.267579 [Database] txn success: J -> A amount 1
+[Node 5] 2025/11/24 21:31:05.267588 Node 5: executeRequestsInOrder stopping at gap seq=44
+[Node 5] 2025/11/24 21:31:05.470369 Node 5: Accept RPC seq=44 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.470462 Node 5 ACCEPT seq=44 ballot=(17,1) txn=(B→C,1)
+[Node 5] 2025/11/24 21:31:05.470485 Node 5: Accepted seq 44
+[Node 5] 2025/11/24 21:31:05.482527 Node 5: Commit RPC seq=44 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.482714 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:05.482782 [Database] executing txn (B,C,1)
+[Node 5] 2025/11/24 21:31:05.482830 [Database] txn success: B -> C amount 1
+[Node 5] 2025/11/24 21:31:05.482911 Node 5: executeRequestsInOrder stopping at gap seq=45
+[Node 5] 2025/11/24 21:31:05.687068 Node 5: Accept RPC seq=45 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.687204 Node 5 ACCEPT seq=45 ballot=(17,1) txn=(F→G,1)
+[Node 5] 2025/11/24 21:31:05.687259 Node 5: Accepted seq 45
+[Node 5] 2025/11/24 21:31:05.697408 Node 5: Commit RPC seq=45 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.697479 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:05.697584 [Database] executing txn (F,G,1)
+[Node 5] 2025/11/24 21:31:05.697609 [Database] txn success: F -> G amount 1
+[Node 5] 2025/11/24 21:31:05.697619 Node 5: executeRequestsInOrder stopping at gap seq=46
+[Node 5] 2025/11/24 21:31:05.901361 Node 5: Accept RPC seq=46 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.901532 Node 5 ACCEPT seq=46 ballot=(17,1) txn=(H→I,1)
+[Node 5] 2025/11/24 21:31:05.901585 Node 5: Accepted seq 46
+[Node 5] 2025/11/24 21:31:05.913297 Node 5: Commit RPC seq=46 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:05.913447 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:05.913513 [Database] executing txn (H,I,1)
+[Node 5] 2025/11/24 21:31:05.913589 [Database] txn success: H -> I amount 1
+[Node 5] 2025/11/24 21:31:05.913683 Node 5: executeRequestsInOrder stopping at gap seq=47
+[Node 5] 2025/11/24 21:31:06.117222 Node 5: Accept RPC seq=47 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.117275 Node 5 ACCEPT seq=47 ballot=(17,1) txn=(E→F,1)
+[Node 5] 2025/11/24 21:31:06.117300 Node 5: Accepted seq 47
+[Node 5] 2025/11/24 21:31:06.127968 Node 5: Commit RPC seq=47 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.128075 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:06.128114 [Database] executing txn (E,F,1)
+[Node 5] 2025/11/24 21:31:06.128161 [Database] txn success: E -> F amount 1
+[Node 5] 2025/11/24 21:31:06.128191 Node 5: executeRequestsInOrder stopping at gap seq=48
+[Node 5] 2025/11/24 21:31:06.331778 Node 5: Accept RPC seq=48 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.331828 Node 5 ACCEPT seq=48 ballot=(17,1) txn=(G→H,1)
+[Node 5] 2025/11/24 21:31:06.331854 Node 5: Accepted seq 48
+[Node 5] 2025/11/24 21:31:06.344858 Node 5: Commit RPC seq=48 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.344958 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:06.345005 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:31:06.345048 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:31:06.345059 Node 5: executeRequestsInOrder stopping at gap seq=49
+[Node 5] 2025/11/24 21:31:06.549878 Node 5: Accept RPC seq=49 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.549983 Node 5 ACCEPT seq=49 ballot=(17,1) txn=(C→D,1)
+[Node 5] 2025/11/24 21:31:06.550098 Node 5: Accepted seq 49
+[Node 5] 2025/11/24 21:31:06.559194 Node 5: Commit RPC seq=49 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.559321 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:06.559353 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 21:31:06.559380 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 21:31:06.559396 Node 5: executeRequestsInOrder stopping at gap seq=50
+[Node 5] 2025/11/24 21:31:06.764121 Node 5: Accept RPC seq=50 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.764258 Node 5 ACCEPT seq=50 ballot=(17,1) txn=(A→B,1)
+[Node 5] 2025/11/24 21:31:06.764325 Node 5: Accepted seq 50
+[Node 5] 2025/11/24 21:31:06.774431 Node 5: Commit RPC seq=50 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.774512 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:06.774535 [Database] executing txn (A,B,1)
+[Node 5] 2025/11/24 21:31:06.774545 [Database] txn success: A -> B amount 1
+[Node 5] 2025/11/24 21:31:06.774553 Node 5: executeRequestsInOrder stopping at gap seq=51
+[Node 5] 2025/11/24 21:31:06.979362 Node 5: Accept RPC seq=51 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.979440 Node 5 ACCEPT seq=51 ballot=(17,1) txn=(D→E,1)
+[Node 5] 2025/11/24 21:31:06.979475 Node 5: Accepted seq 51
+[Node 5] 2025/11/24 21:31:06.988991 Node 5: Commit RPC seq=51 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:06.989098 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:06.989125 [Database] executing txn (D,E,1)
+[Node 5] 2025/11/24 21:31:06.989142 [Database] txn success: D -> E amount 1
+[Node 5] 2025/11/24 21:31:06.989150 Node 5: executeRequestsInOrder stopping at gap seq=52
+[Node 5] 2025/11/24 21:31:07.191145 Node 5: Accept RPC seq=52 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.191168 Node 5 ACCEPT seq=52 ballot=(17,1) txn=(I→J,1)
+[Node 5] 2025/11/24 21:31:07.191173 Node 5: Accepted seq 52
+[Node 5] 2025/11/24 21:31:07.202209 Node 5: Commit RPC seq=52 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.202266 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:07.202283 [Database] executing txn (I,J,1)
+[Node 5] 2025/11/24 21:31:07.202319 [Database] txn success: I -> J amount 1
+[Node 5] 2025/11/24 21:31:07.202329 Node 5: executeRequestsInOrder stopping at gap seq=53
+[Node 5] 2025/11/24 21:31:07.407783 Node 5: Accept RPC seq=53 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.407885 Node 5 ACCEPT seq=53 ballot=(17,1) txn=(J→A,1)
+[Node 5] 2025/11/24 21:31:07.407936 Node 5: Accepted seq 53
+[Node 5] 2025/11/24 21:31:07.419980 Node 5: Commit RPC seq=53 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.420064 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:07.420092 [Database] executing txn (J,A,1)
+[Node 5] 2025/11/24 21:31:07.420111 [Database] txn success: J -> A amount 1
+[Node 5] 2025/11/24 21:31:07.420133 Node 5: executeRequestsInOrder stopping at gap seq=54
+[Node 5] 2025/11/24 21:31:07.624703 Node 5: Accept RPC seq=54 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.624764 Node 5 ACCEPT seq=54 ballot=(17,1) txn=(B→C,1)
+[Node 5] 2025/11/24 21:31:07.624801 Node 5: Accepted seq 54
+[Node 5] 2025/11/24 21:31:07.635373 Node 5: Commit RPC seq=54 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.635464 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:07.635488 [Database] executing txn (B,C,1)
+[Node 5] 2025/11/24 21:31:07.635498 [Database] txn success: B -> C amount 1
+[Node 5] 2025/11/24 21:31:07.635515 Node 5: executeRequestsInOrder stopping at gap seq=55
+[Node 5] 2025/11/24 21:31:07.838564 Node 5: Accept RPC seq=55 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.838663 Node 5 ACCEPT seq=55 ballot=(17,1) txn=(F→G,1)
+[Node 5] 2025/11/24 21:31:07.838687 Node 5: Accepted seq 55
+[Node 5] 2025/11/24 21:31:07.849397 Node 5: Commit RPC seq=55 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:07.849463 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:07.849527 [Database] executing txn (F,G,1)
+[Node 5] 2025/11/24 21:31:07.849598 [Database] txn success: F -> G amount 1
+[Node 5] 2025/11/24 21:31:07.849609 Node 5: executeRequestsInOrder stopping at gap seq=56
+[Node 5] 2025/11/24 21:31:08.053730 Node 5: Accept RPC seq=56 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.053849 Node 5 ACCEPT seq=56 ballot=(17,1) txn=(H→I,1)
+[Node 5] 2025/11/24 21:31:08.053887 Node 5: Accepted seq 56
+[Node 5] 2025/11/24 21:31:08.064730 Node 5: Commit RPC seq=56 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.064786 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:08.064829 [Database] executing txn (H,I,1)
+[Node 5] 2025/11/24 21:31:08.064845 [Database] txn success: H -> I amount 1
+[Node 5] 2025/11/24 21:31:08.064880 Node 5: executeRequestsInOrder stopping at gap seq=57
+[Node 5] 2025/11/24 21:31:08.266548 Node 5: Accept RPC seq=57 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.266581 Node 5 ACCEPT seq=57 ballot=(17,1) txn=(E→F,1)
+[Node 5] 2025/11/24 21:31:08.266588 Node 5: Accepted seq 57
+[Node 5] 2025/11/24 21:31:08.277863 Node 5: Commit RPC seq=57 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.277894 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:08.277912 [Database] executing txn (E,F,1)
+[Node 5] 2025/11/24 21:31:08.277921 [Database] txn success: E -> F amount 1
+[Node 5] 2025/11/24 21:31:08.277927 Node 5: executeRequestsInOrder stopping at gap seq=58
+[Node 5] 2025/11/24 21:31:08.484540 Node 5: Accept RPC seq=58 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.484915 Node 5 ACCEPT seq=58 ballot=(17,1) txn=(G→H,1)
+[Node 5] 2025/11/24 21:31:08.484976 Node 5: Accepted seq 58
+[Node 5] 2025/11/24 21:31:08.493026 Node 5: Commit RPC seq=58 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.493190 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:08.493324 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:31:08.493351 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:31:08.493361 Node 5: executeRequestsInOrder stopping at gap seq=59
+[Node 5] 2025/11/24 21:31:08.696083 Node 5: Accept RPC seq=59 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.696118 Node 5 ACCEPT seq=59 ballot=(17,1) txn=(C→D,1)
+[Node 5] 2025/11/24 21:31:08.696128 Node 5: Accepted seq 59
+[Node 5] 2025/11/24 21:31:08.707008 Node 5: Commit RPC seq=59 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.707052 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:08.707156 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 21:31:08.707208 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 21:31:08.707239 Node 5: executeRequestsInOrder stopping at gap seq=60
+[Node 5] 2025/11/24 21:31:08.911291 Node 5: Accept RPC seq=60 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.911441 Node 5 ACCEPT seq=60 ballot=(17,1) txn=(A→B,1)
+[Node 5] 2025/11/24 21:31:08.911492 Node 5: Accepted seq 60
+[Node 5] 2025/11/24 21:31:08.921809 Node 5: Commit RPC seq=60 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:08.921928 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:08.921968 [Database] executing txn (A,B,1)
+[Node 5] 2025/11/24 21:31:08.921998 [Database] txn success: A -> B amount 1
+[Node 5] 2025/11/24 21:31:08.922028 Node 5: executeRequestsInOrder stopping at gap seq=61
+[Node 5] 2025/11/24 21:31:09.125475 Node 5: Accept RPC seq=61 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.125595 Node 5 ACCEPT seq=61 ballot=(17,1) txn=(D→E,1)
+[Node 5] 2025/11/24 21:31:09.125630 Node 5: Accepted seq 61
+[Node 5] 2025/11/24 21:31:09.137885 Node 5: Commit RPC seq=61 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.138008 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:09.138051 [Database] executing txn (D,E,1)
+[Node 5] 2025/11/24 21:31:09.138074 [Database] txn success: D -> E amount 1
+[Node 5] 2025/11/24 21:31:09.138111 Node 5: executeRequestsInOrder stopping at gap seq=62
+[Node 5] 2025/11/24 21:31:09.341898 Node 5: Accept RPC seq=62 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.342004 Node 5 ACCEPT seq=62 ballot=(17,1) txn=(I→J,1)
+[Node 5] 2025/11/24 21:31:09.342035 Node 5: Accepted seq 62
+[Node 5] 2025/11/24 21:31:09.352553 Node 5: Commit RPC seq=62 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.352635 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:09.352670 [Database] executing txn (I,J,1)
+[Node 5] 2025/11/24 21:31:09.352692 [Database] txn success: I -> J amount 1
+[Node 5] 2025/11/24 21:31:09.352711 Node 5: executeRequestsInOrder stopping at gap seq=63
+[Node 5] 2025/11/24 21:31:09.557282 Node 5: Accept RPC seq=63 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.557407 Node 5 ACCEPT seq=63 ballot=(17,1) txn=(J→A,1)
+[Node 5] 2025/11/24 21:31:09.557450 Node 5: Accepted seq 63
+[Node 5] 2025/11/24 21:31:09.567707 Node 5: Commit RPC seq=63 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.567793 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:09.567816 [Database] executing txn (J,A,1)
+[Node 5] 2025/11/24 21:31:09.567829 [Database] txn success: J -> A amount 1
+[Node 5] 2025/11/24 21:31:09.567879 Node 5: executeRequestsInOrder stopping at gap seq=64
+[Node 5] 2025/11/24 21:31:09.772540 Node 5: Accept RPC seq=64 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.772652 Node 5 ACCEPT seq=64 ballot=(17,1) txn=(B→C,1)
+[Node 5] 2025/11/24 21:31:09.772682 Node 5: Accepted seq 64
+[Node 5] 2025/11/24 21:31:09.782885 Node 5: Commit RPC seq=64 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.782950 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:09.782972 [Database] executing txn (B,C,1)
+[Node 5] 2025/11/24 21:31:09.782984 [Database] txn success: B -> C amount 1
+[Node 5] 2025/11/24 21:31:09.782996 Node 5: executeRequestsInOrder stopping at gap seq=65
+[Node 5] 2025/11/24 21:31:09.986647 Node 5: Accept RPC seq=65 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.986708 Node 5 ACCEPT seq=65 ballot=(17,1) txn=(F→G,1)
+[Node 5] 2025/11/24 21:31:09.986734 Node 5: Accepted seq 65
+[Node 5] 2025/11/24 21:31:09.996850 Node 5: Commit RPC seq=65 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:09.997159 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:09.997291 [Database] executing txn (F,G,1)
+[Node 5] 2025/11/24 21:31:09.997318 [Database] txn success: F -> G amount 1
+[Node 5] 2025/11/24 21:31:09.997329 Node 5: executeRequestsInOrder stopping at gap seq=66
+[Node 5] 2025/11/24 21:31:10.199465 Node 5: Accept RPC seq=66 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.199538 Node 5 ACCEPT seq=66 ballot=(17,1) txn=(H→I,1)
+[Node 5] 2025/11/24 21:31:10.199566 Node 5: Accepted seq 66
+[Node 5] 2025/11/24 21:31:10.211068 Node 5: Commit RPC seq=66 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.211430 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:10.211558 [Database] executing txn (H,I,1)
+[Node 5] 2025/11/24 21:31:10.211597 [Database] txn success: H -> I amount 1
+[Node 5] 2025/11/24 21:31:10.211625 Node 5: executeRequestsInOrder stopping at gap seq=67
+[Node 5] 2025/11/24 21:31:10.412806 Node 5: Accept RPC seq=67 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.412841 Node 5 ACCEPT seq=67 ballot=(17,1) txn=(E→F,1)
+[Node 5] 2025/11/24 21:31:10.412849 Node 5: Accepted seq 67
+[Node 5] 2025/11/24 21:31:10.424180 Node 5: Commit RPC seq=67 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.424217 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:10.424244 [Database] executing txn (E,F,1)
+[Node 5] 2025/11/24 21:31:10.424252 [Database] txn success: E -> F amount 1
+[Node 5] 2025/11/24 21:31:10.424260 Node 5: executeRequestsInOrder stopping at gap seq=68
+[Node 5] 2025/11/24 21:31:10.630718 Node 5: Accept RPC seq=68 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.630810 Node 5 ACCEPT seq=68 ballot=(17,1) txn=(G→H,1)
+[Node 5] 2025/11/24 21:31:10.630849 Node 5: Accepted seq 68
+[Node 5] 2025/11/24 21:31:10.639324 Node 5: Commit RPC seq=68 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.639407 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:10.639435 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:31:10.639466 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:31:10.639493 Node 5: executeRequestsInOrder stopping at gap seq=69
+[Node 5] 2025/11/24 21:31:10.842551 Node 5: Accept RPC seq=69 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.842657 Node 5 ACCEPT seq=69 ballot=(17,1) txn=(C→D,1)
+[Node 5] 2025/11/24 21:31:10.842693 Node 5: Accepted seq 69
+[Node 5] 2025/11/24 21:31:10.853213 Node 5: Commit RPC seq=69 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:10.853361 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:10.853432 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 21:31:10.853458 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 21:31:10.853478 Node 5: executeRequestsInOrder stopping at gap seq=70
+[Node 5] 2025/11/24 21:31:11.058141 Node 5: Accept RPC seq=70 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.058200 Node 5 ACCEPT seq=70 ballot=(17,1) txn=(A→B,1)
+[Node 5] 2025/11/24 21:31:11.058226 Node 5: Accepted seq 70
+[Node 5] 2025/11/24 21:31:11.068831 Node 5: Commit RPC seq=70 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.068878 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:11.068895 [Database] executing txn (A,B,1)
+[Node 5] 2025/11/24 21:31:11.068903 [Database] txn success: A -> B amount 1
+[Node 5] 2025/11/24 21:31:11.068910 Node 5: executeRequestsInOrder stopping at gap seq=71
+[Node 5] 2025/11/24 21:31:11.272582 Node 5: Accept RPC seq=71 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.272737 Node 5 ACCEPT seq=71 ballot=(17,1) txn=(D→E,1)
+[Node 5] 2025/11/24 21:31:11.272792 Node 5: Accepted seq 71
+[Node 5] 2025/11/24 21:31:11.285360 Node 5: Commit RPC seq=71 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.285419 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:11.285460 [Database] executing txn (D,E,1)
+[Node 5] 2025/11/24 21:31:11.285469 [Database] txn success: D -> E amount 1
+[Node 5] 2025/11/24 21:31:11.285476 Node 5: executeRequestsInOrder stopping at gap seq=72
+[Node 5] 2025/11/24 21:31:11.485473 Node 5: Accept RPC seq=72 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.485525 Node 5 ACCEPT seq=72 ballot=(17,1) txn=(I→J,1)
+[Node 5] 2025/11/24 21:31:11.485541 Node 5: Accepted seq 72
+[Node 5] 2025/11/24 21:31:11.497249 Node 5: Commit RPC seq=72 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.497343 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:11.497391 [Database] executing txn (I,J,1)
+[Node 5] 2025/11/24 21:31:11.497412 [Database] txn success: I -> J amount 1
+[Node 5] 2025/11/24 21:31:11.497429 Node 5: executeRequestsInOrder stopping at gap seq=73
+[Node 5] 2025/11/24 21:31:11.701439 Node 5: Accept RPC seq=73 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.701538 Node 5 ACCEPT seq=73 ballot=(17,1) txn=(J→A,1)
+[Node 5] 2025/11/24 21:31:11.701586 Node 5: Accepted seq 73
+[Node 5] 2025/11/24 21:31:11.712189 Node 5: Commit RPC seq=73 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.712256 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:11.712287 [Database] executing txn (J,A,1)
+[Node 5] 2025/11/24 21:31:11.712304 [Database] txn success: J -> A amount 1
+[Node 5] 2025/11/24 21:31:11.712313 Node 5: executeRequestsInOrder stopping at gap seq=74
+[Node 5] 2025/11/24 21:31:11.917017 Node 5: Accept RPC seq=74 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.917164 Node 5 ACCEPT seq=74 ballot=(17,1) txn=(B→C,1)
+[Node 5] 2025/11/24 21:31:11.917207 Node 5: Accepted seq 74
+[Node 5] 2025/11/24 21:31:11.927915 Node 5: Commit RPC seq=74 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:11.927987 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:11.928045 [Database] executing txn (B,C,1)
+[Node 5] 2025/11/24 21:31:11.928082 [Database] txn success: B -> C amount 1
+[Node 5] 2025/11/24 21:31:11.928092 Node 5: executeRequestsInOrder stopping at gap seq=75
+[Node 5] 2025/11/24 21:31:12.129806 Node 5: Accept RPC seq=75 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.129842 Node 5 ACCEPT seq=75 ballot=(17,1) txn=(F→G,1)
+[Node 5] 2025/11/24 21:31:12.129851 Node 5: Accepted seq 75
+[Node 5] 2025/11/24 21:31:12.141175 Node 5: Commit RPC seq=75 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.141287 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:12.141371 [Database] executing txn (F,G,1)
+[Node 5] 2025/11/24 21:31:12.141384 [Database] txn success: F -> G amount 1
+[Node 5] 2025/11/24 21:31:12.141393 Node 5: executeRequestsInOrder stopping at gap seq=76
+[Node 5] 2025/11/24 21:31:12.343956 Node 5: Accept RPC seq=76 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.344076 Node 5 ACCEPT seq=76 ballot=(17,1) txn=(H→I,1)
+[Node 5] 2025/11/24 21:31:12.344146 Node 5: Accepted seq 76
+[Node 5] 2025/11/24 21:31:12.354030 Node 5: Commit RPC seq=76 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.354081 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:12.354109 [Database] executing txn (H,I,1)
+[Node 5] 2025/11/24 21:31:12.354118 [Database] txn success: H -> I amount 1
+[Node 5] 2025/11/24 21:31:12.354125 Node 5: executeRequestsInOrder stopping at gap seq=77
+[Node 5] 2025/11/24 21:31:12.558779 Node 5: Accept RPC seq=77 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.558846 Node 5 ACCEPT seq=77 ballot=(17,1) txn=(E→F,1)
+[Node 5] 2025/11/24 21:31:12.558871 Node 5: Accepted seq 77
+[Node 5] 2025/11/24 21:31:12.570344 Node 5: Commit RPC seq=77 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.570504 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:12.570573 [Database] executing txn (E,F,1)
+[Node 5] 2025/11/24 21:31:12.570600 [Database] txn success: E -> F amount 1
+[Node 5] 2025/11/24 21:31:12.570621 Node 5: executeRequestsInOrder stopping at gap seq=78
+[Node 5] 2025/11/24 21:31:12.772633 Node 5: Accept RPC seq=78 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.772665 Node 5 ACCEPT seq=78 ballot=(17,1) txn=(G→H,1)
+[Node 5] 2025/11/24 21:31:12.772694 Node 5: Accepted seq 78
+[Node 5] 2025/11/24 21:31:12.784011 Node 5: Commit RPC seq=78 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.784048 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:12.784065 [Database] executing txn (G,H,1)
+[Node 5] 2025/11/24 21:31:12.784072 [Database] txn success: G -> H amount 1
+[Node 5] 2025/11/24 21:31:12.784084 Node 5: executeRequestsInOrder stopping at gap seq=79
+[Node 5] 2025/11/24 21:31:12.988681 Node 5: Accept RPC seq=79 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.988837 Node 5 ACCEPT seq=79 ballot=(17,1) txn=(C→D,1)
+[Node 5] 2025/11/24 21:31:12.988870 Node 5: Accepted seq 79
+[Node 5] 2025/11/24 21:31:12.998998 Node 5: Commit RPC seq=79 ballot=(17,1)
+[Node 5] 2025/11/24 21:31:12.999077 Node 5: executeRequestsInOrder triggered
+[Node 5] 2025/11/24 21:31:12.999103 [Database] executing txn (C,D,1)
+[Node 5] 2025/11/24 21:31:12.999112 [Database] txn success: C -> D amount 1
+[Node 5] 2025/11/24 21:31:12.999120 Node 5: executeRequestsInOrder stopping at gap seq=80
+[Node 5] 2025/11/24 21:31:18.000997 Node 5: PrintDB RPC invoked
+[Node 5] 2025/11/24 21:31:18.001162 [Database] printing DB for node 5 (10 accounts)
+[Node 5] 2025/11/25 01:13:51.083494 Node 5 shutting down...
+[Node 5] 2025/11/25 01:13:51.085521 Node 5: stopping node
+[Node 5] 2025/11/25 01:13:51.085666 Node 5: accept error: accept tcp 127.0.0.1:8005: use of closed network connection

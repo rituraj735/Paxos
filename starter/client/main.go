@@ -1,9 +1,14 @@
+// =======================================
+// File: starter/client/main.go
+// Description: CLI driver that parses CSV test sets, orchestrates liveness changes, and submits txns.
+// =======================================
 package main
 
 import (
 	"bufio"
 	"encoding/csv"
 	"fmt"
+	"io"
 	"log"
 	"multipaxos/rituraj735/config"
 	"multipaxos/rituraj735/datatypes"
@@ -31,14 +36,18 @@ var clientsMu sync.Mutex
 
 var backlog []datatypes.Txn
 
+// deferTxn queues a txn for later when quorum is unavailable.
 func deferTxn(tx datatypes.Txn) {
+	log.Printf("ClientDriver: deferring txn %s", tx.String())
 	backlog = append(backlog, tx)
 }
 
+// flushBacklog retries deferred transactions against the cluster.
 func flushBacklog() {
 	if len(backlog) == 0 {
 		return
 	}
+	log.Printf("ClientDriver: flushing backlog (%d txns)", len(backlog))
 
 	//fmt.Printf("\n--- Returning %d deferred transactions to the backlog ---\n", len(backlog))
 
@@ -63,9 +72,25 @@ func flushBacklog() {
 	}
 }
 
+// main boots the CLI, reads CSV input, and drives the menu loop.
 func main() {
+	logDir := "logs"
+	if err := os.MkdirAll(logDir, 0o755); err != nil {
+		log.Fatalf("failed to create log directory: %v", err)
+	}
+	logPath := fmt.Sprintf("%s/client.log", logDir)
+	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+	if err != nil {
+		log.Fatalf("failed to open log file %s: %v", logPath, err)
+	}
+	defer logFile.Close()
+	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	log.SetPrefix("[Client] ")
+
 	fmt.Println("Welcome to Bank of Paxos")
 	fmt.Println("==========================")
+	log.Printf("ClientDriver: started; expecting %d clients", len(config.ClientIDs))
 	var option int
 	var fileName string
 
@@ -91,6 +116,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to parse CSV file: %v", err)
 	}
+	log.Printf("ClientDriver: loaded %d transaction sets from %s", len(sets), filePath)
 
 	//write the logic of after reading the file here later
 	fmt.Scanln(&fileName)
@@ -128,15 +154,20 @@ func main() {
 
 }
 
+// ClientWorker is a placeholder goroutine for future async work per client.
 func ClientWorker(clientID int, inputChan <-chan string) {
 	//fmt.Printf("Client %d started and listening for commands...\n", clientID)
+	log.Printf("ClientWorker %d: started", clientID)
 
 	for txn := range inputChan {
 		fmt.Println(txn)
+		log.Printf("ClientWorker %d: received txn %s", clientID, txn)
 	}
 }
 
+// ParseTxnSetsFromCSV ingests the CSV test plan into structured sets.
 func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
+	log.Printf("ClientDriver: parsing CSV file %s", filePath)
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open file: %v", err)
@@ -214,13 +245,16 @@ func ParseTxnSetsFromCSV(filePath string) ([]TxnSet, error) {
 		sets = append(sets, currentSet)
 	}
 
+	log.Printf("ClientDriver: parsed %d sets from %s", len(sets), filePath)
 	return sets, nil
 
 }
 
 const lfSentinelSender = "__LF__"
 
+// triggerLeaderFailure disables the current leader and waits for a new one.
 func triggerLeaderFailure() (int, error) {
+	log.Printf("ClientDriver: triggerLeaderFailure invoked")
 	currentLeader, err := findCurrentLeader()
 	if err != nil {
 		return 0, fmt.Errorf("unable to determine current leader: %w", err)
@@ -229,6 +263,7 @@ func triggerLeaderFailure() (int, error) {
 	if err := disableLeaderAcrossCluster(currentLeader); err != nil {
 		return 0, fmt.Errorf("failed to disable leader Node %d: %w", currentLeader, err)
 	}
+	log.Printf("ClientDriver: disabled leader %d", currentLeader)
 
 	waitDuration := 8 * time.Second
 
@@ -241,11 +276,13 @@ func triggerLeaderFailure() (int, error) {
 		c.UpdateLeader(newLeader)
 	}
 
+	log.Printf("ClientDriver: new leader after LF is %d", newLeader)
 	return newLeader, nil
 }
 
+// findCurrentLeader queries nodes to determine the prevailing leader.
 func findCurrentLeader() (int, error) {
-	leaderCounts := make(map[int]int)
+	log.Printf("ClientDriver: findCurrentLeader scanning nodes")
 
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address, ok := config.NodeAddresses[nodeID]
@@ -268,26 +305,15 @@ func findCurrentLeader() (int, error) {
 		if info.IsLeader && info.LeaderID != 0 {
 			return info.LeaderID, nil
 		}
-
-		if info.LeaderID != 0 {
-			leaderCounts[info.LeaderID]++
-		}
 	}
 
-	bestLeader, bestCount := 0, 0
-	for id, cnt := range leaderCounts {
-		if cnt > bestCount {
-			bestLeader, bestCount = id, cnt
-		}
-	}
-	if bestLeader == 0 {
-		return 0, fmt.Errorf("no leader information available from active nodes")
-	}
-	return bestLeader, nil
+	return 0, fmt.Errorf("no leader information available from active nodes")
 }
 
+// disableLeaderAcrossCluster asks every node to mark the leader inactive.
 func disableLeaderAcrossCluster(leaderID int) error {
 	var firstErr error
+	log.Printf("ClientDriver: disabling leader %d cluster-wide", leaderID)
 
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address, ok := config.NodeAddresses[nodeID]
@@ -314,8 +340,10 @@ func disableLeaderAcrossCluster(leaderID int) error {
 	return firstErr
 }
 
+// waitForNewLeader polls until a different leader is observed or timeout.
 func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	deadline := time.Now().Add(timeout)
+	log.Printf("ClientDriver: waiting for new leader (old=%d timeout=%s)", oldLeader, timeout)
 	var lastObserved int
 
 	for time.Now().Before(deadline) {
@@ -333,18 +361,41 @@ func waitForNewLeader(oldLeader int, timeout time.Duration) (int, error) {
 	}
 
 	if lastObserved == 0 {
+		log.Printf("ClientDriver: no leader observed before timeout")
 		return 0, fmt.Errorf("timed out waiting for new leader (previous leader: %d)", oldLeader)
 	}
+	log.Printf("ClientDriver: timeout still shows leader %d", lastObserved)
 	return 0, fmt.Errorf("timed out waiting for new leader: still seeing Node %d as leader", lastObserved)
 }
 
+// waitForStableLeader blocks until a node reports IsLeader==true or timeout.
+func waitForStableLeader(timeout time.Duration) (int, error) {
+	deadline := time.Now().Add(timeout)
+	var lastErr error
+	for time.Now().Before(deadline) {
+		id, err := findCurrentLeader()
+		if err == nil && id != 0 {
+			return id, nil
+		}
+		lastErr = err
+		time.Sleep(300 * time.Millisecond)
+	}
+	if lastErr == nil {
+		lastErr = fmt.Errorf("no leader observed before timeout")
+	}
+	return 0, lastErr
+}
+
+// processNextTestSet enforces liveness pattern then executes the set's txns.
 func processNextTestSet(reader *bufio.Reader) {
 	if currentSetIndex >= len(sets) {
+		log.Printf("ClientDriver: no remaining transaction sets")
 
 		return
 	}
 
 	currentSet := sets[currentSetIndex]
+	log.Printf("ClientDriver: processing set %d with %d txns", currentSet.SetNumber, len(currentSet.Txns))
 
 	for _, nodeID := range []int{1, 2, 3, 4, 5} {
 		isLive := false
@@ -375,11 +426,22 @@ func processNextTestSet(reader *bufio.Reader) {
 	}
 
 	time.Sleep(300 * time.Millisecond)
+
+	// Wait briefly for a real leader before flushing and sending txns.
+	// This prevents premature "no leader available" deferrals right after liveness changes.
+	waitBudget := time.Duration(config.LeaderTimeout)*time.Millisecond + 500*time.Millisecond
+	if leaderID, err := waitForStableLeader(waitBudget); err == nil && leaderID != 0 {
+		for _, c := range clients {
+			c.UpdateLeader(leaderID)
+		}
+	}
+
 	flushBacklog()
 	successCount := 0
 	failCount := 0
 	for i, tx := range currentSet.Txns {
 		fmt.Printf("\n[%d/%d] Transaction: %s\n", i+1, len(currentSet.Txns), tx)
+		log.Printf("ClientDriver: set %d txn %d/%d %s", currentSet.SetNumber, i+1, len(currentSet.Txns), tx.String())
 
 		if tx.Sender == lfSentinelSender {
 			//fmt.Println("⚠️  LF event detected: initiating leader failover simulation")
@@ -390,7 +452,8 @@ func processNextTestSet(reader *bufio.Reader) {
 			} else {
 				fmt.Printf("LF succeeded: new leader elected, it'll automatically continue, please wait-> Node %d\n", newLeader)
 			}
-			time.Sleep(8 * time.Second)
+			// experimenting with sleep time after LF
+			time.Sleep(2 * time.Second)
 			continue
 		}
 
@@ -404,11 +467,14 @@ func processNextTestSet(reader *bufio.Reader) {
 		reply, err := c.SendTransaction(tx)
 		if err != nil {
 
-			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") {
+			// Defer if no leader is currently available or quorum is insufficient
+			if strings.Contains(strings.ToLower(reply.Message), "insufficient active nodes") ||
+				strings.Contains(strings.ToLower(err.Error()), "no leader available") {
 				deferTxn(tx)
 			}
 			failCount++
 		} else if reply.Success {
+			log.Printf("ClientDriver: txn applied seq=%d", reply.SeqNum)
 
 			successCount++
 		} else {
@@ -422,10 +488,13 @@ func processNextTestSet(reader *bufio.Reader) {
 		time.Sleep(200 * time.Millisecond)
 
 	}
+	log.Printf("ClientDriver: set %d complete success=%d fail=%d", currentSet.SetNumber, successCount, failCount)
 	currentSetIndex++
 }
 
+// printLogFromNode calls the PrintLog RPC on a chosen node.
 func printLogFromNode(reader *bufio.Reader) {
+	log.Printf("ClientDriver: PrintLog command selected")
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
 	nodeID, err := strconv.Atoi(strings.TrimSpace(nodeInput))
@@ -457,7 +526,9 @@ func printLogFromNode(reader *bufio.Reader) {
 	fmt.Println(reply)
 }
 
+// printDBFromNode fetches the DB contents from a node.
 func printDBFromNode(reader *bufio.Reader) {
+	log.Printf("ClientDriver: PrintDB command selected")
 	fmt.Print("Enter node ID (1-5): ")
 	nodeInput, _ := reader.ReadString('\n')
 	nodeID, err := strconv.Atoi(strings.TrimSpace(nodeInput))
@@ -486,7 +557,9 @@ func printDBFromNode(reader *bufio.Reader) {
 
 }
 
+// printStatusFromNode prints consensus status for one seq across nodes.
 func printStatusFromNode(reader *bufio.Reader) {
+	log.Printf("ClientDriver: PrintStatus command selected")
 
 	fmt.Print("Enter sequence number: ")
 	seqInput, _ := reader.ReadString('\n')
@@ -497,6 +570,7 @@ func printStatusFromNode(reader *bufio.Reader) {
 	}
 
 	fmt.Printf("\n===== Status of Seq %d across all nodes =====\n", seqNum)
+	log.Printf("ClientDriver: querying status for seq %d", seqNum)
 
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address, ok := config.NodeAddresses[nodeID]
@@ -522,8 +596,10 @@ func printStatusFromNode(reader *bufio.Reader) {
 	}
 }
 
+// printViewFromAllNodes invokes PrintView on every node for diagnostics.
 func printViewFromAllNodes() {
 	fmt.Println("===== Printing NEW-VIEW messages from all nodes =====")
+	log.Printf("ClientDriver: PrintViewAll command selected")
 
 	for nodeID := 1; nodeID <= config.NumNodes; nodeID++ {
 		address := config.NodeAddresses[nodeID]

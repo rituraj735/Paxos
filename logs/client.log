@@ -1,0 +1,763 @@
+[Client] 2025/11/24 20:54:36.652738 ClientDriver: started; expecting 10 clients
+[Client] 2025/11/24 20:54:46.234408 ClientDriver: parsing CSV file /Users/rituraj/Downloads/CSE535-F25-Project-1-Testcases.csv
+[Client] 2025/11/24 20:54:46.236224 ClientDriver: parsed 10 sets from /Users/rituraj/Downloads/CSE535-F25-Project-1-Testcases.csv
+[Client] 2025/11/24 20:54:46.236313 ClientDriver: loaded 10 transaction sets from /Users/rituraj/Downloads/CSE535-F25-Project-1-Testcases.csv
+[Client] 2025/11/24 20:54:52.016148 ClientDriver: processing set 1 with 5 txns
+[Client] 2025/11/24 20:54:52.317731 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 20:54:52.321100 Client E: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321257 Client F: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321330 Client G: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321378 Client H: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321419 Client A: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321457 Client B: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321493 Client C: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321526 Client D: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321561 Client I: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321592 Client J: leader updated to Node 1
+[Client] 2025/11/24 20:54:52.321643 ClientDriver: set 1 txn 1/5 (A,J,3)
+[Client] 2025/11/24 20:54:52.321681 Client A: sending txn (A,J,3) with ts=1764035692321679000 (leader=1)
+[Client] 2025/11/24 20:54:52.322879 Client A: sending request to node 1 seq? pending ts=1764035692321679000
+[Client] 2025/11/24 20:54:52.335450 Client A: node 1 replied success=true seq=1
+[Client] 2025/11/24 20:54:52.335556 Client A: leader 1 succeeded for ts=1764035692321679000 seq=1
+[Client] 2025/11/24 20:54:52.335576 ClientDriver: txn applied seq=1
+[Client] 2025/11/24 20:54:52.536678 ClientDriver: set 1 txn 2/5 (C,D,1)
+[Client] 2025/11/24 20:54:52.536798 Client C: sending txn (C,D,1) with ts=1764035692536794000 (leader=1)
+[Client] 2025/11/24 20:54:52.537860 Client C: sending request to node 1 seq? pending ts=1764035692536794000
+[Client] 2025/11/24 20:54:52.549529 Client C: node 1 replied success=true seq=2
+[Client] 2025/11/24 20:54:52.549592 Client C: leader 1 succeeded for ts=1764035692536794000 seq=2
+[Client] 2025/11/24 20:54:52.549606 ClientDriver: txn applied seq=2
+[Client] 2025/11/24 20:54:52.750296 ClientDriver: set 1 txn 3/5 (B,E,4)
+[Client] 2025/11/24 20:54:52.750391 Client B: sending txn (B,E,4) with ts=1764035692750389000 (leader=1)
+[Client] 2025/11/24 20:54:52.751313 Client B: sending request to node 1 seq? pending ts=1764035692750389000
+[Client] 2025/11/24 20:54:52.762678 Client B: node 1 replied success=true seq=3
+[Client] 2025/11/24 20:54:52.762757 Client B: leader 1 succeeded for ts=1764035692750389000 seq=3
+[Client] 2025/11/24 20:54:52.762767 ClientDriver: txn applied seq=3
+[Client] 2025/11/24 20:54:52.963853 ClientDriver: set 1 txn 4/5 (F,G,2)
+[Client] 2025/11/24 20:54:52.963933 Client F: sending txn (F,G,2) with ts=1764035692963930000 (leader=1)
+[Client] 2025/11/24 20:54:52.964827 Client F: sending request to node 1 seq? pending ts=1764035692963930000
+[Client] 2025/11/24 20:54:52.976740 Client F: node 1 replied success=true seq=4
+[Client] 2025/11/24 20:54:52.976805 Client F: leader 1 succeeded for ts=1764035692963930000 seq=4
+[Client] 2025/11/24 20:54:52.976812 ClientDriver: txn applied seq=4
+[Client] 2025/11/24 20:54:53.177884 ClientDriver: set 1 txn 5/5 (H,I,2)
+[Client] 2025/11/24 20:54:53.177938 Client H: sending txn (H,I,2) with ts=1764035693177937000 (leader=1)
+[Client] 2025/11/24 20:54:53.178702 Client H: sending request to node 1 seq? pending ts=1764035693177937000
+[Client] 2025/11/24 20:54:53.190336 Client H: node 1 replied success=true seq=5
+[Client] 2025/11/24 20:54:53.190370 Client H: leader 1 succeeded for ts=1764035693177937000 seq=5
+[Client] 2025/11/24 20:54:53.190379 ClientDriver: txn applied seq=5
+[Client] 2025/11/24 20:54:53.391369 ClientDriver: set 1 complete success=5 fail=0
+[Client] 2025/11/24 20:58:08.464711 ClientDriver: PrintLog command selected
+[Client] 2025/11/24 20:58:18.157952 ClientDriver: PrintViewAll command selected
+[Client] 2025/11/24 21:17:16.901951 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:17:24.453769 ClientDriver: processing set 2 with 2 txns
+[Client] 2025/11/24 21:17:24.755339 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:17:24.758127 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758251 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758316 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758374 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758417 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758462 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758501 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758539 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758576 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758609 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:17:24.758661 ClientDriver: set 2 txn 1/2 (B,I,2)
+[Client] 2025/11/24 21:17:24.758703 Client B: sending txn (B,I,2) with ts=1764037044758700000 (leader=1)
+[Client] 2025/11/24 21:17:24.759920 Client B: sending request to node 1 seq? pending ts=1764037044758700000
+[Client] 2025/11/24 21:17:24.772404 Client B: node 1 replied success=true seq=6
+[Client] 2025/11/24 21:17:24.772480 Client B: leader 1 succeeded for ts=1764037044758700000 seq=6
+[Client] 2025/11/24 21:17:24.772493 ClientDriver: txn applied seq=6
+[Client] 2025/11/24 21:17:24.973573 ClientDriver: set 2 txn 2/2 (J,C,4)
+[Client] 2025/11/24 21:17:24.973640 Client J: sending txn (J,C,4) with ts=1764037044973638000 (leader=1)
+[Client] 2025/11/24 21:17:24.974338 Client J: sending request to node 1 seq? pending ts=1764037044973638000
+[Client] 2025/11/24 21:17:24.986083 Client J: node 1 replied success=true seq=7
+[Client] 2025/11/24 21:17:24.986146 Client J: leader 1 succeeded for ts=1764037044973638000 seq=7
+[Client] 2025/11/24 21:17:24.986159 ClientDriver: txn applied seq=7
+[Client] 2025/11/24 21:17:25.187239 ClientDriver: set 2 complete success=2 fail=0
+[Client] 2025/11/24 21:18:01.269473 ClientDriver: processing set 3 with 2 txns
+[Client] 2025/11/24 21:18:01.570680 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:18:01.573375 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573474 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573523 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573562 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573596 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573623 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573645 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573668 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573689 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573710 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:18:01.573744 ClientDriver: set 3 txn 1/2 (B,F,3)
+[Client] 2025/11/24 21:18:01.573775 Client B: sending txn (B,F,3) with ts=1764037081573772000 (leader=1)
+[Client] 2025/11/24 21:18:01.574877 Client B: sending request to node 1 seq? pending ts=1764037081573772000
+[Client] 2025/11/24 21:18:01.586841 Client B: node 1 replied success=true seq=8
+[Client] 2025/11/24 21:18:01.586901 Client B: leader 1 succeeded for ts=1764037081573772000 seq=8
+[Client] 2025/11/24 21:18:01.586913 ClientDriver: txn applied seq=8
+[Client] 2025/11/24 21:18:01.788220 ClientDriver: set 3 txn 2/2 (C,A,2)
+[Client] 2025/11/24 21:18:01.788350 Client C: sending txn (C,A,2) with ts=1764037081788346000 (leader=1)
+[Client] 2025/11/24 21:18:01.790310 Client C: sending request to node 1 seq? pending ts=1764037081788346000
+[Client] 2025/11/24 21:18:01.802492 Client C: node 1 replied success=true seq=9
+[Client] 2025/11/24 21:18:01.802607 Client C: leader 1 succeeded for ts=1764037081788346000 seq=9
+[Client] 2025/11/24 21:18:01.802653 ClientDriver: txn applied seq=9
+[Client] 2025/11/24 21:18:02.003730 ClientDriver: set 3 complete success=2 fail=0
+[Client] 2025/11/24 21:18:04.929816 ClientDriver: processing set 4 with 2 txns
+[Client] 2025/11/24 21:18:05.231093 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:18:05.233916 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234018 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234073 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234114 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234148 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234178 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234206 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234233 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234257 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234280 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:18:05.234320 ClientDriver: set 4 txn 1/2 (B,F,3)
+[Client] 2025/11/24 21:18:05.234352 Client B: sending txn (B,F,3) with ts=1764037085234350000 (leader=1)
+[Client] 2025/11/24 21:18:05.235430 Client B: sending request to node 1 seq? pending ts=1764037085234350000
+[Client] 2025/11/24 21:18:05.247430 Client B: node 1 replied success=false seq=10
+[Client] 2025/11/24 21:18:05.448638 ClientDriver: set 4 txn 2/2 (A,H,3)
+[Client] 2025/11/24 21:18:05.448719 Client A: sending txn (A,H,3) with ts=1764037085448715000 (leader=1)
+[Client] 2025/11/24 21:18:05.450129 Client A: sending request to node 1 seq? pending ts=1764037085448715000
+[Client] 2025/11/24 21:18:05.462753 Client A: node 1 replied success=true seq=11
+[Client] 2025/11/24 21:18:05.462827 Client A: leader 1 succeeded for ts=1764037085448715000 seq=11
+[Client] 2025/11/24 21:18:05.462839 ClientDriver: txn applied seq=11
+[Client] 2025/11/24 21:18:05.663874 ClientDriver: set 4 complete success=1 fail=1
+[Client] 2025/11/24 21:18:09.326073 ClientDriver: processing set 5 with 2 txns
+[Client] 2025/11/24 21:18:09.627388 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:18:09.629781 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.629882 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.629934 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.629972 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630003 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630031 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630058 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630082 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630104 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630127 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:18:09.630166 ClientDriver: set 5 txn 1/2 (C,B,1)
+[Client] 2025/11/24 21:18:09.630200 Client C: sending txn (C,B,1) with ts=1764037089630194000 (leader=1)
+[Client] 2025/11/24 21:18:09.631245 Client C: sending request to node 1 seq? pending ts=1764037089630194000
+[Client] 2025/11/24 21:18:09.632711 Client C: node 1 replied success=false seq=0
+[Client] 2025/11/24 21:18:09.633189 ClientDriver: deferring txn (C,B,1)
+[Client] 2025/11/24 21:18:09.834408 ClientDriver: set 5 txn 2/2 (D,F,2)
+[Client] 2025/11/24 21:18:09.834503 Client D: sending txn (D,F,2) with ts=1764037089834499000 (leader=1)
+[Client] 2025/11/24 21:18:09.836094 Client D: sending request to node 1 seq? pending ts=1764037089834499000
+[Client] 2025/11/24 21:18:09.837927 Client D: node 1 replied success=false seq=0
+[Client] 2025/11/24 21:18:09.838086 ClientDriver: deferring txn (D,F,2)
+[Client] 2025/11/24 21:18:10.039216 ClientDriver: set 5 complete success=0 fail=2
+[Client] 2025/11/24 21:21:01.332786 ClientDriver: processing set 6 with 4 txns
+[Client] 2025/11/24 21:21:01.634137 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:01.636581 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636676 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636784 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636823 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636851 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636876 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636897 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636917 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636937 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636956 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:21:01.636975 ClientDriver: flushing backlog (2 txns)
+[Client] 2025/11/24 21:21:01.636994 Client C: sending txn (C,B,1) with ts=1764037261636992000 (leader=1)
+[Client] 2025/11/24 21:21:01.637855 Client C: sending request to node 1 seq? pending ts=1764037261636992000
+[Client] 2025/11/24 21:21:01.650148 Client C: node 1 replied success=true seq=12
+[Client] 2025/11/24 21:21:01.650233 Client C: leader 1 succeeded for ts=1764037261636992000 seq=12
+[Client] 2025/11/24 21:21:01.650250 Client D: sending txn (D,F,2) with ts=1764037261650248000 (leader=1)
+[Client] 2025/11/24 21:21:01.650865 Client D: sending request to node 1 seq? pending ts=1764037261650248000
+[Client] 2025/11/24 21:21:01.662881 Client D: node 1 replied success=true seq=13
+[Client] 2025/11/24 21:21:01.662939 Client D: leader 1 succeeded for ts=1764037261650248000 seq=13
+[Client] 2025/11/24 21:21:01.662961 ClientDriver: set 6 txn 1/4 (A,B,4)
+[Client] 2025/11/24 21:21:01.662974 Client A: sending txn (A,B,4) with ts=1764037261662973000 (leader=1)
+[Client] 2025/11/24 21:21:01.663545 Client A: sending request to node 1 seq? pending ts=1764037261662973000
+[Client] 2025/11/24 21:21:01.675349 Client A: node 1 replied success=true seq=14
+[Client] 2025/11/24 21:21:01.675391 Client A: leader 1 succeeded for ts=1764037261662973000 seq=14
+[Client] 2025/11/24 21:21:01.675400 ClientDriver: txn applied seq=14
+[Client] 2025/11/24 21:21:01.876518 ClientDriver: set 6 txn 2/4 (__LF__,,0)
+[Client] 2025/11/24 21:21:01.876668 ClientDriver: triggerLeaderFailure invoked
+[Client] 2025/11/24 21:21:01.876698 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:01.878744 ClientDriver: disabling leader 1 cluster-wide
+[Client] 2025/11/24 21:21:01.887829 ClientDriver: disabled leader 1
+[Client] 2025/11/24 21:21:01.887852 ClientDriver: waiting for new leader (old=1 timeout=8s)
+[Client] 2025/11/24 21:21:02.188567 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:02.500734 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:02.805302 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:03.114198 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:03.424610 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:03.733019 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:04.045134 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:04.356802 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:04.669310 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:04.980116 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:21:04.981498 Client D: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981508 Client I: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981512 Client J: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981515 Client E: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981518 Client F: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981521 Client G: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981523 Client H: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981526 Client A: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981528 Client B: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981531 Client C: leader updated to Node 2
+[Client] 2025/11/24 21:21:04.981533 ClientDriver: new leader after LF is 2
+[Client] 2025/11/24 21:21:06.981921 ClientDriver: set 6 txn 3/4 (I,D,2)
+[Client] 2025/11/24 21:21:06.982107 Client I: sending txn (I,D,2) with ts=1764037266982100000 (leader=2)
+[Client] 2025/11/24 21:21:06.983915 Client I: sending request to node 2 seq? pending ts=1764037266982100000
+[Client] 2025/11/24 21:21:06.996339 Client I: node 2 replied success=true seq=15
+[Client] 2025/11/24 21:21:06.996428 Client I: leader 2 succeeded for ts=1764037266982100000 seq=15
+[Client] 2025/11/24 21:21:06.996442 ClientDriver: txn applied seq=15
+[Client] 2025/11/24 21:21:07.197618 ClientDriver: set 6 txn 4/4 (E,J,2)
+[Client] 2025/11/24 21:21:07.197736 Client E: sending txn (E,J,2) with ts=1764037267197731000 (leader=2)
+[Client] 2025/11/24 21:21:07.199312 Client E: sending request to node 2 seq? pending ts=1764037267197731000
+[Client] 2025/11/24 21:21:07.211583 Client E: node 2 replied success=true seq=16
+[Client] 2025/11/24 21:21:07.211675 Client E: leader 2 succeeded for ts=1764037267197731000 seq=16
+[Client] 2025/11/24 21:21:07.211689 ClientDriver: txn applied seq=16
+[Client] 2025/11/24 21:21:07.412125 ClientDriver: set 6 complete success=3 fail=0
+[Client] 2025/11/24 21:22:16.391940 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:22:49.225385 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:23:24.385155 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:23:36.220735 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:23:59.241977 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:24:19.709518 ClientDriver: PrintViewAll command selected
+[Client] 2025/11/24 21:28:25.865136 ClientDriver: processing set 7 with 3 txns
+[Client] 2025/11/24 21:28:26.166784 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:26.171320 Client C: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171412 Client D: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171464 Client I: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171510 Client J: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171550 Client E: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171586 Client F: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171625 Client G: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171662 Client H: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171693 Client A: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171734 Client B: leader updated to Node 2
+[Client] 2025/11/24 21:28:26.171860 ClientDriver: set 7 txn 1/3 (F,A,2)
+[Client] 2025/11/24 21:28:26.171980 Client F: sending txn (F,A,2) with ts=1764037706171977000 (leader=2)
+[Client] 2025/11/24 21:28:26.173496 Client F: sending request to node 2 seq? pending ts=1764037706171977000
+[Client] 2025/11/24 21:28:26.185894 Client F: node 2 replied success=true seq=17
+[Client] 2025/11/24 21:28:26.185962 Client F: leader 2 succeeded for ts=1764037706171977000 seq=17
+[Client] 2025/11/24 21:28:26.185974 ClientDriver: txn applied seq=17
+[Client] 2025/11/24 21:28:26.387117 ClientDriver: set 7 txn 2/3 (G,H,1)
+[Client] 2025/11/24 21:28:26.387322 Client G: sending txn (G,H,1) with ts=1764037706387318000 (leader=2)
+[Client] 2025/11/24 21:28:26.388754 Client G: sending request to node 2 seq? pending ts=1764037706387318000
+[Client] 2025/11/24 21:28:26.401135 Client G: node 2 replied success=true seq=18
+[Client] 2025/11/24 21:28:26.401251 Client G: leader 2 succeeded for ts=1764037706387318000 seq=18
+[Client] 2025/11/24 21:28:26.401268 ClientDriver: txn applied seq=18
+[Client] 2025/11/24 21:28:26.602427 ClientDriver: set 7 txn 3/3 (J,A,2)
+[Client] 2025/11/24 21:28:26.602644 Client J: sending txn (J,A,2) with ts=1764037706602640000 (leader=2)
+[Client] 2025/11/24 21:28:26.604033 Client J: sending request to node 2 seq? pending ts=1764037706602640000
+[Client] 2025/11/24 21:28:26.616547 Client J: node 2 replied success=true seq=19
+[Client] 2025/11/24 21:28:26.616618 Client J: leader 2 succeeded for ts=1764037706602640000 seq=19
+[Client] 2025/11/24 21:28:26.616632 ClientDriver: txn applied seq=19
+[Client] 2025/11/24 21:28:26.817033 ClientDriver: set 7 complete success=3 fail=0
+[Client] 2025/11/24 21:28:27.636383 ClientDriver: processing set 8 with 7 txns
+[Client] 2025/11/24 21:28:27.937540 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:27.941223 Client A: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941302 Client B: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941345 Client C: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941373 Client D: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941396 Client I: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941414 Client J: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941435 Client E: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941455 Client F: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941471 Client G: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941486 Client H: leader updated to Node 2
+[Client] 2025/11/24 21:28:27.941509 ClientDriver: set 8 txn 1/7 (E,A,3)
+[Client] 2025/11/24 21:28:27.941532 Client E: sending txn (E,A,3) with ts=1764037707941531000 (leader=2)
+[Client] 2025/11/24 21:28:27.942263 Client E: sending request to node 2 seq? pending ts=1764037707941531000
+[Client] 2025/11/24 21:28:27.954356 Client E: node 2 replied success=true seq=20
+[Client] 2025/11/24 21:28:27.954417 Client E: leader 2 succeeded for ts=1764037707941531000 seq=20
+[Client] 2025/11/24 21:28:27.954429 ClientDriver: txn applied seq=20
+[Client] 2025/11/24 21:28:28.155572 ClientDriver: set 8 txn 2/7 (I,B,2)
+[Client] 2025/11/24 21:28:28.155699 Client I: sending txn (I,B,2) with ts=1764037708155695000 (leader=2)
+[Client] 2025/11/24 21:28:28.157336 Client I: sending request to node 2 seq? pending ts=1764037708155695000
+[Client] 2025/11/24 21:28:28.169776 Client I: node 2 replied success=true seq=21
+[Client] 2025/11/24 21:28:28.169885 Client I: leader 2 succeeded for ts=1764037708155695000 seq=21
+[Client] 2025/11/24 21:28:28.169903 ClientDriver: txn applied seq=21
+[Client] 2025/11/24 21:28:28.371058 ClientDriver: set 8 txn 3/7 (C,D,2)
+[Client] 2025/11/24 21:28:28.371176 Client C: sending txn (C,D,2) with ts=1764037708371172000 (leader=2)
+[Client] 2025/11/24 21:28:28.372567 Client C: sending request to node 2 seq? pending ts=1764037708371172000
+[Client] 2025/11/24 21:28:28.384937 Client C: node 2 replied success=true seq=22
+[Client] 2025/11/24 21:28:28.385032 Client C: leader 2 succeeded for ts=1764037708371172000 seq=22
+[Client] 2025/11/24 21:28:28.385051 ClientDriver: txn applied seq=22
+[Client] 2025/11/24 21:28:28.586212 ClientDriver: set 8 txn 4/7 (G,H,2)
+[Client] 2025/11/24 21:28:28.586438 Client G: sending txn (G,H,2) with ts=1764037708586432000 (leader=2)
+[Client] 2025/11/24 21:28:28.588006 Client G: sending request to node 2 seq? pending ts=1764037708586432000
+[Client] 2025/11/24 21:28:28.600337 Client G: node 2 replied success=true seq=23
+[Client] 2025/11/24 21:28:28.600464 Client G: leader 2 succeeded for ts=1764037708586432000 seq=23
+[Client] 2025/11/24 21:28:28.600479 ClientDriver: txn applied seq=23
+[Client] 2025/11/24 21:28:28.801587 ClientDriver: set 8 txn 5/7 (__LF__,,0)
+[Client] 2025/11/24 21:28:28.801640 ClientDriver: triggerLeaderFailure invoked
+[Client] 2025/11/24 21:28:28.801647 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:28.803682 ClientDriver: disabling leader 2 cluster-wide
+[Client] 2025/11/24 21:28:28.806910 ClientDriver: disabled leader 2
+[Client] 2025/11/24 21:28:28.806922 ClientDriver: waiting for new leader (old=2 timeout=8s)
+[Client] 2025/11/24 21:28:29.107999 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:29.419970 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:29.729142 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:30.039569 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:30.349928 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:30.658847 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:30.969764 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:31.281486 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:31.589177 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:31.893661 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:32.198113 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:32.506225 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:32.816159 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:33.125519 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:33.436375 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:33.746896 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:34.057929 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:34.368720 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:34.679442 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:34.992198 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:35.303417 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:35.608720 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:35.920582 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:36.231090 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:36.541864 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:36.848482 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:36.857255 ClientDriver: no leader observed before timeout
+[Client] 2025/11/24 21:28:38.858543 ClientDriver: set 8 txn 6/7 (F,A,2)
+[Client] 2025/11/24 21:28:38.858676 Client F: sending txn (F,A,2) with ts=1764037718858672000 (leader=2)
+[Client] 2025/11/24 21:28:38.860778 Client F: sending request to node 2 seq? pending ts=1764037718858672000
+[Client] 2025/11/24 21:28:38.861957 Client F: node 2 replied success=false seq=0
+[Client] 2025/11/24 21:28:38.862999 Client F: sending request to node 4 seq? pending ts=1764037718858672000
+[Client] 2025/11/24 21:28:38.863873 Client F: node 4 replied success=false seq=0
+[Client] 2025/11/24 21:28:38.865270 Client F: sending request to node 5 seq? pending ts=1764037718858672000
+[Client] 2025/11/24 21:28:38.866312 Client F: node 5 replied success=false seq=0
+[Client] 2025/11/24 21:28:38.867215 Client F: sending request to node 1 seq? pending ts=1764037718858672000
+[Client] 2025/11/24 21:28:38.867780 Client F: node 1 replied success=false seq=0
+[Client] 2025/11/24 21:28:38.868502 Client F: sending request to node 3 seq? pending ts=1764037718858672000
+[Client] 2025/11/24 21:28:38.869049 Client F: node 3 replied success=false seq=0
+[Client] 2025/11/24 21:28:38.869095 Client F: no leader available for txn (F,A,2)
+[Client] 2025/11/24 21:28:38.869109 ClientDriver: deferring txn (F,A,2)
+[Client] 2025/11/24 21:28:39.070358 ClientDriver: set 8 txn 7/7 (J,B,1)
+[Client] 2025/11/24 21:28:39.070755 Client J: sending txn (J,B,1) with ts=1764037719070747000 (leader=2)
+[Client] 2025/11/24 21:28:39.072462 Client J: sending request to node 2 seq? pending ts=1764037719070747000
+[Client] 2025/11/24 21:28:39.073700 Client J: node 2 replied success=false seq=0
+[Client] 2025/11/24 21:28:39.075042 Client J: sending request to node 1 seq? pending ts=1764037719070747000
+[Client] 2025/11/24 21:28:39.076488 Client J: node 1 replied success=false seq=0
+[Client] 2025/11/24 21:28:39.078051 Client J: sending request to node 3 seq? pending ts=1764037719070747000
+[Client] 2025/11/24 21:28:39.079298 Client J: node 3 replied success=false seq=0
+[Client] 2025/11/24 21:28:39.080489 Client J: sending request to node 4 seq? pending ts=1764037719070747000
+[Client] 2025/11/24 21:28:39.080975 Client J: node 4 replied success=false seq=0
+[Client] 2025/11/24 21:28:39.081570 Client J: sending request to node 5 seq? pending ts=1764037719070747000
+[Client] 2025/11/24 21:28:39.082069 Client J: node 5 replied success=false seq=0
+[Client] 2025/11/24 21:28:39.082135 Client J: no leader available for txn (J,B,1)
+[Client] 2025/11/24 21:28:39.082148 ClientDriver: deferring txn (J,B,1)
+[Client] 2025/11/24 21:28:39.283216 ClientDriver: set 8 complete success=4 fail=3
+[Client] 2025/11/24 21:28:40.402404 ClientDriver: processing set 9 with 6 txns
+[Client] 2025/11/24 21:28:40.703661 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:40.711045 Client E: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711143 Client F: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711192 Client G: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711232 Client H: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711265 Client A: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711295 Client B: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711403 Client C: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711919 Client D: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.711967 Client I: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.712001 Client J: leader updated to Node 2
+[Client] 2025/11/24 21:28:40.712157 ClientDriver: flushing backlog (2 txns)
+[Client] 2025/11/24 21:28:40.712224 Client F: sending txn (F,A,2) with ts=1764037720712221000 (leader=2)
+[Client] 2025/11/24 21:28:40.714606 Client F: sending request to node 2 seq? pending ts=1764037720712221000
+[Client] 2025/11/24 21:28:40.725755 Client F: node 2 replied success=true seq=24
+[Client] 2025/11/24 21:28:40.725812 Client F: leader 2 succeeded for ts=1764037720712221000 seq=24
+[Client] 2025/11/24 21:28:40.725825 Client J: sending txn (J,B,1) with ts=1764037720725823000 (leader=2)
+[Client] 2025/11/24 21:28:40.726392 Client J: sending request to node 2 seq? pending ts=1764037720725823000
+[Client] 2025/11/24 21:28:40.738261 Client J: node 2 replied success=true seq=25
+[Client] 2025/11/24 21:28:40.738304 Client J: leader 2 succeeded for ts=1764037720725823000 seq=25
+[Client] 2025/11/24 21:28:40.738321 ClientDriver: set 9 txn 1/6 (C,H,3)
+[Client] 2025/11/24 21:28:40.738329 Client C: sending txn (C,H,3) with ts=1764037720738328000 (leader=2)
+[Client] 2025/11/24 21:28:40.739149 Client C: sending request to node 2 seq? pending ts=1764037720738328000
+[Client] 2025/11/24 21:28:40.750844 Client C: node 2 replied success=true seq=26
+[Client] 2025/11/24 21:28:40.750882 Client C: leader 2 succeeded for ts=1764037720738328000 seq=26
+[Client] 2025/11/24 21:28:40.750892 ClientDriver: txn applied seq=26
+[Client] 2025/11/24 21:28:40.952090 ClientDriver: set 9 txn 2/6 (__LF__,,0)
+[Client] 2025/11/24 21:28:40.952203 ClientDriver: triggerLeaderFailure invoked
+[Client] 2025/11/24 21:28:40.952251 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:40.956318 ClientDriver: disabling leader 2 cluster-wide
+[Client] 2025/11/24 21:28:40.963875 ClientDriver: disabled leader 2
+[Client] 2025/11/24 21:28:40.963894 ClientDriver: waiting for new leader (old=2 timeout=8s)
+[Client] 2025/11/24 21:28:41.264979 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:41.575756 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:41.879539 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:42.192293 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:42.497263 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:42.804147 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:43.114184 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:43.422856 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:43.733583 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:44.038322 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:44.347858 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:44.353246 Client A: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353337 Client B: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353375 Client C: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353616 Client D: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353676 Client I: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353702 Client J: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.353950 Client E: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.354011 Client F: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.354449 Client G: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.354490 Client H: leader updated to Node 3
+[Client] 2025/11/24 21:28:44.354521 ClientDriver: new leader after LF is 3
+[Client] 2025/11/24 21:28:46.355759 ClientDriver: set 9 txn 3/6 (E,D,1)
+[Client] 2025/11/24 21:28:46.355871 Client E: sending txn (E,D,1) with ts=1764037726355868000 (leader=3)
+[Client] 2025/11/24 21:28:46.357438 Client E: sending request to node 3 seq? pending ts=1764037726355868000
+[Client] 2025/11/24 21:28:46.369816 Client E: node 3 replied success=true seq=27
+[Client] 2025/11/24 21:28:46.369966 Client E: leader 3 succeeded for ts=1764037726355868000 seq=27
+[Client] 2025/11/24 21:28:46.369998 ClientDriver: txn applied seq=27
+[Client] 2025/11/24 21:28:46.571057 ClientDriver: set 9 txn 4/6 (G,I,2)
+[Client] 2025/11/24 21:28:46.571083 Client G: sending txn (G,I,2) with ts=1764037726571083000 (leader=3)
+[Client] 2025/11/24 21:28:46.571608 Client G: sending request to node 3 seq? pending ts=1764037726571083000
+[Client] 2025/11/24 21:28:46.582262 Client G: node 3 replied success=true seq=28
+[Client] 2025/11/24 21:28:46.582284 Client G: leader 3 succeeded for ts=1764037726571083000 seq=28
+[Client] 2025/11/24 21:28:46.582288 ClientDriver: txn applied seq=28
+[Client] 2025/11/24 21:28:46.783424 ClientDriver: set 9 txn 5/6 (__LF__,,0)
+[Client] 2025/11/24 21:28:46.783531 ClientDriver: triggerLeaderFailure invoked
+[Client] 2025/11/24 21:28:46.783580 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:46.788490 ClientDriver: disabling leader 3 cluster-wide
+[Client] 2025/11/24 21:28:46.798406 ClientDriver: disabled leader 3
+[Client] 2025/11/24 21:28:46.798423 ClientDriver: waiting for new leader (old=3 timeout=8s)
+[Client] 2025/11/24 21:28:47.099507 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:28:47.101702 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101780 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101815 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101838 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101858 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101876 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101893 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101906 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101919 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101932 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:28:47.101943 ClientDriver: new leader after LF is 1
+[Client] 2025/11/24 21:28:49.102179 ClientDriver: set 9 txn 6/6 (A,J,1)
+[Client] 2025/11/24 21:28:49.102357 Client A: sending txn (A,J,1) with ts=1764037729102353000 (leader=1)
+[Client] 2025/11/24 21:28:49.103996 Client A: sending request to node 1 seq? pending ts=1764037729102353000
+[Client] 2025/11/24 21:28:49.115532 Client A: node 1 replied success=true seq=29
+[Client] 2025/11/24 21:28:49.115610 Client A: leader 1 succeeded for ts=1764037729102353000 seq=29
+[Client] 2025/11/24 21:28:49.115625 ClientDriver: txn applied seq=29
+[Client] 2025/11/24 21:28:49.316697 ClientDriver: set 9 complete success=4 fail=0
+[Client] 2025/11/24 21:29:10.520192 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:29:39.474891 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:29:51.268606 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:30:16.371631 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:30:23.690578 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:31:02.150240 ClientDriver: processing set 10 with 50 txns
+[Client] 2025/11/24 21:31:02.451492 ClientDriver: findCurrentLeader scanning nodes
+[Client] 2025/11/24 21:31:02.454328 Client F: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454426 Client G: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454463 Client H: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454494 Client A: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454524 Client B: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454548 Client C: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454572 Client D: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454590 Client I: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454607 Client J: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454626 Client E: leader updated to Node 1
+[Client] 2025/11/24 21:31:02.454669 ClientDriver: set 10 txn 1/50 (A,B,1)
+[Client] 2025/11/24 21:31:02.454699 Client A: sending txn (A,B,1) with ts=1764037862454697000 (leader=1)
+[Client] 2025/11/24 21:31:02.456021 Client A: sending request to node 1 seq? pending ts=1764037862454697000
+[Client] 2025/11/24 21:31:02.467889 Client A: node 1 replied success=true seq=30
+[Client] 2025/11/24 21:31:02.467972 Client A: leader 1 succeeded for ts=1764037862454697000 seq=30
+[Client] 2025/11/24 21:31:02.467986 ClientDriver: txn applied seq=30
+[Client] 2025/11/24 21:31:02.668240 ClientDriver: set 10 txn 2/50 (D,E,1)
+[Client] 2025/11/24 21:31:02.668286 Client D: sending txn (D,E,1) with ts=1764037862668285000 (leader=1)
+[Client] 2025/11/24 21:31:02.669291 Client D: sending request to node 1 seq? pending ts=1764037862668285000
+[Client] 2025/11/24 21:31:02.680676 Client D: node 1 replied success=true seq=31
+[Client] 2025/11/24 21:31:02.680720 Client D: leader 1 succeeded for ts=1764037862668285000 seq=31
+[Client] 2025/11/24 21:31:02.680726 ClientDriver: txn applied seq=31
+[Client] 2025/11/24 21:31:02.881898 ClientDriver: set 10 txn 3/50 (I,J,1)
+[Client] 2025/11/24 21:31:02.882002 Client I: sending txn (I,J,1) with ts=1764037862881999000 (leader=1)
+[Client] 2025/11/24 21:31:02.883194 Client I: sending request to node 1 seq? pending ts=1764037862881999000
+[Client] 2025/11/24 21:31:02.896733 Client I: node 1 replied success=true seq=32
+[Client] 2025/11/24 21:31:02.897165 Client I: leader 1 succeeded for ts=1764037862881999000 seq=32
+[Client] 2025/11/24 21:31:02.897610 ClientDriver: txn applied seq=32
+[Client] 2025/11/24 21:31:03.099456 ClientDriver: set 10 txn 4/50 (J,A,1)
+[Client] 2025/11/24 21:31:03.099568 Client J: sending txn (J,A,1) with ts=1764037863099564000 (leader=1)
+[Client] 2025/11/24 21:31:03.101139 Client J: sending request to node 1 seq? pending ts=1764037863099564000
+[Client] 2025/11/24 21:31:03.113694 Client J: node 1 replied success=true seq=33
+[Client] 2025/11/24 21:31:03.113779 Client J: leader 1 succeeded for ts=1764037863099564000 seq=33
+[Client] 2025/11/24 21:31:03.113792 ClientDriver: txn applied seq=33
+[Client] 2025/11/24 21:31:03.314920 ClientDriver: set 10 txn 5/50 (B,C,1)
+[Client] 2025/11/24 21:31:03.314962 Client B: sending txn (B,C,1) with ts=1764037863314961000 (leader=1)
+[Client] 2025/11/24 21:31:03.315612 Client B: sending request to node 1 seq? pending ts=1764037863314961000
+[Client] 2025/11/24 21:31:03.327338 Client B: node 1 replied success=true seq=34
+[Client] 2025/11/24 21:31:03.327379 Client B: leader 1 succeeded for ts=1764037863314961000 seq=34
+[Client] 2025/11/24 21:31:03.327388 ClientDriver: txn applied seq=34
+[Client] 2025/11/24 21:31:03.528535 ClientDriver: set 10 txn 6/50 (F,G,1)
+[Client] 2025/11/24 21:31:03.528645 Client F: sending txn (F,G,1) with ts=1764037863528641000 (leader=1)
+[Client] 2025/11/24 21:31:03.530249 Client F: sending request to node 1 seq? pending ts=1764037863528641000
+[Client] 2025/11/24 21:31:03.542793 Client F: node 1 replied success=true seq=35
+[Client] 2025/11/24 21:31:03.542945 Client F: leader 1 succeeded for ts=1764037863528641000 seq=35
+[Client] 2025/11/24 21:31:03.542974 ClientDriver: txn applied seq=35
+[Client] 2025/11/24 21:31:03.744115 ClientDriver: set 10 txn 7/50 (H,I,1)
+[Client] 2025/11/24 21:31:03.744229 Client H: sending txn (H,I,1) with ts=1764037863744226000 (leader=1)
+[Client] 2025/11/24 21:31:03.745722 Client H: sending request to node 1 seq? pending ts=1764037863744226000
+[Client] 2025/11/24 21:31:03.759354 Client H: node 1 replied success=true seq=36
+[Client] 2025/11/24 21:31:03.759544 Client H: leader 1 succeeded for ts=1764037863744226000 seq=36
+[Client] 2025/11/24 21:31:03.759612 ClientDriver: txn applied seq=36
+[Client] 2025/11/24 21:31:03.960897 ClientDriver: set 10 txn 8/50 (E,F,1)
+[Client] 2025/11/24 21:31:03.961003 Client E: sending txn (E,F,1) with ts=1764037863960999000 (leader=1)
+[Client] 2025/11/24 21:31:03.962290 Client E: sending request to node 1 seq? pending ts=1764037863960999000
+[Client] 2025/11/24 21:31:03.974417 Client E: node 1 replied success=true seq=37
+[Client] 2025/11/24 21:31:03.974468 Client E: leader 1 succeeded for ts=1764037863960999000 seq=37
+[Client] 2025/11/24 21:31:03.974478 ClientDriver: txn applied seq=37
+[Client] 2025/11/24 21:31:04.175609 ClientDriver: set 10 txn 9/50 (G,H,1)
+[Client] 2025/11/24 21:31:04.175723 Client G: sending txn (G,H,1) with ts=1764037864175720000 (leader=1)
+[Client] 2025/11/24 21:31:04.177281 Client G: sending request to node 1 seq? pending ts=1764037864175720000
+[Client] 2025/11/24 21:31:04.189393 Client G: node 1 replied success=true seq=38
+[Client] 2025/11/24 21:31:04.189458 Client G: leader 1 succeeded for ts=1764037864175720000 seq=38
+[Client] 2025/11/24 21:31:04.189470 ClientDriver: txn applied seq=38
+[Client] 2025/11/24 21:31:04.390665 ClientDriver: set 10 txn 10/50 (C,D,1)
+[Client] 2025/11/24 21:31:04.390778 Client C: sending txn (C,D,1) with ts=1764037864390774000 (leader=1)
+[Client] 2025/11/24 21:31:04.392319 Client C: sending request to node 1 seq? pending ts=1764037864390774000
+[Client] 2025/11/24 21:31:04.404662 Client C: node 1 replied success=true seq=39
+[Client] 2025/11/24 21:31:04.404729 Client C: leader 1 succeeded for ts=1764037864390774000 seq=39
+[Client] 2025/11/24 21:31:04.404741 ClientDriver: txn applied seq=39
+[Client] 2025/11/24 21:31:04.605887 ClientDriver: set 10 txn 11/50 (A,B,1)
+[Client] 2025/11/24 21:31:04.606010 Client A: sending txn (A,B,1) with ts=1764037864606007000 (leader=1)
+[Client] 2025/11/24 21:31:04.607495 Client A: sending request to node 1 seq? pending ts=1764037864606007000
+[Client] 2025/11/24 21:31:04.621108 Client A: node 1 replied success=true seq=40
+[Client] 2025/11/24 21:31:04.621397 Client A: leader 1 succeeded for ts=1764037864606007000 seq=40
+[Client] 2025/11/24 21:31:04.621420 ClientDriver: txn applied seq=40
+[Client] 2025/11/24 21:31:04.822558 ClientDriver: set 10 txn 12/50 (D,E,1)
+[Client] 2025/11/24 21:31:04.822761 Client D: sending txn (D,E,1) with ts=1764037864822654000 (leader=1)
+[Client] 2025/11/24 21:31:04.824135 Client D: sending request to node 1 seq? pending ts=1764037864822654000
+[Client] 2025/11/24 21:31:04.836093 Client D: node 1 replied success=true seq=41
+[Client] 2025/11/24 21:31:04.836141 Client D: leader 1 succeeded for ts=1764037864822654000 seq=41
+[Client] 2025/11/24 21:31:04.836150 ClientDriver: txn applied seq=41
+[Client] 2025/11/24 21:31:05.037276 ClientDriver: set 10 txn 13/50 (I,J,1)
+[Client] 2025/11/24 21:31:05.037392 Client I: sending txn (I,J,1) with ts=1764037865037389000 (leader=1)
+[Client] 2025/11/24 21:31:05.038985 Client I: sending request to node 1 seq? pending ts=1764037865037389000
+[Client] 2025/11/24 21:31:05.050891 Client I: node 1 replied success=true seq=42
+[Client] 2025/11/24 21:31:05.050958 Client I: leader 1 succeeded for ts=1764037865037389000 seq=42
+[Client] 2025/11/24 21:31:05.050970 ClientDriver: txn applied seq=42
+[Client] 2025/11/24 21:31:05.251571 ClientDriver: set 10 txn 14/50 (J,A,1)
+[Client] 2025/11/24 21:31:05.251660 Client J: sending txn (J,A,1) with ts=1764037865251657000 (leader=1)
+[Client] 2025/11/24 21:31:05.252867 Client J: sending request to node 1 seq? pending ts=1764037865251657000
+[Client] 2025/11/24 21:31:05.265836 Client J: node 1 replied success=true seq=43
+[Client] 2025/11/24 21:31:05.266010 Client J: leader 1 succeeded for ts=1764037865251657000 seq=43
+[Client] 2025/11/24 21:31:05.266111 ClientDriver: txn applied seq=43
+[Client] 2025/11/24 21:31:05.467380 ClientDriver: set 10 txn 15/50 (B,C,1)
+[Client] 2025/11/24 21:31:05.467446 Client B: sending txn (B,C,1) with ts=1764037865467444000 (leader=1)
+[Client] 2025/11/24 21:31:05.468522 Client B: sending request to node 1 seq? pending ts=1764037865467444000
+[Client] 2025/11/24 21:31:05.481145 Client B: node 1 replied success=true seq=44
+[Client] 2025/11/24 21:31:05.481280 Client B: leader 1 succeeded for ts=1764037865467444000 seq=44
+[Client] 2025/11/24 21:31:05.481325 ClientDriver: txn applied seq=44
+[Client] 2025/11/24 21:31:05.682493 ClientDriver: set 10 txn 16/50 (F,G,1)
+[Client] 2025/11/24 21:31:05.682669 Client F: sending txn (F,G,1) with ts=1764037865682604000 (leader=1)
+[Client] 2025/11/24 21:31:05.684225 Client F: sending request to node 1 seq? pending ts=1764037865682604000
+[Client] 2025/11/24 21:31:05.696581 Client F: node 1 replied success=true seq=45
+[Client] 2025/11/24 21:31:05.696658 Client F: leader 1 succeeded for ts=1764037865682604000 seq=45
+[Client] 2025/11/24 21:31:05.696668 ClientDriver: txn applied seq=45
+[Client] 2025/11/24 21:31:05.897053 ClientDriver: set 10 txn 17/50 (H,I,1)
+[Client] 2025/11/24 21:31:05.897282 Client H: sending txn (H,I,1) with ts=1764037865897276000 (leader=1)
+[Client] 2025/11/24 21:31:05.898905 Client H: sending request to node 1 seq? pending ts=1764037865897276000
+[Client] 2025/11/24 21:31:05.911567 Client H: node 1 replied success=true seq=46
+[Client] 2025/11/24 21:31:05.911758 Client H: leader 1 succeeded for ts=1764037865897276000 seq=46
+[Client] 2025/11/24 21:31:05.911826 ClientDriver: txn applied seq=46
+[Client] 2025/11/24 21:31:06.113011 ClientDriver: set 10 txn 18/50 (E,F,1)
+[Client] 2025/11/24 21:31:06.113137 Client E: sending txn (E,F,1) with ts=1764037866113132000 (leader=1)
+[Client] 2025/11/24 21:31:06.114677 Client E: sending request to node 1 seq? pending ts=1764037866113132000
+[Client] 2025/11/24 21:31:06.127204 Client E: node 1 replied success=true seq=47
+[Client] 2025/11/24 21:31:06.127285 Client E: leader 1 succeeded for ts=1764037866113132000 seq=47
+[Client] 2025/11/24 21:31:06.127298 ClientDriver: txn applied seq=47
+[Client] 2025/11/24 21:31:06.328434 ClientDriver: set 10 txn 19/50 (G,H,1)
+[Client] 2025/11/24 21:31:06.328553 Client G: sending txn (G,H,1) with ts=1764037866328549000 (leader=1)
+[Client] 2025/11/24 21:31:06.329838 Client G: sending request to node 1 seq? pending ts=1764037866328549000
+[Client] 2025/11/24 21:31:06.343715 Client G: node 1 replied success=true seq=48
+[Client] 2025/11/24 21:31:06.343866 Client G: leader 1 succeeded for ts=1764037866328549000 seq=48
+[Client] 2025/11/24 21:31:06.343880 ClientDriver: txn applied seq=48
+[Client] 2025/11/24 21:31:06.544578 ClientDriver: set 10 txn 20/50 (C,D,1)
+[Client] 2025/11/24 21:31:06.544717 Client C: sending txn (C,D,1) with ts=1764037866544713000 (leader=1)
+[Client] 2025/11/24 21:31:06.546333 Client C: sending request to node 1 seq? pending ts=1764037866544713000
+[Client] 2025/11/24 21:31:06.558503 Client C: node 1 replied success=true seq=49
+[Client] 2025/11/24 21:31:06.558571 Client C: leader 1 succeeded for ts=1764037866544713000 seq=49
+[Client] 2025/11/24 21:31:06.558587 ClientDriver: txn applied seq=49
+[Client] 2025/11/24 21:31:06.759736 ClientDriver: set 10 txn 21/50 (A,B,1)
+[Client] 2025/11/24 21:31:06.759856 Client A: sending txn (A,B,1) with ts=1764037866759851000 (leader=1)
+[Client] 2025/11/24 21:31:06.761272 Client A: sending request to node 1 seq? pending ts=1764037866759851000
+[Client] 2025/11/24 21:31:06.773592 Client A: node 1 replied success=true seq=50
+[Client] 2025/11/24 21:31:06.773668 Client A: leader 1 succeeded for ts=1764037866759851000 seq=50
+[Client] 2025/11/24 21:31:06.773680 ClientDriver: txn applied seq=50
+[Client] 2025/11/24 21:31:06.974839 ClientDriver: set 10 txn 22/50 (D,E,1)
+[Client] 2025/11/24 21:31:06.974964 Client D: sending txn (D,E,1) with ts=1764037866974960000 (leader=1)
+[Client] 2025/11/24 21:31:06.976564 Client D: sending request to node 1 seq? pending ts=1764037866974960000
+[Client] 2025/11/24 21:31:06.988302 Client D: node 1 replied success=true seq=51
+[Client] 2025/11/24 21:31:06.988382 Client D: leader 1 succeeded for ts=1764037866974960000 seq=51
+[Client] 2025/11/24 21:31:06.988485 ClientDriver: txn applied seq=51
+[Client] 2025/11/24 21:31:07.189558 ClientDriver: set 10 txn 23/50 (I,J,1)
+[Client] 2025/11/24 21:31:07.189580 Client I: sending txn (I,J,1) with ts=1764037867189579000 (leader=1)
+[Client] 2025/11/24 21:31:07.190189 Client I: sending request to node 1 seq? pending ts=1764037867189579000
+[Client] 2025/11/24 21:31:07.201649 Client I: node 1 replied success=true seq=52
+[Client] 2025/11/24 21:31:07.201684 Client I: leader 1 succeeded for ts=1764037867189579000 seq=52
+[Client] 2025/11/24 21:31:07.201691 ClientDriver: txn applied seq=52
+[Client] 2025/11/24 21:31:07.402834 ClientDriver: set 10 txn 24/50 (J,A,1)
+[Client] 2025/11/24 21:31:07.403005 Client J: sending txn (J,A,1) with ts=1764037867402937000 (leader=1)
+[Client] 2025/11/24 21:31:07.404500 Client J: sending request to node 1 seq? pending ts=1764037867402937000
+[Client] 2025/11/24 21:31:07.418203 Client J: node 1 replied success=true seq=53
+[Client] 2025/11/24 21:31:07.418855 Client J: leader 1 succeeded for ts=1764037867402937000 seq=53
+[Client] 2025/11/24 21:31:07.418983 ClientDriver: txn applied seq=53
+[Client] 2025/11/24 21:31:07.620280 ClientDriver: set 10 txn 25/50 (B,C,1)
+[Client] 2025/11/24 21:31:07.620444 Client B: sending txn (B,C,1) with ts=1764037867620439000 (leader=1)
+[Client] 2025/11/24 21:31:07.621969 Client B: sending request to node 1 seq? pending ts=1764037867620439000
+[Client] 2025/11/24 21:31:07.634349 Client B: node 1 replied success=true seq=54
+[Client] 2025/11/24 21:31:07.634417 Client B: leader 1 succeeded for ts=1764037867620439000 seq=54
+[Client] 2025/11/24 21:31:07.634428 ClientDriver: txn applied seq=54
+[Client] 2025/11/24 21:31:07.835570 ClientDriver: set 10 txn 26/50 (F,G,1)
+[Client] 2025/11/24 21:31:07.835639 Client F: sending txn (F,G,1) with ts=1764037867835637000 (leader=1)
+[Client] 2025/11/24 21:31:07.836678 Client F: sending request to node 1 seq? pending ts=1764037867835637000
+[Client] 2025/11/24 21:31:07.848687 Client F: node 1 replied success=true seq=55
+[Client] 2025/11/24 21:31:07.848733 Client F: leader 1 succeeded for ts=1764037867835637000 seq=55
+[Client] 2025/11/24 21:31:07.848743 ClientDriver: txn applied seq=55
+[Client] 2025/11/24 21:31:08.049906 ClientDriver: set 10 txn 27/50 (H,I,1)
+[Client] 2025/11/24 21:31:08.050010 Client H: sending txn (H,I,1) with ts=1764037868050007000 (leader=1)
+[Client] 2025/11/24 21:31:08.051366 Client H: sending request to node 1 seq? pending ts=1764037868050007000
+[Client] 2025/11/24 21:31:08.063798 Client H: node 1 replied success=true seq=56
+[Client] 2025/11/24 21:31:08.063871 Client H: leader 1 succeeded for ts=1764037868050007000 seq=56
+[Client] 2025/11/24 21:31:08.063882 ClientDriver: txn applied seq=56
+[Client] 2025/11/24 21:31:08.265006 ClientDriver: set 10 txn 28/50 (E,F,1)
+[Client] 2025/11/24 21:31:08.265045 Client E: sending txn (E,F,1) with ts=1764037868265044000 (leader=1)
+[Client] 2025/11/24 21:31:08.265746 Client E: sending request to node 1 seq? pending ts=1764037868265044000
+[Client] 2025/11/24 21:31:08.277321 Client E: node 1 replied success=true seq=57
+[Client] 2025/11/24 21:31:08.277348 Client E: leader 1 succeeded for ts=1764037868265044000 seq=57
+[Client] 2025/11/24 21:31:08.277355 ClientDriver: txn applied seq=57
+[Client] 2025/11/24 21:31:08.478210 ClientDriver: set 10 txn 29/50 (G,H,1)
+[Client] 2025/11/24 21:31:08.478320 Client G: sending txn (G,H,1) with ts=1764037868478316000 (leader=1)
+[Client] 2025/11/24 21:31:08.480072 Client G: sending request to node 1 seq? pending ts=1764037868478316000
+[Client] 2025/11/24 21:31:08.492365 Client G: node 1 replied success=true seq=58
+[Client] 2025/11/24 21:31:08.492444 Client G: leader 1 succeeded for ts=1764037868478316000 seq=58
+[Client] 2025/11/24 21:31:08.492457 ClientDriver: txn applied seq=58
+[Client] 2025/11/24 21:31:08.693349 ClientDriver: set 10 txn 30/50 (C,D,1)
+[Client] 2025/11/24 21:31:08.693445 Client C: sending txn (C,D,1) with ts=1764037868693443000 (leader=1)
+[Client] 2025/11/24 21:31:08.694484 Client C: sending request to node 1 seq? pending ts=1764037868693443000
+[Client] 2025/11/24 21:31:08.706241 Client C: node 1 replied success=true seq=59
+[Client] 2025/11/24 21:31:08.706287 Client C: leader 1 succeeded for ts=1764037868693443000 seq=59
+[Client] 2025/11/24 21:31:08.706296 ClientDriver: txn applied seq=59
+[Client] 2025/11/24 21:31:08.907472 ClientDriver: set 10 txn 31/50 (A,B,1)
+[Client] 2025/11/24 21:31:08.907579 Client A: sending txn (A,B,1) with ts=1764037868907575000 (leader=1)
+[Client] 2025/11/24 21:31:08.908787 Client A: sending request to node 1 seq? pending ts=1764037868907575000
+[Client] 2025/11/24 21:31:08.921010 Client A: node 1 replied success=true seq=60
+[Client] 2025/11/24 21:31:08.921079 Client A: leader 1 succeeded for ts=1764037868907575000 seq=60
+[Client] 2025/11/24 21:31:08.921096 ClientDriver: txn applied seq=60
+[Client] 2025/11/24 21:31:09.121445 ClientDriver: set 10 txn 32/50 (D,E,1)
+[Client] 2025/11/24 21:31:09.121554 Client D: sending txn (D,E,1) with ts=1764037869121551000 (leader=1)
+[Client] 2025/11/24 21:31:09.122999 Client D: sending request to node 1 seq? pending ts=1764037869121551000
+[Client] 2025/11/24 21:31:09.136264 Client D: node 1 replied success=true seq=61
+[Client] 2025/11/24 21:31:09.136610 Client D: leader 1 succeeded for ts=1764037869121551000 seq=61
+[Client] 2025/11/24 21:31:09.136830 ClientDriver: txn applied seq=61
+[Client] 2025/11/24 21:31:09.338019 ClientDriver: set 10 txn 33/50 (I,J,1)
+[Client] 2025/11/24 21:31:09.338134 Client I: sending txn (I,J,1) with ts=1764037869338130000 (leader=1)
+[Client] 2025/11/24 21:31:09.339473 Client I: sending request to node 1 seq? pending ts=1764037869338130000
+[Client] 2025/11/24 21:31:09.351743 Client I: node 1 replied success=true seq=62
+[Client] 2025/11/24 21:31:09.351828 Client I: leader 1 succeeded for ts=1764037869338130000 seq=62
+[Client] 2025/11/24 21:31:09.351842 ClientDriver: txn applied seq=62
+[Client] 2025/11/24 21:31:09.553012 ClientDriver: set 10 txn 34/50 (J,A,1)
+[Client] 2025/11/24 21:31:09.553112 Client J: sending txn (J,A,1) with ts=1764037869553109000 (leader=1)
+[Client] 2025/11/24 21:31:09.554459 Client J: sending request to node 1 seq? pending ts=1764037869553109000
+[Client] 2025/11/24 21:31:09.566775 Client J: node 1 replied success=true seq=63
+[Client] 2025/11/24 21:31:09.566877 Client J: leader 1 succeeded for ts=1764037869553109000 seq=63
+[Client] 2025/11/24 21:31:09.566893 ClientDriver: txn applied seq=63
+[Client] 2025/11/24 21:31:09.768055 ClientDriver: set 10 txn 35/50 (B,C,1)
+[Client] 2025/11/24 21:31:09.768212 Client B: sending txn (B,C,1) with ts=1764037869768208000 (leader=1)
+[Client] 2025/11/24 21:31:09.769737 Client B: sending request to node 1 seq? pending ts=1764037869768208000
+[Client] 2025/11/24 21:31:09.782037 Client B: node 1 replied success=true seq=64
+[Client] 2025/11/24 21:31:09.782093 Client B: leader 1 succeeded for ts=1764037869768208000 seq=64
+[Client] 2025/11/24 21:31:09.782102 ClientDriver: txn applied seq=64
+[Client] 2025/11/24 21:31:09.982493 ClientDriver: set 10 txn 36/50 (F,G,1)
+[Client] 2025/11/24 21:31:09.982621 Client F: sending txn (F,G,1) with ts=1764037869982618000 (leader=1)
+[Client] 2025/11/24 21:31:09.984010 Client F: sending request to node 1 seq? pending ts=1764037869982618000
+[Client] 2025/11/24 21:31:09.995922 Client F: node 1 replied success=true seq=65
+[Client] 2025/11/24 21:31:09.996002 Client F: leader 1 succeeded for ts=1764037869982618000 seq=65
+[Client] 2025/11/24 21:31:09.996016 ClientDriver: txn applied seq=65
+[Client] 2025/11/24 21:31:10.196347 ClientDriver: set 10 txn 37/50 (H,I,1)
+[Client] 2025/11/24 21:31:10.196411 Client H: sending txn (H,I,1) with ts=1764037870196408000 (leader=1)
+[Client] 2025/11/24 21:31:10.197429 Client H: sending request to node 1 seq? pending ts=1764037870196408000
+[Client] 2025/11/24 21:31:10.210150 Client H: node 1 replied success=true seq=66
+[Client] 2025/11/24 21:31:10.210302 Client H: leader 1 succeeded for ts=1764037870196408000 seq=66
+[Client] 2025/11/24 21:31:10.210407 ClientDriver: txn applied seq=66
+[Client] 2025/11/24 21:31:10.411190 ClientDriver: set 10 txn 38/50 (E,F,1)
+[Client] 2025/11/24 21:31:10.411237 Client E: sending txn (E,F,1) with ts=1764037870411236000 (leader=1)
+[Client] 2025/11/24 21:31:10.411935 Client E: sending request to node 1 seq? pending ts=1764037870411236000
+[Client] 2025/11/24 21:31:10.423530 Client E: node 1 replied success=true seq=67
+[Client] 2025/11/24 21:31:10.423569 Client E: leader 1 succeeded for ts=1764037870411236000 seq=67
+[Client] 2025/11/24 21:31:10.423578 ClientDriver: txn applied seq=67
+[Client] 2025/11/24 21:31:10.624743 ClientDriver: set 10 txn 39/50 (G,H,1)
+[Client] 2025/11/24 21:31:10.624844 Client G: sending txn (G,H,1) with ts=1764037870624841000 (leader=1)
+[Client] 2025/11/24 21:31:10.626259 Client G: sending request to node 1 seq? pending ts=1764037870624841000
+[Client] 2025/11/24 21:31:10.638399 Client G: node 1 replied success=true seq=68
+[Client] 2025/11/24 21:31:10.638465 Client G: leader 1 succeeded for ts=1764037870624841000 seq=68
+[Client] 2025/11/24 21:31:10.638478 ClientDriver: txn applied seq=68
+[Client] 2025/11/24 21:31:10.838861 ClientDriver: set 10 txn 40/50 (C,D,1)
+[Client] 2025/11/24 21:31:10.838993 Client C: sending txn (C,D,1) with ts=1764037870838990000 (leader=1)
+[Client] 2025/11/24 21:31:10.840308 Client C: sending request to node 1 seq? pending ts=1764037870838990000
+[Client] 2025/11/24 21:31:10.852676 Client C: node 1 replied success=true seq=69
+[Client] 2025/11/24 21:31:10.852737 Client C: leader 1 succeeded for ts=1764037870838990000 seq=69
+[Client] 2025/11/24 21:31:10.852748 ClientDriver: txn applied seq=69
+[Client] 2025/11/24 21:31:11.053903 ClientDriver: set 10 txn 41/50 (A,B,1)
+[Client] 2025/11/24 21:31:11.054005 Client A: sending txn (A,B,1) with ts=1764037871054002000 (leader=1)
+[Client] 2025/11/24 21:31:11.055509 Client A: sending request to node 1 seq? pending ts=1764037871054002000
+[Client] 2025/11/24 21:31:11.067725 Client A: node 1 replied success=true seq=70
+[Client] 2025/11/24 21:31:11.067926 Client A: leader 1 succeeded for ts=1764037871054002000 seq=70
+[Client] 2025/11/24 21:31:11.067950 ClientDriver: txn applied seq=70
+[Client] 2025/11/24 21:31:11.269144 ClientDriver: set 10 txn 42/50 (D,E,1)
+[Client] 2025/11/24 21:31:11.269239 Client D: sending txn (D,E,1) with ts=1764037871269236000 (leader=1)
+[Client] 2025/11/24 21:31:11.270485 Client D: sending request to node 1 seq? pending ts=1764037871269236000
+[Client] 2025/11/24 21:31:11.283077 Client D: node 1 replied success=true seq=71
+[Client] 2025/11/24 21:31:11.283311 Client D: leader 1 succeeded for ts=1764037871269236000 seq=71
+[Client] 2025/11/24 21:31:11.283388 ClientDriver: txn applied seq=71
+[Client] 2025/11/24 21:31:11.483486 ClientDriver: set 10 txn 43/50 (I,J,1)
+[Client] 2025/11/24 21:31:11.483518 Client I: sending txn (I,J,1) with ts=1764037871483517000 (leader=1)
+[Client] 2025/11/24 21:31:11.484064 Client I: sending request to node 1 seq? pending ts=1764037871483517000
+[Client] 2025/11/24 21:31:11.496031 Client I: node 1 replied success=true seq=72
+[Client] 2025/11/24 21:31:11.496108 Client I: leader 1 succeeded for ts=1764037871483517000 seq=72
+[Client] 2025/11/24 21:31:11.496177 ClientDriver: txn applied seq=72
+[Client] 2025/11/24 21:31:11.697325 ClientDriver: set 10 txn 44/50 (J,A,1)
+[Client] 2025/11/24 21:31:11.697460 Client J: sending txn (J,A,1) with ts=1764037871697455000 (leader=1)
+[Client] 2025/11/24 21:31:11.698851 Client J: sending request to node 1 seq? pending ts=1764037871697455000
+[Client] 2025/11/24 21:31:11.711253 Client J: node 1 replied success=true seq=73
+[Client] 2025/11/24 21:31:11.711320 Client J: leader 1 succeeded for ts=1764037871697455000 seq=73
+[Client] 2025/11/24 21:31:11.711332 ClientDriver: txn applied seq=73
+[Client] 2025/11/24 21:31:11.912481 ClientDriver: set 10 txn 45/50 (B,C,1)
+[Client] 2025/11/24 21:31:11.912660 Client B: sending txn (B,C,1) with ts=1764037871912653000 (leader=1)
+[Client] 2025/11/24 21:31:11.914450 Client B: sending request to node 1 seq? pending ts=1764037871912653000
+[Client] 2025/11/24 21:31:11.926817 Client B: node 1 replied success=true seq=74
+[Client] 2025/11/24 21:31:11.926885 Client B: leader 1 succeeded for ts=1764037871912653000 seq=74
+[Client] 2025/11/24 21:31:11.926897 ClientDriver: txn applied seq=74
+[Client] 2025/11/24 21:31:12.128013 ClientDriver: set 10 txn 46/50 (F,G,1)
+[Client] 2025/11/24 21:31:12.128065 Client F: sending txn (F,G,1) with ts=1764037872128064000 (leader=1)
+[Client] 2025/11/24 21:31:12.128834 Client F: sending request to node 1 seq? pending ts=1764037872128064000
+[Client] 2025/11/24 21:31:12.140479 Client F: node 1 replied success=true seq=75
+[Client] 2025/11/24 21:31:12.140512 Client F: leader 1 succeeded for ts=1764037872128064000 seq=75
+[Client] 2025/11/24 21:31:12.140519 ClientDriver: txn applied seq=75
+[Client] 2025/11/24 21:31:12.341617 ClientDriver: set 10 txn 47/50 (H,I,1)
+[Client] 2025/11/24 21:31:12.341669 Client H: sending txn (H,I,1) with ts=1764037872341668000 (leader=1)
+[Client] 2025/11/24 21:31:12.342418 Client H: sending request to node 1 seq? pending ts=1764037872341668000
+[Client] 2025/11/24 21:31:12.353387 Client H: node 1 replied success=true seq=76
+[Client] 2025/11/24 21:31:12.353432 Client H: leader 1 succeeded for ts=1764037872341668000 seq=76
+[Client] 2025/11/24 21:31:12.353441 ClientDriver: txn applied seq=76
+[Client] 2025/11/24 21:31:12.554578 ClientDriver: set 10 txn 48/50 (E,F,1)
+[Client] 2025/11/24 21:31:12.554696 Client E: sending txn (E,F,1) with ts=1764037872554692000 (leader=1)
+[Client] 2025/11/24 21:31:12.556178 Client E: sending request to node 1 seq? pending ts=1764037872554692000
+[Client] 2025/11/24 21:31:12.569413 Client E: node 1 replied success=true seq=77
+[Client] 2025/11/24 21:31:12.569590 Client E: leader 1 succeeded for ts=1764037872554692000 seq=77
+[Client] 2025/11/24 21:31:12.569712 ClientDriver: txn applied seq=77
+[Client] 2025/11/24 21:31:12.770879 ClientDriver: set 10 txn 49/50 (G,H,1)
+[Client] 2025/11/24 21:31:12.770945 Client G: sending txn (G,H,1) with ts=1764037872770943000 (leader=1)
+[Client] 2025/11/24 21:31:12.771718 Client G: sending request to node 1 seq? pending ts=1764037872770943000
+[Client] 2025/11/24 21:31:12.783341 Client G: node 1 replied success=true seq=78
+[Client] 2025/11/24 21:31:12.783372 Client G: leader 1 succeeded for ts=1764037872770943000 seq=78
+[Client] 2025/11/24 21:31:12.783379 ClientDriver: txn applied seq=78
+[Client] 2025/11/24 21:31:12.984545 ClientDriver: set 10 txn 50/50 (C,D,1)
+[Client] 2025/11/24 21:31:12.984650 Client C: sending txn (C,D,1) with ts=1764037872984646000 (leader=1)
+[Client] 2025/11/24 21:31:12.985980 Client C: sending request to node 1 seq? pending ts=1764037872984646000
+[Client] 2025/11/24 21:31:12.998261 Client C: node 1 replied success=true seq=79
+[Client] 2025/11/24 21:31:12.998329 Client C: leader 1 succeeded for ts=1764037872984646000 seq=79
+[Client] 2025/11/24 21:31:12.998341 ClientDriver: txn applied seq=79
+[Client] 2025/11/24 21:31:13.199322 ClientDriver: set 10 complete success=50 fail=0
+[Client] 2025/11/24 21:31:17.007675 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:31:26.534620 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:31:35.538651 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:31:41.444458 ClientDriver: PrintDB command selected
+[Client] 2025/11/24 21:31:47.716609 ClientDriver: PrintDB command selected
